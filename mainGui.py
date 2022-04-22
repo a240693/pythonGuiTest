@@ -11,7 +11,7 @@ class alter(ChoiceBox):
         global flag
         flag = False
         self.ui.stop()
-
+# 2022年4月23日01:02:30 增加全打地下城按钮 dailyMission(1)。
 choices = ("明日方舟",
            "=pcr===================",
            "地下城Ex2",
@@ -21,6 +21,7 @@ choices = ("明日方舟",
            "183",
            "任务礼物",
             "日常",
+            "日常全地下城",
             "小号日常",
             "全自动推图",
            "=坎公===================",
@@ -74,7 +75,7 @@ if __name__ == "__main__":
         elif choice == "关闭":
             break
         elif choice == "日常":
-            pcr.dailyMission()
+            pcr.dailyMission(0)
         elif choice == "小号日常":
             pcr.dailyMissionSmall()
         elif choice == "坎公日常一":
@@ -89,4 +90,6 @@ if __name__ == "__main__":
             pcr.fullAuto(pcr.saveXY(1))
         elif choice == "任务礼物":
             pcr.missionAndGift()
+        elif choice == "日常全地下城":
+            pcr.dailyMission(1)
 

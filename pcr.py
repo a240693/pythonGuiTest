@@ -188,7 +188,7 @@ def open(choice):
     # dao.searchPhotoPcr('大号日常', 3, 375, 2)
 
 
-def dailyMission():
+def dailyMission(switch):
     # 商店买经验药
     shopPcr()
     # 买玛娜 -614 20
@@ -209,7 +209,7 @@ def dailyMission():
     dailyPvP(1)
     dailyPvP(2)
     # 地下城
-    underWorld(0)
+    underWorld(switch)
     # 心碎星球杯
     heartBreak()
     # dao.searchPhotoPcr('主页', 1, 0, 0)
