@@ -40,7 +40,8 @@ def pcrUnderEX3(switch):
     while floor < 5:
         daoImpl.searchPhoto('{}层EX3'.format(floor), 1)
         dao.searchPhotoPcr('挑战EX3', 3, 3, 39)
-        if floor == 3:
+        # 中号不需要3层换人。
+        if floor == 3 & 1 == switch:
             dao.searchPhotoPcr('战斗开始界面定标1EX3', 3, 211, -271)
             changeTeam5(5)
         dao.searchPhotoPcr('战斗开始界面定标1EX3', 3, 182, 93)
