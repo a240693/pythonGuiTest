@@ -636,7 +636,7 @@ def underWorldEnter():
 
 
 if __name__ == '__main__':
-    battleFloor5()
+    fullAuto(saveXY(9))
     # photoMap = multiphotos.Photo()
     # photoMaps = ["地下城失败页"]
     # photoMap.loopSearch(photoMaps)
