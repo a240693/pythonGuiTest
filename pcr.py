@@ -121,10 +121,10 @@ def autoMapFullAuto():
         gamePages.y = 0
         gamePagesMaps = ['推图挑战4', '推图下一步', '战斗开始推图',
                          '胜利页下一步', '活动主页', '限时商店',
-                         'pcr好感', '剧情', '主页', 'pcr升级确认']
+                         'pcr好感', '剧情', '主页', 'pcr升级确认','推图挑战']
         gamePages.loopSearch(gamePagesMaps)
         # 这里拿到了上面三选一的 名字 和XY坐标
-        if ("推图挑战4".__eq__(gamePages.name)):
+        if ("推图挑战4".__eq__(gamePages.name) | ("推图挑战".__eq__(gamePages.name))):
             selfNewXY(gamePages, -42, 119)
             flag = 1
         elif ("战斗开始推图".__eq__(gamePages.name)):
@@ -524,14 +524,16 @@ def fullAuto(xy):
     flag = True
     count = 4
     i = 0
-    while i < 10:
+    while i < 15:
         photoMap = multiphotos.Photo()
         photoMaps = ['主线推图第一页']
         mainMaps = ['活动主页', '主页']
         photoMap.loopSearch(mainMaps)
         mainMap = photoMap
+        # 点第一个。
         dao.moveToPcr(mainMap.x + xy[1], mainMap.y + xy[2], 1)
         photoMap.loopSearch(photoMaps)
+        # 点右边15次切到最新。
         dao.moveToPcr(photoMap.x + 269, photoMap.y - 171, 14)
         autoMapFullAuto()
         py.moveTo(mainMap.x + 291, mainMap.y - 379)
@@ -636,7 +638,7 @@ def underWorldEnter():
 
 
 if __name__ == '__main__':
-    fullAuto(saveXY(9))
+    fullAuto(saveXY(6))
     # photoMap = multiphotos.Photo()
     # photoMaps = ["地下城失败页"]
     # photoMap.loopSearch(photoMaps)
