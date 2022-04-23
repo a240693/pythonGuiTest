@@ -41,7 +41,7 @@ def pcrUnderEX3(switch):
         daoImpl.searchPhoto('{}层EX3'.format(floor), 1)
         dao.searchPhotoPcr('挑战EX3', 3, 3, 39)
         # 中号不需要3层换人。
-        if floor == 3 & 1 == switch:
+        if (floor == 3) & (switch == 1):
             dao.searchPhotoPcr('战斗开始界面定标1EX3', 3, 211, -271)
             changeTeam5(5)
         dao.searchPhotoPcr('战斗开始界面定标1EX3', 3, 182, 93)
@@ -548,6 +548,8 @@ def saveXY(choice):
     loadXY.append(('主线困难', 86, -174))  # 5
     loadXY.append(('小小甜心', 86, -184))  # 6
     loadXY.append(('小小甜心活动困难', 49, -260))  # 7
+    loadXY.append(('初音活动', 84, -226))  # 8
+    loadXY.append(('初音活动困难', -34, -257))  # 9
     return loadXY[choice - 1]
 
 
@@ -574,8 +576,8 @@ def changeTeam5(count):
 def battleFloor5():
     photoMap = multiphotos.Photo()
     photoMaps = ["地下城失败页"]
-    dao.searchPhotoPcr('下一步EX3', 3, -71, 402)
-    dao.searchPhotoPcr('地下城确认EX3', 3, 1, 400)
+    # dao.searchPhotoPcr('下一步EX3', 3, -71, 402)
+    # dao.searchPhotoPcr('地下城确认EX3', 3, 1, 400)
     for i in range(1, 5):
         daoImpl.searchPhoto('{}层EX3'.format(5), 1)
         dao.searchPhotoPcr('挑战EX3', 3, 3, 39)
@@ -634,7 +636,7 @@ def underWorldEnter():
 
 
 if __name__ == '__main__':
-    pcrUnderEX1()
+    battleFloor5()
     # photoMap = multiphotos.Photo()
     # photoMaps = ["地下城失败页"]
     # photoMap.loopSearch(photoMaps)
