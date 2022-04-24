@@ -174,6 +174,8 @@ def autoMapEnter():
 
 def open(choice):
     # 开雷电多开器
+    photoMap = multiphotos.Photo()
+    photoMaps = ["pcr开始",'主界面关闭','主页商店']
     daoImpl.searchPhoto('1', 2)
     if 1 == choice:
         daoImpl.searchPhotoOpen('240693')
@@ -182,9 +184,17 @@ def open(choice):
     # 开pcr
     daoImpl.searchPhoto('pcr', 5)
     time.sleep(10)
-    daoImpl.enterGamePcr("pcr开始", 0, 0)
-    daoImpl.enterGamePcr('主界面关闭', 356, 223)
+    while True:
+        photoMap.firstClickSearch(photoMaps)
+        dao.moveToPcr(photoMap.x,photoMap.y,1)
+        if '主界面关闭'.__eq__(photoMap.name):
+            dao.moveToPcr(photoMap.x + 356, photoMap.y + 223, 1)
+        elif '主页商店'.__eq__(photoMap.name):
+            break
+        dao.moveToPcr(photoMap.x, photoMap.y, 1)
     dailyMission()
+    # daoImpl.enterGamePcr("pcr开始", 0, 0)
+    # daoImpl.enterGamePcr('主界面关闭', 356, 223)
     # daoImpl.searchPhoto('button', 1)  # 开操作录制
     # dao.searchPhotoPcr('大号日常', 3, 375, 2)
 
@@ -220,7 +230,7 @@ def dailyMission(switch):
 
 
 def enterPvP():
-    enterMap = ['主页', 'JJC防守成功', 'PJJC防守成功']
+    enterMap = ['主页', 'JJC防守成功', 'PJJC防守成功','PJJC防守成功2']
     gamePages = multiphotos.Photo()
     while True:
         gamePages.loopSearch(enterMap)
@@ -638,7 +648,7 @@ def underWorldEnter():
 
 
 if __name__ == '__main__':
-    fullAuto(saveXY(6))
+    fullAuto(saveXY(7))
     # photoMap = multiphotos.Photo()
     # photoMaps = ["地下城失败页"]
     # photoMap.loopSearch(photoMaps)

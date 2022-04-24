@@ -35,8 +35,25 @@ class Photo:
             count += 1
             if count == 5:
                 print("找不到5次，休息0.3秒")
-                time.sleep(0.1)
+                time.sleep(0.3)
                 count = 0
+
+    # 进入游戏用，找不到会自动点击左键一次。
+    def firstClickSearch(self,gamePagesMap):
+        count = 0
+        while True:
+            for i in gamePagesMap :
+                if 0 != self.onlySearchOnce(i,3,3):
+                    return self
+                else:
+                    pyautogui.click(button="left")
+                    time.sleep(5)
+            count += 1
+            if count == 5:
+                print("找不到5次，休息0.3秒")
+                time.sleep(0.3)
+                count = 0
+
 
     def __str__(self):
         return print(self.name,self.x,self.y)
