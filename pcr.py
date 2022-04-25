@@ -188,7 +188,7 @@ def open(choice):
         photoMap.firstClickSearch(photoMaps)
         dao.moveToPcr(photoMap.x,photoMap.y,1)
         if '主界面关闭'.__eq__(photoMap.name):
-            dao.moveToPcr(photoMap.x + 356, photoMap.y + 223, 1)
+            dao.moveToPcr(photoMap.x + 344, photoMap.y + 109, 1)
         elif '主页商店'.__eq__(photoMap.name):
             break
         dao.moveToPcr(photoMap.x, photoMap.y, 1)
