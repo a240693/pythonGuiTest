@@ -74,6 +74,18 @@ def moveToKgAuto(x, y, times):
         pyautogui.moveTo(x1, y1)
         # pyautogui.click(button="left")
 
+def moveToMRFZ(x, y, times):
+    # time.sleep(1)
+    x1, y1 = pyautogui.position()
+    pyautogui.moveTo(x, y)
+    count = 0
+    while count < times:
+        pyautogui.click(button="left")
+        count = count + 1
+        time.sleep(0.2)
+    if x1 != x1 & y1 != y1:
+        pyautogui.moveTo(x1, y1)
+        # pyautogui.click(button="left")
 
 def searchPhoto(name, mode):
     count = 0

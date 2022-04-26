@@ -46,3 +46,8 @@ def moveTo(x, y):
 # 坎公自动点击，times是重复点击次数，1的话就和moveTo一样
 def moveToKgAuto(x, y, times):
     return daoImpl.moveToKgAuto(x, y, times)
+
+# 明日方舟自动点击，times是重复点击次数，1的话就和moveTo一样
+# 基底是坎公
+def moveToMRFZ(x, y, times):
+    return daoImpl.moveToMRFZ(x, y, times)
