@@ -2,9 +2,7 @@ import pyautogui
 import time
 import _thread
 
-import dao
-import daoImpl
-import multiphotos
+from dao import dao, daoImpl, multiphotos
 
 flag = True
 

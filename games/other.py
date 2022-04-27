@@ -1,4 +1,4 @@
-import daoImpl
+from dao import daoImpl
 
 
 def QQ():

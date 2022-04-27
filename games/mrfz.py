@@ -1,12 +1,6 @@
-import pyautogui as py
 import time
-import random
 
-import dao
-import daoImpl
-import _thread
-
-import multiphotos
+from dao import dao, multiphotos
 
 
 # 2022年4月26日11:54:49

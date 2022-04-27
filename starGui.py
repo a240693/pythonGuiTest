@@ -1,7 +1,6 @@
 import easygui as gui
-import kg
-import pcr
-import other
+from games import pcr
+
 choices = ("自动换防时间：",
            "不等",
            "3分钟",

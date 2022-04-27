@@ -1,9 +1,8 @@
-import easygui as easygui
 import easygui as gui
 from easygui.boxes.choice_box import ChoiceBox
-import kg
-import pcr
-import other
+from games import kg, pcr, other
+
+
 # 好像没有办法做到修改父类所在的文件的方法这种事情。
 class alter(ChoiceBox):
 

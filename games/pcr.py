@@ -2,12 +2,8 @@ import pyautogui as py
 import time
 import random
 
-import dao
-import daoImpl
+from dao import dao, daoImpl, multiphotos, resultMap
 import _thread
-
-import multiphotos
-import resultMap
 
 flag = True
 
@@ -186,7 +182,7 @@ def open(choice):
     time.sleep(10)
     while True:
         photoMap.firstClickSearch(photoMaps)
-        dao.moveToPcr(photoMap.x,photoMap.y,1)
+        dao.moveToPcr(photoMap.x, photoMap.y, 1)
         if '主界面关闭'.__eq__(photoMap.name):
             dao.moveToPcr(photoMap.x + 165, photoMap.y + 215, 1)
         elif '主页商店'.__eq__(photoMap.name):
@@ -619,17 +615,17 @@ def pcrUnderEX1():
         if "地下城商店".__eq__(photoMap.name):
             x = photoMap.x
             y = photoMap.y
-            dao.moveToPcr(x,y,1)
-            dao.searchPhotoPcr("地下城商店返回",3,-100, -338)
+            dao.moveToPcr(x, y, 1)
+            dao.searchPhotoPcr("地下城商店返回", 3, -100, -338)
             time.sleep(2)
             for i in clickMaps:
-                dao.moveToPcr(x + i[0], y + i[1],1)
+                dao.moveToPcr(x + i[0], y + i[1], 1)
             underWorldBattle()
         elif "下一步EX3".__eq__(photoMap.name):
             dao.moveToPcr(photoMap.x + -71, photoMap.y + 402, 1)
             dao.searchPhotoPcr('地下城确认EX3', 3, 1, 400)
             count += 1
-    dao.searchPhotoPcr("主页",1,0,0)
+    dao.searchPhotoPcr("主页", 1, 0, 0)
 
 # 2022年4月22日20:07:55 地下城挑战，重复了。
 def underWorldBattle():
