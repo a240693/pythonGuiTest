@@ -31,7 +31,7 @@ def showDetail():
 if __name__ == '__main__':
     countDown(0,3)
     x1,y1 = pyautogui.position();
-    name = '坎公进入商店'
+    name = '主页商店'
     x, y, w, h = pyautogui.locateOnScreen(path + name + '.png')
     x, y = pyautogui.center((x, y, w, h))
 

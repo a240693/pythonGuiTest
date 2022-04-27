@@ -171,7 +171,7 @@ def autoMapEnter():
             break
         pass
 
-
+# 2022年4月27日13:57:43 修改进入游戏的逻辑
 def open(choice):
     # 开雷电多开器
     photoMap = multiphotos.Photo()
@@ -179,7 +179,7 @@ def open(choice):
     daoImpl.searchPhoto('1', 2)
     if 1 == choice:
         daoImpl.searchPhotoOpen('240693')
-    elif 2 == choice:
+    elif 0 == choice:
         daoImpl.searchPhotoOpen('183')
     # 开pcr
     daoImpl.searchPhoto('pcr', 5)
@@ -188,11 +188,12 @@ def open(choice):
         photoMap.firstClickSearch(photoMaps)
         dao.moveToPcr(photoMap.x,photoMap.y,1)
         if '主界面关闭'.__eq__(photoMap.name):
-            dao.moveToPcr(photoMap.x + 344, photoMap.y + 109, 1)
+            dao.moveToPcr(photoMap.x + 165, photoMap.y + 215, 1)
         elif '主页商店'.__eq__(photoMap.name):
             break
-        dao.moveToPcr(photoMap.x, photoMap.y, 1)
-    dailyMission()
+        else:
+            dao.moveToPcr(photoMap.x, photoMap.y, 1)
+    dailyMission(choice)
     # daoImpl.enterGamePcr("pcr开始", 0, 0)
     # daoImpl.enterGamePcr('主界面关闭', 356, 223)
     # daoImpl.searchPhoto('button', 1)  # 开操作录制
@@ -648,7 +649,8 @@ def underWorldEnter():
 
 
 if __name__ == '__main__':
-    fullAuto(saveXY(7))
+    open(1)
+    # fullAuto(saveXY(7))
     # photoMap = multiphotos.Photo()
     # photoMaps = ["地下城失败页"]
     # photoMap.loopSearch(photoMaps)

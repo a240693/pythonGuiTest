@@ -69,7 +69,7 @@ if __name__ == "__main__":
         elif choice == "240693":
             pcr.open(1)
         elif choice == "183":
-            pcr.open(2)
+            pcr.open(0)
         elif choice == "卡马逊全自动":
             kg.fullAutoKmx()
         elif choice == "关闭":
