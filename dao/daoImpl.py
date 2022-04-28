@@ -4,6 +4,7 @@ import time
 # from . import test
 path = 'F:\\pyTest\\'
 
+
 def moveTo2(x, y):
     x1, y1 = pyautogui.position()
     pyautogui.moveTo(x, y)
@@ -51,7 +52,7 @@ def moveToPcr(x, y, times):
     while count < times:
         pyautogui.click(button="left")
         count = count + 1
-        if times > 10 :
+        if times > 10:
             time.sleep(0.5)
         else:
             time.sleep(1)
@@ -74,6 +75,7 @@ def moveToKgAuto(x, y, times):
         pyautogui.moveTo(x1, y1)
         # pyautogui.click(button="left")
 
+
 def moveToMRFZ(x, y, times):
     # time.sleep(1)
     x1, y1 = pyautogui.position()
@@ -87,12 +89,13 @@ def moveToMRFZ(x, y, times):
         pyautogui.moveTo(x1, y1)
         # pyautogui.click(button="left")
 
+
 def searchPhoto(name, mode):
     count = 0
     found = False
     while not found:
         try:
-            x, y, w, h = pyautogui.locateOnScreen(path + name + '.png', grayscale=True)
+            x, y, w, h = pyautogui.locateOnScreen(path + name + '.png', grayscale=True, confidence=0.9)
             x, y = pyautogui.center((x, y, w, h))
             print("{}.png在屏幕中的位置是：X={},Y={}，宽{}像素,高{}像素".format(name, x, y, w, h))
             if mode == 1:
@@ -119,11 +122,11 @@ def enterGame():
             time.sleep(5)
 
 
-def enterGamePcr(name,x1,y1):
+def enterGamePcr(name, x1, y1):
     found = False
     while not found:
         try:
-            x, y = pyautogui.locateCenterOnScreen(path + name +'.png')
+            x, y = pyautogui.locateCenterOnScreen(path + name + '.png')
             moveTo(x + x1, y + y1)
             found = True
         except:
@@ -149,7 +152,7 @@ def searchPhotoOpen(name):
 
 def searchPhotoOnce(name, mode):
     try:
-        x, y, w, h = pyautogui.locateOnScreen(path + name + '.png', grayscale=True)
+        x, y, w, h = pyautogui.locateOnScreen(path + name + '.png', grayscale=True,confidence=0.9)
         x, y = pyautogui.center((x, y, w, h))
         # print("{}.png在屏幕中的位置是：X={},Y={}，宽{}像素,高{}像素".format(name,x, y, w, h))
         if mode == 1:
@@ -164,13 +167,14 @@ def searchPhotoOnce(name, mode):
     except:
         return 0
 
+
 # 只找counts次，不管结果。
-def searchPhotoCountsPcr(name, mode,x1,y1,counts):
+def searchPhotoCountsPcr(name, mode, x1, y1, counts):
     try:
         i = 0
-        while i < counts :
+        while i < counts:
             i += 1
-            x, y, w, h = pyautogui.locateOnScreen(path + name + '.png', grayscale=True)
+            x, y, w, h = pyautogui.locateOnScreen(path + name + '.png', grayscale=True,confidence=0.9)
             x, y = pyautogui.center((x, y, w, h))
             break
         # print("{}.png在屏幕中的位置是：X={},Y={}，宽{}像素,高{}像素".format(name,x, y, w, h))
@@ -193,7 +197,7 @@ def searchPhotoPcr(name, mode, c, d):
     found = False
     while not found:
         try:
-            x, y, w, h = pyautogui.locateOnScreen(path + name + '.png', grayscale=True)
+            x, y, w, h = pyautogui.locateOnScreen(path + name + '.png', grayscale=True,confidence=0.9)
             x, y = pyautogui.center((x, y, w, h))
             print("{}.png在屏幕中的位置是：X={},Y={}，宽{}像素,高{}像素".format(name, x, y, w, h))
             if mode == 1:
@@ -219,7 +223,7 @@ def onlySearchPcr(name):
     found = False
     while not found:
         try:
-            x, y, w, h = pyautogui.locateOnScreen(path + name + '.png', grayscale=True)
+            x, y, w, h = pyautogui.locateOnScreen(path + name + '.png', grayscale=True,confidence=0.9)
             x, y = pyautogui.center((x, y, w, h))
             print("{}.png在屏幕中的位置是：X={},Y={}，宽{}像素,高{}像素".format(name, x, y, w, h))
             found = True
@@ -228,8 +232,6 @@ def onlySearchPcr(name):
             count = count + 1
             print('{}.png没找到，第{}次,3秒后重试'.format(name, count))
             time.sleep(3)
-
-
 
 
 def setFlag():
@@ -248,7 +250,7 @@ def searchPhotoKg(name, mode, c, d):
     found = False
     while not found:
         try:
-            x, y, w, h = pyautogui.locateOnScreen(path + name + '.png', grayscale=True)
+            x, y, w, h = pyautogui.locateOnScreen(path + name + '.png', grayscale=True,confidence=0.9)
             x, y = pyautogui.center((x, y, w, h))
             print("{}.png在屏幕中的位置是：X={},Y={}，宽{}像素,高{}像素".format(name, x, y, w, h))
             if mode == 1:
@@ -264,13 +266,15 @@ def searchPhotoKg(name, mode, c, d):
             print('{}.png没找到，第{}次,3秒后重试'.format(name, count))
             time.sleep(3)
 
+
 def dualListPhotoKg(photoMap):
     t1 = time.localtime()
     for photo in photoMap:
-        searchPhotoKg(photo[0],photo[1],photo[2],photo[3])
+        searchPhotoKg(photo[0], photo[1], photo[2], photo[3])
         if "进化石扫荡".__eq__(photo[0]) & 0 == photo[3]:
             time.sleep(5)
     return 1
+
 
 def dualListPhotoPcr(photoMap):
     for photo in photoMap:
@@ -279,16 +283,16 @@ def dualListPhotoPcr(photoMap):
         # 5 的话 ，默认传一组图片名字进来，直接调用loopSearch，找到就走。
         # 但剩余一个问题： 如果有的图片是一次性的，只会在第一次进入展示。
         # 判断页面的方法看起来还是有必要的，判断后再决定走什么方法（？）
-        if 5 == photo[1] :
+        if 5 == photo[1]:
             while True:
-                result = searchPhotoCountsPcr(photo[0],photo[1],photo[2],photo[3],1)
-                if 1 == result :
+                result = searchPhotoCountsPcr(photo[0], photo[1], photo[2], photo[3], 1)
+                if 1 == result:
                     break
                 else:
                     # 缺个坐标应该放在哪儿的思路，个人现在是恒定放在左边，算是个手操要素，但老实说，不太稳。
                     pyautogui.click(button="left")
         else:
-            searchPhotoPcr(photo[0],photo[1],photo[2],photo[3])
+            searchPhotoPcr(photo[0], photo[1], photo[2], photo[3])
         if "主页".__eq__(photo[0]) & 0 == photo[3]:
             time.sleep(1)
         elif "冒险".__eq__(photo[0]) & 0 == photo[3]:
