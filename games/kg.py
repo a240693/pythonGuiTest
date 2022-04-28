@@ -234,6 +234,7 @@ def returnKmx():
 
 
 if __name__ == '__main__':
+    day2buy()
     #kmxAutoNew()
-   fullAutoKmx()
+   #fullAutoKmx()
 # missionAndGift()

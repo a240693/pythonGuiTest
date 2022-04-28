@@ -333,9 +333,9 @@ def dailyEgg():
     dao.searchPhotoPcr('pcr主页', 3, -48, 472)
     x, y = dao.searchPhotoPcr('每日扭蛋', 3, 216, -367)
     time.sleep(2)
-    daoImpl.moveTo(x - 168 + 216, y + 277 - 367)
+    dao.moveTo(x - 168 + 216, y + 277 - 367)
     time.sleep(2)
-    daoImpl.moveTo(x - 290 + 216, y + 304 - 367)
+    dao.moveTo(x - 290 + 216, y + 304 - 367)
     dao.searchPhotoPcr('主页', 1, 0, 0)
 
 
@@ -431,7 +431,7 @@ def heartBreak():
     # 开操作录制
     daoImpl.searchPhoto('button', 1)
     dao.searchPhotoPcr('心碎星球杯', 3, 361, 5)
-    dao.searchPhotoPcr('x', 1, 0, 0)
+    dao.searchPhotoPcr('心碎星球杯', 3, 448, -321)
 
 
 def autoChangeDefenceP(breakTime):
@@ -645,7 +645,7 @@ def underWorldEnter():
 
 
 if __name__ == '__main__':
-    open(1)
+    heartBreak()
     # fullAuto(saveXY(7))
     # photoMap = multiphotos.Photo()
     # photoMaps = ["地下城失败页"]
