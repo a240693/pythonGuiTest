@@ -58,7 +58,7 @@ def placeTest():
     countDown(0, 3)
     confidenPoint = 0.9
     x1, y1 = pyautogui.position();
-    name = '心碎星球杯'
+    name = '坎公44段位更新'
     filepath = path + name + '.png'
     img = my_cv_imread(filepath)
     x, y, w, h = pyautogui.locateOnScreen(img, grayscale=True, confidence=confidenPoint)
@@ -66,7 +66,7 @@ def placeTest():
 
     print("{}颜色为：{},该坐标为{}".format(name, (getcolour(x, y)), (x, y)));
     print("鼠标坐标为{}".format((x1, y1)));
-    print("差值为 {}, {}".format((x1 - x), (y1 - y)));
+    print("差值为 ({}, {})".format((x1 - x), (y1 - y)));
     pyautogui.moveTo(x, y)
 
 

@@ -6,7 +6,12 @@ from dao import dao, multiphotos
 # 2022年4月26日11:54:49
 def restPeople():
     photoMap = multiphotos.Photo()
-    photoMaps = ['注意力涣散', '粥休息室确认', '粥宿舍','粥宿舍二次确认']
+    photoMaps = [
+        #'注意力涣散',
+        '粥休息室确认',
+        '粥宿舍',
+        '粥宿舍二次确认'
+    ]
     peopleMaps = [  # 第1-5个人
         (-531, -346),
         (-532, -140),
@@ -20,18 +25,20 @@ def restPeople():
         (870, -451),    # 清空宿舍 2
         (759, -351)   # 进入宿舍换人 3
     ]
-    photoMap.loopSearch(photoMaps)
-    x = photoMap.x
-    y = photoMap.y
-    if "粥休息室确认".__eq__(photoMap.name):
-        for i in peopleMaps:
-            dao.moveToMRFZ(x + i[0], y + i[1], 1)
-        dao.moveToMRFZ(x, y, 1)
-    elif "粥宿舍".__eq__(photoMap.name):
-        for i in moveMaps:
-            dao.moveToMRFZ(x + i[0], y + i[1], 1)
-    elif "二次确认" in photoMap.name:
-        dao.moveToMRFZ(x, y, 1)
+    while True:
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        if "粥休息室确认".__eq__(photoMap.name):
+            for i in peopleMaps:
+                dao.moveToMRFZ(x + i[0], y + i[1], 1)
+            dao.moveToMRFZ(x, y, 1)
+        elif "粥宿舍".__eq__(photoMap.name):
+            for i in moveMaps:
+                dao.moveToMRFZ(x + i[0], y + i[1], 1)
+        elif "二次确认" in photoMap.name:
+            dao.moveToMRFZ(x, y, 1)
+            break
 
 
 def RDdaily():

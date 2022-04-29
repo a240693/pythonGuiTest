@@ -57,8 +57,9 @@ def kmxAuto():
 def kmxAutoNew():
     count = 0
     gamePages = multiphotos.Photo()
-    gamePagesMap = ['卡马逊黄', '卡马逊主页', '坎公问号', '坎公装备页',
-                    '坎公休息区', '坎公装备取消', '卡马逊商店']
+    gamePagesMap = ['卡马逊黄', '坎公问号', '坎公卡马逊确认', '坎公高阶神器'
+                                               '坎公休息区', '坎公装备取消', '卡马逊商店', '坎公装备页', '卡马逊主页']
+    # 坎公卡马逊选择 暂时用不上。
     while flag:
         gamePages.name = "默认"
         gamePages.loopSearch(gamePagesMap)
@@ -66,14 +67,17 @@ def kmxAutoNew():
         print('{}({},{}),第{}次'.format(gamePages.name, gamePages.x, gamePages.y, count))
         if "卡马逊主页".__eq__(gamePages.name):
             # 如果检测到了卡马逊主页就直接退出。
-            break
+            if (count > 8):
+                break
+            else:
+                continue
         elif "坎公问号".__eq__(gamePages.name):
             if count < 6:
                 dao.moveToKgAuto(gamePages.x + 40, gamePages.y + -248, 1)
                 dao.moveToKgAuto(gamePages.x + 163, gamePages.y + -7, 1)
             else:
                 dao.moveToKgAuto(gamePages.x + 163, gamePages.y + -7, 1)
-                pyautogui.dragTo(gamePages.x + 163, gamePages.y + -248,button='left', duration=0.3)
+                pyautogui.dragTo(gamePages.x + 163, gamePages.y + -248, button='left', duration=0.3)
                 dao.moveToKgAuto(gamePages.x + 163, gamePages.y + -7, 1)
             continue
         elif "坎公休息区".__eq__(gamePages.name):
@@ -89,26 +93,55 @@ def kmxAutoNew():
         elif "坎公装备页".__eq__(gamePages.name):
             dao.moveToKgAuto(gamePages.x + 137, gamePages.y + -206, 1)
             continue
-        # 这里拿到了上面三选一的 名字 和XY坐标
-        dao.moveToKgAuto(gamePages.x, gamePages.y, 2)
+        else:
+            # 这里拿到了上面三选一的 名字 和XY坐标
+            dao.moveToKgAuto(gamePages.x, gamePages.y, 1)
         if count == 1:
             time.sleep(6)
         elif count > 15:
             changeFlag()
 
 
+def chooseEquip():
+    equipMaps = ["坎公高阶神器", "坎公高阶神器",
+                 "坎公中阶神器", "坎公低阶神器"]
+
+    photoMap = multiphotos.Photo()
+    #moveMaps = []
+    photoMap.loopSearch(equipMaps)
+    x = photoMap.x
+    y = photoMap.y
+    dao.moveToKgAuto(x, y, 1)
+
+
 def pvpAuto():
-    count = 0
     gamePages = multiphotos.Photo()
-    gamePagesMap = ['坎公初始选人页黄', '坎公PVP黄', '卡马逊黄']
+    gamePagesMap = [
+        '坎公挑战卷不足',
+        '坎公44段位更新',
+        '坎公商店确认',
+        '坎公初始选人页黄',
+        '坎公PVP黄',
+        '坎公初始选人页重试'
+    ]
     while flag:
         gamePages.name = "默认"
         gamePages.loopSearch(gamePagesMap)
-        if ("坎公PVP黄".__eq__(gamePages.name) | "坎公初始选人页黄".__eq__(gamePages.name)):
+        if "坎公初始选人页重试".__eq__(gamePages.name):
             # 拿偏移坐标，点一下右上角齿轮在的位置收工。
-            daoImpl.moveTo(gamePages.x + 100, gamePages.y - 59)
+            daoImpl.moveTo(gamePages.x + 46, gamePages.y - 72)
+            dao.moveTo(gamePages.x, gamePages.y)
+        elif '坎公PVP黄'.__eq__(gamePages.name):
+            dao.moveTo(gamePages.x, gamePages.y)
+            time.sleep(20)
+        elif "不足" in gamePages.name:
+            dao.moveTo(gamePages.x + - 28, gamePages.y + 154)
+            changeFlag()
+        elif '更新' in gamePages.name:
+            dao.moveToKgAuto(gamePages.x + 3, gamePages.y + 227,1)
         # 这里拿到了上面三选一的 名字 和XY坐标
-        daoImpl.moveToKgAuto(gamePages.x, gamePages.y, 1)
+        else:
+            daoImpl.moveToKgAuto(gamePages.x, gamePages.y, 1)
 
     # while flag:
     #     # 注释了，反正只找得到坎公PVP黄
@@ -129,7 +162,7 @@ def pvpAuto():
 
 def setFlag():
     count = 420
-    while count != 0:
+    while ((count != 0) & (flag)):
         count -= 20
         print("还剩下{}秒".format(count))
         time.sleep(20)
@@ -161,13 +194,15 @@ def dailyBuy():
     daoImpl.searchPhotoKg('坎公主页面', 1, -338, -195)
     x, y = daoImpl.onlySearchPcr('坎公进入商店')
     # 买金币
-    daoImpl.moveTo(x + 279, y + 271)
-    daoImpl.searchPhotoKg('卡马逊黄', 3, 0, 0)  # 商店黄成功率太低了
+    daoImpl.moveTo(x + 414, y + 267)
+    daoImpl.searchPhotoKg('坎公购买', 1, 94, 56)  # 商店黄成功率太低了
+    daoImpl.searchPhotoKg('坎公商店确认', 1, 0, 0)
     # 买锤子
-    daoImpl.moveTo(x - 85, y + 242)
-    daoImpl.moveTo(x + 131, y + 190)
-    daoImpl.searchPhotoKg('卡马逊黄', 3, 0, 0)
-    daoImpl.moveTo(x + -136, y + -37)
+    daoImpl.moveTo(x - 15, y + 238)
+    daoImpl.moveTo(x + 218, y + 197)
+    daoImpl.searchPhotoKg('坎公购买', 1, 94, 56)
+    daoImpl.searchPhotoKg('坎公商店确认', 1, 0, 0)
+    daoImpl.moveTo(x + -70, y + -42)
 
 
 # 2022年4月2日17:18:10 起点是先收灵魂点
@@ -190,8 +225,8 @@ def day2buy(choice):
     photoMap.append(('进化石页面', 1, 762, 458))
     photoMap.append(('进化石扫荡', 1, -35, -147))
     photoMap.append(('进化石扫荡', 1, 0, 0))
-    photoMap.append(('卡马逊黄', 3, 0, 0))
-    photoMap.append(('卡马逊黄', 1, 0, 0))
+    photoMap.append(('坎公进化石确认', 1, 0, 0))
+    photoMap.append(('坎公商店确认', 1, 0, 0))
     photoMap.append(('进化石页面', 1, -89, 2))
     photoMap.append(('进化石页面', 1, -89, 2))
     photoMap.append(('探险初始页', 1, -723, -174))
@@ -203,19 +238,20 @@ def fullAutoKmx():
     count = 0
     photoMap = multiphotos.Photo()
     photoMaps = ['卡马逊主页']
+    moveMaps = [
+        (490, -373),  # 路线一 0
+        (607, -320),  # 路线二 1
+        (706, -272),  # 路线三 2
+        (800, -222)  # 路线四 3
+    ]
     while flag:
         photoMap.name = "默认"
         photoMap.loopSearch(photoMaps)
-        mainMaps = photoMap
+        x = photoMap.x
+        y = photoMap.y
         if "卡马逊主页".__eq__(photoMap.name):
-            # 路线1 450, -33
-            dao.moveTo(mainMaps.x + 450, mainMaps.y + -33)
-            # 路线2 550, 26
-            dao.moveTo(mainMaps.x + 550, mainMaps.y + 26)
-            # 路线3 640, 73
-            dao.moveTo(mainMaps.x + 640, mainMaps.y + 73)
-            # boss 741, 117
-            dao.moveTo(mainMaps.x + 741, mainMaps.y + 117)
+            for i in moveMaps:
+                dao.moveToKgAuto(x + i[0], y + i[1], 1)
             kmxAutoNew()
             if flag:
                 count += 1
@@ -228,13 +264,14 @@ def returnKmx():
     photoMap = []
     # 退出 -52, -465
     # 返回 127, -170
-    photoMap.append(('卡马逊主页', 1, -65, -132))
-    photoMap.append(('探险初始页', 1, 127, -170))
+    photoMap.append(('卡马逊主页', 1, -6, -467))
+    photoMap.append(('探险初始页', 1, 84, -274))
     dao.dualListPhotoKg(photoMap)
 
 
 if __name__ == '__main__':
-    day2buy()
-    #kmxAutoNew()
-   #fullAutoKmx()
+    # chooseEquip()
+    fullAutoKmx()
+    # kmxAutoNew()
+# fullAutoKmx()
 # missionAndGift()

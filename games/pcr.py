@@ -170,8 +170,6 @@ def autoMapEnter():
 # 2022年4月27日13:57:43 修改进入游戏的逻辑
 def open(choice):
     # 开雷电多开器
-    photoMap = multiphotos.Photo()
-    photoMaps = ["pcr开始",'主界面关闭','主页商店']
     daoImpl.searchPhoto('1', 2)
     if 1 == choice:
         daoImpl.searchPhotoOpen('240693')
@@ -180,9 +178,17 @@ def open(choice):
     # 开pcr
     daoImpl.searchPhoto('pcr', 5)
     time.sleep(10)
+    enterGamePcr(choice)
+    # daoImpl.enterGamePcr("pcr开始", 0, 0)
+    # daoImpl.enterGamePcr('主界面关闭', 356, 223)
+    # daoImpl.searchPhoto('button', 1)  # 开操作录制
+    # dao.searchPhotoPcr('大号日常', 3, 375, 2)
+
+def enterGamePcr(choice):
+    photoMap = multiphotos.Photo()
+    photoMaps = ["pcr开始",'主界面关闭','主页商店','pcr竞赛开始']
     while True:
         photoMap.firstClickSearch(photoMaps)
-        dao.moveToPcr(photoMap.x, photoMap.y, 1)
         if '主界面关闭'.__eq__(photoMap.name):
             dao.moveToPcr(photoMap.x + 165, photoMap.y + 215, 1)
         elif '主页商店'.__eq__(photoMap.name):
@@ -190,10 +196,6 @@ def open(choice):
         else:
             dao.moveToPcr(photoMap.x, photoMap.y, 1)
     dailyMission(choice)
-    # daoImpl.enterGamePcr("pcr开始", 0, 0)
-    # daoImpl.enterGamePcr('主界面关闭', 356, 223)
-    # daoImpl.searchPhoto('button', 1)  # 开操作录制
-    # dao.searchPhotoPcr('大号日常', 3, 375, 2)
 
 
 def dailyMission(switch):
@@ -337,6 +339,7 @@ def dailyEgg():
     time.sleep(2)
     dao.moveTo(x - 290 + 216, y + 304 - 367)
     dao.searchPhotoPcr('主页', 1, 0, 0)
+    time.sleep(1)
 
 
 def dailyPS():
@@ -636,6 +639,7 @@ def underWorldBattle():
 # 2022年4月22日20:08:15 点击地下城后选择队伍与开始第一战，重复了
 def underWorldEnter():
     dao.searchPhotoPcr('地下城进入', 3, 256, 42)
+    time.sleep(1)
     dao.searchPhotoPcr('主页', 3, 596, -255)
     dao.searchPhotoPcr('挑战EX3', 3, 3, 39)
     dao.searchPhotoPcr('战斗开始界面定标1EX3', 3, 211, -271)
@@ -645,7 +649,7 @@ def underWorldEnter():
 
 
 if __name__ == '__main__':
-    heartBreak()
+    enterGamePcr(0)
     # fullAuto(saveXY(7))
     # photoMap = multiphotos.Photo()
     # photoMaps = ["地下城失败页"]
