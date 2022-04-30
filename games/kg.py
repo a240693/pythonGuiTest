@@ -94,7 +94,9 @@ def kmxAutoNew():
             dao.moveToKgAuto(gamePages.x + 196, gamePages.y + 2, 1)
             continue
         elif "坎公装备取消".__eq__(gamePages.name):
-            dao.moveToKgAuto(gamePages.x + 53, gamePages.y + -3, 1)
+            dao.moveToKgAuto(gamePages.x + 277, gamePages.y + 109, 1)
+            time.sleep(1)
+            dao.moveToKgAuto(gamePages.x + 493, gamePages.y + 369, 1)
             continue
         elif "坎公装备页".__eq__(gamePages.name):
             chooseEquip()
@@ -281,8 +283,8 @@ def returnKmx():
 
 
 if __name__ == '__main__':
-    chooseEquip()
-    #fullAutoKmx()
+    #chooseEquip()
+    fullAutoKmx()
     #kmxAutoNew()
 # fullAutoKmx()
 # missionAndGift()

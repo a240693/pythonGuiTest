@@ -58,7 +58,6 @@ def pcrUnderEX3(switch):
         dao.searchPhotoPcr('主页', 1, 0, 0)
 
 
-
 def autoMap():
     count = 0
     while True:
@@ -115,9 +114,20 @@ def autoMapFullAuto():
         gamePages.name = "默认"
         gamePages.x = 0
         gamePages.y = 0
-        gamePagesMaps = ['推图挑战4', '推图下一步', '战斗开始推图',
-                         '胜利页下一步', '活动主页', '限时商店',
-                         'pcr好感', '剧情', '主页', 'pcr升级确认','推图挑战']
+        gamePagesMaps = [
+            '推图挑战4',
+            '推图下一步',
+            'PCR信赖章节取消',
+            '战斗开始推图',
+            '胜利页下一步',
+            '活动主页',
+            '限时商店',
+            'pcr好感',
+            '剧情',
+            '主页',
+            'pcr升级确认',
+            '推图挑战'
+        ]
         gamePages.loopSearch(gamePagesMaps)
         # 这里拿到了上面三选一的 名字 和XY坐标
         if ("推图挑战4".__eq__(gamePages.name) | ("推图挑战".__eq__(gamePages.name))):
@@ -131,6 +141,8 @@ def autoMapFullAuto():
             selfNewXY(gamePages, 296, 347)
         elif ("限时商店".__eq__(gamePages.name)):
             selfNewXY(gamePages, 20, 108)
+        elif ("PCR信赖章节取消".__eq__(gamePages.name)):
+            selfNewXY(gamePages, -105, 52)
         elif '活动主页'.__eq__(gamePages.name) | '主页'.__eq__(gamePages.name):
             break;
         daoImpl.moveToPcr(gamePages.x, gamePages.y, 3)
@@ -167,6 +179,7 @@ def autoMapEnter():
             break
         pass
 
+
 # 2022年4月27日13:57:43 修改进入游戏的逻辑
 def open(choice):
     # 开雷电多开器
@@ -184,9 +197,10 @@ def open(choice):
     # daoImpl.searchPhoto('button', 1)  # 开操作录制
     # dao.searchPhotoPcr('大号日常', 3, 375, 2)
 
+
 def enterGamePcr(choice):
     photoMap = multiphotos.Photo()
-    photoMaps = ["pcr开始",'主界面关闭','主页商店','pcr竞赛开始']
+    photoMaps = ["pcr开始", '主界面关闭', '主页商店', 'pcr竞赛开始']
     while True:
         photoMap.firstClickSearch(photoMaps)
         if '主界面关闭'.__eq__(photoMap.name):
@@ -229,7 +243,7 @@ def dailyMission(switch):
 
 
 def enterPvP():
-    enterMap = ['主页', 'JJC防守成功', 'PJJC防守成功','PJJC防守成功2']
+    enterMap = ['主页', 'JJC防守成功', 'PJJC防守成功', 'PJJC防守成功2']
     gamePages = multiphotos.Photo()
     while True:
         gamePages.loopSearch(enterMap)
@@ -416,6 +430,7 @@ def underWorld(switch):
     underWorldEnter()
     pcrUnderEX3(switch)
 
+
 def underWorldSmall():
     time.sleep(1)
     dao.searchPhotoPcr('冒险', 1, 0, 0)
@@ -423,7 +438,6 @@ def underWorldSmall():
     dao.searchPhotoPcr('主页', 3, 509, -270)
     underWorldEnter()
     pcrUnderEX1()
-
 
 
 def heartBreak():
@@ -562,6 +576,10 @@ def saveXY(choice):
     loadXY.append(('小小甜心活动困难', 49, -260))  # 7
     loadXY.append(('初音活动', 84, -226))  # 8
     loadXY.append(('初音活动困难', -34, -257))  # 9
+    loadXY.append(('四兽士', 222, -331))  # 10
+    loadXY.append(('四兽士二', 52, -274))  # 11
+    loadXY.append(('四兽士三', 160, -233))  # 12
+    loadXY.append(('四兽士困难', 141, -320))  # 13
     return loadXY[choice - 1]
 
 
@@ -597,8 +615,8 @@ def battleFloor5():
         changeTeam5(i)
         dao.searchPhotoPcr('战斗开始界面定标1EX3', 3, 182, 93)
         time.sleep(60)
-        if i == 4 :
-            photoMaps = ["地下城失败页","下一步EX3"]
+        if i == 4:
+            photoMaps = ["地下城失败页", "下一步EX3"]
         photoMap.loopSearch(photoMaps)
         if "地下城失败页".__eq__(photoMap.name):
             dao.moveToPcr(photoMap.x + -51, photoMap.y + 453, 1)
@@ -606,12 +624,13 @@ def battleFloor5():
             dao.moveToPcr(photoMap.x + -71, photoMap.y + 402, 1)
             dao.searchPhotoPcr('地下城确认EX3', 3, 1, 400)
 
+
 # 2022年4月22日19:18:10
 def pcrUnderEX1():
     # 地下城商店
-    clickMaps = [(-478, 235),(-745, 222),(-231, 224)]
+    clickMaps = [(-478, 235), (-745, 222), (-231, 224)]
     photoMap = multiphotos.Photo()
-    photoMaps = ["地下城商店","下一步EX3"]
+    photoMaps = ["地下城商店", "下一步EX3"]
     count = 0
     while count < 10:
         photoMap.loopSearch(photoMaps)
@@ -630,11 +649,13 @@ def pcrUnderEX1():
             count += 1
     dao.searchPhotoPcr("主页", 1, 0, 0)
 
+
 # 2022年4月22日20:07:55 地下城挑战，重复了。
 def underWorldBattle():
     dao.searchPhotoPcr('挑战EX3', 3, 3, 39)
     dao.searchPhotoPcr('战斗开始界面定标1EX3', 3, 182, 93)
     time.sleep(15)
+
 
 # 2022年4月22日20:08:15 点击地下城后选择队伍与开始第一战，重复了
 def underWorldEnter():
@@ -649,7 +670,7 @@ def underWorldEnter():
 
 
 if __name__ == '__main__':
-    enterGamePcr(0)
+    fullAuto(saveXY(13))
     # fullAuto(saveXY(7))
     # photoMap = multiphotos.Photo()
     # photoMaps = ["地下城失败页"]

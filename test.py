@@ -58,7 +58,7 @@ def placeTest():
     countDown(0, 3)
     confidenPoint = 0.9
     x1, y1 = pyautogui.position();
-    name = '坎公44段位更新'
+    name = 'PCR信赖章节取消'
     filepath = path + name + '.png'
     img = my_cv_imread(filepath)
     x, y, w, h = pyautogui.locateOnScreen(img, grayscale=True, confidence=confidenPoint)

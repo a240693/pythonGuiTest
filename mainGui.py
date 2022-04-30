@@ -10,6 +10,8 @@ class alter(ChoiceBox):
         global flag
         flag = False
         self.ui.stop()
+
+
 # 2022年4月23日01:02:30 增加全打地下城按钮 dailyMission(1)。
 choices = ("明日方舟",
            "=pcr===================",
@@ -19,14 +21,14 @@ choices = ("明日方舟",
            "240693",
            "183",
            "任务礼物",
-            "日常",
-            "日常全地下城",
-            "小号日常",
-            "全自动推图",
+           "日常",
+           "日常全地下城",
+           "小号日常",
+           "全自动推图",
            "=坎公===================",
            "开游戏每日",
            "卡马逊半自动",
-            "卡马逊全自动",
+           "卡马逊全自动",
            "PVP",
            "买金币和锤子",
            "坎公日常一",
@@ -37,12 +39,14 @@ choices = ("明日方舟",
            "=关闭===================",
            "关闭")
 
+
 def main():
     return gui.choicebox("脚本选择", "瞎写的随便", choices=choices)
 
 
 def test(name):
     gui.msgbox(name)
+
 
 if __name__ == "__main__":
     flag = True
@@ -91,4 +95,3 @@ if __name__ == "__main__":
             pcr.missionAndGift()
         elif choice == "日常全地下城":
             pcr.dailyMission(1)
-
