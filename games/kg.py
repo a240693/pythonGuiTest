@@ -57,8 +57,14 @@ def kmxAuto():
 def kmxAutoNew():
     count = 0
     gamePages = multiphotos.Photo()
-    gamePagesMap = ['卡马逊黄', '坎公问号', '坎公卡马逊确认', '坎公高阶神器'
-                                               '坎公休息区', '坎公装备取消', '卡马逊商店', '坎公装备页', '卡马逊主页']
+    gamePagesMap = ['卡马逊黄',
+                    #'坎公问号',
+                    '坎公卡马逊确认',
+                    '坎公休息区',
+                    '坎公装备取消',
+                    '卡马逊商店',
+                    '坎公装备页',
+                    '卡马逊主页']
     # 坎公卡马逊选择 暂时用不上。
     while flag:
         gamePages.name = "默认"
@@ -88,10 +94,11 @@ def kmxAutoNew():
             dao.moveToKgAuto(gamePages.x + 196, gamePages.y + 2, 1)
             continue
         elif "坎公装备取消".__eq__(gamePages.name):
-            dao.moveToKgAuto(gamePages.x + 53, gamePages.y + -3, 2)
+            dao.moveToKgAuto(gamePages.x + 53, gamePages.y + -3, 1)
             continue
         elif "坎公装备页".__eq__(gamePages.name):
-            dao.moveToKgAuto(gamePages.x + 137, gamePages.y + -206, 1)
+            chooseEquip()
+            #dao.moveToKgAuto(gamePages.x + 137, gamePages.y + -206, 1)
             continue
         else:
             # 这里拿到了上面三选一的 名字 和XY坐标
@@ -103,8 +110,11 @@ def kmxAutoNew():
 
 
 def chooseEquip():
-    equipMaps = ["坎公高阶神器", "坎公高阶神器",
-                 "坎公中阶神器", "坎公低阶神器"]
+    equipMaps = ["坎公高阶神器",
+                 "坎公高阶神器",
+                 "坎公中阶神器",
+                 "坎公低阶神器",
+                 "坎公获得银币"]
 
     photoMap = multiphotos.Photo()
     #moveMaps = []
@@ -122,7 +132,8 @@ def pvpAuto():
         '坎公商店确认',
         '坎公初始选人页黄',
         '坎公PVP黄',
-        '坎公初始选人页重试'
+        '坎公初始选人页重试',
+        '坎公卡马逊确认'
     ]
     while flag:
         gamePages.name = "默认"
@@ -270,8 +281,8 @@ def returnKmx():
 
 
 if __name__ == '__main__':
-    # chooseEquip()
-    fullAutoKmx()
-    # kmxAutoNew()
+    chooseEquip()
+    #fullAutoKmx()
+    #kmxAutoNew()
 # fullAutoKmx()
 # missionAndGift()
