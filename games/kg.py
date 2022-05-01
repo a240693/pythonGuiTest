@@ -58,10 +58,11 @@ def kmxAutoNew():
     count = 0
     gamePages = multiphotos.Photo()
     gamePagesMap = ['卡马逊黄',
-                    # '坎公问号',
+                    '坎公问号',
                     '坎公卡马逊确认',
                     '坎公泰坦战队',
                     '坎公休息区',
+                    '坎公特惠促销',
                     '坎公装备取消',
                     '卡马逊商店',
                     '坎公装备页',
@@ -81,17 +82,12 @@ def kmxAutoNew():
             else:
                 continue
         elif "坎公问号".__eq__(gamePages.name):
-            if count < 6:
-                dao.moveToKgAuto(gamePages.x + 40, gamePages.y + -248, 1)
-                dao.moveToKgAuto(gamePages.x + 163, gamePages.y + -7, 1)
-            else:
-                dao.moveToKgAuto(gamePages.x + 163, gamePages.y + -7, 1)
-                pyautogui.dragTo(gamePages.x + 163, gamePages.y + -248, button='left', duration=0.3)
-                dao.moveToKgAuto(gamePages.x + 163, gamePages.y + -7, 1)
+            dao.moveToKgAuto(x, y + 147, 1)
+            dao.moveToKgAuto(x, y + 36, 1)
             continue
         elif "坎公休息区".__eq__(gamePages.name):
             # 先点回血，再点净化再点复活，复活优先。
-            dao.moveToKgAuto(gamePages.x + 352, gamePages.y + -210, 1)
+            dao.moveToKgAuto(gamePages.x + 280, gamePages.y + -240, 1)
             dao.moveToKgAuto(gamePages.x + 89, gamePages.y + -195, 1)
             dao.moveToKgAuto(gamePages.x + -149, gamePages.y + -225, 1)
             dao.moveToKgAuto(gamePages.x + 196, gamePages.y + 2, 1)
@@ -101,7 +97,7 @@ def kmxAutoNew():
             time.sleep(1)
             dao.moveToKgAuto(gamePages.x + 493, gamePages.y + 369, 1)
             continue
-        elif "战队" in gamePages.name:
+        elif ("战队" in gamePages.name) | ("促销" in gamePages.name):
             dao.scrollKg(x + 134, y + 293)
             continue
         elif "坎公装备页".__eq__(gamePages.name):
@@ -289,8 +285,8 @@ def returnKmx():
 
 
 if __name__ == '__main__':
-    #chooseEquip()
+    # chooseEquip()
     fullAutoKmx()
-    #kmxAutoNew()
+    # kmxAutoNew()
 # fullAutoKmx()
 # missionAndGift()

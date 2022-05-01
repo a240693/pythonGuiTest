@@ -330,7 +330,7 @@ def scrollKg(x,y):
     # time.sleep(1)
     x1, y1 = pyautogui.position()
     pyautogui.moveTo(x, y)
-    pyautogui.scroll(-60)
+    pyautogui.scroll(60)
     pyautogui.click(button="left")
     if x1 != x1 & y1 != y1:
         pyautogui.moveTo(x1, y1)
