@@ -58,8 +58,9 @@ def kmxAutoNew():
     count = 0
     gamePages = multiphotos.Photo()
     gamePagesMap = ['卡马逊黄',
-                    #'坎公问号',
+                    # '坎公问号',
                     '坎公卡马逊确认',
+                    '坎公泰坦战队',
                     '坎公休息区',
                     '坎公装备取消',
                     '卡马逊商店',
@@ -71,6 +72,8 @@ def kmxAutoNew():
         gamePages.loopSearch(gamePagesMap)
         count += 1
         print('{}({},{}),第{}次'.format(gamePages.name, gamePages.x, gamePages.y, count))
+        x = gamePages.x
+        y = gamePages.y
         if "卡马逊主页".__eq__(gamePages.name):
             # 如果检测到了卡马逊主页就直接退出。
             if (count > 8):
@@ -98,9 +101,12 @@ def kmxAutoNew():
             time.sleep(1)
             dao.moveToKgAuto(gamePages.x + 493, gamePages.y + 369, 1)
             continue
+        elif "战队" in gamePages.name:
+            dao.scrollKg(x + 134, y + 293)
+            continue
         elif "坎公装备页".__eq__(gamePages.name):
             chooseEquip()
-            #dao.moveToKgAuto(gamePages.x + 137, gamePages.y + -206, 1)
+            # dao.moveToKgAuto(gamePages.x + 137, gamePages.y + -206, 1)
             continue
         else:
             # 这里拿到了上面三选一的 名字 和XY坐标
@@ -119,7 +125,7 @@ def chooseEquip():
                  "坎公获得银币"]
 
     photoMap = multiphotos.Photo()
-    #moveMaps = []
+    # moveMaps = []
     photoMap.loopSearch(equipMaps)
     x = photoMap.x
     y = photoMap.y
@@ -151,7 +157,7 @@ def pvpAuto():
             dao.moveTo(gamePages.x + - 28, gamePages.y + 154)
             changeFlag()
         elif '更新' in gamePages.name:
-            dao.moveToKgAuto(gamePages.x + 3, gamePages.y + 227,1)
+            dao.moveToKgAuto(gamePages.x + 3, gamePages.y + 227, 1)
         # 这里拿到了上面三选一的 名字 和XY坐标
         else:
             daoImpl.moveToKgAuto(gamePages.x, gamePages.y, 1)

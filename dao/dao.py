@@ -56,3 +56,6 @@ def moveToMRFZ(x, y, times):
 # opencv引入后，要把路径的中文进行转换用的东西。
 def my_cv_imread(filepath):
     return daoImpl.my_cv_imread(filepath)
+
+def scrollKg(x,y):
+    return daoImpl.scrollKg(x,y)

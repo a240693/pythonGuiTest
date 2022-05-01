@@ -58,13 +58,13 @@ def placeTest():
     countDown(0, 3)
     confidenPoint = 0.9
     x1, y1 = pyautogui.position();
-    name = 'PCR信赖章节取消'
+    name = '坎公装备取消'
     filepath = path + name + '.png'
     img = my_cv_imread(filepath)
     x, y, w, h = pyautogui.locateOnScreen(img, grayscale=True, confidence=confidenPoint)
     x, y = pyautogui.center((x, y, w, h))
 
-    print("{}颜色为：{},该坐标为{}".format(name, (getcolour(x, y)), (x, y)));
+    print("{} 颜色为：{},该坐标为{}".format(name, (getcolour(x, y)), (x, y)));
     print("鼠标坐标为{}".format((x1, y1)));
     print("差值为 ({}, {})".format((x1 - x), (y1 - y)));
     pyautogui.moveTo(x, y)

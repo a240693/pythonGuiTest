@@ -623,6 +623,7 @@ def battleFloor5():
         elif "下一步EX3".__eq__(photoMap.name):
             dao.moveToPcr(photoMap.x + -71, photoMap.y + 402, 1)
             dao.searchPhotoPcr('地下城确认EX3', 3, 1, 400)
+            time.sleep(3)
 
 
 # 2022年4月22日19:18:10
@@ -660,7 +661,7 @@ def underWorldBattle():
 # 2022年4月22日20:08:15 点击地下城后选择队伍与开始第一战，重复了
 def underWorldEnter():
     dao.searchPhotoPcr('地下城进入', 3, 256, 42)
-    time.sleep(1)
+    time.sleep(5)
     dao.searchPhotoPcr('主页', 3, 596, -255)
     dao.searchPhotoPcr('挑战EX3', 3, 3, 39)
     dao.searchPhotoPcr('战斗开始界面定标1EX3', 3, 211, -271)

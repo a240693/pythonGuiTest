@@ -324,6 +324,17 @@ def dualListPhotoPcr(photoMap):
         elif "战斗开始推图".__eq__(photo[0]) & 62 == photo[3]:
             time.sleep(15)
     return 1
+
+# 2022年5月1日19:34:12
+def scrollKg(x,y):
+    # time.sleep(1)
+    x1, y1 = pyautogui.position()
+    pyautogui.moveTo(x, y)
+    pyautogui.scroll(-60)
+    pyautogui.click(button="left")
+    if x1 != x1 & y1 != y1:
+        pyautogui.moveTo(x1, y1)
+        # pyautogui.click(button="left")
 # 开QQ
 # moveTo(121, 255);
 
