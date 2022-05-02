@@ -7,11 +7,14 @@ import time
 path = 'F:\\pyTest\\'
 # 2022年4月28日11:49:33
 confidenPoint = 0.95
+
+
 def my_cv_imread(filepath):
     # 使用imdecode函数进行读取
     img = cv2.imdecode(np.fromfile(filepath, dtype=np.uint8), cv2.IMREAD_COLOR)
-    #img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+    # img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
     return img
+
 
 def moveTo2(x, y):
     x1, y1 = pyautogui.position()
@@ -168,7 +171,7 @@ def searchPhotoOnce(name, mode):
     try:
         filepath = path + name + '.png'
         img = my_cv_imread(filepath)  # 获取读取的图像
-        x, y, w, h = pyautogui.locateOnScreen(img, grayscale=True,confidence=confidenPoint)
+        x, y, w, h = pyautogui.locateOnScreen(img, grayscale=True, confidence=confidenPoint)
         x, y = pyautogui.center((x, y, w, h))
         # print("{}.png在屏幕中的位置是：X={},Y={}，宽{}像素,高{}像素".format(name,x, y, w, h))
         if mode == 1:
@@ -192,7 +195,7 @@ def searchPhotoCountsPcr(name, mode, x1, y1, counts):
         i = 0
         while i < counts:
             i += 1
-            x, y, w, h = pyautogui.locateOnScreen(img, grayscale=True,confidence=confidenPoint)
+            x, y, w, h = pyautogui.locateOnScreen(img, grayscale=True, confidence=confidenPoint)
             x, y = pyautogui.center((x, y, w, h))
             break
         # print("{}.png在屏幕中的位置是：X={},Y={}，宽{}像素,高{}像素".format(name,x, y, w, h))
@@ -217,7 +220,7 @@ def searchPhotoPcr(name, mode, c, d):
     img = my_cv_imread(filepath)  # 获取读取的图像
     while not found:
         try:
-            x, y, w, h = pyautogui.locateOnScreen(img, grayscale=True,confidence=confidenPoint)
+            x, y, w, h = pyautogui.locateOnScreen(img, grayscale=True, confidence=confidenPoint)
             x, y = pyautogui.center((x, y, w, h))
             print("{}.png在屏幕中的位置是：X={},Y={}，宽{}像素,高{}像素".format(name, x, y, w, h))
             if mode == 1:
@@ -245,7 +248,7 @@ def onlySearchPcr(name):
     img = my_cv_imread(filepath)  # 获取读取的图像
     while not found:
         try:
-            x, y, w, h = pyautogui.locateOnScreen(img, grayscale=True,confidence=confidenPoint)
+            x, y, w, h = pyautogui.locateOnScreen(img, grayscale=True, confidence=confidenPoint)
             x, y = pyautogui.center((x, y, w, h))
             print("{}.png在屏幕中的位置是：X={},Y={}，宽{}像素,高{}像素".format(name, x, y, w, h))
             found = True
@@ -274,7 +277,7 @@ def searchPhotoKg(name, mode, c, d):
     img = my_cv_imread(filepath)  # 获取读取的图像
     while not found:
         try:
-            x, y, w, h = pyautogui.locateOnScreen(img, grayscale=True,confidence = confidenPoint)
+            x, y, w, h = pyautogui.locateOnScreen(img, grayscale=True, confidence=confidenPoint)
             x, y = pyautogui.center((x, y, w, h))
             print("{}.png在屏幕中的位置是：X={},Y={}，宽{}像素,高{}像素".format(name, x, y, w, h))
             if mode == 1:
@@ -325,12 +328,14 @@ def dualListPhotoPcr(photoMap):
             time.sleep(15)
     return 1
 
+
 # 2022年5月1日19:34:12
-def scrollKg(x,y):
+def scrollKg(x, y):
     # time.sleep(1)
     x1, y1 = pyautogui.position()
+    pyautogui.moveTo(x,y)
+    pyautogui.dragRel(0,-100,duration = 0.3)
     pyautogui.moveTo(x, y)
-    pyautogui.scroll(60)
     pyautogui.click(button="left")
     if x1 != x1 & y1 != y1:
         pyautogui.moveTo(x1, y1)

@@ -58,11 +58,12 @@ def kmxAutoNew():
     count = 0
     gamePages = multiphotos.Photo()
     gamePagesMap = ['卡马逊黄',
-                    '坎公问号',
                     '坎公卡马逊确认',
+                    '坎公问号',
                     '坎公泰坦战队',
                     '坎公休息区',
                     '坎公特惠促销',
+                    '坎公保存神器',
                     '坎公装备取消',
                     '卡马逊商店',
                     '坎公装备页',
@@ -82,8 +83,9 @@ def kmxAutoNew():
             else:
                 continue
         elif "坎公问号".__eq__(gamePages.name):
-            dao.moveToKgAuto(x, y + 147, 1)
+            dao.moveToKgAuto(x + 66, y + 147, 1)
             dao.moveToKgAuto(x, y + 36, 1)
+            dao.moveToKgAuto(x + 423, y + 154, 1)
             continue
         elif "坎公休息区".__eq__(gamePages.name):
             # 先点回血，再点净化再点复活，复活优先。
@@ -104,6 +106,12 @@ def kmxAutoNew():
             chooseEquip()
             # dao.moveToKgAuto(gamePages.x + 137, gamePages.y + -206, 1)
             continue
+        elif "保存神器" in gamePages.name:
+            dao.moveToKgAuto(x - 3 ,y + 127,1)
+            dao.moveToKgAuto(x + 132 , y + 371 , 1)
+            # dao.moveToKgAuto(gamePages.x + 137, gamePages.y + -206, 1)
+            changeFlag()
+            break
         else:
             # 这里拿到了上面三选一的 名字 和XY坐标
             dao.moveToKgAuto(gamePages.x, gamePages.y, 1)
@@ -286,7 +294,7 @@ def returnKmx():
 
 if __name__ == '__main__':
     # chooseEquip()
-    fullAutoKmx()
-    # kmxAutoNew()
+    #fullAutoKmx()
+    kmxAutoNew()
 # fullAutoKmx()
 # missionAndGift()
