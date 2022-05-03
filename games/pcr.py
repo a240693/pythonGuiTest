@@ -245,6 +245,7 @@ def dailyMission(switch):
 def enterPvP():
     enterMap = ['主页', 'JJC防守成功', 'PJJC防守成功', 'PJJC防守成功2']
     gamePages = multiphotos.Photo()
+    count = 0
     while True:
         gamePages.loopSearch(enterMap)
         if "主页".__eq__(gamePages.name):
@@ -253,6 +254,10 @@ def enterPvP():
             break
         elif "JJC防守成功".__eq__(gamePages.name):
             dao.moveToPcr(gamePages.x + 47, gamePages.y + 174, 1)
+            count += 1
+            if count == 3:
+                dao.moveToPcr(gamePages.x + 48, gamePages.y + 393, 1)
+                count = 0
             result.writeResult(1, 'JJC防守成功')
         elif "PJJC" in gamePages.name:
             dao.moveToPcr(gamePages.x + 62, gamePages.y + 401, 1)
