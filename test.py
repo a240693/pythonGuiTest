@@ -58,7 +58,7 @@ def placeTest():
     countDown(0, 3)
     confidenPoint = 0.9
     x1, y1 = pyautogui.position();
-    name = '坎公装备取消'
+    name = '地下城商店返回'
     filepath = path + name + '.png'
     img = my_cv_imread(filepath)
     x, y, w, h = pyautogui.locateOnScreen(img, grayscale=True, confidence=confidenPoint)
@@ -70,6 +70,12 @@ def placeTest():
     pyautogui.moveTo(x, y)
 
 
+def scrollTest():
+    countDown(0, 3)
+    pyautogui.scroll(100, x=100, y=100)
+
+
 if __name__ == '__main__':
+    # scrollTest()
     placeTest()
     # fprocess()

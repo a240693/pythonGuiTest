@@ -644,7 +644,7 @@ def pcrUnderEX1():
             x = photoMap.x
             y = photoMap.y
             dao.moveToPcr(x, y, 1)
-            dao.searchPhotoPcr("地下城商店返回", 3, -100, -338)
+            dao.searchPhotoPcr("地下城商店返回", 3, -334, -37)
             time.sleep(2)
             for i in clickMaps:
                 dao.moveToPcr(x + i[0], y + i[1], 1)
@@ -676,7 +676,8 @@ def underWorldEnter():
 
 
 if __name__ == '__main__':
-    fullAuto(saveXY(13))
+    pcrUnderEX1()
+   # underWorld(1)
     # fullAuto(saveXY(7))
     # photoMap = multiphotos.Photo()
     # photoMaps = ["地下城失败页"]
