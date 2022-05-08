@@ -57,17 +57,20 @@ def kmxAuto():
 def kmxAutoNew():
     count = 0
     gamePages = multiphotos.Photo()
-    gamePagesMap = ['卡马逊黄',
-                    '坎公卡马逊确认',
-                    '坎公问号',
-                    '坎公泰坦战队',
-                    '坎公休息区',
-                    '坎公特惠促销',
-                    '坎公保存神器',
-                    '坎公装备取消',
-                    '卡马逊商店',
-                    '坎公装备页',
-                    '卡马逊主页']
+    gamePagesMap = [
+        '卡马逊黄',
+        '坎公卡马逊确认',
+        '坎公问号',
+        '坎公卡马逊灯泡',
+        '坎公泰坦战队',
+        '坎公休息区',
+        '坎公特惠促销',
+        '坎公保存神器',
+        '坎公装备取消',
+        '卡马逊商店',
+        '坎公装备页',
+        '卡马逊主页'
+    ]
     # 坎公卡马逊选择 暂时用不上。
     while flag:
         gamePages.name = "默认"
@@ -294,7 +297,7 @@ def returnKmx():
 
 if __name__ == '__main__':
     # chooseEquip()
-    #fullAutoKmx()
-    kmxAutoNew()
+    fullAutoKmx()
+    #kmxAutoNew()
 # fullAutoKmx()
 # missionAndGift()
