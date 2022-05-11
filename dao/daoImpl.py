@@ -333,13 +333,24 @@ def dualListPhotoPcr(photoMap):
 def scrollKg(x, y):
     # time.sleep(1)
     x1, y1 = pyautogui.position()
-    pyautogui.moveTo(x,y)
-    pyautogui.dragRel(0,-100,duration = 0.3)
+    pyautogui.moveTo(x, y)
+    pyautogui.dragRel(0, -100, duration=0.3)
     pyautogui.moveTo(x, y)
     pyautogui.click(button="left")
     if x1 != x1 & y1 != y1:
         pyautogui.moveTo(x1, y1)
         # pyautogui.click(button="left")
+
+
+def tapSpace(times):
+    for i in range(0, times):
+        pyautogui.press('space')
+        # print("按了第{}次".format(i+1))
+        time.sleep(0.3)
+
+
+if __name__ == "__main__":
+    tapSpace(6)
 # 开QQ
 # moveTo(121, 255);
 

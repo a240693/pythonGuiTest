@@ -21,13 +21,13 @@ class Photo:
         try:
             filepath = path + name + '.png'
             img = dao.my_cv_imread(filepath)  # 获取读取的图像
-            x, y, w, h = pyautogui.locateOnScreen(img, grayscale=False,confidence=0.9)
+            x, y, w, h = pyautogui.locateOnScreen(img, grayscale=False, confidence=0.9)
             x, y = pyautogui.center((x, y, w, h))
             self.writeSelf(name, x, y)
             print("{}.png在屏幕中的位置是：X={},Y={}，宽{}像素,高{}像素".format(name, x, y, w, h))
             return 1
         except Exception as e:
-            #print(e)
+            # print(e)
             return 0
 
     # 随便你传几张照片进来，找到哪张就返回哪张照片的坐标和名字。
@@ -59,6 +59,27 @@ class Photo:
                 print("找不到5次，休息0.3秒")
                 time.sleep(0.3)
                 count = 0
+
+    def searchPhoto(self, name):
+        count = 0
+        found = False
+        while not found:
+            try:
+                filepath = path + name + '.png'
+                img = dao.my_cv_imread(filepath)  # 获取读取的图像
+                x, y, w, h = pyautogui.locateOnScreen(img, grayscale=True, confidence=0.9)
+                x, y = pyautogui.center((x, y, w, h))
+                print("{}.png在屏幕中的位置是：X={},Y={}，宽{}像素,高{}像素".format(name, x, y, w, h))
+                found = True
+                self.writeSelf(name, x, y)
+                return self
+            except:
+                count = count + 1
+                print('{}.png没找到，第{}次,3秒后重试'.format(name, count))
+                time.sleep(3)
+                if count > 20:
+                    print("超过{}次没找到，判断为卡住，请人工协助。".format(count))
+                    exit()
 
     def __str__(self):
         return print(self.name, self.x, self.y)

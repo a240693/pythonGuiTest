@@ -59,3 +59,7 @@ def my_cv_imread(filepath):
 
 def scrollKg(x,y):
     return daoImpl.scrollKg(x,y)
+
+# 2022年5月11日11:58:23
+def tapSpace(times):
+    return daoImpl.tapSpace(times)
