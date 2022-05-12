@@ -346,7 +346,7 @@ def tapSpace(times):
     for i in range(0, times):
         pyautogui.press('space')
         # print("按了第{}次".format(i+1))
-        time.sleep(0.3)
+        time.sleep(1)
 
 
 if __name__ == "__main__":

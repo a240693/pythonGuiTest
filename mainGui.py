@@ -1,6 +1,6 @@
 import easygui as gui
 from easygui.boxes.choice_box import ChoiceBox
-from games import kg, pcr, other
+from games import kg, pcr, other,mrfz
 
 
 # 好像没有办法做到修改父类所在的文件的方法这种事情。
@@ -13,7 +13,11 @@ class alter(ChoiceBox):
 
 
 # 2022年4月23日01:02:30 增加全打地下城按钮 dailyMission(1)。
-choices = ("明日方舟",
+# 2022年5月12日11:18:47 新增方舟游戏功能测试。
+choices = ("=明日方舟==============",
+           "半自动换人休息",
+           "公开招募与信用点",
+           "基建页收取",
            "=pcr===================",
            "地下城Ex2",
            "地下城Ex3",
@@ -95,3 +99,10 @@ if __name__ == "__main__":
             pcr.missionAndGift()
         elif choice == "日常全地下城":
             pcr.dailyMission(1)
+        # 方舟。
+        elif choice == "半自动换人休息":
+            mrfz.restPeople()
+        elif choice == "公开招募与信用点":
+            mrfz.allDaily()
+        elif choice == "基建页收取":
+            mrfz.RDdaily()

@@ -10,7 +10,7 @@ def restPeople():
     photoMaps = [
         # '注意力涣散',
         '粥休息室确认',
-        #'粥宿舍',
+        # '粥宿舍',
         '粥宿舍二次确认'
     ]
     peopleMaps = [  # 第1-5个人
@@ -46,7 +46,11 @@ def restPeople():
 def RDdaily():
     flag = True
     photoMap = multiphotos.Photo()
-    photoMaps = ['粥会客室', '粥每日线索', '粥基建总览']
+    photoMaps = [
+        '粥会客室',
+        '粥每日线索',
+        '粥基建总览',
+    ]
     moveMaps = [
         (775, 0),  # 会客室（线索 0
         (47, 360),  # 左下角收取 1
@@ -96,6 +100,8 @@ def trustDaily():
         dao.moveTo(x, y)
         if "领取" in name:
             buyTrust()
+        elif "收取" in name:
+            dao.tapSpace(2)
 
 
 # 2022年5月11日12:11:04
@@ -126,6 +132,7 @@ def buyTrust():
             dao.moveToMRFZ(x + moveMaps[3][0], y + moveMaps[3][1], 1)
             break
 
+
 # 2022年5月11日13:51:02
 # 每日招聘。
 def employDaily():
@@ -140,7 +147,7 @@ def employDaily():
         "粥公开招募",
     ]
     moveMaps = [
-        (-717, -348), # 左上角退出 0
+        (-717, -348),  # 左上角退出 0
     ]
     photoMap = photoMap.searchPhoto(onlyOneMaps[0])
     ex = photoMap.x
@@ -152,19 +159,20 @@ def employDaily():
             x = photoMap.x
             y = photoMap.y
             name = photoMap.name
-            dao.moveToMRFZ(x, y,1)
+            dao.moveToMRFZ(x, y, 1)
             if "粥跳过" in name:
                 dao.tapSpace(5)
         count += 1
-    dao.moveToMRFZ(ex + moveMaps[0][0],ey + moveMaps[0][1],1)
+    dao.moveToMRFZ(ex + moveMaps[0][0], ey + moveMaps[0][1], 1)
+
 
 # 2022年5月11日12:52:12
 def allDaily():
     trustDaily()
     employDaily()
 
+
 if __name__ == "__main__":
+    # allDaily()
     # RDdaily()
     restPeople()
-    # trustDaily()
-    # employDaily()
