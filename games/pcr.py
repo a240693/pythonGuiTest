@@ -675,17 +675,81 @@ def underWorldEnter():
     dao.searchPhotoPcr('战斗开始界面定标1EX3', 3, 182, 93)
 
 
+# 2022年5月14日16:21:57 自动过剧情。
+def autoText():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "pcr剧情跳过",
+        "PCR剧情菜单",
+        "pcr剧情跳过确认",
+        "pcr剧情关闭",
+        "pcr连续阅读无语音",
+    ]
+    moveMaps = [
+        (107, 225),  # pcr剧情跳过确认 0
+        (3, 292),  # pcr连续阅读界面，无语音选项 1
+    ]
+    onlyOneMaps = [
+
+    ]
+    while flag:
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+        if "确认" in name:
+            dao.moveToPcr(x + moveMaps[0][0], y + moveMaps[0][1], 1)
+        elif "无语音" in name:
+            dao.moveToPcr(x + moveMaps[1][0], y + moveMaps[1][1], 1)
+        else:
+            dao.moveToPcr(x, y, 1)
+
+
+# 2022年5月14日16:53:02 自动过信赖度。
+def autoTrust():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "pcr信任新内容",
+        "pcr无语音",
+        "pcr选项一",
+        "pcr选项二",
+        "pcr选项三",
+        "pcr信任结算",
+        "pcr对话框",
+        "pcr信任度最大",
+        "pcr0信任",
+    ]
+    moveMaps = [
+        (-119, -358),  # pcr信任度最大时返回 0
+    ]
+    onlyOneMaps = [
+
+    ]
+    while flag:
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+        if "对话框" in name:
+            dao.moveToPcr(x, y, 2)
+        elif "最大" in name:
+            dao.moveToPcr(x + moveMaps[0][0], y + moveMaps[0][1], 1)
+        else:
+            dao.moveToPcr(x, y, 1)
+
+
 if __name__ == '__main__':
-    pcrUnderEX1()
-   # underWorld(1)
-    # fullAuto(saveXY(7))
-    # photoMap = multiphotos.Photo()
-    # photoMaps = ["地下城失败页"]
-    # photoMap.loopSearch(photoMaps)
-    # if "地下城失败页".__eq__(photoMap.name):
-    #     dao.moveToPcr(photoMap.x + -51, photoMap.y + 453, 1)
-    # else:
-    #     dao.moveToPcr(photoMap.x, photoMap.y, 1)
+    autoTrust()
+    #autoText()
+# underWorld(1)
+# fullAuto(saveXY(7))
+# photoMap = multiphotos.Photo()
+# photoMaps = ["地下城失败页"]
+# photoMap.loopSearch(photoMaps)
+# if "地下城失败页".__eq__(photoMap.name):
+#     dao.moveToPcr(photoMap.x + -51, photoMap.y + 453, 1)
+# else:
+#     dao.moveToPcr(photoMap.x, photoMap.y, 1)
 # fullAuto(saveXY(7))
 # autoMapFullAuto()
 # missionAndGift()
