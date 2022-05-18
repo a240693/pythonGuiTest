@@ -115,6 +115,7 @@ def autoMapFullAuto():
         gamePages.x = 0
         gamePages.y = 0
         gamePagesMaps = [
+            'pcr已攻略',
             '推图挑战4',
             '推图下一步',
             'PCR信赖章节取消',
@@ -126,7 +127,7 @@ def autoMapFullAuto():
             '剧情',
             '主页',
             'pcr升级确认',
-            '推图挑战'
+            '推图挑战',
         ]
         gamePages.loopSearch(gamePagesMaps)
         # 这里拿到了上面三选一的 名字 和XY坐标
@@ -138,13 +139,16 @@ def autoMapFullAuto():
         elif ("推图下一步".__eq__(gamePages.name)):
             selfNewXY(gamePages, -76, 398)
         elif ("胜利页下一步".__eq__(gamePages.name)):
-            selfNewXY(gamePages, 296, 347)
+            selfNewXY(gamePages, 337, 341)
         elif ("限时商店".__eq__(gamePages.name)):
             selfNewXY(gamePages, 20, 108)
         elif ("PCR信赖章节取消".__eq__(gamePages.name)):
             selfNewXY(gamePages, -105, 52)
         elif '活动主页'.__eq__(gamePages.name) | '主页'.__eq__(gamePages.name):
             break;
+        elif 'pcr已攻略'.__eq__(gamePages.name):
+            changeFlag()
+            break
         daoImpl.moveToPcr(gamePages.x, gamePages.y, 3)
         if flag == 1:
             time.sleep(10)
@@ -161,6 +165,10 @@ def setFlag():
         count -= 20
         print("还剩下{}秒".format(count))
         time.sleep(20)
+    changeFlag()
+
+
+def changeFlag():
     global flag
     flag = False
 
@@ -550,10 +558,11 @@ def choosePage(pages, choice):
 #  小小甜心 x,y 为 86, -184
 def fullAuto(xy):
     # 主线推图第一页 303, -168
+    global flag
     flag = True
     count = 4
     i = 0
-    while i < 15:
+    while flag:
         photoMap = multiphotos.Photo()
         photoMaps = ['主线推图第一页']
         mainMaps = ['活动主页', '主页']
@@ -563,7 +572,7 @@ def fullAuto(xy):
         dao.moveToPcr(mainMap.x + xy[1], mainMap.y + xy[2], 1)
         photoMap.loopSearch(photoMaps)
         # 点右边15次切到最新。
-        dao.moveToPcr(photoMap.x + 269, photoMap.y - 171, 14)
+        dao.moveToPcr(photoMap.x + 269, photoMap.y - 171, min(i + 1, 14))
         autoMapFullAuto()
         py.moveTo(mainMap.x + 291, mainMap.y - 379)
         py.dragTo(mainMap.x + 612, mainMap.y - 370, button='left', duration=0.3)
@@ -585,6 +594,10 @@ def saveXY(choice):
     loadXY.append(('四兽士二', 52, -274))  # 11
     loadXY.append(('四兽士三', 160, -233))  # 12
     loadXY.append(('四兽士困难', 141, -320))  # 13
+    loadXY.append(('伊利亚普通', 84, -201))  # 14
+    loadXY.append(('伊利亚困难', 58, -263))  # 15
+    loadXY.append(('和服M普通', 83, -236))  # 16
+    loadXY.append(('和服M困难', 4, -151))  # 17
     return loadXY[choice - 1]
 
 
@@ -739,8 +752,10 @@ def autoTrust():
 
 
 if __name__ == '__main__':
-    autoTrust()
-    #autoText()
+    fullAuto(saveXY(16))
+    # underWorldSmall()
+    # autoTrust()
+    # autoText()
 # underWorld(1)
 # fullAuto(saveXY(7))
 # photoMap = multiphotos.Photo()
