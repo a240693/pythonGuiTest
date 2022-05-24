@@ -1,3 +1,4 @@
+import cv2
 import pyautogui
 import time
 import _thread
@@ -294,10 +295,55 @@ def returnKmx():
     photoMap.append(('探险初始页', 1, 84, -274))
     dao.dualListPhotoKg(photoMap)
 
+# 2022年5月24日11:25:28 半自动强化装备
+def halfAutoStr():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "坎公进化石确认",
+        "坎公普通进化",
+        "坎公确定进化",
+        "坎公进化结束",
+    ]
+    moveMaps = [
+        (-88, -402), # 0 自动强化结束后返回选择装备界面。
+    ]
+    while flag:
+        photoMap = photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        x = photoMap.x
+        y = photoMap.y
+        if "结束" in name:
+            dao.moveToKgAuto(x + moveMaps[0][0],y+moveMaps[0][1],1)
+            time.sleep(2)
+        else :
+            dao.moveToKgAuto(x,y,1)
+            time.sleep(1)
+
+# 坎公用线程启动器。 2022年5月24日11:52:30
+def kgSwitch(threadName):
+    try:
+        global flag
+        flag = True
+        _thread.start_new_thread(threadName, ())
+        _thread.start_new_thread(waitKey, ())
+    except:
+        print("Error: 无法启动线程")
+
+    while 1:
+        if flag == False:
+            break
+        pass
+
+# 坎公用等待“0”来更改flag 2022年5月24日11:54:00
+def waitKey():
+    num = int(input())
+    while flag:
+        if 0 == num:
+            changeFlag()
 
 if __name__ == '__main__':
     # chooseEquip()
-    fullAutoKmx()
+    kgSwitch(halfAutoStr)
     #kmxAutoNew()
 # fullAutoKmx()
 # missionAndGift()
