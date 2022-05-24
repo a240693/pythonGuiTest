@@ -208,11 +208,16 @@ def open(choice):
 
 def enterGamePcr(choice):
     photoMap = multiphotos.Photo()
-    photoMaps = ["pcr开始", '主界面关闭', '主页商店', 'pcr竞赛开始']
+    photoMaps = [
+        "pcr开始",
+        '主界面关闭',
+        '主页商店',
+        'pcr竞赛开始',
+    ]
     while True:
         photoMap.firstClickSearch(photoMaps)
         if '主界面关闭'.__eq__(photoMap.name):
-            dao.moveToPcr(photoMap.x + 165, photoMap.y + 215, 1)
+            dao.moveToPcr(photoMap.x, photoMap.y, 1)
         elif '主页商店'.__eq__(photoMap.name):
             break
         else:
@@ -752,7 +757,7 @@ def autoTrust():
 
 
 if __name__ == '__main__':
-    fullAuto(saveXY(16))
+    fullAuto(saveXY(17))
     # underWorldSmall()
     # autoTrust()
     # autoText()
