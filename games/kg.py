@@ -82,7 +82,7 @@ def kmxAutoNew():
         y = gamePages.y
         if "卡马逊主页".__eq__(gamePages.name):
             # 如果检测到了卡马逊主页就直接退出。
-            if (count > 8):
+            if (count > 4):
                 break
             else:
                 continue
@@ -126,11 +126,13 @@ def kmxAutoNew():
 
 
 def chooseEquip():
-    equipMaps = ["坎公高阶神器",
-                 "坎公高阶神器",
-                 "坎公中阶神器",
-                 "坎公低阶神器",
-                 "坎公获得银币"]
+    equipMaps = [
+        "坎公高阶神器",
+         "坎公高阶神器",
+         "坎公中阶神器",
+         "坎公低阶神器",
+         "坎公获得银币",
+     ]
 
     photoMap = multiphotos.Photo()
     # moveMaps = []
