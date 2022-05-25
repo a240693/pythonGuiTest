@@ -111,8 +111,8 @@ def kmxAutoNew():
             # dao.moveToKgAuto(gamePages.x + 137, gamePages.y + -206, 1)
             continue
         elif "保存神器" in gamePages.name:
-            dao.moveToKgAuto(x - 3 ,y + 127,1)
-            dao.moveToKgAuto(x + 132 , y + 371 , 1)
+            dao.moveToKgAuto(x - 3, y + 127, 1)
+            dao.moveToKgAuto(x + 132, y + 371, 1)
             # dao.moveToKgAuto(gamePages.x + 137, gamePages.y + -206, 1)
             changeFlag()
             break
@@ -128,11 +128,11 @@ def kmxAutoNew():
 def chooseEquip():
     equipMaps = [
         "坎公高阶神器",
-         "坎公高阶神器",
-         "坎公中阶神器",
-         "坎公低阶神器",
-         "坎公获得银币",
-     ]
+        "坎公高阶神器",
+        "坎公中阶神器",
+        "坎公低阶神器",
+        "坎公获得银币",
+    ]
 
     photoMap = multiphotos.Photo()
     # moveMaps = []
@@ -297,6 +297,7 @@ def returnKmx():
     photoMap.append(('探险初始页', 1, 84, -274))
     dao.dualListPhotoKg(photoMap)
 
+
 # 2022年5月24日11:25:28 半自动强化装备
 def halfAutoStr():
     photoMap = multiphotos.Photo()
@@ -307,7 +308,7 @@ def halfAutoStr():
         "坎公进化结束",
     ]
     moveMaps = [
-        (-88, -402), # 0 自动强化结束后返回选择装备界面。
+        (-88, -402),  # 0 自动强化结束后返回选择装备界面。
     ]
     while flag:
         photoMap = photoMap.loopSearch(photoMaps)
@@ -315,11 +316,12 @@ def halfAutoStr():
         x = photoMap.x
         y = photoMap.y
         if "结束" in name:
-            dao.moveToKgAuto(x + moveMaps[0][0],y+moveMaps[0][1],1)
+            dao.moveToKgAuto(x + moveMaps[0][0], y + moveMaps[0][1], 1)
             time.sleep(2)
-        else :
-            dao.moveToKgAuto(x,y,1)
+        else:
+            dao.moveToKgAuto(x, y, 1)
             time.sleep(1)
+
 
 # 坎公用线程启动器。 2022年5月24日11:52:30
 def kgSwitch(threadName):
@@ -336,6 +338,7 @@ def kgSwitch(threadName):
             break
         pass
 
+
 # 坎公用等待“0”来更改flag 2022年5月24日11:54:00
 def waitKey():
     num = int(input())
@@ -343,9 +346,10 @@ def waitKey():
         if 0 == num:
             changeFlag()
 
+
 if __name__ == '__main__':
     # chooseEquip()
     kgSwitch(halfAutoStr)
-    #kmxAutoNew()
+    # kmxAutoNew()
 # fullAutoKmx()
 # missionAndGift()

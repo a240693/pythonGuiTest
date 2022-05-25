@@ -755,9 +755,39 @@ def autoTrust():
         else:
             dao.moveToPcr(x, y, 1)
 
+# 2022年5月25日18:15:17 自动抽奖。
+def autoEventEgg():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "pcr抽100次",
+        "pcr查看获得道具",
+        "pcr再次交换",
+        "pcr再次交换2",
+        "pcr扭蛋确认",
+        "pcr扭蛋结束",
+    ]
+    moveMaps = [
+        (46, -58),  # 0 初始页面抽100次。
+    ]
+    onlyOneMaps = [
+
+    ]
+    while flag:
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+        if "结束" in name:
+            dao.moveToPcr(x, y, 1)
+            changeFlag()
+        elif "100" in name:
+            dao.moveToPcr(x + moveMaps[0][0], y + moveMaps[0][1], 1)
+        else:
+            dao.moveToPcr(x, y, 1)
+
 
 if __name__ == '__main__':
-    fullAuto(saveXY(17))
+    autoEventEgg()
     # underWorldSmall()
     # autoTrust()
     # autoText()
