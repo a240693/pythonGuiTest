@@ -255,7 +255,7 @@ def day2buy(choice):
     photoMap.append(('进化石扫荡', 1, -35, -147))
     photoMap.append(('进化石扫荡', 1, 0, 0))
     photoMap.append(('坎公进化石确认', 1, 0, 0))
-    photoMap.append(('坎公商店确认', 3, 0, 0))
+    photoMap.append(('坎公商店确认', 1, 0, 0))
     photoMap.append(('进化石页面', 1, -89, 2))
     photoMap.append(('进化石页面', 1, -89, 2))
     photoMap.append(('探险初始页', 1, -723, -174))
@@ -294,7 +294,7 @@ def returnKmx():
     # 退出 -52, -465
     # 返回 127, -170
     photoMap.append(('卡马逊主页', 1, -6, -467))
-    photoMap.append(('探险初始页', 1, 84, -274))
+    photoMap.append(('探险初始页', 1, 88, -189))
     dao.dualListPhotoKg(photoMap)
 
 
