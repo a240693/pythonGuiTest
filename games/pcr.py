@@ -109,6 +109,7 @@ def autoMapNew():
 
 def autoMapFullAuto():
     gamePages = multiphotos.Photo()
+    count = 0
     while True:
         flag = 0
         gamePages.name = "默认"
@@ -147,8 +148,11 @@ def autoMapFullAuto():
         elif '活动主页'.__eq__(gamePages.name) | '主页'.__eq__(gamePages.name):
             break;
         elif 'pcr已攻略'.__eq__(gamePages.name):
-            changeFlag()
-            break
+            selfNewXY(gamePages, 740, -191)
+            if (count == 1):
+                changeFlag()
+                break
+            count += 1
         daoImpl.moveToPcr(gamePages.x, gamePages.y, 3)
         if flag == 1:
             time.sleep(10)
@@ -577,7 +581,7 @@ def fullAuto(xy):
         dao.moveToPcr(mainMap.x + xy[1], mainMap.y + xy[2], 1)
         photoMap.loopSearch(photoMaps)
         # 点右边15次切到最新。
-        dao.moveToPcr(photoMap.x + 269, photoMap.y - 171, min(i + 1, 14))
+        dao.moveToPcr(photoMap.x + 269, photoMap.y - 171, min(i + 1, 15))
         autoMapFullAuto()
         py.moveTo(mainMap.x + 291, mainMap.y - 379)
         py.dragTo(mainMap.x + 612, mainMap.y - 370, button='left', duration=0.3)
@@ -603,6 +607,8 @@ def saveXY(choice):
     loadXY.append(('伊利亚困难', 58, -263))  # 15
     loadXY.append(('和服M普通', 83, -236))  # 16
     loadXY.append(('和服M困难', 4, -151))  # 17
+    loadXY.append(('仙境普通', 62, -253))  # 18
+    loadXY.append(('仙境困难', 171, -307))  # 19
     return loadXY[choice - 1]
 
 
@@ -787,12 +793,12 @@ def autoEventEgg():
 
 
 if __name__ == '__main__':
-    autoEventEgg()
+    # autoEventEgg()
     # underWorldSmall()
     # autoTrust()
     # autoText()
 # underWorld(1)
-# fullAuto(saveXY(7))
+    fullAuto(saveXY(19))
 # photoMap = multiphotos.Photo()
 # photoMaps = ["地下城失败页"]
 # photoMap.loopSearch(photoMaps)
