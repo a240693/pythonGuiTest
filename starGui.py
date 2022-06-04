@@ -1,5 +1,5 @@
 import easygui as gui
-from games import pcr
+from games import pcrStar
 
 choices = ("自动换防时间：",
            "不等",
@@ -21,15 +21,15 @@ while True:
     choice = ''
     choice = main()
     if choice == "3分钟":
-        pcr.autoChangeDefenceP(3)
+        pcrStar.autoChangeDefenceP(3)
     elif choice == "10分钟":
-        pcr.autoChangeDefenceP(10)
+        pcrStar.autoChangeDefenceP(10)
     elif choice == "不等":
-        pcr.autoChangeDefenceP(0.01)
+        pcrStar.autoChangeDefenceP(0.01)
     elif choice == "20分钟":
-        pcr.autoChangeDefenceP(20)
+        pcrStar.autoChangeDefenceP(20)
     elif choice == "随机(1-20)":
-        pcr.autoChangeDefenceP(0)
+        pcrStar.autoChangeDefenceP(0)
     elif choice == "关闭":
         break
 

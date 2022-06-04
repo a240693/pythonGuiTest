@@ -4,7 +4,7 @@ import time
 from . import dao
 
 path = 'F:\\pyTest\\'
-
+# path = 'D:\\pyTest\\'
 
 class Photo:
     def __init__(self):

@@ -12,8 +12,8 @@ def searchPhotoPcr(name, mode, c, d):
 
 
 # pcr用，只找一次，1 点一次 2 点两次 3 隔点时间点两次，固定了偏移量。
-def searchPhotoOncePcr(name, mode):
-    return daoImpl.searchPhotoOncePcr(name, mode)
+def searchPhotoOnce(name, mode):
+    return daoImpl.searchPhotoOnce(name, mode)
 
 
 # 1 点一次 2 点两次  3 隔点时间点两次，有偏移量，比较万用的坎公用的方法。

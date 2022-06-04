@@ -58,10 +58,11 @@ def placeTest():
     countDown(0, 3)
     confidenPoint = 0.9
     x1, y1 = pyautogui.position();
-    name = '地下城商店返回'
+    name = 'star\\主界面关闭'
     filepath = path + name + '.png'
     img = my_cv_imread(filepath)
     x, y, w, h = pyautogui.locateOnScreen(img, grayscale=True, confidence=confidenPoint)
+    print(x,y)
     x, y = pyautogui.center((x, y, w, h))
 
     print("{} 颜色为：{},该坐标为{}".format(name, (getcolour(x, y)), (x, y)));

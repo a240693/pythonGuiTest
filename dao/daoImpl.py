@@ -5,6 +5,7 @@ import time
 
 # from . import test
 path = 'F:\\pyTest\\'
+# path = 'D:\\pyTest\\'
 # 2022年4月28日11:49:33
 confidenPoint = 0.95
 
