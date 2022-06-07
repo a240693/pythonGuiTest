@@ -311,9 +311,21 @@ def dailyPvP(choice):
         gamePages.loopSearch(gamePagesMap2)
         print("PJJC找到的是：{}".format(gamePages.name))
         daoImpl.moveTo(gamePages.x - 76, gamePages.y + 434)
-    dao.searchPhotoPcr('主页', 3, 0, 0)
+    exitPvP()
 
-
+def exitPvP():
+    finalPageMaps = ['pcr升级确认', '主页']
+    photoMap = multiphotos.Photo()
+    while True:
+        photoMap.loopSearch(finalPageMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name =photoMap.name
+        if "主页".__eq__(name):
+            dao.moveToPcr(x,y,1)
+            break;
+        elif "确认" in name :
+            dao.moveToPcr(x,y,1)
 # 小号用阉割版
 def dailyMissionSmall():
     shopPcr()
@@ -761,6 +773,7 @@ def autoTrust():
         else:
             dao.moveToPcr(x, y, 1)
 
+
 # 2022年5月25日18:15:17 自动抽奖。
 def autoEventEgg():
     photoMap = multiphotos.Photo()
@@ -797,8 +810,9 @@ if __name__ == '__main__':
     # underWorldSmall()
     # autoTrust()
     # autoText()
-# underWorld(1)
-    fullAuto(saveXY(19))
+    # underWorld(1)
+    #fullAuto(saveXY(19))
+    exitPvP()
 # photoMap = multiphotos.Photo()
 # photoMaps = ["地下城失败页"]
 # photoMap.loopSearch(photoMaps)
