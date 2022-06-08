@@ -313,19 +313,23 @@ def dailyPvP(choice):
         daoImpl.moveTo(gamePages.x - 76, gamePages.y + 434)
     exitPvP()
 
+
 def exitPvP():
     finalPageMaps = ['pcr升级确认', '主页']
     photoMap = multiphotos.Photo()
     while True:
+        time.sleep(3)
         photoMap.loopSearch(finalPageMaps)
         x = photoMap.x
         y = photoMap.y
-        name =photoMap.name
+        name = photoMap.name
         if "主页".__eq__(name):
-            dao.moveToPcr(x,y,1)
+            dao.moveToPcr(x, y, 1)
             break;
-        elif "确认" in name :
-            dao.moveToPcr(x,y,1)
+        elif "确认" in name:
+            dao.moveToPcr(x, y, 1)
+
+
 # 小号用阉割版
 def dailyMissionSmall():
     shopPcr()
@@ -811,8 +815,8 @@ if __name__ == '__main__':
     # autoTrust()
     # autoText()
     # underWorld(1)
-    #fullAuto(saveXY(19))
-    exitPvP()
+    # fullAuto(saveXY(19))
+    underWorldSmall()
 # photoMap = multiphotos.Photo()
 # photoMaps = ["地下城失败页"]
 # photoMap.loopSearch(photoMaps)
