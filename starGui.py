@@ -8,6 +8,7 @@ choices = ("自动换防时间：",
            "20分钟",
            "随机(1-20)",
            "====================",
+           "JJC击剑",
            "关闭")
 
 def main():
@@ -30,6 +31,8 @@ while True:
         pcrStar.autoChangeDefenceP(20)
     elif choice == "随机(1-20)":
         pcrStar.autoChangeDefenceP(0)
+    elif choice == "JJC击剑":
+        pcrStar.jjcStart()
     elif choice == "关闭":
         break
 

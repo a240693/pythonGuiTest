@@ -661,7 +661,7 @@ def battleFloor5():
         dao.searchPhotoPcr('战斗开始界面定标1EX3', 3, 182, 93)
         time.sleep(60)
         if i == 4:
-            photoMaps = ["地下城失败页", "下一步EX3"]
+            photoMaps = ["下一步EX3","地下城失败页"]
         photoMap.loopSearch(photoMaps)
         if "地下城失败页".__eq__(photoMap.name):
             dao.moveToPcr(photoMap.x + -51, photoMap.y + 453, 1)
@@ -815,8 +815,7 @@ if __name__ == '__main__':
     # autoTrust()
     # autoText()
     # underWorld(1)
-    # fullAuto(saveXY(19))
-    underWorldSmall()
+    fullAuto(saveXY(19))
 # photoMap = multiphotos.Photo()
 # photoMaps = ["地下城失败页"]
 # photoMap.loopSearch(photoMaps)
