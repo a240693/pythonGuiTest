@@ -111,7 +111,7 @@ def searchTarget():
     photoMap = multiphotos.Photo()
     photoMaps = [
         # "star\\仇人头像",
-        "star\\仇人ID",
+        #"star\\仇人ID",
         # "star\\仇人勋章",
         "star\\仇人整块",
     ]
@@ -223,6 +223,14 @@ def changeManJJC():
         dao.searchPhotoPcr('star\\防御页总战力', 3, 631, 98)
         # print("正在更换第{}套阵容的第{}队".format(pages[choice[0]],count+1))
         count = count + 1
+
+def newJJCenter(auto,cdCheck,sleepTime):
+    global flag
+    flag = True
+    while 1:
+        print(auto,cdCheck,sleepTime)
+        time.sleep(2)
+    #searchTarget()
 
 
 if __name__ == "__main__":
