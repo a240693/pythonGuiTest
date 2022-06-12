@@ -8,7 +8,7 @@ choices = (
     "自动",
     "碎CD",
     "间隔调整",
-    "默认",
+    # "默认",
     "=================================",
     "关闭",
 )
@@ -22,9 +22,11 @@ def test(name):
     gui.msgbox(name)
 
 
-def inputBox():
-    return gui.integerbox(msg='请输入间隔', title='间隔：', default=None, lowerbound=0, upperbound=9999, image=None, root=None)
-
+def inputBox(switch):
+    if switch == 0:
+        return gui.integerbox(msg='请输入间隔下限', title='间隔：', default=None, lowerbound=0, upperbound=9999, image=None, root=None)
+    elif switch == 1:
+        return gui.integerbox(msg='请输入间隔上限', title='间隔：', default=None, lowerbound=0, upperbound=9999, image=None,root=None)
 
 def jjcStart(auto, cdCheck, sleepTime):
     try:
@@ -57,14 +59,21 @@ def start():
                 elif "碎CD".__eq__(i):
                     cdCheck = 1
                 elif "间隔调整".__eq__(i):
-                    sleepTime = inputBox()
+                    sleepTimeS = inputBox(0)
+                    sleepTimeE = inputBox(1)
+                    if sleepTimeS > sleepTimeE:
+                        temp = sleepTimeS
+                        sleepTimeS = sleepTimeE
+                        sleepTimeE = temp
             if flag1:
-                jjcStart(auto, cdCheck, sleepTime)
+                # jjcStart(auto, cdCheck, sleepTime)
+                print("是否自动：{},是否碎CD：{}，间隔下限为：{},间隔上限为:{}".format(auto,cdCheck,sleepTimeS,sleepTimeE))
+                pcrStar.jjcStart(auto,cdCheck,sleepTimeS,sleepTimeE)
         except:
             auto = 0
             cdCheck = 0
             sleepTime = 5 * 60
-            jjcStart(auto, cdCheck, sleepTime)
+            pcrStar.jjcStart(auto, cdCheck, sleepTimeS,sleepTimeE)
             print("默认")
 
 
