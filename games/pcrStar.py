@@ -124,7 +124,6 @@ def searchTarget(auto, cdCheck, sleepTimeS,sleepTimeE):
     moveMaps = [
         (158,213), # 买5次次数确认。
     ]
-    sleepTime = random.randint(sleepTimeS,sleepTimeE)
     # 不为0，就自动开始战斗。
     if auto != 0:
         onlyOneMap.append("star\\jjc战斗开始")
@@ -134,6 +133,9 @@ def searchTarget(auto, cdCheck, sleepTimeS,sleepTimeE):
     # 为0，不碎钻
     elif cdCheck == 0:
         moveMaps.append((-179, 146))
+        sleepTimeS = max(300,sleepTimeS)
+        sleepTimeE = min(302,sleepTimeE)
+    sleepTime = random.randint(sleepTimeS, sleepTimeE)
     while flag:
         switch = 1
         for i in photoMaps:
