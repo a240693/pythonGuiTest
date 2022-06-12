@@ -128,10 +128,14 @@ def searchTarget():
             if 1 != result:
                 switch = 0
                 break
+        # 没找到就重新刷新。
         if 0 == switch:
             photoMap.searchPhoto(onlyOneMap[0])
             click(photoMap)
         else:
+            # 找到了就点击仇人。
+            # 新逻辑，点击仇人之前先换人。
+            changeManEnter()
             click(photoMap)
             while True:
                 photoMap.loopSearch(onlyOneMap)
@@ -139,6 +143,10 @@ def searchTarget():
                 if "战斗开始" in photoMap.name:
                     break;
             backSearchTarget()
+
+def changeManEnter():
+    dao.searchPhotoPcr("star\\jjc防守",3,0,0)
+    changeManJJC()
 
 # 从战斗结束页面返回主页面 2022年6月10日22:19:08
 def backSearchTarget():
@@ -152,8 +160,7 @@ def backSearchTarget():
         photoMap.loopSearch(photoMaps)
         name = photoMap.name
         if "防守" in name:
-            click(photoMap)
-            changeManJJC()
+            # changeManEnter()
             break;
         else:
             click(photoMap)
@@ -234,7 +241,7 @@ def newJJCenter(auto,cdCheck,sleepTime):
 
 
 if __name__ == "__main__":
-    # jjcStart()
     jjcStart()
+    # searchTarget()
     # backSearchTarget()
     # changeUpDown(1)
