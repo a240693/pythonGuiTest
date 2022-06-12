@@ -151,6 +151,7 @@ def searchTarget(auto, cdCheck, sleepTimeS,sleepTimeE):
             # 新逻辑，点击仇人之前先换人。
             changeManEnter()
             click(photoMap)
+            time.sleep(10)
             while True:
                 photoMap.loopSearch(onlyOneMap)
                 if "五次" in photoMap.name:
