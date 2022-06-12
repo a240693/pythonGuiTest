@@ -72,7 +72,8 @@ def start():
         except:
             auto = 0
             cdCheck = 0
-            sleepTime = 5 * 60
+            sleepTimeS = 5 * 60
+            sleepTimeE = 5 * 60 + 2
             pcrStar.jjcStart(auto, cdCheck, sleepTimeS,sleepTimeE)
             print("默认")
 

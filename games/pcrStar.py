@@ -120,9 +120,11 @@ def searchTarget(auto, cdCheck, sleepTimeS,sleepTimeE):
         "star\\jjc结束下一步",  # 1
         "star\\jjc五次次数", # 2
         "star\\jjc碎钻", #3
+        "star\\jjc碎钻二次确认",
     ]
     moveMaps = [
-        (158,213), # 买5次次数确认。
+        (158,213), # 0 买5次次数确认。
+        (146, 193) , # 1 碎钻二次确认，直接碎钻。
     ]
     # 不为0，就自动开始战斗。
     if auto != 0:
@@ -158,8 +160,10 @@ def searchTarget(auto, cdCheck, sleepTimeS,sleepTimeE):
                 photoMap.loopSearch(onlyOneMap)
                 if "五次" in photoMap.name:
                     click(photoMap,moveMaps[0])
-                elif "碎钻" in photoMap.name:
+                elif "二次" in photoMap.name:
                     click(photoMap,moveMaps[1])
+                elif "jjc碎钻".__eq__(photoMap.name):
+                    click(photoMap,moveMaps[2])
                 else:
                     click(photoMap)
                 if "战斗开始" in photoMap.name:
@@ -167,6 +171,7 @@ def searchTarget(auto, cdCheck, sleepTimeS,sleepTimeE):
                 if "结束" in photoMap.name:
                     break
                 if ("碎钻" in photoMap.name) & (cdCheck == 0):
+                    print("不碎钻，开始休眠{}秒。".format(sleepTime))
                     time.sleep(sleepTime)
                     break
             backSearchTarget()
