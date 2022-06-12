@@ -118,6 +118,11 @@ def searchTarget(auto, cdCheck, sleepTimeS,sleepTimeE):
     onlyOneMap = [
         "star\\jjc刷新",  # 0
         "star\\jjc结束下一步",  # 1
+        "star\\jjc五次次数", # 2
+        "star\\jjc碎钻", #3
+    ]
+    moveMaps = [
+        (158,213), # 买5次次数确认。
     ]
     sleepTime = random.randint(sleepTimeS,sleepTimeE)
     # 不为0，就自动开始战斗。
@@ -125,10 +130,10 @@ def searchTarget(auto, cdCheck, sleepTimeS,sleepTimeE):
         onlyOneMap.append("star\\jjc战斗开始")
     # 不为0，就碎钻。
     if cdCheck != 0:
-        onlyOneMap.append("star\\jjc碎钻确认")
+        moveMaps.append((151, 137))
     # 为0，不碎钻
     elif cdCheck == 0:
-        onlyOneMap.append("star\\jjc碎钻取消")
+        moveMaps.append((-179, 146))
     while flag:
         switch = 1
         for i in photoMaps:
@@ -148,12 +153,17 @@ def searchTarget(auto, cdCheck, sleepTimeS,sleepTimeE):
             click(photoMap)
             while True:
                 photoMap.loopSearch(onlyOneMap)
-                click(photoMap)
+                if "五次" in photoMap.name:
+                    click(photoMap,moveMaps[0])
+                elif "碎钻" in photoMap.name:
+                    click(photoMap,moveMaps[1])
+                else:
+                    click(photoMap)
                 if "战斗开始" in photoMap.name:
                     break;
                 if "结束" in photoMap.name:
                     break
-                if "取消" in photoMap.name:
+                if ("碎钻" in photoMap.name) & (cdCheck == 0):
                     time.sleep(sleepTime)
                     break
             backSearchTarget()
