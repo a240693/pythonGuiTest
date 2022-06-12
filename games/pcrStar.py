@@ -107,7 +107,7 @@ def changeUpDown(upDown, jjc):
 
 
 # 查找JJC目标 2022年6月10日22:02:35
-def searchTarget():
+def searchTarget(auto,cdCheck,sleepTime):
     photoMap = multiphotos.Photo()
     photoMaps = [
         # "star\\仇人头像",
@@ -117,9 +117,17 @@ def searchTarget():
     ]
     onlyOneMap = [
         "star\\jjc刷新",  # 0
-        "star\\jjc战斗开始",  # 1
-        "star\\jjc碎钻确认", # 2
+        "star\\jjc结束下一步", #1
     ]
+    # 不为0，就自动开始战斗。
+    if auto != 0 :
+        onlyOneMap.append("star\\jjc战斗开始")
+    # 不为0，就碎钻。
+    if cdCheck != 0:
+        onlyOneMap.append("star\\jjc碎钻确认")
+    # 为0，不碎钻
+    elif cdCheck == 0:
+        onlyOneMap.append("star\\jjc碎钻取消")
     while flag:
         switch = 1
         for i in photoMaps:
@@ -142,6 +150,11 @@ def searchTarget():
                 click(photoMap)
                 if "战斗开始" in photoMap.name:
                     break;
+                if "结束" in photoMap.name:
+                    break
+                if "取消" in photoMap.name:
+                    time.sleep(sleepTime)
+                    break
             backSearchTarget()
 
 def changeManEnter():
@@ -176,7 +189,7 @@ def jjcStart():
     try:
         global flag
         flag = True
-        _thread.start_new_thread(searchTarget, ())
+        _thread.start_new_thread(searchTarget, (0,0,60))
         _thread.start_new_thread(setFlag, ())
     except:
         print("Error: 无法启动线程")

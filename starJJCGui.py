@@ -2,6 +2,7 @@ import _thread
 
 import easygui as gui
 from games import pcrStar
+
 flag = True
 choices = (
     "自动",
@@ -25,11 +26,11 @@ def inputBox():
     return gui.integerbox(msg='请输入间隔', title='间隔：', default=None, lowerbound=0, upperbound=9999, image=None, root=None)
 
 
-def jjcStart(auto,cdCheck,sleepTime):
+def jjcStart(auto, cdCheck, sleepTime):
     try:
         global flag
         flag = True
-        _thread.start_new_thread(pcrStar.newJJCenter, (auto,cdCheck,sleepTime))
+        _thread.start_new_thread(pcrStar.newJJCenter, (auto, cdCheck, sleepTime))
         _thread.start_new_thread(start, ())
     except:
         print("Error: 无法启动线程")
@@ -43,30 +44,30 @@ def jjcStart(auto,cdCheck,sleepTime):
 def start():
     flag1 = True
     while flag1:
-        choice = ''
-        choice = main()
-        print(choice)
-        auto = 0
-        cdCheck = 0
-        sleepTime = 5 * 60
-        for i in choice:
-            if "默认".__eq__(i):
-                auto = 0
-                cdCheck = 0
-                sleepTime = 5 * 60
-            elif "关闭".__eq__(i):
-                flag1 = False
-                break
-            elif "自动".__eq__(i):
-                auto = 1
-            elif "碎CD".__eq__(i):
-                cdCheck = 1
-            elif "间隔调整".__eq__(i):
-                sleepTime = inputBox()
-        if flag1:
-            jjcStart(auto,cdCheck,sleepTime)
+        try:
+            choice = ''
+            choice = main()
+            print(choice)
+            for i in choice:
+                if "关闭".__eq__(i):
+                    flag1 = False
+                    break
+                elif "自动".__eq__(i):
+                    auto = 1
+                elif "碎CD".__eq__(i):
+                    cdCheck = 1
+                elif "间隔调整".__eq__(i):
+                    sleepTime = inputBox()
+            if flag1:
+                jjcStart(auto, cdCheck, sleepTime)
+        except:
+            auto = 0
+            cdCheck = 0
+            sleepTime = 5 * 60
+            jjcStart(auto, cdCheck, sleepTime)
+            print("默认")
 
 
 if __name__ == "__main__":
     start()
-    #pcrStar.newJJCenter()
+    # pcrStar.newJJCenter()

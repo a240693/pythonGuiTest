@@ -92,8 +92,17 @@ def downNumber():
         print(t2 - t1)
     #kgMaps.append(kg)
     kg.__str__()
+
+def addTest():
+    onlyOneMap = [
+        "star\\jjc刷新",  # 0
+    ]
+    onlyOneMap.append("star\\jjc战斗开始")
+    onlyOneMap.append("star\\jjc碎钻确认")
+    print(onlyOneMap)
+
 if __name__ == "__main__":
-    loopTest()
+    addTest()
 
 
 
