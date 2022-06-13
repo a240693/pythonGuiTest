@@ -724,6 +724,7 @@ def autoText():
         "pcr剧情跳过确认",
         "pcr剧情关闭",
         "pcr连续阅读无语音",
+        "pcr剧情视频跳过",
     ]
     moveMaps = [
         (107, 225),  # pcr剧情跳过确认 0
@@ -815,7 +816,7 @@ if __name__ == '__main__':
     # autoTrust()
     # autoText()
     # underWorld(1)
-    fullAuto(saveXY(19))
+    underWorld(1)
 # photoMap = multiphotos.Photo()
 # photoMaps = ["地下城失败页"]
 # photoMap.loopSearch(photoMaps)
