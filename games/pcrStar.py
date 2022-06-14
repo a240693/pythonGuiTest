@@ -1,3 +1,5 @@
+import datetime
+
 import pyautogui as py
 import time
 import random
@@ -5,7 +7,10 @@ import random
 from dao import dao, daoImpl, multiphotos, resultMap
 import _thread
 
+from testTools import timeTest
+
 flag = False
+loseFlag = 0
 
 
 def autoChangeDefenceP(breakTime):
@@ -107,24 +112,24 @@ def changeUpDown(upDown, jjc):
 
 
 # 查找JJC目标 2022年6月10日22:02:35
-def searchTarget(auto, cdCheck, sleepTimeS,sleepTimeE):
+def searchTarget(auto, cdCheck, sleepTimeS, sleepTimeE, changeDefence):
     photoMap = multiphotos.Photo()
     photoMaps = [
         # "star\\仇人头像",
-        # "star\\仇人ID",
-        # "star\\仇人勋章",
+        "star\\仇人ID",
+        #"star\\仇人勋章",
         "star\\仇人整块",
     ]
     onlyOneMap = [
         "star\\jjc刷新",  # 0
         "star\\jjc结束下一步",  # 1
-        "star\\jjc五次次数", # 2
-        "star\\jjc碎钻", #3
+        "star\\jjc五次次数",  # 2
+        "star\\jjc碎钻",  # 3
         "star\\jjc碎钻二次确认",
     ]
     moveMaps = [
-        (158,213), # 0 买5次次数确认。
-        (146, 193) , # 1 碎钻二次确认，直接碎钻。
+        (158, 213),  # 0 买5次次数确认。
+        (146, 193),  # 1 碎钻二次确认，直接碎钻。
     ]
     # 不为0，就自动开始战斗。
     if auto != 0:
@@ -135,8 +140,12 @@ def searchTarget(auto, cdCheck, sleepTimeS,sleepTimeE):
     # 为0，不碎钻
     elif cdCheck == 0:
         moveMaps.append((-179, 146))
-        sleepTimeS = max(300,sleepTimeS)
-        sleepTimeE = min(302,sleepTimeE)
+        sleepTimeS = max(300, sleepTimeS)
+        sleepTimeE = min(302, sleepTimeE)
+        if sleepTimeS > sleepTimeE:
+            temp = sleepTimeS
+            sleepTimeS = sleepTimeE
+            sleepTimeE = temp
     sleepTime = random.randint(sleepTimeS, sleepTimeE)
     while flag:
         switch = 1
@@ -153,17 +162,19 @@ def searchTarget(auto, cdCheck, sleepTimeS,sleepTimeE):
         else:
             # 找到了就点击仇人。
             # 新逻辑，点击仇人之前先换人。
-            changeManEnter()
+            # 新逻辑，如果勾上才能换防。  2022年6月14日23:28:49
+            if changeDefence == 1:
+                changeManEnter()
             click(photoMap)
             time.sleep(10)
             while True:
                 photoMap.loopSearch(onlyOneMap)
                 if "五次" in photoMap.name:
-                    click(photoMap,moveMaps[0])
+                    click(photoMap, moveMaps[0])
                 elif "二次" in photoMap.name:
-                    click(photoMap,moveMaps[1])
-                elif "jjc碎钻".__eq__(photoMap.name):
-                    click(photoMap,moveMaps[2])
+                    click(photoMap, moveMaps[1])
+                elif "star\\jjc碎钻".__eq__(photoMap.name):
+                    click(photoMap, moveMaps[2])
                 else:
                     click(photoMap)
                 if "战斗开始" in photoMap.name:
@@ -194,7 +205,7 @@ def backSearchTarget():
     ]
     moveMaps = [
         (518, 649),  # 胜利页面点下一步。
-        (621, 577), # 失败页面下一步。
+        (621, 577),  # 失败页面下一步。
     ]
     while True:
         photoMap.loopSearch(photoMaps)
@@ -202,12 +213,19 @@ def backSearchTarget():
         if "防守" in name:
             # changeManEnter()
             break;
+        # 胜利就重置。
         elif "胜利" in name:
             click(photoMap, moveMaps[0])
+            if loseFlag == 1:
+                changeLoseFlag(0)
+        # 失败就置1，再失败就关闭。
         elif "失败" in name:
             click(photoMap, moveMaps[1])
-            print("警告：进攻失败，进程关闭。")
-            exit()
+            if loseFlag == 1:
+                print("警告：进攻失败，进程关闭。")
+                exit()
+            else:
+                changeLoseFlag(1)
         else:
             click(photoMap)
 
@@ -219,11 +237,11 @@ def click(photoMap, xy=(0, 0)):
 
 
 # 旧JJC击剑入口，现测试击剑入口。
-def jjcStart(auto = 1, cdCheck = 1, sleepTimeS = 60, sleepTimeE = 300):
+def jjcStart(auto=1, cdCheck=1, sleepTimeS=60, sleepTimeE=300, changeDefence=1):
     try:
         global flag
         flag = True
-        _thread.start_new_thread(searchTarget, (auto, cdCheck, sleepTimeS,sleepTimeE))
+        _thread.start_new_thread(searchTarget, (auto, cdCheck, sleepTimeS, sleepTimeE, changeDefence))
         _thread.start_new_thread(setFlag, ())
     except:
         print("Error: 无法启动线程")
@@ -235,7 +253,7 @@ def jjcStart(auto = 1, cdCheck = 1, sleepTimeS = 60, sleepTimeE = 300):
 
 
 def setFlag():
-    count = 3600
+    count = 3600 * 5
     while count != 0:
         print("还剩下{}秒".format(count))
         count -= 20
@@ -288,8 +306,17 @@ def newJJCenter(auto, cdCheck, sleepTime):
     # searchTarget()
 
 
+def changeLoseFlag(num):
+    global loseFlag
+    loseFlag = num
+
+
 if __name__ == "__main__":
     # jjcStart()
     # searchTarget()
-    backSearchTarget()
+    # backSearchTarget()
     # changeUpDown(1)
+    sleepTimeS = max(300, 60)
+    sleepTimeE = min(302, 304)
+    sleepTime = random.randint(sleepTimeS, sleepTimeE)
+    print(sleepTime)

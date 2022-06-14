@@ -15,7 +15,8 @@ def get_beijin_time():
             bj_timestamp = int(time.mktime(gmt_time) + 8 * 60 * 60)
             return datetime.datetime.fromtimestamp(bj_timestamp)
     except Exception as exc:
-        # return datetime.datetime.now()
+        #return datetime.datetime.now()
+        print(exc)
         return datetime.datetime(2099, 6, 14, 00, 00, 00)
 
 if __name__ == "__main__":

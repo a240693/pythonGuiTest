@@ -8,6 +8,7 @@ choices = (
     "自动",
     "碎CD",
     "间隔调整",
+    "换防",
     # "默认",
     "=================================",
     "关闭",
@@ -24,9 +25,9 @@ def test(name):
 
 def inputBox(switch):
     if switch == 0:
-        return gui.integerbox(msg='请输入间隔下限', title='间隔：', default=None, lowerbound=0, upperbound=9999, image=None, root=None)
+        return gui.integerbox(msg='请输入间隔下限', title='间隔：', default=None, lowerbound=1, upperbound=9999, image=None, root=None)
     elif switch == 1:
-        return gui.integerbox(msg='请输入间隔上限', title='间隔：', default=None, lowerbound=0, upperbound=9999, image=None,root=None)
+        return gui.integerbox(msg='请输入间隔上限', title='间隔：', default=None, lowerbound=1, upperbound=9999, image=None,root=None)
 
 def jjcStart(auto, cdCheck, sleepTime):
     try:
@@ -45,6 +46,11 @@ def jjcStart(auto, cdCheck, sleepTime):
 
 def start():
     flag1 = True
+    auto = 0
+    cdCheck = 0
+    sleepTimeS = 5 * 60
+    sleepTimeE = 5 * 60 + 2
+    changeDefence = 0
     while flag1:
         try:
             choice = ''
@@ -65,16 +71,19 @@ def start():
                         temp = sleepTimeS
                         sleepTimeS = sleepTimeE
                         sleepTimeE = temp
+                elif "换防".__eq__(i):
+                    changeDefence = 1
             if flag1:
                 # jjcStart(auto, cdCheck, sleepTime)
-                print("是否自动：{},是否碎CD：{}，间隔下限为：{},间隔上限为:{}".format(auto,cdCheck,sleepTimeS,sleepTimeE))
-                pcrStar.jjcStart(auto,cdCheck,sleepTimeS,sleepTimeE)
+                print("是否自动：{},是否碎CD：{}，间隔下限为：{},间隔上限为:{},是否换防：{}".format(auto,cdCheck,sleepTimeS,sleepTimeE,changeDefence))
+                pcrStar.jjcStart(auto,cdCheck,sleepTimeS,sleepTimeE,changeDefence)
         except:
             auto = 0
             cdCheck = 0
             sleepTimeS = 5 * 60
             sleepTimeE = 5 * 60 + 2
-            pcrStar.jjcStart(auto, cdCheck, sleepTimeS,sleepTimeE)
+            changeDefence = 0
+            pcrStar.jjcStart(auto, cdCheck, sleepTimeS,sleepTimeE,changeDefence)
             print("默认")
 
 
