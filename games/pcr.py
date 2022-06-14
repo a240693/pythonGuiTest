@@ -625,6 +625,9 @@ def saveXY(choice):
     loadXY.append(('和服M困难', 4, -151))  # 17
     loadXY.append(('仙境普通', 62, -253))  # 18
     loadXY.append(('仙境困难', 171, -307))  # 19
+    loadXY.append(('35章普通', 47, -153))  # 20
+    loadXY.append(('水白普通', 83, -213))  # 21
+    loadXY.append(('水白困难', 4, -243))  # 22
     return loadXY[choice - 1]
 
 

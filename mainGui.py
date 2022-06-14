@@ -55,6 +55,9 @@ def main():
 def test(name):
     gui.msgbox(name)
 
+def inputBox():
+    return gui.integerbox(msg='请输入章节下标', title='下标：', default=None, lowerbound=0, upperbound=9999, image=None,root=None)
+
 
 if __name__ == "__main__":
     flag = True
@@ -98,7 +101,8 @@ if __name__ == "__main__":
         elif choice == "地下城Ex3":
             pcr.underWorld(0)
         elif choice == "全自动推图":
-            pcr.fullAuto(pcr.saveXY(1))
+            index = inputBox()
+            pcr.fullAuto(pcr.saveXY(index))
         elif choice == "任务礼物":
             pcr.missionAndGift()
         elif choice == "日常全地下城":
