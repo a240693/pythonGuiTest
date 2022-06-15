@@ -347,6 +347,7 @@ def autoCheckDevice():
             time.sleep(2)
         elif "未完成" in name:
             dao.moveToKgAuto(x + moveMaps[1][0], y + moveMaps[1][1], 1)
+            time.sleep(1)
         else:
             dao.moveToKgAuto(x, y, 1)
             time.sleep(1)

@@ -1,6 +1,6 @@
 import easygui as gui
 from easygui.boxes.choice_box import ChoiceBox
-from games import kg, pcr, other,mrfz
+from games import kg, pcr, other, mrfz
 
 
 # 好像没有办法做到修改父类所在的文件的方法这种事情。
@@ -42,6 +42,7 @@ choices = ("=明日方舟==============",
            "坎公日常二",
            "坎公日常三",
            "半自动强化",
+           "半自动强化改",
            "=杂项===================",
            "QQ",
            "=关闭===================",
@@ -55,8 +56,10 @@ def main():
 def test(name):
     gui.msgbox(name)
 
+
 def inputBox():
-    return gui.integerbox(msg='请输入章节下标', title='下标：', default=None, lowerbound=0, upperbound=9999, image=None,root=None)
+    return gui.integerbox(msg='请输入章节下标', title='下标：', default=None, lowerbound=0, upperbound=9999, image=None,
+                          root=None)
 
 
 if __name__ == "__main__":
@@ -114,15 +117,17 @@ if __name__ == "__main__":
             mrfz.allDaily()
         elif choice == "基建页收取":
             mrfz.RDdaily()
-        #2022年5月14日18:39:17 新增 pcr “活动信赖” 和 “自动剧情”
+        # 2022年5月14日18:39:17 新增 pcr “活动信赖” 和 “自动剧情”
         elif choice == "活动信赖":
             pcr.autoTrust()
         elif choice == "自动剧情":
             pcr.autoText()
-        #2022年5月25日19:03:04 新增自动活动扭蛋。
+        # 2022年5月25日19:03:04 新增自动活动扭蛋。
         elif choice == "自动活动扭蛋":
             pcr.autoEventEgg()
-        #2022年5月27日02:42:13 半自动强化
+        # 2022年5月27日02:42:13 半自动强化
         elif choice == "半自动强化":
             kg.kgSwitch(kg.halfAutoStr)
-
+        # 2022年6月15日12:22:56 自动检测装备图鉴是否完成。
+        elif choice == "半自动强化改":
+            kg.kgSwitch(kg.autoCheckDevice())
