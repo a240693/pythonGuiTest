@@ -323,6 +323,35 @@ def halfAutoStr():
             time.sleep(1)
 
 
+# 检查装备图鉴。 2022年6月15日11:30:00
+def autoCheckDevice():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "坎公装备未完成",
+        "坎公进化石确认",
+        "坎公普通进化",
+        "坎公确定进化",
+        "坎公进化结束",
+    ]
+    moveMaps = [
+        (-88, -402),  # 0 自动强化结束后返回选择装备界面。
+        (85, 69),  # 1 选择图鉴没完成的装备强化。
+    ]
+    while flag:
+        photoMap = photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        x = photoMap.x
+        y = photoMap.y
+        if "结束" in name:
+            dao.moveToKgAuto(x + moveMaps[0][0], y + moveMaps[0][1], 1)
+            time.sleep(2)
+        elif "未完成" in name:
+            dao.moveToKgAuto(x + moveMaps[1][0], y + moveMaps[1][1], 1)
+        else:
+            dao.moveToKgAuto(x, y, 1)
+            time.sleep(1)
+
+
 # 坎公用线程启动器。 2022年5月24日11:52:30
 def kgSwitch(threadName):
     try:
@@ -349,7 +378,7 @@ def waitKey():
 
 if __name__ == '__main__':
     # chooseEquip()
-    kgSwitch(halfAutoStr)
+    autoCheckDevice()
     # kmxAutoNew()
 # fullAutoKmx()
 # missionAndGift()
