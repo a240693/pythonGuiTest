@@ -61,7 +61,24 @@ def generateNonce():
     # return random.random().toString(36).substring(2, 10) + random.random().toString(36).substring(2, 10);
     return secondNum
 
+def teamViewerTest():
+    url = 'https://login.teamviewer.com/UserManagement/UpdateProfile'
+    dataJson = {
+        "CommentAfterSessionEnd": "false",
+        "CustomQJConfigId": None,
+        "CustomQSConfigId": None,
+        "EnableSessionCodeEmails": "true",
+        "DisplayName": "YLX-PC",
+        "Email": "461605470@qq.com",
+        "LogConnections": "false",
+        "WantsProductPreview": "false",
+        "EmailLanguage": 0,
+        "WantsTrustDeviceViaPush": "false"
+    }
+    request_result = requests.post(url=url, json=dataJson)
+    return request_result.text
+
 if __name__ == "__main__":
     # generateNonce()
-    print(get_def())
+    print(teamViewerTest())
     # print(generateNonce())

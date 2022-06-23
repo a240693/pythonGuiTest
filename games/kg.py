@@ -376,10 +376,31 @@ def waitKey():
         if 0 == num:
             changeFlag()
 
+# 2022年6月23日17:30:29 自动收取活动
+def autoEventGet():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "坎公已获得",
+        "坎公进化石确认",
+    ]
+    moveMaps = [
+
+    ]
+    while flag:
+        photoMap = photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        x = photoMap.x
+        y = photoMap.y
+        dao.moveToKgAuto(x, y, 1)
+        # if name in "确认":
+        #     pyautogui.dragTo(x, y - 370, button='left', duration=0.3)
+
+
 
 if __name__ == '__main__':
     # chooseEquip()
-    autoCheckDevice()
+    kgSwitch(autoEventGet)
+    #autoCheckDevice()
     # kmxAutoNew()
 # fullAutoKmx()
 # missionAndGift()

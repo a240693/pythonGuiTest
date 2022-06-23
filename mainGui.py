@@ -43,6 +43,7 @@ choices = ("=明日方舟==============",
            "坎公日常三",
            "半自动强化",
            "半自动强化改",
+           "自动收取活动",
            "=杂项===================",
            "QQ",
            "=关闭===================",
@@ -61,9 +62,12 @@ def inputBox():
     return gui.integerbox(msg='请输入章节下标', title='下标：', default=None, lowerbound=0, upperbound=9999, image=None,
                           root=None)
 
+def printChoice():
+    print(choices)
 
 if __name__ == "__main__":
     flag = True
+    # printChoice()
     while flag == True:
         choice = ''
         choice = main()
@@ -131,3 +135,10 @@ if __name__ == "__main__":
         # 2022年6月15日12:22:56 自动检测装备图鉴是否完成。
         elif choice == "半自动强化改":
             kg.kgSwitch(kg.autoCheckDevice())
+        # 2022年6月23日17:30:29 自动收取活动
+        elif choice == "自动收取活动":
+            kg.kgSwitch(kg.autoEventGet())
+
+
+
+
