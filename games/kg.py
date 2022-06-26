@@ -127,9 +127,11 @@ def kmxAutoNew():
 
 def chooseEquip():
     equipMaps = [
+        "坎公卡马逊确认",
         "坎公高阶神器",
         "坎公高阶神器",
         "坎公中阶神器",
+        "坎公中阶神器2",
         "坎公低阶神器",
         "坎公获得银币",
     ]
@@ -284,18 +286,36 @@ def fullAutoKmx():
             kmxAutoNew()
             if flag:
                 count += 1
-                time.sleep(10)
+                # time.sleep(10)
                 returnKmx()
     # 人物所在位置  394, 99
 
 
 def returnKmx():
-    photoMap = []
     # 退出 -52, -465
     # 返回 127, -170
-    photoMap.append(('卡马逊主页', 1, -6, -467))
-    photoMap.append(('探险初始页', 1, 88, -189))
-    dao.dualListPhotoKg(photoMap)
+    # photoMap = []
+    # photoMap.append(('卡马逊主页', 1, -6, -467))
+    # photoMap.append(('探险初始页', 1, 88, -189))
+    # dao.dualListPhotoKg(photoMap)
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "卡马逊主页",
+        "探险初始页",
+    ]
+    moveMaps = [
+        (-6, -467),  # 0 卡马逊主页 → 探险初始页
+        (88, -189),  # 1 探险初始页 → 卡马逊主页
+    ]
+    while True:
+        photoMap = photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        if "主页" in name:
+            click(photoMap,moveMaps[0])
+            continue
+        if "初始" in name:
+            click(photoMap,moveMaps[1])
+            break
 
 
 # 2022年5月24日11:25:28 半自动强化装备
@@ -376,6 +396,7 @@ def waitKey():
         if 0 == num:
             changeFlag()
 
+
 # 2022年6月23日17:30:29 自动收取活动
 def autoEventGet():
     photoMap = multiphotos.Photo()
@@ -396,11 +417,17 @@ def autoEventGet():
         #     pyautogui.dragTo(x, y - 370, button='left', duration=0.3)
 
 
+# 2022年6月26日15:51:30 新增点击工具类。
+def click(photoMap, xy=(0, 0)):
+    x = photoMap.x + xy[0]
+    y = photoMap.y + xy[1]
+    dao.moveToKgAuto(x, y, 1)
+
 
 if __name__ == '__main__':
     # chooseEquip()
-    kgSwitch(autoEventGet)
-    #autoCheckDevice()
+    fullAutoKmx()
+    # autoCheckDevice()
     # kmxAutoNew()
 # fullAutoKmx()
 # missionAndGift()
