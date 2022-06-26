@@ -119,7 +119,7 @@ def kmxAutoNew():
         else:
             # 这里拿到了上面三选一的 名字 和XY坐标
             dao.moveToKgAuto(gamePages.x, gamePages.y, 1)
-        if count == 1:
+        if (count == 1) & ("黄" in gamePages.name):
             time.sleep(6)
         elif count > 15:
             changeFlag()
