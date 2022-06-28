@@ -1,0 +1,5 @@
+path = 'F:\\pyTest\\'
+# path = 'D:\\pyTest\\'
+Fpath = 'F:\\pyTest\\'
+Dpath = 'D:\\pyTest\\'
+FgoPath = 'F:\\pyTest\\fgo\\'

@@ -4,7 +4,7 @@ import time
 from . import dao
 from . import changeVar as cv
 
-path = cv.path
+path = cv.FgoPath
 # path = 'D:\\pyTest\\'
 
 class Photo:

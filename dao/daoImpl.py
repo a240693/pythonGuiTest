@@ -2,9 +2,10 @@ import cv2
 import numpy as np
 import pyautogui
 import time
+from . import changeVar as cv
 
 # from . import test
-path = 'F:\\pyTest\\'
+path = cv.path
 # path = 'D:\\pyTest\\'
 # 2022年4月28日11:49:33
 confidenPoint = 0.95
