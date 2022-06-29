@@ -3,3 +3,4 @@ path = 'F:\\pyTest\\'
 Fpath = 'F:\\pyTest\\'
 Dpath = 'D:\\pyTest\\'
 FgoPath = 'F:\\pyTest\\fgo\\'
+device = "Android://127.0.0.1:5037/emulator-5560"

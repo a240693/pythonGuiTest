@@ -3,12 +3,13 @@ from airtest.core.api import *
 from airtest.report.report import simple_report
 from poco.drivers.android.uiautomation import AndroidUiautomationPoco
 from dao import airMultiPhotos as air
+from dao import changeVar as cv
 
 poco = AndroidUiautomationPoco(use_airtest_input=True, screenshot_each_action=False)
 
-auto_setup(__file__,devices=["Android://127.0.0.1:5037/emulator-5560"])
+auto_setup(__file__,devices=[cv.device])
 
-path = 'F:\\pyTest\\'
+path = cv.path
 
 def enterGame():
     photoMap = air.Photo()
