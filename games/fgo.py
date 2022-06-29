@@ -1,4 +1,7 @@
 # emulator-5560
+import _thread
+import time
+
 from airtest.core.api import *
 from airtest.report.report import simple_report
 from poco.drivers.android.uiautomation import AndroidUiautomationPoco
@@ -9,12 +12,18 @@ poco = AndroidUiautomationPoco(use_airtest_input=True, screenshot_each_action=Fa
 
 auto_setup(__file__,devices=[cv.device])
 
-path = cv.path
+path = cv.FgoPath
+
+spaceFlag = False
+
+flag = True
 
 def enterGame():
     photoMap = air.Photo()
     photoMaps = [
         "fgo",
+        "迦勒底之门",
+        "关闭公告",
     ]
     moveMaps = [
         (943, 136),  # 滑动起点。
@@ -22,11 +31,19 @@ def enterGame():
         (943, 177),  # 种火滑动。
     ]
     try:
-        photoMap.loopSearch(photoMaps)
-        print(photoMap.name)
-    finally:
-        # generate html report
-        simple_report(__file__, logpath=True)
+        while 1 :
+            photoMap.loopSearch(photoMaps)
+            name = photoMap.name
+            pos = photoMap.pos
+            touch(pos)
+            if "迦勒底" in name:
+                changeSpaceFlag(False)
+                break
+    except Exception as e:
+        return 0
+    # finally:
+    #     # generate html report
+    #     simple_report(__file__)
 
 def battle():
     photoMaps = [
@@ -52,11 +69,40 @@ def battle():
                     touch(step)
             if not exists(temp):
                 continue
-            # touch(temp)
-    finally:
-        # generate html report
-        simple_report(__file__, logpath=True)
+            touch(temp)
+    except Exception as e:
+        return e
+    # finally:
+    #     # generate html report
+    #     simple_report(__file__, logpath=True)
+
+# 用来敲空格的线程。
+def spaceClick():
+    while spaceFlag:
+        keyevent("q")
+        time.sleep(3)
+
+# 进入游戏双线程，留一个敲空格。
+def openGame(thread1,thread2):
+    try:
+        global flag
+        flag = True
+        changeSpaceFlag(True)
+        _thread.start_new_thread(thread1, ())
+        _thread.start_new_thread(thread2, ())
+    except:
+        print("Error: 无法启动线程")
+
+    while 1:
+        if flag == False:
+            break
+        pass
+
+def changeSpaceFlag(switch = False):
+    global spaceFlag
+    spaceFlag = switch
 
 if __name__ == "__main__":
-    enterGame()
+    # enterGame()
+    openGame(enterGame,spaceClick)
 

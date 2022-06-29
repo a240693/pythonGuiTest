@@ -38,16 +38,17 @@ class Photo:
     def appearThenClick(self, photoMap):
         try:
             photo = Template(path + photoMap + ".png")
+            # 一秒没找到就换下一张。
             pos = exists(photo)
             if pos:
                 self.writeSelf(photoMap, pos)
                 return 1
             else:
                 return 0
-        except:
+        except Exception as e:
             return 0
-        finally:
-            simple_report(__file__, logpath=True)
+        # finally:
+        #     simple_report(__file__)
 
     def __str__(self):
         return print(self.name, self.pos)

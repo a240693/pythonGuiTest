@@ -68,12 +68,17 @@ def battle():
         # generate html report
         simple_report(__file__, logpath=True)
 
-if __name__ == "__main__":
+def testPhoto():
     try:
         print(poco.adb_client.get_device_info())  # 获取设备信息
-        temp = Template(path +"fgo.png")
-        print(temp)
-        touch(temp)
-    finally:
-        # generate html report
-        simple_report(__file__, logpath=True)
+        temp = Template(path + "关闭公告.png")
+        pos = exists(temp)
+        print(pos)
+    except Exception as e:
+        return 0
+    # finally:
+    #     # generate html report
+    #     simple_report(__file__, logpath=True,logfile="F:\\")
+
+if __name__ == "__main__":
+    testPhoto()
