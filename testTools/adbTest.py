@@ -5,9 +5,9 @@ from poco.drivers.android.uiautomation import AndroidUiautomationPoco
 
 poco = AndroidUiautomationPoco(use_airtest_input=True, screenshot_each_action=False)
 
-auto_setup(__file__, devices=["Android://127.0.0.1:5037/emulator-5560"])
+auto_setup(__file__, devices=["Android://127.0.0.1:5037/emulator-5554"])
 
-path = 'F:\\pyTest\\fgo\\'
+path = 'F:\\pyTest\\'
 
 def enterGame():
     photoMaps = [
@@ -79,6 +79,7 @@ def testPhoto(name = "技能已使用"):
     # finally:
     #     # generate html report
     #     simple_report(__file__, logpath=True,logfile="F:\\")
+
 
 if __name__ == "__main__":
     testPhoto()
