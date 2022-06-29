@@ -35,10 +35,12 @@ def enterGame():
             photoMap.loopSearch(photoMaps)
             name = photoMap.name
             pos = photoMap.pos
-            touch(pos)
+            if "fgo".__eq__(name):
+                changeSpaceFlag(True)
             if "迦勒底" in name:
-                changeSpaceFlag(False)
+                changeSpaceFlag(False,False)
                 break
+            touch(pos)
     except Exception as e:
         return 0
     # finally:
@@ -46,10 +48,13 @@ def enterGame():
     #     simple_report(__file__)
 
 def battle():
+    photoMap = air.Photo()
     photoMaps = [
-        # "技能2",
-        # "攻击",
+        "技能已使用",
+        "技能2",
+        "攻击",
         "战斗界面",
+        "战斗结束",
     ]
     moveMaps = [
         (310,152), # 一宝具
@@ -59,17 +64,25 @@ def battle():
         (289,376), # 卡2
     ]
     try:
-        # print(poco.adb_client.get_device_info())  # 获取设备信息
-        for i in photoMaps:
-            # 获取图片，不操作。
-            temp = Template(path + i + ".png")
-            # print(temp)
-            if "界面" in i:
+        while 1:
+            photoMap.loopSearch(photoMaps)
+            pos = photoMap.pos
+            name = photoMap.name
+            # 如果读取到战斗界面就选卡，不点击直接跳过。
+
+            if "界面" in name:
                 for step in moveMaps:
                     touch(step)
-            if not exists(temp):
                 continue
-            touch(temp)
+
+            if "已使用" in name:
+                photoMaps.remove("技能2")
+
+            touch(pos)
+
+            if "结束" in name :
+                break
+
     except Exception as e:
         return e
     # finally:
@@ -87,7 +100,6 @@ def openGame(thread1,thread2):
     try:
         global flag
         flag = True
-        changeSpaceFlag(True)
         _thread.start_new_thread(thread1, ())
         _thread.start_new_thread(thread2, ())
     except:
@@ -98,11 +110,58 @@ def openGame(thread1,thread2):
             break
         pass
 
-def changeSpaceFlag(switch = False):
+def changeSpaceFlag(switch = False,switch2 = True):
     global spaceFlag
     spaceFlag = switch
+    global flag
+    flag = switch2
+
+def dailyExp():
+    photoMap = air.Photo()
+    photoMaps = [
+        "迦勒底之门",
+        "每日任务",
+        "种火40",
+        "宝石翁",
+        "狂阶",
+        "开始任务",
+    ]
+    moveMaps = [
+        (943, 136),  # 滑动起点。
+        (943, 282),  # 每日滑动终点
+        (943, 177),  # 种火滑动。
+    ]
+    try:
+        while 1 :
+            photoMap.loopSearch(photoMaps)
+            pos = photoMap.pos
+            name = photoMap.name
+            touch(pos)
+            if "每日" in name:
+                photoMaps.append("种火30")
+            if "30" in name:
+                back()
+                photoMaps.remove("种火30")
+            if "开始任务".__eq__(name):
+                battle()
+
+    except Exception as e:
+        return 0
+
+def back():
+    photoMap = air.Photo()
+    photoMaps = [
+        "返回",
+    ]
+    try:
+        while 1:
+            photoMap.loopSearch(photoMaps)
+            touch(photoMap.pos)
+    except Exception as e:
+        return 0
 
 if __name__ == "__main__":
     # enterGame()
-    openGame(enterGame,spaceClick)
-
+    # openGame(enterGame,spaceClick)
+    # dailyExp()
+    battle()

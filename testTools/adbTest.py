@@ -68,10 +68,10 @@ def battle():
         # generate html report
         simple_report(__file__, logpath=True)
 
-def testPhoto():
+def testPhoto(name = "技能已使用"):
     try:
         print(poco.adb_client.get_device_info())  # 获取设备信息
-        temp = Template(path + "关闭公告.png")
+        temp = Template(path + name + ".png",threshold=0.5,rgb=True)
         pos = exists(temp)
         print(pos)
     except Exception as e:
