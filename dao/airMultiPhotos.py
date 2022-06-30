@@ -30,6 +30,7 @@ class Photo:
             for photoMap in photoMaps:
                 result = self.appearThenClick(photoMap)
                 if 1 == result:
+                    print("{},坐标为：{}".format(self.name,self.pos))
                     return self
                 elif 0 == result:
                     continue

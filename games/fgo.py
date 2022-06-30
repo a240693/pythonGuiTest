@@ -8,9 +8,10 @@ from poco.drivers.android.uiautomation import AndroidUiautomationPoco
 from dao import airMultiPhotos as air
 from dao import changeVar as cv
 import logging
+
 # 日志只输出INFO等级，debugger等级不输出。
 logger = logging.getLogger("airtest")
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.ERROR)
 
 poco = AndroidUiautomationPoco(use_airtest_input=True, screenshot_each_action=False)
 
@@ -114,11 +115,11 @@ def battle():
 
 # 用来敲空格的线程。
 def spaceClick():
-    while 1 :
+    while 1:
         print("spaceFlag:".format(spaceFlag))
         while spaceFlag:
             # print("click Q")
-            touch((100,100))
+            touch((100, 100))
             time.sleep(3)
         time.sleep(3)
 
@@ -204,13 +205,14 @@ def changePos(pos=(0, 0), moveMap=(0, 0)):
         pos[i] = pos[i] + moveMap[i]
     return pos
 
-def eatApple(appleFlag = False):
+
+def eatApple(appleFlag=False):
     photoMap = air.Photo()
     photoMaps = [
         "银苹果",
         "苹果确定",
     ]
-    if appleFlag :
+    if appleFlag:
         photoMaps.append("金苹果")
     while True:
         try:
@@ -218,10 +220,11 @@ def eatApple(appleFlag = False):
             name = photoMap.name
             pos = photoMap.pos
             touch(pos)
-            if "确定" in name :
+            if "确定" in name:
                 break
         except Exception as e:
             return 0
+
 
 # 2022-06-30 20:28:02 跳过剧情。
 def skipStory():
@@ -231,19 +234,50 @@ def skipStory():
         "剧情页标",
     ]
     moveMaps = [
-        (900,27), # 跳过剧情里面的跳过按钮。
+        (900, 27),  # 跳过剧情里面的跳过按钮。
     ]
     while True:
         try:
             photoMap.loopSearch(photoMaps)
             name = photoMap.name
             pos = photoMap.pos
-            if "页标" in name :
+            if "页标" in name:
                 touch(moveMaps[0])
             else:
                 touch(pos)
         except Exception as e:
             return 0
+
+
+def wCaber():
+    count = 0
+    photoMap = air.Photo()
+    photoMaps = [
+        "技能选择对象",
+        "C呆1技能",
+        "C呆3技能",
+        "C呆2技能",
+    ]
+    moveMaps = [
+        (220, 339),  # 选择对象，选一号位。
+    ]
+    while True:
+        try:
+            photoMap.loopSearch(photoMaps)
+            name = photoMap.name
+            pos = photoMap.pos
+            if "对象" in name:
+                touch(moveMaps[0])
+                if count > 5 :
+                    battle()
+            else:
+                count += 1
+                print("技术使用次数为：{}".format(count))
+                touch(pos)
+
+        except Exception as e:
+            return 0
+
 
 if __name__ == "__main__":
     # enterGame()
@@ -251,4 +285,4 @@ if __name__ == "__main__":
     # dailyExp()
     # battle()
     # eatApple()
-    skipStory()
+    wCaber()
