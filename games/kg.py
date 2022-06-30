@@ -302,16 +302,21 @@ def returnKmx():
     photoMaps = [
         "卡马逊主页",
         "探险初始页",
+        "坎公主页面",
     ]
     moveMaps = [
         (-6, -467),  # 0 卡马逊主页 → 探险初始页
         (88, -189),  # 1 探险初始页 → 卡马逊主页
+        (-834, 237), # 2 主页面 → 探险初始页
     ]
     while True:
         photoMap = photoMap.loopSearch(photoMaps)
         name = photoMap.name
-        if "主页" in name:
+        if "卡马逊" in name:
             click(photoMap,moveMaps[0])
+            continue
+        if "主页面 " in name:
+            click(photoMap,moveMaps[2])
             continue
         if "初始" in name:
             click(photoMap,moveMaps[1])

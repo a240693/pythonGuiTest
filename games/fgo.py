@@ -59,6 +59,7 @@ def enterGame():
 
 
 def battle():
+    turn = 1
     photoMap = air.Photo()
     photoMaps = [
         "技能已使用",
@@ -74,6 +75,7 @@ def battle():
         (657, 152),  # 三宝具
         (98, 376),  # 卡1
         (289, 376),  # 卡2
+        (489, 376),  # 卡3
     ]
 
     moveMaps = [
@@ -85,25 +87,39 @@ def battle():
         photoMaps.append("续关关闭")
     try:
         while 1:
+            if turn == 3:
+                photoMaps.insert(0, "小芬奇3")
             photoMap.loopSearch(photoMaps)
             pos = photoMap.pos
             name = photoMap.name
             # 如果读取到战斗界面就选卡，不点击直接跳过。
 
             if "界面" in name:
-                print("开始选择指令卡。")
+                print("第{}回合，开始选择指令卡。".format(turn))
                 for step in actionMaps:
                     touch(step)
+                turn += 1
                 continue
 
             if "已使用" in name:
                 pos = moveMaps[0]
                 photoMaps.remove("技能2")
 
+            if "战斗结果" in name:
+                # 多按一下，加快结算速度。
+                touch(pos)
+
             print("找到的是{},坐标是{}".format(name, pos))
             touch(pos)
 
+            if "小芬奇" in name:
+                photoMaps.remove("小芬奇3")
+
             if "关闭" in name:
+                break
+
+            if "连续" in name:
+                eatApple()
                 break
 
     except Exception as e:
@@ -140,11 +156,13 @@ def openGame(thread1, thread2):
         pass
 
 
-def changeSpaceFlag(switch=False, switch2=True):
+def changeSpaceFlag(switch=False, switch2=True, switch3=False):
     global spaceFlag
     spaceFlag = switch
     global flag
     flag = switch2
+    global continueFlag
+    continueFlag = switch3
 
 
 def dailyExp():
@@ -211,6 +229,7 @@ def eatApple(appleFlag=False):
     photoMaps = [
         "银苹果",
         "苹果确定",
+        "狂阶",
     ]
     if appleFlag:
         photoMaps.append("金苹果")
@@ -219,6 +238,8 @@ def eatApple(appleFlag=False):
             photoMap.loopSearch(photoMaps)
             name = photoMap.name
             pos = photoMap.pos
+            if "狂阶" in name:
+                break
             touch(pos)
             if "确定" in name:
                 break
@@ -251,9 +272,13 @@ def skipStory():
 
 def wCaber():
     count = 0
+    count2 = 0
     photoMap = air.Photo()
     photoMaps = [
+        "小芬奇1",
         "技能选择对象",
+    ]
+    backPhotoMaps = [
         "C呆1技能",
         "C呆3技能",
         "C呆2技能",
@@ -267,14 +292,19 @@ def wCaber():
             name = photoMap.name
             pos = photoMap.pos
             if "对象" in name:
+                count2 += 1
                 touch(moveMaps[0])
-                if count > 5 :
-                    battle()
+            elif "小芬奇" in name:
+                touch(pos)
+                photoMaps.remove("小芬奇1")
+                photoMaps = photoMaps + backPhotoMaps
             else:
                 count += 1
                 print("技术使用次数为：{}".format(count))
                 touch(pos)
-
+            if (count > 5) & (count2 > 3):
+                battle()
+                break
         except Exception as e:
             return 0
 
@@ -285,4 +315,6 @@ if __name__ == "__main__":
     # dailyExp()
     # battle()
     # eatApple()
-    wCaber()
+    changeSpaceFlag(switch3=True)
+    while 1:
+        wCaber()
