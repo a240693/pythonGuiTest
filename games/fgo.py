@@ -117,8 +117,8 @@ def spaceClick():
     while 1 :
         print("spaceFlag:".format(spaceFlag))
         while spaceFlag:
-            print("click Q")
-            keyevent("HOME")
+            # print("click Q")
+            touch((100,100))
             time.sleep(3)
         time.sleep(3)
 
@@ -223,9 +223,32 @@ def eatApple(appleFlag = False):
         except Exception as e:
             return 0
 
+# 2022-06-30 20:28:02 跳过剧情。
+def skipStory():
+    photoMap = air.Photo()
+    photoMaps = [
+        "跳过剧情",
+        "剧情页标",
+    ]
+    moveMaps = [
+        (900,27), # 跳过剧情里面的跳过按钮。
+    ]
+    while True:
+        try:
+            photoMap.loopSearch(photoMaps)
+            name = photoMap.name
+            pos = photoMap.pos
+            if "页标" in name :
+                touch(moveMaps[0])
+            else:
+                touch(pos)
+        except Exception as e:
+            return 0
+
 if __name__ == "__main__":
     # enterGame()
-    openGame(enterGame,spaceClick)
+    # openGame(enterGame,spaceClick)
     # dailyExp()
     # battle()
     # eatApple()
+    skipStory()
