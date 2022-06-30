@@ -630,6 +630,9 @@ def saveXY(choice):
     loadXY.append(('水白困难', 4, -243))  # 22
     loadXY.append(('水老师普通', 44, -114))  # 23
     loadXY.append(('水老师困难', -12, -304))  # 24
+    loadXY.append(('水流夏普通', 112, -257))  # 25
+    loadXY.append(('水流夏普通2', 87, -169))  # 26
+    loadXY.append(('水流夏困难', -16, -199))  # 27
     return loadXY[choice - 1]
 
 
@@ -666,12 +669,12 @@ def battleFloor5():
         dao.searchPhotoPcr('战斗开始界面定标1EX3', 3, 182, 93)
         time.sleep(60)
         if i == 4:
-            photoMaps = ["下一步EX3","地下城失败页"]
+            photoMaps = ["地下城胜利","地下城失败页"]
         photoMap.loopSearch(photoMaps)
         if "地下城失败页".__eq__(photoMap.name):
             dao.moveToPcr(photoMap.x + -51, photoMap.y + 453, 1)
-        elif "下一步EX3".__eq__(photoMap.name):
-            dao.moveToPcr(photoMap.x + -71, photoMap.y + 402, 1)
+        elif "地下城胜利".__eq__(photoMap.name):
+            dao.moveToPcr(photoMap.x + 361, photoMap.y + 428, 1)
             dao.searchPhotoPcr('地下城确认EX3', 3, 1, 400)
             time.sleep(3)
 

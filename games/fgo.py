@@ -7,6 +7,10 @@ from airtest.report.report import simple_report
 from poco.drivers.android.uiautomation import AndroidUiautomationPoco
 from dao import airMultiPhotos as air
 from dao import changeVar as cv
+import logging
+# 日志只输出INFO等级，debugger等级不输出。
+logger = logging.getLogger("airtest")
+logger.setLevel(logging.INFO)
 
 poco = AndroidUiautomationPoco(use_airtest_input=True, screenshot_each_action=False)
 
@@ -19,6 +23,8 @@ spaceFlag = False
 flag = True
 
 continueFlag = False
+
+__author__ = "user"
 
 
 def enterGame():
@@ -108,8 +114,12 @@ def battle():
 
 # 用来敲空格的线程。
 def spaceClick():
-    while spaceFlag:
-        keyevent("q")
+    while 1 :
+        print("spaceFlag:".format(spaceFlag))
+        while spaceFlag:
+            print("click Q")
+            keyevent("HOME")
+            time.sleep(3)
         time.sleep(3)
 
 
@@ -215,7 +225,7 @@ def eatApple(appleFlag = False):
 
 if __name__ == "__main__":
     # enterGame()
-    # openGame(enterGame,spaceClick)
-    dailyExp()
+    openGame(enterGame,spaceClick)
+    # dailyExp()
     # battle()
     # eatApple()
