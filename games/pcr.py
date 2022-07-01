@@ -668,7 +668,8 @@ def battleFloor5():
         changeTeam5(i)
         dao.searchPhotoPcr('战斗开始界面定标1EX3', 3, 182, 93)
         time.sleep(60)
-        if i == 4:
+        # 从第三刀开始可能打赢，所以加入胜利判断
+        if i == 3:
             photoMaps = ["地下城胜利","地下城失败页"]
         photoMap.loopSearch(photoMaps)
         if "地下城失败页".__eq__(photoMap.name):

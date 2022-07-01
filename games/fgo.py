@@ -13,7 +13,7 @@ import logging
 logger = logging.getLogger("airtest")
 logger.setLevel(logging.ERROR)
 
-poco = AndroidUiautomationPoco(use_airtest_input=True, screenshot_each_action=False)
+# poco = AndroidUiautomationPoco(use_airtest_input=True, screenshot_each_action=False)
 
 auto_setup(__file__, devices=[cv.device])
 
@@ -143,7 +143,7 @@ def spaceClick():
 
 
 # 进入游戏双线程，留一个敲空格。
-def openGame(thread1, thread2):
+def mulFeatures(thread1, thread2):
     try:
         global flag
         flag = True
@@ -158,13 +158,13 @@ def openGame(thread1, thread2):
         pass
 
 
-def changeSpaceFlag(switch=False, switch2=True, switch3=False):
+def changeSpaceFlag(switchSF=False, switchF=True, switchCF=False):
     global spaceFlag
-    spaceFlag = switch
+    spaceFlag = switchSF
     global flag
-    flag = switch2
+    flag = switchF
     global continueFlag
-    continueFlag = switch3
+    continueFlag = switchCF
 
 
 def dailyExp():
@@ -247,6 +247,7 @@ def eatApple(appleFlag=False):
                 break
         except Exception as e:
             return 0
+    # support()
 
 
 # 2022-06-30 20:28:02 跳过剧情。
@@ -310,13 +311,310 @@ def wCaber():
         except Exception as e:
             return 0
 
+def support():
+    photoMap = air.Photo()
+    photoMaps = [
+        "C呆技能组",
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        pos =photoMap.pos
+        touch(pos)
+        break
+
+def battleStart():
+    changeSpaceFlag(switchCF=True)
+    count = 1
+    while 1:
+        print("第{}回合开始=========".format(count))
+        wCaber()
+        print("第{}回合结束，第{}回合开始选支援=====".format(count,count+1))
+        count += 1
+        support()
+
+def egg10():
+    photoMap = air.Photo()
+    photoMaps = [
+        "奖品重置执行",
+        "奖品重置关闭",
+        "重置奖品",
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        changeSpaceFlag(switchF=False)
+        name = photoMap.name
+        pos =photoMap.pos
+        touch(pos)
+        if "关闭" in name :
+            changeSpaceFlag(switchF=True)
+
+def touchPrize(pos = (338,350)):
+    while flag:
+        touch(pos)
+
+def selectSkill(skill = [10]):
+    photoMap = air.Photo()
+    photoMaps = [
+        "技能选择对象",
+        "攻击",
+    ]
+    skillMaps = [
+        # 技能图标1-9,每三个是一个人物
+        (52,436),
+        (125,436),
+        (190,436),
+        (290,436),
+        (360,436),
+        (420,436),
+        (530,436),
+        (600,436),
+        (670,436),
+    ]
+    moveMaps = []
+    tagetMaps = [
+        (220, 339),  # 选择对象，选一号位。
+     ]
+    # 10就不开技能，直接跳过释放段。
+    if skill[0] == 10:
+        return 0
+    for i in skill:
+        moveMaps.append(skillMaps[i-1])
+    for i in moveMaps:
+        while 1:
+            photoMap.loopSearch(photoMaps)
+            name = photoMap.name
+            if "对象" in name:
+                touch(tagetMaps[0])
+            if "攻击" in name:
+                break
+        touch(i)
+        time.sleep(0.3)
+        if i == moveMaps[-1] :
+            while 1:
+                photoMap.loopSearch(photoMaps)
+                name = photoMap.name
+                if "对象" in name:
+                    touch(tagetMaps[0])
+                break
+
+# 作废了，用新的selectSkill
+def firstTurnSkill():
+    count = 0
+    count2 = 0
+    photoMap = air.Photo()
+    photoMaps = [
+        "小芬奇1",
+        "技能选择对象",
+    ]
+    backPhotoMaps = [
+        "C呆1技能",
+        "C呆3技能",
+        "C呆2技能",
+    ]
+    moveMaps = [
+        (220, 339),  # 选择对象，选一号位。
+    ]
+    while True:
+        try:
+            photoMap.loopSearch(photoMaps)
+            name = photoMap.name
+            pos = photoMap.pos
+            if "对象" in name:
+                count2 += 1
+                touch(moveMaps[0])
+            elif "小芬奇" in name:
+                touch(pos)
+                photoMaps.remove("小芬奇1")
+                photoMaps = photoMaps + backPhotoMaps
+            else:
+                count += 1
+                print("技术使用次数为：{}".format(count))
+                touch(pos)
+            if (count > 2) & (count2 > 0):
+                onlyBattle()
+                break
+        except Exception as e:
+            return 0
+
+# 作废了，用新的selectSkill
+def oneCaber(skill1 = 0,skill2 = 0,skill3 = 0):
+    count = 0
+    count2 = 0
+    limit = 0
+    limit2 = 0
+    photoMap = air.Photo()
+    photoMaps = [
+        "技能选择对象",
+    ]
+    moveMaps = [
+        (220, 339),  # 选择对象，选一号位。
+    ]
+    if skill1 == 1:
+        photoMaps.append("C呆1技能")
+        limit += 1
+    if skill3 == 1:
+        photoMaps.append("C呆3技能")
+        limit += 1
+        limit2 +=1
+    if skill2 == 1:
+        photoMaps.append("C呆2技能")
+        limit += 1
+        limit2 += 1
+    while True:
+        try:
+            photoMap.loopSearch(photoMaps)
+            name = photoMap.name
+            pos = photoMap.pos
+            if "对象" in name:
+                count2 += 1
+                touch(moveMaps[0])
+            else:
+                count += 1
+                print("技术使用次数为：{}".format(count))
+                touch(pos)
+            if (count >= limit) & (count2 >= limit2):
+                onlyBattle()
+                break
+        except Exception as e:
+            return 0
+
+def onlyBattle(turn = 1):
+    photoMap = air.Photo()
+    photoMaps = [
+        "攻击",
+        "战斗界面",
+        "战斗结果",
+    ]
+    actionMaps = [
+        (486, 152),  # 二宝具
+        (310, 152),  # 一宝具
+        (98, 376),  # 卡1
+        (657, 152),  # 三宝具
+        (289, 376),  # 卡2
+        (489, 376),  # 卡3
+    ]
+
+    moveMaps = [
+        (324, 319),  # 技能已使用的取消按钮位置。
+    ]
+    try:
+        while 1:
+            photoMap.loopSearch(photoMaps)
+            pos = photoMap.pos
+            name = photoMap.name
+
+            # 如果读取到战斗界面就选卡，不点击直接跳过。
+            if "界面" in name:
+                print("第{}回合，开始选择指令卡。".format(turn))
+                for step in actionMaps:
+                    touch(step)
+                if turn <= 2:
+                    break
+
+            print("找到的是{},坐标是{}".format(name, pos))
+            touch(pos)
+            if "战斗结果" in name:
+                exitBattle()
+                break
+
+    except Exception as e:
+        return e
+
+def masterSkill():
+    photoMap = air.Photo()
+    photoMaps = [
+        "御主技能",
+        "技能选择对象",
+    ]
+    moveMaps = [
+        (220, 339),  # 选择对象，选一号位。
+        (744,230), # 选择二号技能。
+    ]
+    try:
+        while 1:
+            photoMap.loopSearch(photoMaps)
+            pos = photoMap.pos
+            name = photoMap.name
+            # 如果读取到战斗界面就选卡，不点击直接跳过。
+            if "对象" in name:
+                touch(moveMaps[0])
+                break
+            print("找到的是{},坐标是{}".format(name, pos))
+            touch(pos)
+            if "技能" in name:
+                time.sleep(0.5)
+                touch((744,230))
+                photoMaps.remove("御主技能")
+    except Exception as e:
+        return e
+
+def exitBattle():
+    photoMap = air.Photo()
+    photoMaps = [
+        "战斗结果",
+        "战斗结束",
+    ]
+    if continueFlag:
+        photoMaps.append("续关连续")
+    else:
+        photoMaps.append("续关关闭")
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        pos = photoMap.pos
+        print("找到的是{},坐标是{}".format(name, pos))
+        touch(pos)
+
+        if "关闭" in name:
+            break
+
+        if "连续" in name:
+            eatApple()
+            break
+
+def level90plus(turn = 1):
+    skill1 = [1,6,7,8,9]
+    skill2 = [3,5,6]
+    skill3 = [4]
+    skillMaps = []
+    skillMaps.append(skill1)
+    skillMaps.append(skill2)
+    skillMaps.append(skill3)
+    while 1:
+        selectSkill(skillMaps[turn-1])
+        if turn == 3 :
+            masterSkill()
+        onlyBattle(turn)
+        # 第三回合判定就不在这里了，在onlyBattle里
+        # 打完了返回到要选助战才会回到这儿。
+        if turn >= 3:
+            break
+        turn += 1
+
+def battleStartNew():
+    changeSpaceFlag(switchCF=True)
+    count = 1
+    while 1:
+        print("第{}回合开始=========".format(count))
+        level90plus()
+        print("第{}回合结束，第{}回合开始选支援=====".format(count, count + 1))
+        count += 1
+        support()
 
 if __name__ == "__main__":
     # enterGame()
-    # openGame(enterGame,spaceClick)
+    # mulFeatures(enterGame,spaceClick)
     # dailyExp()
     # battle()
     # eatApple()
-    changeSpaceFlag(switch3=True)
-    while 1:
-        wCaber()
+    # mulFeatures(egg10,touchPrize)
+    # touchPrize()
+    # egg10()
+    # battleStart()
+    # masterSkill()
+    # selectSkill([1,3])
+    # firstTurnSkill()
+    # masterSkill()
+    # oneCaber(0,1,1)
+    battleStartNew()

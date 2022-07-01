@@ -6,7 +6,7 @@ from airtest.core.api import *
 from airtest.report.report import simple_report
 from poco.drivers.android.uiautomation import AndroidUiautomationPoco
 
-poco = AndroidUiautomationPoco(use_airtest_input=True, screenshot_each_action=False)
+# poco = AndroidUiautomationPoco(use_airtest_input=True, screenshot_each_action=False)
 
 auto_setup(__file__, devices=[cv.device])
 
