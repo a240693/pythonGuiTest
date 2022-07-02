@@ -97,9 +97,11 @@ def battle():
             if "界面" in name:
                 print("第{}回合，开始选择指令卡。".format(turn))
                 # 加容错，给宝具卡动画读取时间.
-                time.sleep(1)
+                time.sleep(2)
                 for step in actionMaps:
                     touch(step)
+                # 打完之后休息15秒，看宝具动画什么的。
+                time.sleep(15)
                 turn += 1
                 continue
 
@@ -337,6 +339,7 @@ def battleStart():
 
 def egg10():
     photoMap = air.Photo()
+    count = 0
     photoMaps = [
         "奖品重置执行",
         "奖品重置关闭",
@@ -348,8 +351,13 @@ def egg10():
         name = photoMap.name
         pos =photoMap.pos
         touch(pos)
-        if "关闭" in name :
+        if "执行" in name :
+            count += 1
+        if ("关闭" in name ) | (count >= 3) :
             changeSpaceFlag(switchF=True)
+            print("开始休息30秒")
+            count = 0
+            time.sleep(30)
 
 def touchPrize(pos = (338,350)):
     while flag:
@@ -557,6 +565,7 @@ def exitBattle():
     photoMaps = [
         "战斗结果",
         "战斗结束",
+        "羁绊等级提升",
     ]
     if continueFlag:
         photoMaps.append("续关连续")
