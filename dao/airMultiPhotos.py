@@ -9,6 +9,7 @@ from poco.drivers.android.uiautomation import AndroidUiautomationPoco
 # poco = AndroidUiautomationPoco(use_airtest_input=True, screenshot_each_action=False)
 
 auto_setup(__file__, devices=[cv.device])
+# init_device(platform="Android",uuid=cv.deviceNo)
 
 path = cv.FgoPath
 

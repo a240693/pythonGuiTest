@@ -15,7 +15,7 @@ logger.setLevel(logging.ERROR)
 
 # poco = AndroidUiautomationPoco(use_airtest_input=True, screenshot_each_action=False)
 
-auto_setup(__file__, devices=[cv.device])
+# auto_setup(__file__, devices=[cv.device])
 
 path = cv.FgoPath
 
@@ -96,6 +96,8 @@ def battle():
 
             if "界面" in name:
                 print("第{}回合，开始选择指令卡。".format(turn))
+                # 加容错，给宝具卡动画读取时间.
+                time.sleep(1)
                 for step in actionMaps:
                     touch(step)
                 turn += 1
@@ -226,7 +228,7 @@ def changePos(pos=(0, 0), moveMap=(0, 0)):
     return pos
 
 
-def eatApple(appleFlag=False):
+def eatApple(appleFlag=True):
     photoMap = air.Photo()
     photoMaps = [
         "银苹果",
@@ -234,7 +236,7 @@ def eatApple(appleFlag=False):
         "狂阶",
     ]
     if appleFlag:
-        photoMaps.append("金苹果")
+        photoMaps.insert(0,"金苹果")
     while True:
         try:
             photoMap.loopSearch(photoMaps)
@@ -509,6 +511,7 @@ def onlyBattle(turn = 1):
                 print("第{}回合，开始选择指令卡。".format(turn))
                 for step in actionMaps:
                     touch(step)
+                time.sleep(7)
                 if turn <= 2:
                     break
 
@@ -592,8 +595,8 @@ def level90plus(turn = 1):
             break
         turn += 1
 
-def battleStartNew():
-    changeSpaceFlag(switchCF=True)
+def battleStartNew(switch = True):
+    changeSpaceFlag(switchCF=switch)
     count = 1
     while 1:
         print("第{}回合开始=========".format(count))
@@ -617,4 +620,4 @@ if __name__ == "__main__":
     # firstTurnSkill()
     # masterSkill()
     # oneCaber(0,1,1)
-    battleStartNew()
+    battleStartNew(True)

@@ -1,6 +1,4 @@
-import datetime
 import easygui as gui
-from testTools import timeTest
 from games import fgo
 
 flag = False
@@ -8,6 +6,7 @@ flag = False
 choices = ("请选择副本：",
            "90",
            "90+",
+           "无限池",
            "====================",
            "关闭")
 
@@ -40,6 +39,7 @@ def setFlag():
 
 if __name__ == "__main__":
     # getTime()
+    setFlag()
     while flag:
         choice = ''
         choice = main()
@@ -47,5 +47,7 @@ if __name__ == "__main__":
             fgo.battleStart()
         elif "90+".__eq__(choice):
             fgo.battleStartNew()
+        elif "无限池".__eq__(choice):
+            fgo.egg10()
         elif choice == "关闭":
             break
