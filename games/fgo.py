@@ -238,7 +238,7 @@ def eatApple(appleFlag=True):
         "狂阶",
     ]
     if appleFlag:
-        photoMaps.insert(0,"金苹果")
+        photoMaps.insert(0, "金苹果")
     while True:
         try:
             photoMap.loopSearch(photoMaps)
@@ -315,6 +315,7 @@ def wCaber():
         except Exception as e:
             return 0
 
+
 def support():
     photoMap = air.Photo()
     photoMaps = [
@@ -323,9 +324,10 @@ def support():
     while 1:
         photoMap.loopSearch(photoMaps)
         name = photoMap.name
-        pos =photoMap.pos
+        pos = photoMap.pos
         touch(pos)
         break
+
 
 def battleStart():
     changeSpaceFlag(switchCF=True)
@@ -333,9 +335,10 @@ def battleStart():
     while 1:
         print("第{}回合开始=========".format(count))
         wCaber()
-        print("第{}回合结束，第{}回合开始选支援=====".format(count,count+1))
+        print("第{}回合结束，第{}回合开始选支援=====".format(count, count + 1))
         count += 1
         support()
+
 
 def egg10():
     photoMap = air.Photo()
@@ -349,21 +352,23 @@ def egg10():
         photoMap.loopSearch(photoMaps)
         changeSpaceFlag(switchF=False)
         name = photoMap.name
-        pos =photoMap.pos
+        pos = photoMap.pos
         touch(pos)
-        if "执行" in name :
+        if "执行" in name:
             count += 1
-        if ("关闭" in name ) | (count >= 3) :
+        if ("关闭" in name) | (count >= 3):
             changeSpaceFlag(switchF=True)
             print("开始休息30秒")
             count = 0
             time.sleep(30)
 
-def touchPrize(pos = (338,350)):
+
+def touchPrize(pos=(338, 350)):
     while flag:
         touch(pos)
 
-def selectSkill(skill = [10]):
+
+def selectSkill(skill=[10]):
     photoMap = air.Photo()
     photoMaps = [
         "技能选择对象",
@@ -371,25 +376,25 @@ def selectSkill(skill = [10]):
     ]
     skillMaps = [
         # 技能图标1-9,每三个是一个人物
-        (52,436),
-        (125,436),
-        (190,436),
-        (290,436),
-        (360,436),
-        (420,436),
-        (530,436),
-        (600,436),
-        (670,436),
+        (52, 436),
+        (125, 436),
+        (190, 436),
+        (290, 436),
+        (360, 436),
+        (420, 436),
+        (530, 436),
+        (600, 436),
+        (670, 436),
     ]
     moveMaps = []
     tagetMaps = [
         (220, 339),  # 选择对象，选一号位。
-     ]
+    ]
     # 10就不开技能，直接跳过释放段。
     if skill[0] == 10:
         return 0
     for i in skill:
-        moveMaps.append(skillMaps[i-1])
+        moveMaps.append(skillMaps[i - 1])
     for i in moveMaps:
         while 1:
             photoMap.loopSearch(photoMaps)
@@ -400,13 +405,14 @@ def selectSkill(skill = [10]):
                 break
         touch(i)
         time.sleep(0.3)
-        if i == moveMaps[-1] :
+        if i == moveMaps[-1]:
             while 1:
                 photoMap.loopSearch(photoMaps)
                 name = photoMap.name
                 if "对象" in name:
                     touch(tagetMaps[0])
                 break
+
 
 # 作废了，用新的selectSkill
 def firstTurnSkill():
@@ -447,8 +453,9 @@ def firstTurnSkill():
         except Exception as e:
             return 0
 
+
 # 作废了，用新的selectSkill
-def oneCaber(skill1 = 0,skill2 = 0,skill3 = 0):
+def oneCaber(skill1=0, skill2=0, skill3=0):
     count = 0
     count2 = 0
     limit = 0
@@ -466,7 +473,7 @@ def oneCaber(skill1 = 0,skill2 = 0,skill3 = 0):
     if skill3 == 1:
         photoMaps.append("C呆3技能")
         limit += 1
-        limit2 +=1
+        limit2 += 1
     if skill2 == 1:
         photoMaps.append("C呆2技能")
         limit += 1
@@ -489,7 +496,8 @@ def oneCaber(skill1 = 0,skill2 = 0,skill3 = 0):
         except Exception as e:
             return 0
 
-def onlyBattle(turn = 1):
+
+def onlyBattle(turn=1):
     photoMap = air.Photo()
     photoMaps = [
         "攻击",
@@ -532,6 +540,7 @@ def onlyBattle(turn = 1):
     except Exception as e:
         return e
 
+
 def masterSkill():
     photoMap = air.Photo()
     photoMaps = [
@@ -540,7 +549,7 @@ def masterSkill():
     ]
     moveMaps = [
         (220, 339),  # 选择对象，选一号位。
-        (744,230), # 选择二号技能。
+        (744, 230),  # 选择二号技能。
     ]
     try:
         while 1:
@@ -555,10 +564,11 @@ def masterSkill():
             touch(pos)
             if "技能" in name:
                 time.sleep(0.5)
-                touch((744,230))
+                touch((744, 230))
                 photoMaps.remove("御主技能")
     except Exception as e:
         return e
+
 
 def exitBattle():
     photoMap = air.Photo()
@@ -585,17 +595,18 @@ def exitBattle():
             eatApple()
             break
 
-def level90plus(turn = 1):
-    skill1 = [1,6,7,8,9]
-    skill2 = [3,5,6]
+
+def level90plus(turn=1):
+    skill1 = [1, 6, 7, 8, 9]
+    skill2 = [3, 5, 6]
     skill3 = [4]
     skillMaps = []
     skillMaps.append(skill1)
     skillMaps.append(skill2)
     skillMaps.append(skill3)
     while 1:
-        selectSkill(skillMaps[turn-1])
-        if turn == 3 :
+        selectSkill(skillMaps[turn - 1])
+        if turn == 3:
             masterSkill()
         onlyBattle(turn)
         # 第三回合判定就不在这里了，在onlyBattle里
@@ -604,15 +615,62 @@ def level90plus(turn = 1):
             break
         turn += 1
 
-def battleStartNew(switch = True):
+
+def level90plus(turn=1):
+    skill1 = [1, 6, 7, 8, 9]
+    skill2 = [3, 5, 6]
+    skill3 = [4]
+    skillMaps = []
+    skillMaps.append(skill1)
+    skillMaps.append(skill2)
+    skillMaps.append(skill3)
+    while 1:
+        selectSkill(skillMaps[turn - 1])
+        if turn == 3:
+            masterSkill()
+        onlyBattle(turn)
+        # 第三回合判定就不在这里了，在onlyBattle里
+        # 打完了返回到要选助战才会回到这儿。
+        if turn >= 3:
+            break
+        turn += 1
+
+
+def level90(turn=1):
+    skill1 = [1, 4, 5, 6, 7, 8, 9]
+    skill2 = [10]
+    skill3 = [3]
+    skillMaps = []
+    skillMaps.append(skill1)
+    skillMaps.append(skill2)
+    skillMaps.append(skill3)
+    while 1:
+        selectSkill(skillMaps[turn - 1])
+        if turn == 3:
+            masterSkill()
+        onlyBattle(turn)
+        # 第三回合判定就不在这里了，在onlyBattle里
+        # 打完了返回到要选助战才会回到这儿。
+        if turn >= 3:
+            break
+        turn += 1
+
+
+def battleStartNew(switch=True, select=1):
     changeSpaceFlag(switchCF=switch)
     count = 1
     while 1:
         print("第{}回合开始=========".format(count))
-        level90plus()
+        if select == 1:
+            level90plus()
+        elif select == 2:
+            level90()
+        else:
+            level90plus()
         print("第{}回合结束，第{}回合开始选支援=====".format(count, count + 1))
         count += 1
         support()
+
 
 if __name__ == "__main__":
     # enterGame()
@@ -629,4 +687,4 @@ if __name__ == "__main__":
     # firstTurnSkill()
     # masterSkill()
     # oneCaber(0,1,1)
-    battleStartNew(True)
+    battleStartNew(True, 2)
