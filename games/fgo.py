@@ -353,14 +353,18 @@ def egg10():
         changeSpaceFlag(switchF=False)
         name = photoMap.name
         pos = photoMap.pos
-        touch(pos)
         if "执行" in name:
             count += 1
-        if ("关闭" in name) | (count >= 3):
+            photoMaps.append("抽奖10")
+        # if ("关闭" in name) | (count >= 3):
+        if "抽奖" in name:
             changeSpaceFlag(switchF=True)
             print("开始休息30秒")
             count = 0
             time.sleep(30)
+            photoMaps.remove("抽奖10")
+            continue
+        touch(pos)
 
 
 def touchPrize(pos=(338, 350)):
