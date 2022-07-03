@@ -340,35 +340,26 @@ def battleStart():
         support()
 
 
-def egg10():
+def egg10(pos=(338, 350)):
     photoMap = air.Photo()
     count = 0
     photoMaps = [
-        "奖品重置执行",
+        # "奖品重置执行",
         "奖品重置关闭",
         "重置奖品",
+        "抽奖10",
     ]
     while 1:
         photoMap.loopSearch(photoMaps)
-        changeSpaceFlag(switchF=False)
         name = photoMap.name
         pos = photoMap.pos
-        if "执行" in name:
+        if "关闭" in name:
             count += 1
-            photoMaps.append("抽奖10")
-        # if ("关闭" in name) | (count >= 3):
-        if "抽奖" in name:
-            changeSpaceFlag(switchF=True)
-            print("开始休息30秒")
-            count = 0
-            time.sleep(30)
-            photoMaps.remove("抽奖10")
+        elif "重置" in name :
+            changeSpaceFlag(switchF=False)
+        elif "抽奖" in name :
+            touch(pos,times = 250)
             continue
-        touch(pos)
-
-
-def touchPrize(pos=(338, 350)):
-    while flag:
         touch(pos)
 
 
@@ -691,4 +682,5 @@ if __name__ == "__main__":
     # firstTurnSkill()
     # masterSkill()
     # oneCaber(0,1,1)
-    battleStartNew(True, 2)
+    # battleStartNew(True, 2)
+    egg10()
