@@ -314,6 +314,7 @@ def returnKmx():
         name = photoMap.name
         if "卡马逊" in name:
             click(photoMap,moveMaps[0])
+            time.sleep(1)
             continue
         if "主页面 " in name:
             click(photoMap,moveMaps[2])
