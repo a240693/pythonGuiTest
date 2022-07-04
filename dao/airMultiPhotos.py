@@ -8,18 +8,22 @@ from poco.drivers.android.uiautomation import AndroidUiautomationPoco
 
 # poco = AndroidUiautomationPoco(use_airtest_input=True, screenshot_each_action=False)
 
-auto_setup(__file__, devices=[cv.device])
+
 # init_device(platform="Android",uuid=cv.deviceNo)
 
-path = cv.FgoPath
-
-
 # path = 'D:\\pyTest\\'
+
+path = ""
 
 class Photo:
     def __init__(self):
         self.name = "默认"
         self.pos = (0, 0)
+        device = cv.get_value("device")
+        global path
+        path = cv.get_value("path")
+        print("device:{},path:{}".format(device, path))
+        auto_setup(__file__, devices=[device])
 
     def writeSelf(self, name, pos):
         self.name = name

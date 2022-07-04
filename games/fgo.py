@@ -17,7 +17,6 @@ logger.setLevel(logging.ERROR)
 
 # auto_setup(__file__, devices=[cv.device])
 
-path = cv.FgoPath
 
 spaceFlag = False
 
@@ -27,6 +26,7 @@ continueFlag = False
 
 __author__ = "user"
 
+cv._init()
 
 def enterGame():
     photoMap = air.Photo()
@@ -682,5 +682,5 @@ if __name__ == "__main__":
     # firstTurnSkill()
     # masterSkill()
     # oneCaber(0,1,1)
-    # battleStartNew(True, 2)
-    egg10()
+    battleStartNew(False, 2)
+    # egg10()
