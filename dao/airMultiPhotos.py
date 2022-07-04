@@ -14,16 +14,17 @@ from poco.drivers.android.uiautomation import AndroidUiautomationPoco
 # path = 'D:\\pyTest\\'
 
 path = ""
+count = 0
 
 class Photo:
     def __init__(self):
         self.name = "默认"
         self.pos = (0, 0)
-        device = cv.get_value("device")
-        global path
-        path = cv.get_value("path")
-        print("device:{},path:{}".format(device, path))
-        auto_setup(__file__, devices=[device])
+        global count
+        if count == 0:
+            self.connectDevice()
+            count += 1
+
 
     def writeSelf(self, name, pos):
         self.name = name
@@ -60,3 +61,10 @@ class Photo:
 
     def __str__(self):
         return print(self.name, self.pos)
+
+    def connectDevice(self):
+        device = cv.get_value("device")
+        global path
+        path = cv.get_value("path")
+        print("device:{},path:{}".format(device, path))
+        auto_setup(__file__, devices=[device])

@@ -641,7 +641,7 @@ def level90(turn=1):
     skillMaps.append(skill3)
     while 1:
         selectSkill(skillMaps[turn - 1])
-        if turn == 3:
+        if turn == 2:
             masterSkill()
         onlyBattle(turn)
         # 第三回合判定就不在这里了，在onlyBattle里
@@ -682,5 +682,5 @@ if __name__ == "__main__":
     # firstTurnSkill()
     # masterSkill()
     # oneCaber(0,1,1)
-    battleStartNew(False, 2)
+    battleStartNew(True, 2)
     # egg10()
