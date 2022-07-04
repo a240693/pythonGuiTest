@@ -200,9 +200,9 @@ def setFlag():
     changeFlag()
 
 
-def changeFlag():
+def changeFlag(switch = False):
     global flag
-    flag = False
+    flag = switch
 
 
 def pvp():
@@ -267,6 +267,7 @@ def day2buy(choice):
 
 def fullAutoKmx():
     count = 0
+    changeFlag(True)
     photoMap = multiphotos.Photo()
     photoMaps = ['卡马逊主页']
     moveMaps = [
