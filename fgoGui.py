@@ -7,6 +7,7 @@ choices = ("请选择副本：",
            "90",
            "90+",
            "无限池",
+           "自回体90",
            "====================",
            "关闭")
 
@@ -49,5 +50,7 @@ if __name__ == "__main__":
             fgo.battleStartNew(True, 1)
         elif "无限池".__eq__(choice):
             fgo.egg10()
+        elif "自回体90".__eq__(choice):
+            fgo.battleStartNew(True, False, 2)
         elif choice == "关闭":
             break

@@ -24,9 +24,12 @@ flag = True
 
 continueFlag = False
 
+appleFlag = True
+
 __author__ = "user"
 
 cv._init()
+
 
 def enterGame():
     photoMap = air.Photo()
@@ -46,9 +49,9 @@ def enterGame():
             name = photoMap.name
             pos = photoMap.pos
             if "fgo".__eq__(name):
-                changeSpaceFlag(True)
+                changeFlag(True)
             if "迦勒底" in name:
-                changeSpaceFlag(False, False)
+                changeFlag(False, False)
                 break
             touch(pos)
     except Exception as e:
@@ -115,7 +118,7 @@ def battle():
                 touch(pos)
                 time.sleep(1)
 
-            print("找到的是{},坐标是{}".format(name, pos))
+            # print("找到的是{},坐标是{}".format(name, pos))
             touch(pos)
 
             if "小芬奇" in name:
@@ -162,13 +165,19 @@ def mulFeatures(thread1, thread2):
         pass
 
 
-def changeSpaceFlag(switchSF=False, switchF=True, switchCF=False):
+def changeFlag(switchSF=False, switchF=True, switchCF=False, switchAp=True):
+    # 进游戏要不要一直点击左边的开关。
     global spaceFlag
     spaceFlag = switchSF
+    # 控制进程的开关。
     global flag
     flag = switchF
+    # 打完后是续关还是退出的开关。
     global continueFlag
     continueFlag = switchCF
+    # 没体力了是否吃苹果开关。
+    global appleFlag
+    appleFlag = switchAp
 
 
 def dailyExp():
@@ -230,20 +239,24 @@ def changePos(pos=(0, 0), moveMap=(0, 0)):
     return pos
 
 
-def eatApple(appleFlag=True):
+def eatApple():
     photoMap = air.Photo()
     photoMaps = [
         "银苹果",
+        "金苹果",
         "苹果确定",
         "狂阶",
     ]
-    if appleFlag:
-        photoMaps.insert(0, "金苹果")
+
     while True:
         try:
             photoMap.loopSearch(photoMaps)
             name = photoMap.name
             pos = photoMap.pos
+            if "苹果" in name:
+                if not appleFlag:
+                    changeFlag(switchCF=False)
+                    return 0
             if "狂阶" in name:
                 break
             touch(pos)
@@ -330,14 +343,16 @@ def support():
 
 
 def battleStart():
-    changeSpaceFlag(switchCF=True)
+    changeFlag(switchCF=True)
+    global continueFlag
     count = 1
     while 1:
         print("第{}回合开始=========".format(count))
         wCaber()
-        print("第{}回合结束，第{}回合开始选支援=====".format(count, count + 1))
-        count += 1
-        support()
+        if continueFlag == True:
+            print("第{}回合结束，第{}回合开始选支援=====".format(count, count + 1))
+            count += 1
+            support()
 
 
 def egg10(pos=(338, 350)):
@@ -355,10 +370,10 @@ def egg10(pos=(338, 350)):
         pos = photoMap.pos
         if "关闭" in name:
             count += 1
-        elif "重置" in name :
-            changeSpaceFlag(switchF=False)
-        elif "抽奖" in name :
-            touch(pos,times = 250)
+        elif "重置" in name:
+            changeFlag(switchF=False)
+        elif "抽奖" in name:
+            touch(pos, times=250)
             continue
         touch(pos)
 
@@ -526,7 +541,7 @@ def onlyBattle(turn=1):
                 if turn <= 2:
                     break
 
-            print("找到的是{},坐标是{}".format(name, pos))
+            # print("找到的是{},坐标是{}".format(name, pos))
             touch(pos)
             if "战斗结果" in name:
                 exitBattle()
@@ -552,15 +567,20 @@ def masterSkill():
             pos = photoMap.pos
             name = photoMap.name
             # 如果读取到战斗界面就选卡，不点击直接跳过。
+
             if "对象" in name:
                 touch(moveMaps[0])
+
+            if "攻击" in name:
                 break
-            print("找到的是{},坐标是{}".format(name, pos))
+
             touch(pos)
+
             if "技能" in name:
                 time.sleep(0.5)
                 touch((744, 230))
                 photoMaps.remove("御主技能")
+                photoMaps.insert(1,"攻击")
     except Exception as e:
         return e
 
@@ -580,7 +600,7 @@ def exitBattle():
         photoMap.loopSearch(photoMaps)
         name = photoMap.name
         pos = photoMap.pos
-        print("找到的是{},坐标是{}".format(name, pos))
+        # print("找到的是{},坐标是{}".format(name, pos))
         touch(pos)
 
         if "关闭" in name:
@@ -651,10 +671,11 @@ def level90(turn=1):
         turn += 1
 
 
-def battleStartNew(switch=True, select=1):
-    changeSpaceFlag(switchCF=switch)
+def battleStartNew(switchCF=True, switchAp=True, select=1):
+    changeFlag(switchCF=switchCF, switchAp=switchAp)
+    global  continueFlag
     count = 1
-    while 1:
+    while continueFlag:
         print("第{}回合开始=========".format(count))
         if select == 1:
             level90plus()
@@ -662,9 +683,10 @@ def battleStartNew(switch=True, select=1):
             level90()
         else:
             level90plus()
-        print("第{}回合结束，第{}回合开始选支援=====".format(count, count + 1))
-        count += 1
-        support()
+        if continueFlag:
+            print("第{}回合结束，第{}回合开始选支援=====".format(count, count + 1))
+            count += 1
+            support()
 
 
 if __name__ == "__main__":
@@ -682,5 +704,5 @@ if __name__ == "__main__":
     # firstTurnSkill()
     # masterSkill()
     # oneCaber(0,1,1)
-    battleStartNew(True, 2)
+    battleStartNew(True, False,2)
     # egg10()
