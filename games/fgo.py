@@ -256,11 +256,11 @@ def eatApple():
             if "苹果" in name:
                 if not appleFlag:
                     changeFlag(switchCF=False)
-                    return 0
+                    photoMaps = ["苹果关闭"]
             if "狂阶" in name:
                 break
             touch(pos)
-            if "确定" in name:
+            if ("确定" in name) | ("关闭" in name):
                 break
         except Exception as e:
             return 0
@@ -580,7 +580,7 @@ def masterSkill():
                 time.sleep(0.5)
                 touch((744, 230))
                 photoMaps.remove("御主技能")
-                photoMaps.insert(1,"攻击")
+                photoMaps.insert(1, "攻击")
     except Exception as e:
         return e
 
@@ -673,7 +673,7 @@ def level90(turn=1):
 
 def battleStartNew(switchCF=True, switchAp=True, select=1):
     changeFlag(switchCF=switchCF, switchAp=switchAp)
-    global  continueFlag
+    global continueFlag
     count = 1
     while continueFlag:
         print("第{}回合开始=========".format(count))
@@ -704,5 +704,5 @@ if __name__ == "__main__":
     # firstTurnSkill()
     # masterSkill()
     # oneCaber(0,1,1)
-    battleStartNew(True, False,2)
+    battleStartNew(True, False, 2)
     # egg10()
