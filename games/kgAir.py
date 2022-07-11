@@ -122,9 +122,9 @@ def touchFix(pos=(0, 0), pos1=(0, 0)):
 
 def changeEquip():
     photoMaps = [
+        "处理装备",
         "坎公卡马逊确认",
         "装备选择",
-        "处理装备",
         "替换神器",
         "卡马逊主页",
     ]
@@ -148,7 +148,9 @@ def searchPage():
         "坎公心号",
         "坎公商店",
         "问号标识一",
-        "问号标识二",
+        "坎公战队",
+        # "问号标识二",
+        "问号标识三",
         "卡马逊主页",
     ]
     moveMaps = [
@@ -171,6 +173,9 @@ def searchPage():
             break
         if "商店" in name:
             shop()
+            break
+        if "战队" in name:
+            team()
             break
         if "主页" in name:
             break
@@ -268,6 +273,32 @@ def question():
             photoMaps.remove("问号标识二")
         touch(pos)
 
+def team():
+    photoMaps = [
+        "坎公卡马逊确认",
+        "装备选择",
+        "坎公战队",
+        "卡马逊主页",
+    ]
+    moveMaps = [
+        (780,360), # 开始滑动的坐标。
+        (780,30), # 结束滑动的坐标。
+    ]
+    while 1:
+        photoMap = air.Photo()
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        pos = photoMap.pos
+        if "主页" in name:
+            break
+        if "战队" in name:
+            swipe(moveMaps[0],moveMaps[1],duration = 1 , steps = 6)
+            photoMaps.remove("坎公战队")
+            photoMaps.insert(2,"问号标识二")
+            continue
+        touch(pos)
+
+
 if __name__ == "__main__":
     # touchFix((3,4),(5,6))
     # returnKmx()
@@ -276,3 +307,4 @@ if __name__ == "__main__":
     # shop()
     fullAutoKmx()
     # searchPage()
+    # team()
