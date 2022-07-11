@@ -766,6 +766,7 @@ def autoTrust():
         "pcr选项三",
         "pcr信任结算",
         "pcr对话框",
+        "pcr对话框二",
         "pcr信任度最大",
         "pcr0信任",
     ]

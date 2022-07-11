@@ -242,8 +242,8 @@ def changePos(pos=(0, 0), moveMap=(0, 0)):
 def eatApple():
     photoMap = air.Photo()
     photoMaps = [
-        "银苹果",
         "金苹果",
+        "银苹果",
         "苹果确定",
         "狂阶",
     ]
@@ -257,6 +257,7 @@ def eatApple():
                 if not appleFlag:
                     changeFlag(switchCF=False)
                     photoMaps = ["苹果关闭"]
+                    continue
             if "狂阶" in name:
                 break
             touch(pos)
@@ -675,7 +676,7 @@ def battleStartNew(switchCF=True, switchAp=True, select=1):
     changeFlag(switchCF=switchCF, switchAp=switchAp)
     global continueFlag
     count = 1
-    while continueFlag:
+    while (continueFlag) | (count == 1):
         print("第{}回合开始=========".format(count))
         if select == 1:
             level90plus()
@@ -685,8 +686,8 @@ def battleStartNew(switchCF=True, switchAp=True, select=1):
             level90plus()
         if continueFlag:
             print("第{}回合结束，第{}回合开始选支援=====".format(count, count + 1))
-            count += 1
             support()
+        count += 1
 
 
 if __name__ == "__main__":
