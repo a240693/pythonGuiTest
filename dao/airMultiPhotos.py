@@ -45,7 +45,7 @@ class Photo:
     # 有就返回1，无就返回0.
     def appearThenClick(self, photoMap):
         try:
-            photo = Template(path + photoMap + ".png", rgb=True)
+            photo = Template(path + photoMap + ".png", rgb=False)
             # 一秒没找到就换下一张。
             pos = wait(photo,timeout = 1)
             if pos:
