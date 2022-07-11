@@ -126,7 +126,7 @@ def changeEquip():
         "装备选择",
         "处理装备",
         "替换神器",
-        "坎公主页面"
+        "卡马逊主页",
     ]
     moveMaps = [
         (486, 191),  # 第一个神器在的位置。
@@ -138,7 +138,7 @@ def changeEquip():
         pos = photoMap.pos
         if "替换神器" in name:
             pos = moveMaps[0]
-        if "坎公主页面" in name:
+        if "主页" in name:
             break
         touch(pos)
 
@@ -147,6 +147,8 @@ def searchPage():
         "战斗页",
         "坎公心号",
         "坎公商店",
+        "问号标识一",
+        "问号标识二",
         "卡马逊主页",
     ]
     moveMaps = [
@@ -163,6 +165,9 @@ def searchPage():
             break
         if "心号" in name:
             heart()
+            break
+        if "问号" in name:
+            question()
             break
         if "商店" in name:
             shop()
@@ -188,9 +193,13 @@ def battle():
         pos = photoMap.pos
         touch(pos)
         if "进入" in name:
-            time.sleep(20)
+            time.sleep(30)
         if "装备" in name:
             chooseEquip()
+            break
+        if "成功" in name:
+            global flag
+            flag = False
             break
 
 def heart():
@@ -236,10 +245,34 @@ def shop():
             break
         touch(pos)
 
+def question():
+    photoMaps = [
+        "坎公卡马逊确认",
+        "装备选择",
+        "问号标识一",
+        "问号标识二",
+        "卡马逊主页",
+    ]
+    moveMaps = [
+
+    ]
+    while 1:
+        photoMap = air.Photo()
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        pos = photoMap.pos
+        if "主页" in name:
+            break
+        if "选择" in name:
+            photoMaps.remove("问号标识一")
+            photoMaps.remove("问号标识二")
+        touch(pos)
+
 if __name__ == "__main__":
     # touchFix((3,4),(5,6))
-    # kmxAutoNewV2()
     # returnKmx()
     # chooseEquip()
-    fullAutoKmx()
+    # question()
     # shop()
+    fullAutoKmx()
+    # searchPage()
