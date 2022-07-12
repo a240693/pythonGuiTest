@@ -127,6 +127,9 @@ def battle():
             if "关闭" in name:
                 break
 
+            if "结束" in name:
+                break
+
             if "连续" in name:
                 eatApple()
                 break
@@ -611,6 +614,8 @@ def exitBattle():
             eatApple()
             break
 
+        if ("结束" in name) & (not continueFlag):
+            break
 
 def level90plus(turn=1):
     skill1 = [1, 6, 7, 8, 9]
@@ -705,5 +710,5 @@ if __name__ == "__main__":
     # firstTurnSkill()
     # masterSkill()
     # oneCaber(0,1,1)
-    battleStartNew(True, False, 2)
+    battleStartNew(False, False, 2)
     # egg10()
