@@ -409,7 +409,7 @@ def selectSkill(skill=[10]):
         return 0
     for i in skill:
         moveMaps.append(skillMaps[i - 1])
-    for i in moveMaps:
+    for index,i in enumerate(moveMaps):
         while 1:
             photoMap.loopSearch(photoMaps)
             name = photoMap.name
@@ -417,6 +417,7 @@ def selectSkill(skill=[10]):
                 touch(tagetMaps[0])
             if "攻击" in name:
                 break
+        print("正在释放第{}个技能。".format(index+1))
         touch(i)
         time.sleep(0.3)
         if i == moveMaps[-1]:
@@ -710,5 +711,6 @@ if __name__ == "__main__":
     # firstTurnSkill()
     # masterSkill()
     # oneCaber(0,1,1)
-    battleStartNew(False, False, 2)
+    # battleStartNew(False, False, 2)
     # egg10()
+    battleStartNew(True, select = 2)

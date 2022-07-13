@@ -46,9 +46,9 @@ if __name__ == "__main__":
         choice = ''
         choice = main()
         if "90".__eq__(choice):
-            fgo.battleStartNew(True, 2)
+            fgo.battleStartNew(True,select = 2)
         elif "90+".__eq__(choice):
-            fgo.battleStartNew(True, 1)
+            fgo.battleStartNew(True, select = 1)
         elif "无限池".__eq__(choice):
             fgo.egg10()
         elif "自回体90".__eq__(choice):
