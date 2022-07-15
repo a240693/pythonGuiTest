@@ -695,6 +695,25 @@ def battleStartNew(switchCF=True, switchAp=True, select=1):
             support()
         count += 1
 
+def custom(turn=1):
+    skill1 = [2]
+    skill2 = [10]
+    skill3 = [10]
+    skillMaps = []
+    skillMaps.append(skill1)
+    skillMaps.append(skill2)
+    skillMaps.append(skill3)
+    while 1:
+        selectSkill(skillMaps[turn - 1])
+        # 种火特化，暂时不扔御主技能。
+        # if turn == 2:
+        #     masterSkill()
+        onlyBattle(turn)
+        # 第三回合判定就不在这里了，在onlyBattle里
+        # 打完了返回到要选助战才会回到这儿。
+        if turn >= 3:
+            break
+        turn += 1
 
 if __name__ == "__main__":
     # enterGame()
@@ -713,4 +732,5 @@ if __name__ == "__main__":
     # oneCaber(0,1,1)
     # battleStartNew(False, False, 2)
     # egg10()
-    battleStartNew(True, select = 2)
+    # battleStartNew(True, select = 2)
+    custom()

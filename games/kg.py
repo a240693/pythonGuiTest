@@ -258,6 +258,7 @@ def day2buy(choice):
     photoMap.append(('进化石扫荡', 1, 0, 0))
     photoMap.append(('坎公进化石确认', 1, 0, 0))
     photoMap.append(('坎公商店确认', 1, 0, 0))
+    photoMap.append(('坎公商店确认', 1, 0, 0))
     photoMap.append(('进化石页面', 1, -89, 2))
     photoMap.append(('进化石页面', 1, -89, 2))
     photoMap.append(('探险初始页', 1, -723, -174))
