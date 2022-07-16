@@ -4,6 +4,7 @@ import time
 import _thread
 
 from dao import dao, daoImpl, multiphotos
+from . import  kgAir
 
 flag = True
 
@@ -263,7 +264,8 @@ def day2buy(choice):
     photoMap.append(('进化石页面', 1, -89, 2))
     photoMap.append(('探险初始页', 1, -723, -174))
     dao.dualListPhotoKg(photoMap)
-    pvp()
+    kgAir.pvpAuto()
+    # pvp()
 
 
 def fullAutoKmx():

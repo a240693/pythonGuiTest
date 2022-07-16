@@ -299,6 +299,40 @@ def team():
             continue
         touch(pos)
 
+def pvpAuto():
+    gamePages = air.Photo()
+    gamePagesMap = [
+        '坎公挑战卷不足',
+        '坎公44段位更新',
+        '坎公PVP确认',
+        '坎公初始选人页黄',
+        '坎公PVP休息',
+        '坎公初始选人页重试',
+        '坎公卡马逊确认'
+    ]
+    moveMaps = [
+        (903,171),  # 重试右上角的小齿轮
+    ]
+    while flag:
+        gamePages.name = "默认"
+        gamePages.loopSearch(gamePagesMap)
+        name = gamePages.name
+        pos = gamePages.pos
+        if "坎公初始选人页重试".__eq__(name):
+            # 拿偏移坐标，点一下右上角齿轮在的位置收工。
+            touchFix(moveMaps[0])
+            touch(pos)
+        elif '坎公PVP休息'.__eq__(name):
+            time.sleep(20)
+        elif "不足" in name:
+            touchFix(pos,(-28,154))
+            changeFlag()
+        elif '更新' in name:
+            touchFix(pos,(3,227))
+        # 这里拿到了上面三选一的 名字 和XY坐标
+        else:
+            touch(pos)
+
 
 if __name__ == "__main__":
     # touchFix((3,4),(5,6))
@@ -306,6 +340,7 @@ if __name__ == "__main__":
     # chooseEquip()
     # question()
     # shop()
-    fullAutoKmx()
+    # fullAutoKmx()
     # searchPage()
     # team()
+    pvpAuto()
