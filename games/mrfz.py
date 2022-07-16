@@ -82,6 +82,7 @@ def RDdaily():
 
 
 # 2022年5月11日11:48:44
+# 2022年7月16日11:15:36，逻辑重构。
 # 每日收取信用点。
 def trustDaily():
     photoMap = multiphotos.Photo()
@@ -92,24 +93,29 @@ def trustDaily():
         "粥已领取",
     ]
     moveMaps = []
-    for i in photoMaps:
-        photoMap = photoMap.searchPhoto(i)
+    while True:
+        photoMap = photoMap.loopSearch(photoMaps)
         x = photoMap.x
         y = photoMap.y
         name = photoMap.name
         dao.moveTo(x, y)
         if "领取" in name:
             buyTrust()
+            break
         elif "收取" in name:
             dao.tapSpace(2)
 
 
 # 2022年5月11日12:11:04
+# 2022年7月16日11:15:46 逻辑重构
 def buyTrust():
     photoMap = multiphotos.Photo()
     photoMaps = [
+        "粥信用不足",
         "粥招聘许可",
         "粥招聘许可",
+        "粥75",
+        "粥50",
         "粥购买物品",
         "粥已领取",
     ]
@@ -131,9 +137,16 @@ def buyTrust():
             # 暂时不买
             dao.moveToMRFZ(x + moveMaps[3][0], y + moveMaps[3][1], 1)
             break
+        elif "不足" in name:
+            photoMaps.remove("粥招聘许可")
+            photoMaps.remove("粥50")
+            photoMaps.remove("粥75")
+            photoMaps.remove("粥购买物品")
+
 
 
 # 2022年5月11日13:51:02
+# 2022年7月16日11:15:54 逻辑重构
 # 每日招聘。
 def employDaily():
     flag = True
@@ -142,28 +155,25 @@ def employDaily():
     photoMaps = [
         "粥招聘",
         "粥跳过",
-    ]
-    onlyOneMaps = [
         "粥公开招募",
+        "粥休息室后退",
     ]
+    # onlyOneMaps = [
+    #     "粥公开招募",
+    # ]
     moveMaps = [
         (-717, -348),  # 左上角退出 0
     ]
-    photoMap = photoMap.searchPhoto(onlyOneMaps[0])
-    ex = photoMap.x
-    ey = photoMap.y
-    dao.moveTo(ex, ey)
-    while (flag) & (count < 4):
-        for i in photoMaps:
-            photoMap = photoMap.searchPhoto(i)
-            x = photoMap.x
-            y = photoMap.y
-            name = photoMap.name
-            dao.moveToMRFZ(x, y, 1)
-            if "粥跳过" in name:
-                dao.tapSpace(5)
-        count += 1
-    dao.moveToMRFZ(ex + moveMaps[0][0], ey + moveMaps[0][1], 1)
+    while True:
+        photoMap = photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+        dao.moveToMRFZ(x, y, 1)
+        if "粥跳过" in name:
+            dao.tapSpace(5)
+        if "后退" in name:
+            break
 
 
 # 2022年5月11日12:52:12
@@ -175,4 +185,4 @@ def allDaily():
 if __name__ == "__main__":
     # allDaily()
     # RDdaily()
-    restPeople()
+    employDaily()
