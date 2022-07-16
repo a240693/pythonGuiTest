@@ -289,6 +289,7 @@ def dailyPvP(choice):
     gamePagesMap = ['JJC结束下一步', 'JJC结束下一步2', 'JJC结束下一步3']
     gamePagesMap2 = ['PJJC结束下一步', 'PJJC结束下一步2']
     dao.searchPhotoPcr('冒险', 1, 0, 0)
+    time.sleep(3)
     if 1 == choice:
         dao.searchPhotoPcr('主页', 3, 525, -108)
         time.sleep(1)
@@ -463,8 +464,11 @@ def searchSmall():
 def underWorld(switch):
     time.sleep(1)
     dao.searchPhotoPcr('冒险', 1, 0, 0)
+    time.sleep(1)
     dao.searchPhotoPcr('主页', 3, 792, -382)
+    time.sleep(1)
     dao.searchPhotoPcr('主页', 3, 756, -266)
+    time.sleep(1)
     underWorldEnter()
     pcrUnderEX3(switch)
 
@@ -472,8 +476,11 @@ def underWorld(switch):
 def underWorldSmall():
     time.sleep(1)
     dao.searchPhotoPcr('冒险', 1, 0, 0)
+    time.sleep(1)
     dao.searchPhotoPcr('主页', 3, 792, -382)
+    time.sleep(1)
     dao.searchPhotoPcr('主页', 3, 509, -270)
+    time.sleep(1)
     underWorldEnter()
     pcrUnderEX1()
 
