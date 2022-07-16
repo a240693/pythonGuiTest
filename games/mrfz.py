@@ -42,14 +42,16 @@ def restPeople():
             dao.moveToMRFZ(x, y, 1)
             break
 
-
+#2022年7月16日11:37:36 逻辑重构。
 def RDdaily():
     flag = True
     photoMap = multiphotos.Photo()
     photoMaps = [
-        '粥会客室',
+        '粥点击收获',
         '粥每日线索',
+        '粥会客室改',
         '粥基建总览',
+        '粥基建',
     ]
     moveMaps = [
         (775, 0),  # 会客室（线索 0
@@ -61,24 +63,17 @@ def RDdaily():
     ]
     while flag:
         photoMap.loopSearch(photoMaps)
+        name = photoMap.name
         x = photoMap.x
         y = photoMap.y
-        if "粥基建总览".__eq__(photoMap.name):
+        if "粥基建总览".__eq__(name):
             dao.moveToMRFZ(x + moveMaps[5][0], y + moveMaps[5][1], 1)
-            dao.moveToMRFZ(x + moveMaps[1][0], y + moveMaps[1][1], 6)
-            time.sleep(1)
+        elif "粥会客室改".__eq__(name):
             dao.moveTo(x, y)
-            dao.moveToMRFZ(x + moveMaps[0][0], y + moveMaps[0][1], 1)
-            time.sleep(1)
-            dao.moveToMRFZ(x + moveMaps[1][0], y + moveMaps[1][1], 1)
-        elif "粥每日线索".__eq__(photoMap.name):
-            dao.moveTo(x + moveMaps[3][0], y + moveMaps[3][1])
-            dao.moveTo(x, y)
-            dao.moveToMRFZ(x + moveMaps[4][0], y + moveMaps[4][1], 3)
-            flag = False
-        elif "粥会客室".__eq__(photoMap.name):
-            # 还没做收取线索
-            dao.moveTo(x + moveMaps[2][0], y + moveMaps[2][1])
+            meetingRoom()
+            break
+        else:
+            dao.moveTo(x,y)
 
 
 # 2022年5月11日11:48:44
@@ -149,8 +144,6 @@ def buyTrust():
 # 2022年7月16日11:15:54 逻辑重构
 # 每日招聘。
 def employDaily():
-    flag = True
-    count = 0
     photoMap = multiphotos.Photo()
     photoMaps = [
         "粥招聘",
@@ -180,9 +173,71 @@ def employDaily():
 def allDaily():
     trustDaily()
     employDaily()
+    RDdaily()
+
+# 2022年7月16日11:55:48
+# 会客室收取与退出。
+def meetingRoom():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "粥线索已领取",
+        "粥新线索",
+        "粥线索领取",
+        "粥线索交流结束",
+        "粥线索详情",
+        "粥每日线索",
+    ]
+    moveMaps = [
+        (-58, -56),  # 左上角退出 0
+    ]
+    while True:
+        photoMap = photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+        if "线索交流" in name:
+            dao.moveToMRFZ(x + moveMaps[0][0], y + moveMaps[0][1], 1)
+            photoMaps.remove("粥线索交流结束")
+        elif "已领取" in name:
+            # 结束标识，删掉多余不用的同页面元素。
+            photoMaps.remove("粥新线索")
+            photoMaps.remove("粥线索领取")
+            photoMaps.remove("粥线索已领取")
+            photoMaps.remove("粥线索交流结束")
+            photoMaps.remove("粥线索详情")
+            photoMaps.append("粥休息室后退")
+            photoMaps.insert(0,"粥基建总览")
+            photoMaps.insert(0,"粥基建")
+            print(photoMaps)
+        elif "总览" in name:
+            break
+        elif "粥基建".__eq__(name):
+            dao.moveToMRFZ(x,y,1)
+            break
+        else:
+            dao.moveToMRFZ(x,y,1)
+
+# 交易站耗费无人机
+def dealRoom():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "粥贸易站",
+    ]
+    moveMaps = [
+        (-58, -56),  # 左上角退出 0
+    ]
+    while True:
+        photoMap = photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+        dao.moveToMRFZ(x,y,1)
+
+
 
 
 if __name__ == "__main__":
-    # allDaily()
+    allDaily()
     # RDdaily()
-    employDaily()
+    # employDaily()
+    # dealRoom()
