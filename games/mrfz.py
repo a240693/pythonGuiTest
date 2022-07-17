@@ -221,20 +221,41 @@ def meetingRoom():
 def dealRoom():
     photoMap = multiphotos.Photo()
     photoMaps = [
+        "粥贸易站结束标识",
+        "粥贸易标识一",
         "粥无人机最多",
         "粥无人机协助",
         "粥贸易站",
         "粥线索详情",
+        "粥贸易站确定",
     ]
     moveMaps = [
         (-58, -56),  # 左上角退出 0
     ]
-    while True:
+    count = 0
+    while 1:
         photoMap = photoMap.loopSearch(photoMaps)
         x = photoMap.x
         y = photoMap.y
         name = photoMap.name
+        if "贸易标识" in name :
+            photoMaps.remove("粥无人机最多")
+            photoMaps.insert(0,"粥贸易站确定")
+        elif "协助" in name:
+            photoMaps.remove("粥贸易站确定")
+            photoMaps.insert(2,"粥无人机最多")
+            count = 0
+        elif "最多" in name:
+            count += 1
+        elif "结束" in name:
+            break
+
         dao.moveToMRFZ(x,y,1)
+
+        if count >= 3 :
+            photoMaps.remove("粥无人机最多")
+            photoMaps.insert(0,"粥贸易站确定")
+            count = 0
 
 
 
