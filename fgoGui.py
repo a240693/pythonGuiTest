@@ -9,6 +9,7 @@ choices = ("请选择副本：",
            "无限池",
            "自回体90",
            "单次",
+           "种火",
            "====================",
            "关闭")
 
@@ -55,5 +56,7 @@ if __name__ == "__main__":
             fgo.battleStartNew(True, False, 2)
         elif "单次".__eq__(choice):
             fgo.battleStartNew(False, False, 2)
+        elif "种火".__eq__(choice):
+            fgo.custom(1)
         elif choice == "关闭":
             break

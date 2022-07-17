@@ -63,8 +63,13 @@ class Photo:
         return print(self.name, self.pos)
 
     def connectDevice(self):
-        device = cv.get_value("device")
-        global path
-        path = cv.get_value("path")
-        print("device:{},path:{}".format(device, path))
-        auto_setup(__file__, devices=[device])
+        while True:
+            try:
+                device = cv.get_value("device")
+                global path
+                path = cv.get_value("path")
+                print("device:{},path:{}".format(device, path))
+                auto_setup(__file__, devices=[device])
+                break
+            except Exception as e:
+                continue

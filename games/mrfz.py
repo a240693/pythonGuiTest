@@ -221,7 +221,10 @@ def meetingRoom():
 def dealRoom():
     photoMap = multiphotos.Photo()
     photoMaps = [
+        "粥无人机最多",
+        "粥无人机协助",
         "粥贸易站",
+        "粥线索详情",
     ]
     moveMaps = [
         (-58, -56),  # 左上角退出 0
@@ -237,7 +240,7 @@ def dealRoom():
 
 
 if __name__ == "__main__":
-    allDaily()
+    # allDaily()
     # RDdaily()
     # employDaily()
-    # dealRoom()
+    dealRoom()
