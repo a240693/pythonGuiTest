@@ -149,7 +149,6 @@ def employDaily():
         "粥招聘",
         "粥跳过",
         "粥公开招募",
-        "粥休息室后退",
     ]
     # onlyOneMaps = [
     #     "粥公开招募",
@@ -167,6 +166,8 @@ def employDaily():
             dao.tapSpace(5)
         if "后退" in name:
             break
+        if "粥招聘" in name:
+            photoMaps.append("粥休息室后退")
 
 
 # 2022年5月11日12:52:12
@@ -174,6 +175,7 @@ def allDaily():
     trustDaily()
     employDaily()
     RDdaily()
+    dealRoom()
 
 # 2022年7月16日11:55:48
 # 会客室收取与退出。
@@ -221,6 +223,7 @@ def meetingRoom():
 def dealRoom():
     photoMap = multiphotos.Photo()
     photoMaps = [
+        "粥订单完成",
         "粥贸易站结束标识",
         "粥贸易标识一",
         "粥无人机最多",
@@ -264,4 +267,5 @@ if __name__ == "__main__":
     # allDaily()
     # RDdaily()
     # employDaily()
-    dealRoom()
+    # dealRoom()
+    restPeople()

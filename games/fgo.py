@@ -733,4 +733,5 @@ if __name__ == "__main__":
     # battleStartNew(False, False, 2)
     # egg10()
     # battleStartNew(True, select = 2)
-    custom()
+    # custom()
+    enterGame()
