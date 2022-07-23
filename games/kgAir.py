@@ -147,10 +147,11 @@ def searchPage():
         "战斗页",
         "坎公心号",
         "坎公商店",
-        "问号标识一",
+        # "问号标识一",
         "坎公战队",
         # "问号标识二",
-        "问号标识三",
+        # "问号标识三",
+        "事件标识",
         "卡马逊主页",
     ]
     moveMaps = [
@@ -168,7 +169,7 @@ def searchPage():
         if "心号" in name:
             heart()
             break
-        if "问号" in name:
+        if "事件" in name:
             question()
             break
         if "商店" in name:
@@ -233,6 +234,7 @@ def heart():
 
 def shop():
     photoMaps = [
+        "装备选择",
         "坎公卡马逊确认",
         "商店退出",
         "坎公商店",
@@ -252,12 +254,12 @@ def shop():
 
 def question():
     photoMaps = [
+        "战斗进入",  # 用来容错。
         "坎公卡马逊确认",
         "装备选择",
         "问号标识一",
         "问号标识二",
         "卡马逊主页",
-        "战斗进入",    # 用来容错。
     ]
     moveMaps = [
 
@@ -295,7 +297,7 @@ def team():
         if "战队" in name:
             swipe(moveMaps[0],moveMaps[1],duration = 1 , steps = 6)
             photoMaps.remove("坎公战队")
-            photoMaps.insert(2,"问号标识二")
+            photoMaps.append("问号标识二")
             continue
         touch(pos)
 
@@ -313,6 +315,8 @@ def pvpAuto():
     moveMaps = [
         (903,171),  # 重试右上角的小齿轮
     ]
+    global flag
+    flag = True
     while flag:
         gamePages.name = "默认"
         gamePages.loopSearch(gamePagesMap)
@@ -333,6 +337,30 @@ def pvpAuto():
         else:
             touch(pos)
 
+def levelStone():
+    photoMap = air.Photo()
+    photoMaps = [
+        '坎公PVP确认',
+        '坎公卡马逊确认',
+        '自动战斗完毕',
+        '进化石扫荡',
+        '进化石页面',
+    ]
+    moveMaps = [
+        (601,266), # 点扫荡前先把进度条拉到最大。
+    ]
+    while True:
+        photoMap.name = "默认"
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        pos = photoMap.pos
+        if "扫荡" in name:
+            touch(moveMaps[0])
+        if "完毕" in name:
+            break
+        touch(pos)
+
+
 
 if __name__ == "__main__":
     # touchFix((3,4),(5,6))
@@ -344,3 +372,4 @@ if __name__ == "__main__":
     # searchPage()
     # team()
     pvpAuto()
+    # levelStone()

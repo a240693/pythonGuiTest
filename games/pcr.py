@@ -688,6 +688,7 @@ def battleFloor5():
             dao.moveToPcr(photoMap.x + 361, photoMap.y + 428, 1)
             dao.searchPhotoPcr('地下城确认EX3', 3, 1, 400)
             time.sleep(3)
+            break
 
 
 # 2022年4月22日19:18:10

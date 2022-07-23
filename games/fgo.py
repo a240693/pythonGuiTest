@@ -37,6 +37,7 @@ def enterGame():
         "fgo",
         "迦勒底之门",
         "关闭公告",
+        "奖品重置关闭",
     ]
     moveMaps = [
         (943, 136),  # 滑动起点。
@@ -48,18 +49,37 @@ def enterGame():
             photoMap.loopSearch(photoMaps)
             name = photoMap.name
             pos = photoMap.pos
-            if "fgo".__eq__(name):
-                changeFlag(True)
             if "迦勒底" in name:
                 changeFlag(False, False)
                 break
             touch(pos)
+            if "fgo".__eq__(name):
+                changeFlag(True)
+                waitEnterGame()
     except Exception as e:
         return 0
     # finally:
     #     # generate html report
     #     simple_report(__file__)
-
+# 进入游戏
+def waitEnterGame():
+    photoMaps = [
+        "关闭公告",
+    ]
+    moveMaps = [
+        (54,52),
+    ]
+    photoMap = air.Photo()
+    switch = True
+    while switch:
+        for i in photoMaps :
+            if photoMap.appearThenClick(i) :
+                switch = False
+                break
+        for i in range(1,10):
+            print("点击第{}次".format(i))
+            touch(moveMaps[0])
+            time.sleep(3)
 
 def battle():
     turn = 1

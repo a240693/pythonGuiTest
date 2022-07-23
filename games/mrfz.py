@@ -267,5 +267,5 @@ if __name__ == "__main__":
     # allDaily()
     # RDdaily()
     # employDaily()
-    # dealRoom()
-    restPeople()
+    dealRoom()
+    # restPeople()
