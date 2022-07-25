@@ -34,7 +34,7 @@ cv._init()
 def enterGame():
     photoMap = air.Photo()
     photoMaps = [
-        "fgo",
+        # "fgo",
         "迦勒底之门",
         "关闭公告",
         "奖品重置关闭",
@@ -45,6 +45,9 @@ def enterGame():
         (943, 177),  # 种火滑动。
     ]
     try:
+        start_app(package="com.bilibili.fatego", activity="UnityPlayerNativeActivity")
+        changeFlag(True)
+        waitEnterGame()
         while 1:
             photoMap.loopSearch(photoMaps)
             name = photoMap.name
@@ -277,6 +280,7 @@ def eatApple():
             name = photoMap.name
             pos = photoMap.pos
             if "苹果" in name:
+                # 苹果按钮关了的话就只续关不吃苹果。
                 if not appleFlag:
                     changeFlag(switchCF=False)
                     photoMaps = ["苹果关闭"]
@@ -735,6 +739,40 @@ def custom(turn=1):
             break
         turn += 1
 
+# 每日任务改
+def dailyExpNew():
+    photoMap = air.Photo()
+    photoMaps = [
+        "迦勒底之门",
+        "每日任务",
+        "种火40",
+        "宝石翁",
+        "狂阶",
+        "开始任务",
+        "攻击",
+        "续关连续",
+    ]
+    moveMaps = [
+        (943, 136),  # 滑动起点。
+        (943, 282),  # 每日滑动终点
+        (943, 177),  # 种火滑动。
+    ]
+    changeFlag(switchCF=True, switchAp=False)
+    try:
+        while continueFlag:
+            photoMap.loopSearch(photoMaps)
+            pos = photoMap.pos
+            name = photoMap.name
+            if "攻击" in name :
+                custom(1)
+                # break
+            touch(pos)
+
+
+
+    except Exception as e:
+        return 0
+
 if __name__ == "__main__":
     # enterGame()
     # mulFeatures(enterGame,spaceClick)
@@ -754,4 +792,5 @@ if __name__ == "__main__":
     # egg10()
     # battleStartNew(True, select = 2)
     # custom()
-    enterGame()
+    # enterGame()
+    dailyExpNew()

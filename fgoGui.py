@@ -57,6 +57,7 @@ if __name__ == "__main__":
         elif "单次".__eq__(choice):
             fgo.battleStartNew(False, False, 2)
         elif "种火".__eq__(choice):
-            fgo.custom(1)
+            # fgo.custom(1)
+            fgo.dailyExpNew()
         elif choice == "关闭":
             break
