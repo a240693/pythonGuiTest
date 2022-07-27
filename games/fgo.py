@@ -825,6 +825,7 @@ def autoAdd():
         "新技能",
         "已开放"
         "灵基再临",
+        "强化关卡",
     ]
     moveMaps = [
         (850, 500),  # 放入种火后点确定。
@@ -863,6 +864,6 @@ if __name__ == "__main__":
     # custom()
     # enterGame()
     # dailyExpNew()
-    dailyExpNew(True, True)
-    # autoLevelUp()
+    # dailyExpNew(True, True)
+    autoLevelUp()
     # autoAdd()
