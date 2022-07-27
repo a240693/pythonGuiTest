@@ -4,7 +4,7 @@ import time
 import _thread
 
 from dao import dao, daoImpl, multiphotos
-from . import  kgAir
+from games import kgAir
 
 flag = True
 
@@ -201,7 +201,7 @@ def setFlag():
     changeFlag()
 
 
-def changeFlag(switch = False):
+def changeFlag(switch=False):
     global flag
     flag = switch
 
@@ -254,17 +254,19 @@ def day2buy(choice):
     elif 1 == choice:
         # 第一个
         photoMap.append(('进化石页面', 1, 624, 103))
-    photoMap.append(('进化石页面', 1, 762, 458))
-    photoMap.append(('进化石扫荡', 1, -35, -147))
-    photoMap.append(('进化石扫荡', 1, 0, 0))
-    photoMap.append(('坎公进化石确认', 1, 0, 0))
-    photoMap.append(('坎公商店确认', 1, 0, 0))
+    # 下面是旧扫荡流程，kgair是新的。
+    # photoMap.append(('进化石页面', 1, 762, 458))
+    # photoMap.append(('进化石扫荡', 1, -35, -147))
+    # photoMap.append(('进化石扫荡', 1, 0, 0))
+    # photoMap.append(('坎公进化石确认', 1, 0, 0))
     # photoMap.append(('坎公商店确认', 1, 0, 0))
-    photoMap.append(('进化石页面', 1, -89, 2))
-    photoMap.append(('进化石页面', 1, -89, 2))
-    photoMap.append(('探险初始页', 1, -723, -174))
+    # # photoMap.append(('坎公商店确认', 1, 0, 0))
+    # photoMap.append(('进化石页面', 1, -89, 2))
+    # photoMap.append(('进化石页面', 1, -89, 2))
+    # photoMap.append(('探险初始页', 1, -723, -174))
     dao.dualListPhotoKg(photoMap)
-    kgAir.pvpAuto()
+    kgAir.dailyAir()
+
     # pvp()
 
 
@@ -311,20 +313,20 @@ def returnKmx():
     moveMaps = [
         (-6, -467),  # 0 卡马逊主页 → 探险初始页
         (88, -189),  # 1 探险初始页 → 卡马逊主页
-        (-834, 237), # 2 主页面 → 探险初始页
+        (-834, 237),  # 2 主页面 → 探险初始页
     ]
     while True:
         photoMap = photoMap.loopSearch(photoMaps)
         name = photoMap.name
         if "卡马逊" in name:
-            click(photoMap,moveMaps[0])
+            click(photoMap, moveMaps[0])
             time.sleep(1)
             continue
         if "主页面 " in name:
-            click(photoMap,moveMaps[2])
+            click(photoMap, moveMaps[2])
             continue
         if "初始" in name:
-            click(photoMap,moveMaps[1])
+            click(photoMap, moveMaps[1])
             break
 
 
@@ -436,8 +438,10 @@ def click(photoMap, xy=(0, 0)):
 
 if __name__ == '__main__':
     # chooseEquip()
-    fullAutoKmx()
+    # fullAutoKmx()
     # autoCheckDevice()
     # kmxAutoNew()
+    # kgAir.dailyAir()
+    pvp()
 # fullAutoKmx()
 # missionAndGift()

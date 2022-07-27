@@ -10,6 +10,7 @@ choices = ("请选择副本：",
            "自回体90",
            "单次",
            "种火",
+           "种火单次",
            "====================",
            "关闭")
 
@@ -58,6 +59,8 @@ if __name__ == "__main__":
             fgo.battleStartNew(False, False, 2)
         elif "种火".__eq__(choice):
             # fgo.custom(1)
-            fgo.dailyExpNew()
+            fgo.enterGame()
+        elif "种火单次".__eq__(choice):
+            fgo.custom(1)
         elif choice == "关闭":
             break

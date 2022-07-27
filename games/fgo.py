@@ -53,36 +53,41 @@ def enterGame():
             name = photoMap.name
             pos = photoMap.pos
             if "迦勒底" in name:
-                changeFlag(False, False)
+                # changeFlag(False, False)
+                dailyExpNew()
                 break
             touch(pos)
-            if "fgo".__eq__(name):
-                changeFlag(True)
-                waitEnterGame()
+            # 用包体名启动，不需要点图片了。
+            # if "fgo".__eq__(name):
+            #     changeFlag(True)
+            #     waitEnterGame()
     except Exception as e:
         return 0
     # finally:
     #     # generate html report
     #     simple_report(__file__)
+
+
 # 进入游戏
 def waitEnterGame():
     photoMaps = [
         "关闭公告",
     ]
     moveMaps = [
-        (54,52),
+        (54, 52),
     ]
     photoMap = air.Photo()
     switch = True
     while switch:
-        for i in photoMaps :
-            if photoMap.appearThenClick(i) :
+        for i in photoMaps:
+            if photoMap.appearThenClick(i):
                 switch = False
                 break
-        for i in range(1,10):
+        for i in range(1, 10):
             print("点击第{}次".format(i))
             touch(moveMaps[0])
             time.sleep(3)
+
 
 def battle():
     turn = 1
@@ -433,7 +438,7 @@ def selectSkill(skill=[10]):
         return 0
     for i in skill:
         moveMaps.append(skillMaps[i - 1])
-    for index,i in enumerate(moveMaps):
+    for index, i in enumerate(moveMaps):
         while 1:
             photoMap.loopSearch(photoMaps)
             name = photoMap.name
@@ -441,7 +446,7 @@ def selectSkill(skill=[10]):
                 touch(tagetMaps[0])
             if "攻击" in name:
                 break
-        print("正在释放第{}个技能。".format(index+1))
+        print("正在释放第{}个技能。".format(index + 1))
         touch(i)
         time.sleep(0.3)
         if i == moveMaps[-1]:
@@ -642,6 +647,7 @@ def exitBattle():
         if ("结束" in name) & (not continueFlag):
             break
 
+
 def level90plus(turn=1):
     skill1 = [1, 6, 7, 8, 9]
     skill2 = [3, 5, 6]
@@ -719,6 +725,7 @@ def battleStartNew(switchCF=True, switchAp=True, select=1):
             support()
         count += 1
 
+
 def custom(turn=1):
     skill1 = [2]
     skill2 = [10]
@@ -739,8 +746,9 @@ def custom(turn=1):
             break
         turn += 1
 
+
 # 每日任务改
-def dailyExpNew():
+def dailyExpNew(switchCF=True, switchAp=False):
     photoMap = air.Photo()
     photoMaps = [
         "迦勒底之门",
@@ -757,13 +765,13 @@ def dailyExpNew():
         (943, 282),  # 每日滑动终点
         (943, 177),  # 种火滑动。
     ]
-    changeFlag(switchCF=True, switchAp=False)
+    changeFlag(switchCF=switchCF, switchAp=switchAp)
     try:
         while continueFlag:
             photoMap.loopSearch(photoMaps)
             pos = photoMap.pos
             name = photoMap.name
-            if "攻击" in name :
+            if "攻击" in name:
                 custom(1)
                 # break
             touch(pos)
@@ -772,6 +780,7 @@ def dailyExpNew():
 
     except Exception as e:
         return 0
+
 
 if __name__ == "__main__":
     # enterGame()
@@ -793,4 +802,5 @@ if __name__ == "__main__":
     # battleStartNew(True, select = 2)
     # custom()
     # enterGame()
-    dailyExpNew()
+    # dailyExpNew()
+    dailyExpNew(True, True)

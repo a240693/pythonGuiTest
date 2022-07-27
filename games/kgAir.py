@@ -92,7 +92,7 @@ def chooseEquip():
     switch = 1
     while 1:
         photoMap = air.Photo()
-        if switch == 1 :
+        if switch == 1:
             photoMap.loopSearch(equipMaps)
         elif switch == 2:
             photoMap.loopSearch(photoMaps)
@@ -141,6 +141,7 @@ def changeEquip():
         if "主页" in name:
             break
         touch(pos)
+
 
 def searchPage():
     photoMaps = [
@@ -208,6 +209,7 @@ def battle():
             flag = False
             break
 
+
 def heart():
     photoMaps = [
         "坎公卡马逊确认",
@@ -215,9 +217,9 @@ def heart():
         "卡马逊主页",
     ]
     moveMaps = [
-        (750,250),  # 回血。
-        (450,250),  # 解诅咒。
-        (150,250),  # 复活。
+        (750, 250),  # 回血。
+        (450, 250),  # 解诅咒。
+        (150, 250),  # 复活。
     ]
     while 1:
         photoMap = air.Photo()
@@ -227,10 +229,11 @@ def heart():
         if "心号" in name:
             for i in moveMaps:
                 touchFix(i)
-            photoMaps.insert(0,"装备选择")
+            photoMaps.insert(0, "装备选择")
         if "主页" in name:
             break
         touch(pos)
+
 
 def shop():
     photoMaps = [
@@ -251,6 +254,7 @@ def shop():
         if "主页" in name:
             break
         touch(pos)
+
 
 def question():
     photoMaps = [
@@ -276,6 +280,7 @@ def question():
             photoMaps.remove("问号标识二")
         touch(pos)
 
+
 def team():
     photoMaps = [
         "坎公卡马逊确认",
@@ -284,8 +289,8 @@ def team():
         "卡马逊主页",
     ]
     moveMaps = [
-        (780,360), # 开始滑动的坐标。
-        (780,30), # 结束滑动的坐标。
+        (780, 360),  # 开始滑动的坐标。
+        (780, 30),  # 结束滑动的坐标。
     ]
     while 1:
         photoMap = air.Photo()
@@ -295,11 +300,12 @@ def team():
         if "主页" in name:
             break
         if "战队" in name:
-            swipe(moveMaps[0],moveMaps[1],duration = 1 , steps = 6)
+            swipe(moveMaps[0], moveMaps[1], duration=1, steps=6)
             photoMaps.remove("坎公战队")
             photoMaps.append("问号标识二")
             continue
         touch(pos)
+
 
 def pvpAuto():
     gamePages = air.Photo()
@@ -313,7 +319,7 @@ def pvpAuto():
         '坎公卡马逊确认'
     ]
     moveMaps = [
-        (903,171),  # 重试右上角的小齿轮
+        (903, 171),  # 重试右上角的小齿轮
     ]
     global flag
     flag = True
@@ -329,13 +335,14 @@ def pvpAuto():
         elif '坎公PVP休息'.__eq__(name):
             time.sleep(20)
         elif "不足" in name:
-            touchFix(pos,(-28,154))
+            touchFix(pos, (-28, 154))
             changeFlag()
         elif '更新' in name:
-            touchFix(pos,(3,227))
+            touchFix(pos, (3, 227))
         # 这里拿到了上面三选一的 名字 和XY坐标
         else:
             touch(pos)
+
 
 def levelStone():
     photoMap = air.Photo()
@@ -347,7 +354,7 @@ def levelStone():
         '进化石页面',
     ]
     moveMaps = [
-        (601,266), # 点扫荡前先把进度条拉到最大。
+        (601, 266),  # 点扫荡前先把进度条拉到最大。
     ]
     while True:
         photoMap.name = "默认"
@@ -361,6 +368,37 @@ def levelStone():
         touch(pos)
 
 
+# 回到探险初始页
+def backToMain():
+    photoMap = air.Photo()
+    photoMaps = [
+        '坎公初始选人页黄',
+        '坎公初始选人页重试',
+        '坎公卡马逊确认',
+        "探险初始页",
+        '坎公后退',
+    ]
+    moveMaps = [
+        (60, 310),  # pvp竞技场
+    ]
+    while True:
+        photoMap.name = "默认"
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        pos = photoMap.pos
+        if "初始页" in name:
+            touch(moveMaps[0])
+            continue
+        if "人页" in name:
+            break
+        touch(pos)
+
+
+def dailyAir():
+    levelStone()
+    backToMain()
+    pvpAuto()
+
 
 if __name__ == "__main__":
     # touchFix((3,4),(5,6))
@@ -373,3 +411,5 @@ if __name__ == "__main__":
     # team()
     pvpAuto()
     # levelStone()
+    # backToMain()
+    # dailyAir()
