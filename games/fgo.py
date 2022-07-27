@@ -727,9 +727,9 @@ def battleStartNew(switchCF=True, switchAp=True, select=1):
 
 
 def custom(turn=1):
-    skill1 = [2]
+    skill1 = [10]
     skill2 = [10]
-    skill3 = [10]
+    skill3 = [7,8,9]
     skillMaps = []
     skillMaps.append(skill1)
     skillMaps.append(skill2)
@@ -773,6 +773,7 @@ def dailyExpNew(switchCF=True, switchAp=False):
             name = photoMap.name
             if "攻击" in name:
                 custom(1)
+                continue
                 # break
             touch(pos)
 
@@ -781,6 +782,65 @@ def dailyExpNew(switchCF=True, switchAp=False):
     except Exception as e:
         return 0
 
+# 自动强化
+def autoLevelUp():
+    photoMap = air.Photo()
+    photoMaps = [
+        "种火用尽",
+        "已放入种火",
+        "种火确定",
+        "推荐选择",
+        "灵基再临",
+        "圣杯转临",
+        "强化结果",
+    ]
+    moveMaps = [
+        (850,500) , # 放入种火后点确定。
+        (490,30), # 没用的地方
+    ]
+    changeFlag(switchF=True)
+    print("自动强化开始。")
+    while flag:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+        if "放入" in name:
+            touch(moveMaps[0])
+            continue
+        if ("转临" in name) | ("用尽" in name) :
+            break
+        touch(pos)
+        if "再临" in name:
+            autoAdd()
+            continue
+
+# 自动灵基再临。
+def autoAdd():
+    photoMap = air.Photo()
+    photoMaps = [
+        "种火确定",
+        "已放入种火",
+        "上限解放",
+        "强化从者",
+        "新技能",
+        "已开放"
+        "灵基再临",
+    ]
+    moveMaps = [
+        (850, 500),  # 放入种火后点确定。
+    ]
+    changeFlag(switchF=True)
+    print("自动灵基再临开始。")
+    while flag:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+        if "放入" in name:
+            touch(moveMaps[0])
+            continue
+        touch(pos)
+        if "强化" in name:
+            break
 
 if __name__ == "__main__":
     # enterGame()
@@ -804,3 +864,5 @@ if __name__ == "__main__":
     # enterGame()
     # dailyExpNew()
     dailyExpNew(True, True)
+    # autoLevelUp()
+    # autoAdd()
