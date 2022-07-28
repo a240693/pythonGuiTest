@@ -13,8 +13,20 @@ import logging
 # logger.setLevel(logging.INFO)
 
 cv._init()
-cv.set_value("path", cv.kgAirPath)
-cv.set_value("device", cv.kgDevice)
+cv.set_value("path", cv.honkaiPath)
+cv.set_value("device", cv.honkai)
+
+def selectPages():
+    photoMap = air.Photo()
+    photoMaps = [
+        "远征",
+        "家园",
+        "打工",
+    ]
+    while True:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        touch(pos)
 
 if __name__ == "__main__":
-    auto_setup(__file__, devices=["Windows:///?title_re=崩坏3"])
+    selectPages()

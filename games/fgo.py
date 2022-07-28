@@ -759,6 +759,7 @@ def dailyExpNew(switchCF=True, switchAp=False):
         "开始任务",
         "攻击",
         "续关连续",
+        "种火超量",
     ]
     moveMaps = [
         (943, 136),  # 滑动起点。
@@ -775,6 +776,8 @@ def dailyExpNew(switchCF=True, switchAp=False):
                 custom(1)
                 continue
                 # break
+            if "超量" in name:
+                break
             touch(pos)
 
 
@@ -825,6 +828,7 @@ def autoAdd():
         "新技能",
         "已开放"
         "灵基再临",
+        "幕间物语",
         "强化关卡",
     ]
     moveMaps = [
@@ -840,7 +844,7 @@ def autoAdd():
             touch(moveMaps[0])
             continue
         touch(pos)
-        if "强化" in name:
+        if "从者" in name:
             break
 
 if __name__ == "__main__":
@@ -864,6 +868,6 @@ if __name__ == "__main__":
     # custom()
     # enterGame()
     # dailyExpNew()
-    # dailyExpNew(True, True)
-    autoLevelUp()
+    dailyExpNew(True, True)
+    # autoLevelUp()
     # autoAdd()
