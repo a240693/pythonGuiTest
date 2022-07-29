@@ -30,7 +30,7 @@ class Photo:
             print("{}.png在屏幕中的位置是：X={},Y={}，宽{}像素,高{}像素".format(name, x, y, w, h))
             return 1
         except Exception as e:
-            print(e)
+            # print(e)
             return 0
 
     # 随便你传几张照片进来，找到哪张就返回哪张照片的坐标和名字。
