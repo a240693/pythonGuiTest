@@ -37,13 +37,14 @@ def selectPages():
         pos = photoMap.pos
         touch(pos)
 
+# 家园拿资源和金币后进远征。
 def home():
     photoMap = air.Photo()
     photoMaps = [
+        "金币",
         "体力取完",
         "体力",
         "体力2",
-        "金币",
         "取出体力",
         # "远征",
         # "打工",
@@ -53,8 +54,202 @@ def home():
         name = photoMap.name
         pos = photoMap.pos
         if "取完" in name:
+            photoMaps.insert(0,"远征")
+            photoMaps.insert(1, "远征页面")
+            continue
+        if "页面" in name:
             break
         touch(pos)
+
+def expedition():
+    photoMap = air.Photo()
+    photoMaps = [
+        # "远征最近",
+        "体力上限",
+        "远征满足要求",
+        "一键远征",
+        "远征确定",
+        "完成远征",
+    ]
+    moveMaps = [
+        (795, 63), # 0 看到最近点开始远征。
+        (399, 275), # 1 满足要求后开始远征。
+    ]
+    while True:
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        pos = photoMap.pos
+
+        if "最近" in name:
+            touchFix(pos,moveMaps[0])
+            continue
+
+        if "满足要求" in name:
+            touchFix(pos,moveMaps[1])
+            continue
+
+        if "上限" in name :
+            backToPage()
+            break
+
+        touch(pos)
+
+def backToPage():
+    photoMap = air.Photo()
+    photoMaps = [
+        "家园",
+        "打工",
+        "返回",
+    ]
+    moveMaps = [
+
+    ]
+    while True:
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        pos = photoMap.pos
+
+        if ("家园" in name) | ("打工" in name) :
+            break
+
+        touch(pos)
+
+def work():
+    photoMap = air.Photo()
+    photoMaps = [
+        "一键远征",
+        "打工入口",
+        "远征确定",
+        "打工",
+        "打工完成",
+        "打工展开列表",
+    ]
+    moveMaps = [
+
+    ]
+    while True:
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        pos = photoMap.pos
+        if "一键" in name :
+            goToWork()
+            continue
+        touch(pos)
+
+def goToWork():
+    photoMap = air.Photo()
+    photoMaps = [
+        "打工未满足",
+        "无合适",
+        "一键远征",
+        "打工入口",
+        # "开始打工灰",
+    ]
+    moveMaps = [
+        (268, 0) , # 0 点完远征后自动点一次开始打工。
+        (586, -4), # 1 没找到合适的女武神就下一个。
+        (830, 1), # 2 同上，但检测点不同，打工未满足专用。
+    ]
+    while True:
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        pos = photoMap.pos
+
+        if "入口" in name:
+            break
+
+        if "无合适" in name:
+            touchFix(pos,moveMaps[1])
+            continue
+
+        if "远征" in name:
+            touch(pos,times = 2)
+            touchFix(pos,moveMaps[0])
+            continue
+
+        touch(pos)
+
+        if "未满足" in name:
+            touchFix(pos,moveMaps[2])
+            continue
+
+def materiels():
+    photoMap = air.Photo()
+    photoMaps = [
+        "减负",
+        "一键减负",
+        "材料远征",
+        "出击",
+        "主菜单",
+    ]
+    moveMaps = [
+
+    ]
+    while True:
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        pos = photoMap.pos
+        touch(pos)
+
+
+def group():
+    photoMap = air.Photo()
+    photoMaps = [
+        "接受新委托",
+        "已申请委托",
+        "舰团新委托",
+        "委托回收",
+        "舰团",
+    ]
+    moveMaps = [
+
+    ]
+    while True:
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        pos = photoMap.pos
+        if "已申请" in name:
+            giveGroup()
+            break
+        touch(pos)
+
+def giveGroup():
+    photoMap = air.Photo()
+    photoMaps = [
+        "次数耗尽",
+        "提交委托",
+        "舰团提交",
+        "已申请委托",
+    ]
+    moveMaps = [
+
+    ]
+    while True:
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        pos = photoMap.pos
+        if "耗尽" in name:
+            photoMaps.insert(0,"主菜单")
+            photoMaps.append("出击")
+
+        touch(pos)
+
+        if "出击" in name:
+            break
+
+def daily():
+    # 初始化句柄
+    init()
+    # 家园，获取金币和体力
+    home()
+    # 远征
+    expedition()
+    # 打工
+    work()
+    # 一键材料
+    materiels()
+    # 舰团
+    group()
 
 def touchFix(pos=(0, 0), pos1=(0, 0)):
     x = pos[0] + pos1[0]
@@ -64,6 +259,9 @@ def touchFix(pos=(0, 0), pos1=(0, 0)):
     time.sleep(0.3)
 
 if __name__ == "__main__":
-    # selectPages()
+    # daily()
     init()
-    home()
+    # expedition()
+    # work()
+    # materiels()
+    group()
