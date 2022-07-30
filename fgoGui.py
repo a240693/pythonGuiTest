@@ -12,6 +12,7 @@ choices = ("请选择副本：",
            "种火",
            "种火单次",
            "自动强化",
+           "自动种火最高级",
            "====================",
            "关闭")
 
@@ -65,5 +66,7 @@ if __name__ == "__main__":
             fgo.custom(1)
         elif "自动强化".__eq__(choice):
             fgo.autoLevelUp()
+        elif "自动种火最高级".__eq__(choice):
+            fgo.dailyExpNew(True, True)
         elif choice == "关闭":
             break

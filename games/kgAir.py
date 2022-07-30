@@ -55,7 +55,7 @@ def returnKmx():
     ]
     moveMaps = [
         (-6, -467),  # 0 卡马逊主页 → 探险初始页
-        (88, -189),  # 1 探险初始页 → 卡马逊主页
+        (88, -270),  # 1 探险初始页 → 卡马逊主页
         (-834, 237),  # 2 主页面 → 探险初始页
     ]
     while True:
@@ -65,7 +65,6 @@ def returnKmx():
         if "卡马逊" in name:
             touchFix(pos, moveMaps[0])
             time.sleep(1)
-            continue
         if "主页面" in name:
             touchFix(pos, moveMaps[2])
             continue
@@ -406,10 +405,10 @@ if __name__ == "__main__":
     # chooseEquip()
     # question()
     # shop()
-    # fullAutoKmx()
+    fullAutoKmx()
     # searchPage()
     # team()
-    pvpAuto()
+    # pvpAuto()
     # levelStone()
     # backToMain()
     # dailyAir()
