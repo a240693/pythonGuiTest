@@ -1,8 +1,10 @@
 import time
 
 from dao import dao, multiphotos
+from dao import changeVar as cv
 
-
+cv._init()
+cv.set_value("path",cv.path)
 # 2022年4月26日11:54:49
 # 2022年5月11日13:57:09 修改成半自动，暂时没想法怎么整成全自动。
 def restPeople():
@@ -189,6 +191,11 @@ def meetingRoom():
         "粥线索详情",
         "粥每日线索",
     ]
+    photoMapsNext = [
+        "粥基建总览",
+        "粥基建",
+        "粥休息室后退",
+    ]
     moveMaps = [
         (-58, -56),  # 左上角退出 0
     ]
@@ -202,14 +209,7 @@ def meetingRoom():
             photoMaps.remove("粥线索交流结束")
         elif "已领取" in name:
             # 结束标识，删掉多余不用的同页面元素。
-            photoMaps.remove("粥新线索")
-            photoMaps.remove("粥线索领取")
-            photoMaps.remove("粥线索已领取")
-            photoMaps.remove("粥线索交流结束")
-            photoMaps.remove("粥线索详情")
-            photoMaps.append("粥休息室后退")
-            photoMaps.insert(0,"粥基建总览")
-            photoMaps.insert(0,"粥基建")
+            photoMaps = photoMapsNext
             print(photoMaps)
         elif "总览" in name:
             break
