@@ -11,7 +11,7 @@ import logging
 
 # 日志只输出INFO等级，debugger等级不输出。
 logger = logging.getLogger("airtest")
-logger.setLevel(logging.ERROR)
+logger.setLevel(logging.INFO)
 
 # poco = AndroidUiautomationPoco(use_airtest_input=True, screenshot_each_action=False)
 
@@ -546,6 +546,7 @@ def onlyBattle(turn=1):
     photoMaps = [
         "攻击",
         "战斗界面",
+        "战斗界面2",
         "战斗结果",
     ]
     actionMaps = [

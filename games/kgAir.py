@@ -394,10 +394,15 @@ def backToMain():
 
 
 def dailyAir():
+    cvInit()
     levelStone()
     backToMain()
     pvpAuto()
 
+def cvInit():
+    cv._init()
+    cv.set_value("path", cv.kgAirPath)
+    cv.set_value("device", cv.kgDevice)
 
 if __name__ == "__main__":
     # touchFix((3,4),(5,6))
@@ -405,10 +410,10 @@ if __name__ == "__main__":
     # chooseEquip()
     # question()
     # shop()
-    fullAutoKmx()
+    # fullAutoKmx()
     # searchPage()
     # team()
-    # pvpAuto()
+    pvpAuto()
     # levelStone()
     # backToMain()
     # dailyAir()
