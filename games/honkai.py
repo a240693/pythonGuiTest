@@ -250,7 +250,8 @@ def group():
     photoMap = air.Photo()
     photoMaps = [
         "接受新委托",
-        # "已申请委托", 没法分辨，PASS。
+        # 没法分辨，PASS。
+        "已申请委托",
         "舰团新委托",
         "委托回收",
         "舰团",
@@ -262,6 +263,8 @@ def group():
         photoMap.loopSearch(photoMaps)
         name = photoMap.name
         pos = photoMap.pos
+        if "接受" in name:
+            photoMaps.remove("舰团新委托")
         if "已申请" in name:
             giveGroup()
             break
@@ -315,6 +318,21 @@ def touchFix(pos=(0, 0), pos1=(0, 0)):
     touch((x, y))
     time.sleep(0.3)
 
+def mission():
+    photoMaps = [
+        "任务",
+        "一键领取",
+    ]
+    moveMaps = [
+
+    ]
+    photoMap = air.Photo()
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        pos = photoMap.pos
+        touch(pos)
+
 
 if __name__ == "__main__":
     # daily()
@@ -325,4 +343,5 @@ if __name__ == "__main__":
     # work()
     # backToMain()
     # materiels()
-    group()
+    # group()
+    mission()

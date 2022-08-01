@@ -34,10 +34,12 @@ cv._init()
 def enterGame():
     photoMap = air.Photo()
     photoMaps = [
-        # "fgo",
+        "fgo",
         "迦勒底之门",
         "关闭公告",
         "奖品重置关闭",
+        "续关进入",
+        "攻击",
     ]
     moveMaps = [
         (943, 136),  # 滑动起点。
@@ -45,22 +47,29 @@ def enterGame():
         (943, 177),  # 种火滑动。
     ]
     try:
-        start_app(package="com.bilibili.fatego", activity="UnityPlayerNativeActivity")
-        changeFlag(True)
-        waitEnterGame()
         while 1:
             photoMap.loopSearch(photoMaps)
             name = photoMap.name
             pos = photoMap.pos
+
             if "迦勒底" in name:
                 # changeFlag(False, False)
                 dailyExpNew()
                 break
-            touch(pos)
+
+            if "攻击" in name:
+                break
+
             # 用包体名启动，不需要点图片了。
-            # if "fgo".__eq__(name):
-            #     changeFlag(True)
-            #     waitEnterGame()
+            if "fgo".__eq__(name):
+                start_app(package="com.bilibili.fatego", activity="UnityPlayerNativeActivity")
+                changeFlag(True)
+                waitEnterGame()
+                continue
+
+            touch(pos)
+
+
     except Exception as e:
         return 0
     # finally:
@@ -72,6 +81,7 @@ def enterGame():
 def waitEnterGame():
     photoMaps = [
         "关闭公告",
+        "续关进入",
     ]
     moveMaps = [
         (54, 52),
@@ -81,12 +91,16 @@ def waitEnterGame():
     while switch:
         for i in photoMaps:
             if photoMap.appearThenClick(i):
+                if "卡了".__eq__(photoMap.name):
+                    stop_app(package="com.bilibili.fatego")
                 switch = False
                 break
-        for i in range(1, 10):
-            print("点击第{}次".format(i))
-            touch(moveMaps[0])
-            time.sleep(3)
+        if switch:
+            for i in range(1, 10):
+                print("点击第{}次".format(i))
+                touch(moveMaps[0])
+                time.sleep(3)
+            photoMaps.append("卡了")
 
 
 def battle():
@@ -366,13 +380,23 @@ def support():
     photoMap = air.Photo()
     photoMaps = [
         "C呆技能组",
+        "开始任务",
+        "攻击",
     ]
     while 1:
         photoMap.loopSearch(photoMaps)
         name = photoMap.name
         pos = photoMap.pos
+
+        if "攻击" in name:
+            break
+
         touch(pos)
-        break
+
+        if "开始" in name:
+            time.sleep(10)
+            continue
+
 
 
 def battleStart():
@@ -561,11 +585,20 @@ def onlyBattle(turn=1):
     moveMaps = [
         (324, 319),  # 技能已使用的取消按钮位置。
     ]
+    skillUse = 0
     try:
         while 1:
             photoMap.loopSearch(photoMaps)
             pos = photoMap.pos
             name = photoMap.name
+
+            # 额外放技能试做。
+            if ("攻击" in name) & (skillUse == 0):
+                if turn == 6 :
+                    selectSkill([5,8])
+                if turn == 7 :
+                    selectSkill([1,4,6,7,9])
+                skillUse = 1
 
             # 如果读取到战斗界面就选卡，不点击直接跳过。
             if "界面" in name:
@@ -575,6 +608,9 @@ def onlyBattle(turn=1):
                 time.sleep(7)
                 if turn <= 2:
                     break
+                if turn > 2:
+                    skillUse = 0
+                    turn += 1
 
             # print("找到的是{},坐标是{}".format(name, pos))
             touch(pos)
@@ -848,6 +884,43 @@ def autoAdd():
         if "从者" in name:
             break
 
+def enterStrong(switchF = True,switchAp=True):
+    photoMap = air.Photo()
+    photoMaps = [
+        "金苹果",
+        "狂阶",
+        "菜单",
+        "宝具强化",
+        "报酬",
+        "技能强化",
+        "种火用尽",
+    ]
+    moveMaps = [
+        (750, 150),  # 回到主页面后点击第一关。
+    ]
+    changeFlag(switchF=switchF,switchAp=switchAp)
+    while flag:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        if ("苹果" in name) & (switchAp):
+            eatApple()
+            continue
+        elif ("苹果" in name) & (not switchAp):
+            break
+
+        if "狂阶" in name:
+            support()
+            level90()
+            continue
+
+        if "菜单" in name:
+            touch(moveMaps[0])
+            continue
+
+        touch(pos)
+
 if __name__ == "__main__":
     # enterGame()
     # mulFeatures(enterGame,spaceClick)
@@ -869,6 +942,9 @@ if __name__ == "__main__":
     # custom()
     # enterGame()
     # dailyExpNew()
-    dailyExpNew(True, True)
+    # dailyExpNew(True, True)
     # autoLevelUp()
     # autoAdd()
+    # dailyExpNew(True, False)
+    enterStrong()
+    # waitEnterGame()

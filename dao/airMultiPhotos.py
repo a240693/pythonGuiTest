@@ -63,6 +63,7 @@ class Photo:
         return print(self.name, self.pos)
 
     def connectDevice(self):
+        count = 0
         while True:
             try:
                 device = cv.get_value("device")
@@ -72,4 +73,7 @@ class Photo:
                 auto_setup(__file__, devices=[device])
                 break
             except Exception as e:
+                count += 1
+                print("{},6秒后第{}次重试".format(e,count))
+                time.sleep(6)
                 continue

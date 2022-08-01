@@ -13,6 +13,8 @@ choices = ("请选择副本：",
            "种火单次",
            "自动强化",
            "自动种火最高级",
+           "进入游戏",
+           "自动强化本",
            "====================",
            "关闭")
 
@@ -68,5 +70,9 @@ if __name__ == "__main__":
             fgo.autoLevelUp()
         elif "自动种火最高级".__eq__(choice):
             fgo.dailyExpNew(True, True)
+        elif "进入游戏".__eq__(choice):
+            fgo.enterGame()
+        elif "自动强化本".__eq__(choice):
+            fgo.enterStrong()
         elif choice == "关闭":
             break
