@@ -278,6 +278,7 @@ def giveGroup():
         "提交委托",
         "舰团提交",
         "已申请委托",
+        "接受新委托",
     ]
     moveMaps = [
 
@@ -335,8 +336,8 @@ def mission():
 
 
 if __name__ == "__main__":
-    # daily()
-    init()
+    daily()
+    # init()
     # home()
     # expedition()
     # goToWork()
@@ -344,4 +345,4 @@ if __name__ == "__main__":
     # backToMain()
     # materiels()
     # group()
-    mission()
+    # mission()

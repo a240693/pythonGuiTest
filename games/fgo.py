@@ -440,6 +440,7 @@ def selectSkill(skill=[10]):
     photoMaps = [
         "技能选择对象",
         "攻击",
+        "战斗结果",
     ]
     skillMaps = [
         # 技能图标1-9,每三个是一个人物
@@ -466,6 +467,9 @@ def selectSkill(skill=[10]):
         while 1:
             photoMap.loopSearch(photoMaps)
             name = photoMap.name
+            if "战斗结果" in name:
+                exitBattle()
+                return 0
             if "对象" in name:
                 touch(tagetMaps[0])
             if "攻击" in name:
@@ -572,10 +576,11 @@ def onlyBattle(turn=1):
         "战斗界面",
         "战斗界面2",
         "战斗结果",
+        "报酬",
     ]
     actionMaps = [
-        (486, 152),  # 二宝具
         (310, 152),  # 一宝具
+        (486, 152),  # 二宝具
         (98, 376),  # 卡1
         (657, 152),  # 三宝具
         (289, 376),  # 卡2
@@ -614,7 +619,7 @@ def onlyBattle(turn=1):
 
             # print("找到的是{},坐标是{}".format(name, pos))
             touch(pos)
-            if "战斗结果" in name:
+            if ("战斗结果" in name) | ("报酬" in name):
                 exitBattle()
                 break
 
@@ -735,7 +740,7 @@ def level90(turn=1):
     skillMaps.append(skill3)
     while 1:
         selectSkill(skillMaps[turn - 1])
-        if turn == 2:
+        if turn == 3:
             masterSkill()
         onlyBattle(turn)
         # 第三回合判定就不在这里了，在onlyBattle里
