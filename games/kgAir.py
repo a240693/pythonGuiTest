@@ -55,7 +55,8 @@ def returnKmx():
     ]
     moveMaps = [
         (-6, -467),  # 0 卡马逊主页 → 探险初始页
-        (88, -270),  # 1 探险初始页 → 卡马逊主页
+        (75, -186), # 1 探险初始页 → 卡马逊主页
+        # (88, -270),  # 1 探险初始页 → 卡马逊主页
         (-834, 237),  # 2 主页面 → 探险初始页
     ]
     while True:
@@ -410,10 +411,10 @@ if __name__ == "__main__":
     # chooseEquip()
     # question()
     # shop()
-    fullAutoKmx()
+    # fullAutoKmx()
     # searchPage()
     # team()
-    # pvpAuto()
+    pvpAuto()
     # levelStone()
     # backToMain()
     # dailyAir()

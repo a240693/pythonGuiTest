@@ -47,7 +47,6 @@ def selectPages():
 def home():
     photoMap = air.Photo()
     photoMaps = [
-        "已取出体力",
         "金币",
         "金币1",
         "体力",
@@ -65,6 +64,8 @@ def home():
             photoMaps.insert(0, "远征")
             photoMaps.insert(1, "远征页面")
             continue
+        if "取出体力".__eq__(name) :
+            photoMaps.insert(0,"已取出体力")
         if "页面" in name:
             break
         touch(pos)
@@ -343,6 +344,6 @@ if __name__ == "__main__":
     # goToWork()
     # work()
     # backToMain()
+    # mission()
     # materiels()
     # group()
-    # mission()

@@ -950,6 +950,6 @@ if __name__ == "__main__":
     # dailyExpNew(True, True)
     # autoLevelUp()
     # autoAdd()
-    # dailyExpNew(True, False)
-    enterStrong()
+    dailyExpNew(True, False)
+    # enterStrong()
     # waitEnterGame()

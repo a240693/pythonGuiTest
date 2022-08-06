@@ -8,6 +8,6 @@ def autoGet(number,numberEnd):
 
 
 if __name__ == "__main__":
-    number = 46224
-    numberEnd =  46233
+    number = 42571
+    numberEnd =  42580
     autoGet(number,numberEnd)
