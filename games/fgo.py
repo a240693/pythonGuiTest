@@ -382,11 +382,20 @@ def support():
         "C呆技能组",
         "开始任务",
         "攻击",
+        "跳过剧情",
+        "对话框",
+    ]
+    moveMaps = [
+        (888,28), # 对话跳过
     ]
     while 1:
         photoMap.loopSearch(photoMaps)
         name = photoMap.name
         pos = photoMap.pos
+
+        if "对话" in name:
+            touch(moveMaps[0])
+            continue
 
         if "攻击" in name:
             break
@@ -667,7 +676,14 @@ def exitBattle():
         "战斗结果",
         "战斗结束",
         "羁绊等级提升",
+        "跳过剧情",
+        "对话框",
+        "菜单",
     ]
+    moveMaps = [
+        (888, 28),  # 点击跳过剧情。
+    ]
+    changeFlag(switchF=False)
     if continueFlag:
         photoMaps.append("续关连续")
     else:
@@ -677,6 +693,13 @@ def exitBattle():
         name = photoMap.name
         pos = photoMap.pos
         # print("找到的是{},坐标是{}".format(name, pos))
+        if "对话" in name:
+            touch(moveMaps[0])
+            continue
+
+        if "菜单" in name:
+            break
+
         touch(pos)
 
         if "关闭" in name:
@@ -738,7 +761,9 @@ def level90(turn=1):
     skillMaps.append(skill1)
     skillMaps.append(skill2)
     skillMaps.append(skill3)
-    while 1:
+    global flag
+    flag = True
+    while flag:
         selectSkill(skillMaps[turn - 1])
         if turn == 3:
             masterSkill()
@@ -926,6 +951,86 @@ def enterStrong(switchF = True,switchAp=True):
 
         touch(pos)
 
+def enterSideStory(switchF = True,switchAp=True):
+    photoMap = air.Photo()
+    photoMaps = [
+        "金苹果",
+        "狂阶",
+        "关卡前选人",
+        "菜单",
+        "宝具强化",
+        "报酬",
+        "技能强化",
+        "跳过剧情",
+        "对话框",
+        "种火用尽",
+    ]
+    moveMaps = [
+        (750, 150),  # 回到主页面后点击第一关。
+        (888,28), # 点击跳过。
+    ]
+    changeFlag(switchF=switchF,switchAp=switchAp)
+    # 拿来应急的。
+    count = 0
+    times = 3
+    # while count < times :
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        if ("苹果" in name) & (switchAp):
+            eatApple()
+            continue
+        elif ("苹果" in name) & (not switchAp):
+            break
+
+        if "狂阶" in name:
+            support()
+            level90()
+            count += 1
+            continue
+
+        if "菜单" in name:
+            touch(moveMaps[0])
+            continue
+
+        if "对话" in name:
+            touch(moveMaps[1])
+            continue
+
+        if "攻击" in name:
+            break
+
+        touch(pos)
+
+def dialogue():
+    photoMap = air.Photo()
+    photoMaps = [
+        "跳过剧情",
+        "对话框",
+        "攻击",
+    ]
+    moveMaps = [
+        (888,28),  # 回到主页面后点击第一关。
+    ]
+    while flag:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        if "对话" in name:
+            touch(moveMaps[0])
+            continue
+
+        if "攻击" in name:
+            break
+
+        if "菜单" in name:
+            break
+
+        touch(pos)
+
 if __name__ == "__main__":
     # enterGame()
     # mulFeatures(enterGame,spaceClick)
@@ -950,6 +1055,7 @@ if __name__ == "__main__":
     # dailyExpNew(True, True)
     # autoLevelUp()
     # autoAdd()
-    dailyExpNew(True, False)
+    # dailyExpNew(True, False)
     # enterStrong()
     # waitEnterGame()
+    enterSideStory()

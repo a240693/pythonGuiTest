@@ -645,6 +645,7 @@ def saveXY(choice):
     loadXY.append(('复刻水狗困难', 8, -300))  # 30
     loadXY.append(('水初音普通',64, -250))  # 31
     loadXY.append(('水初音困难', 12, -265))  # 32
+    loadXY.append(('37章普通', 66, -129))  # 33
     return loadXY[choice - 1]
 
 
