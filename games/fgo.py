@@ -957,13 +957,19 @@ def enterSideStory(switchF = True,switchAp=True):
         "金苹果",
         "狂阶",
         "关卡前选人",
-        "菜单",
+        "跳过剧情",
+        "对话框",
+        "幕间物语进入",
+        "幕间物语进入二",
+        # "菜单",
         "宝具强化",
         "报酬",
         "技能强化",
-        "跳过剧情",
-        "对话框",
         "种火用尽",
+        "攻击",
+        "开始任务",
+        "幕间物语返回",
+        "fgo",
     ]
     moveMaps = [
         (750, 150),  # 回到主页面后点击第一关。
@@ -1000,7 +1006,13 @@ def enterSideStory(switchF = True,switchAp=True):
             continue
 
         if "攻击" in name:
-            break
+            level90()
+            count += 1
+            continue
+
+        if "fgo".__eq__(name):
+            enterGame()
+            continue
 
         touch(pos)
 

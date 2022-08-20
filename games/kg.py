@@ -230,8 +230,8 @@ def dailyBuy():
     daoImpl.searchPhotoKg('坎公购买', 1, 94, 56)  # 商店黄成功率太低了
     daoImpl.searchPhotoKg('坎公商店确认', 1, 0, 0)
     # 买锤子
-    # daoImpl.moveTo(x - 15, y + 238)
-    daoImpl.moveTo(x - 26, y + 293)
+    daoImpl.moveTo(x - 15, y + 238)
+    # daoImpl.moveTo(x - 26, y + 293)
     daoImpl.moveTo(x + 218, y + 197)
     daoImpl.searchPhotoKg('坎公购买', 1, 94, 56)
     daoImpl.searchPhotoKg('坎公商店确认', 1, 0, 0)
