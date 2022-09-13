@@ -210,7 +210,7 @@ def mulFeatures(thread1, thread2):
         pass
 
 
-def changeFlag(switchSF=False, switchF=True, switchCF=False, switchAp=True):
+def changeFlag(switchSF=spaceFlag, switchF=flag, switchCF=continueFlag, switchAp=appleFlag):
     # 进游戏要不要一直点击左边的开关。
     global spaceFlag
     spaceFlag = switchSF
@@ -683,9 +683,9 @@ def exitBattle():
     moveMaps = [
         (888, 28),  # 点击跳过剧情。
     ]
-    changeFlag(switchF=False)
+    changeFlag(switchF=False,switchCF=continueFlag,switchAp=appleFlag)
     if continueFlag:
-        photoMaps.append("续关连续")
+        photoMaps.insert(1,"续关连续")
     else:
         photoMaps.append("续关关闭")
     while 1:
