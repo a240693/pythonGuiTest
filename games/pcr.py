@@ -647,6 +647,12 @@ def saveXY(choice):
     loadXY.append(('水初音困难', 12, -265))  # 32
     loadXY.append(('37章普通', 66, -129))  # 33
     loadXY.append(('油腻复刻困难', -5, -334))  # 34
+    loadXY.append(('无人岛外传普通', 85, -244))  # 35
+    loadXY.append(('无人岛外传困难', 9, -325))  # 36
+    loadXY.append(('黑铁普通', 58, -148))  # 37
+    loadXY.append(('黑铁困难', 9, -330))  # 38
+    loadXY.append(('天使伊里普通',93, -150))  # 39
+    loadXY.append(('天使伊里困难', 16, -317))  # 40
     return loadXY[choice - 1]
 
 
@@ -782,6 +788,7 @@ def autoTrust():
         "pcr信任结算",
         "pcr对话框",
         "pcr对话框二",
+        "pcr对话框三",
         "pcr信任度最大",
         "pcr0信任",
     ]

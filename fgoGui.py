@@ -5,6 +5,7 @@ flag = False
 
 choices = ("请选择副本：",
            "90",
+           "泳装90+",
            "90+",
            "无限池",
            "自回体90",
@@ -55,6 +56,8 @@ if __name__ == "__main__":
             fgo.battleStartNew(True,select = 2)
         elif "90+".__eq__(choice):
             fgo.battleStartNew(True, select = 1)
+        elif "泳装90+".__eq__(choice):
+            fgo.battleStartNew(True, select = 3)
         elif "无限池".__eq__(choice):
             fgo.egg10()
         elif "自回体90".__eq__(choice):

@@ -55,8 +55,8 @@ def returnKmx():
     ]
     moveMaps = [
         (-6, -467),  # 0 卡马逊主页 → 探险初始页
-        (75, -186), # 1 探险初始页 → 卡马逊主页
-        # (88, -270),  # 1 探险初始页 → 卡马逊主页
+        # (75, -186), # 1 探险初始页 → 卡马逊主页
+        (88, -270),  # 1 探险初始页 → 卡马逊主页
         (-834, 237),  # 2 主页面 → 探险初始页
     ]
     while True:
@@ -393,9 +393,10 @@ def backToMain():
             break
         touch(pos)
 
-
-def dailyAir():
+def dailyAir(choice = 1):
     cvInit()
+    dailyBuy()
+    day2buy(choice)
     levelStone()
     backToMain()
     pvpAuto()
@@ -404,6 +405,108 @@ def cvInit():
     cv._init()
     cv.set_value("path", cv.kgAirPath)
     cv.set_value("device", cv.kgDevice)
+
+# 2022年9月14日10:36:32 日常购买后台化
+def day2buy(choice):
+    photoMaps = [
+        "进化石页面",
+        "裂痕总览",
+        "领取灵魂点",
+        "灵魂点已领取",
+        "探险初始页",
+        "坎公主页面",
+    ]
+    photoMap = air.Photo()
+    moveMaps = [
+        (-422, 111), # 点中间的房子
+        # (-834, 237), # 主页面 → 探险初始页
+        (71,475),  # 主页面 → 探险初始页
+        (-718, -341), # 探险初始页 → 进化石
+    ]
+    choiceMaps = [
+        (780,120) , # 进化石一
+        (780, 290),  # 进化石二
+        (780, 450),  # 进化石三
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+
+        name = photoMap.name
+        pos = photoMap.pos
+
+        if "主页面" in name:
+            touchFix(pos,moveMaps[0])
+            continue
+
+        if "初始页" in name:
+            touchFix(pos,moveMaps[2])
+            continue
+
+        if "已领取" in name:
+            touch(moveMaps[1])
+            continue
+
+        if "总览" in name :
+            touch(choiceMaps[choice-1])
+            continue
+
+        if "进化石" in name:
+            break
+
+        touch(pos)
+
+    # photoMap = []
+    # photoMap.append(('坎公主页面', 1, -422, 111))
+    # photoMap.append(('坎公主页面', 1, -258, 233))
+    # photoMap.append(('坎公主页面', 1, -834, 237))
+    # photoMap.append(('探险初始页', 1, -718, -341))
+    # if 2 == choice:
+    #     # 第二个
+    #     photoMap.append(('进化石页面', 1, 636, 253))
+    # elif 3 == choice:
+    #     # 第三个
+    #     photoMap.append(('进化石页面', 1, 600, 422))
+    # elif 1 == choice:
+    #     # 第一个
+    #     photoMap.append(('进化石页面', 1, 624, 103))
+
+# 日常商城购买
+def dailyBuy():
+    photoMaps = [
+        "金币卖完",
+        "坎公PVP确认",
+        "金币购买",
+        "金币",
+        "问号标识二",
+        "坎公主页面",
+    ]
+    photoMaps2 = [
+        "装备",
+        "锤子1000",
+        "坎公PVP确认",
+        "锤子卖完",
+        "强化锤",
+    ]
+    photoMap = air.Photo()
+    moveMaps = [
+        (18,21), # 卡马逊左上角返回
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        # photoMap.loopSearch(photoMaps2)
+
+        name = photoMap.name
+        pos = photoMap.pos
+
+        if "金币卖完" in name:
+            photoMaps = photoMaps2
+            continue
+
+        if "锤子卖完" in name:
+            touch(moveMaps[0])
+            break
+
+        touch(pos)
 
 if __name__ == "__main__":
     # touchFix((3,4),(5,6))
@@ -414,7 +517,9 @@ if __name__ == "__main__":
     # fullAutoKmx()
     # searchPage()
     # team()
-    pvpAuto()
+    # pvpAuto()
     # levelStone()
     # backToMain()
     # dailyAir()
+    dailyAir(2)
+    # dailyBuy()

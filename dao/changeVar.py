@@ -9,7 +9,7 @@ deviceNo = "emulator-5560"
 device = "Android://127.0.0.1:5037/emulator-5560"
 honkai = "Windows:///?title_re=崩坏3"
 honkaiPath = "F:\\pyTest\\honkai\\"
-# device = "Android://127.0.0.1:5037/emulator-5554"
+deviceAk = "Android://127.0.0.1:5037/emulator-5554"
 
 # device = "Android://127.0.0.1:5037/127.0.0.1:5555"
 def _init():  # 初始化

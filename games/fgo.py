@@ -774,6 +774,28 @@ def level90(turn=1):
             break
         turn += 1
 
+# 泳装活动90+
+def swimLevel90Plus(turn=1):
+    skill1 = [1, 4, 5, 6,  9]
+    skill2 = [3]
+    skill3 = [7, 8]
+    skillMaps = []
+    skillMaps.append(skill1)
+    skillMaps.append(skill2)
+    skillMaps.append(skill3)
+    global flag
+    flag = True
+    while flag:
+        selectSkill(skillMaps[turn - 1])
+        if turn == 3:
+            masterSkill()
+        onlyBattle(turn)
+        # 第三回合判定就不在这里了，在onlyBattle里
+        # 打完了返回到要选助战才会回到这儿。
+        if turn >= 3:
+            break
+        turn += 1
+
 
 def battleStartNew(switchCF=True, switchAp=True, select=1):
     changeFlag(switchCF=switchCF, switchAp=switchAp)
@@ -785,6 +807,8 @@ def battleStartNew(switchCF=True, switchAp=True, select=1):
             level90plus()
         elif select == 2:
             level90()
+        elif select == 3:
+            swimLevel90Plus()
         else:
             level90plus()
         if continueFlag:
@@ -1070,4 +1094,4 @@ if __name__ == "__main__":
     # dailyExpNew(True, False)
     # enterStrong()
     # waitEnterGame()
-    enterSideStory()
+    battleStartNew(True,select = 3)

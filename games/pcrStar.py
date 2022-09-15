@@ -4,14 +4,15 @@ import pyautogui as py
 import time
 import random
 
-from dao import dao, daoImpl, multiphotos, resultMap
+from dao import dao, daoImpl, multiphotos, resultMap,changeVar as cv
 import _thread
-
 from testTools import timeTest
 
 flag = False
 loseFlag = 0
 
+cv._init()
+cv.set_value("path",cv.path)
 
 def autoChangeDefenceP(breakTime):
     flag = True
@@ -112,12 +113,11 @@ def changeUpDown(upDown, jjc):
 
 
 # 查找JJC目标 2022年6月10日22:02:35
+# 更换查找逻辑，现在支持打两个仇人 2022年8月30日20:47:39
 def searchTarget(auto, cdCheck, sleepTimeS, sleepTimeE, changeDefence):
     photoMap = multiphotos.Photo()
     photoMaps = [
-        # "star\\仇人头像",
         "star\\仇人ID",
-        #"star\\仇人勋章",
         "star\\仇人整块",
     ]
     onlyOneMap = [
@@ -191,6 +191,46 @@ def searchTarget(auto, cdCheck, sleepTimeS, sleepTimeE, changeDefence):
 def changeManEnter():
     dao.searchPhotoPcr("star\\jjc防守", 3, 0, 0)
     changeManJJC()
+
+# 更换进攻 2022年8月30日21:06:12
+def changeAttackTeam():
+    defenceMaps = [
+        "star\\仇人防守1",
+        "star\\仇人防守2",
+    ]
+    photoMap = multiphotos.Photo()
+    while 1 :
+        photoMap.loopSearch(defenceMaps)
+        name = photoMap.name
+        if name in "防守1":
+            changeAttackTeamEx(1)
+        if name in "防守2":
+            changeAttackTeamEx(2)
+        break
+
+def changeAttackTeamEx(teamNo = 2):
+    photoMaps = [
+        "star\\防御页我的队伍",
+        "star\\换人页标识升序",
+        "star\\换人页标识降序",
+    ]
+    moveMaps = [
+        (-266, 9), # 0 找到升序后点击编组5
+        (-105, 176), # 1 点击编组5后点击进攻组1
+        (-134, 350), # 2 点击编组5后点击进攻组2
+
+    ]
+    photoMap = multiphotos.Photo()
+    while 1 :
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+
+        if "升序" in name:
+            click(photoMap,moveMaps[0])
+            click(photoMap,moveMaps[teamNo])
+            break
+
+        click(photoMap,(0,0))
 
 
 # 从战斗结束页面返回主页面 2022年6月10日22:19:08
@@ -316,7 +356,8 @@ if __name__ == "__main__":
     # searchTarget()
     # backSearchTarget()
     # changeUpDown(1)
-    sleepTimeS = max(300, 60)
-    sleepTimeE = min(302, 304)
-    sleepTime = random.randint(sleepTimeS, sleepTimeE)
-    print(sleepTime)
+    # sleepTimeS = max(300, 60)
+    # sleepTimeE = min(302, 304)
+    # sleepTime = random.randint(sleepTimeS, sleepTimeE)
+    # print(sleepTime)
+    changeAttackTeamEx()
