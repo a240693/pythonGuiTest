@@ -953,7 +953,9 @@ def enterStrong(switchF = True,switchAp=True):
         (750, 150),  # 回到主页面后点击第一关。
     ]
     changeFlag(switchF=switchF,switchAp=switchAp)
-    while flag:
+    # exitBattle 会强制把flag变成false，这里要解耦才行。
+    # while flag:
+    while 1:
         photoMap.loopSearch(photoMaps)
         pos = photoMap.pos
         name = photoMap.name

@@ -657,6 +657,7 @@ def saveXY(choice):
     loadXY.append(('38普通', 76, -90))  # 42
     loadXY.append(('万圣节普通', 56, -222))  # 43
     loadXY.append(('39普通', 79, -268))  # 44
+    loadXY.append(('龙之探索者复刻普通', 57, -178))  # 45
     return loadXY[choice - 1]
 
 
