@@ -161,7 +161,7 @@ def searchPhotoOpen(name):
             x, y, w, h = pyautogui.locateOnScreen(img)
             x, y = pyautogui.center((x, y, w, h))
             print("该图标在屏幕中的位置是：X={},Y={}，宽{}像素,高{}像素".format(x, y, w, h))
-            moveTo(x + 318, y)
+            moveTo(x + 300, y)
             found = True
         except:
             count = count + 1

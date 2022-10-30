@@ -8,6 +8,7 @@ import platform
 import cv2
 
 path = 'F:\\pyTest\\'
+# path = "F:\\pyTest\\honkai\\"
 
 
 # 获取颜色
@@ -58,7 +59,8 @@ def placeTest():
     countDown(0, 3)
     confidenPoint = 0.9
     x1, y1 = pyautogui.position();
-    name = 'star\\jjc碎钻二次确认'
+    # name = 'star\\换人页标识升序'
+    name = '主页'
     filepath = path + name + '.png'
     img = my_cv_imread(filepath)
     x, y, w, h = pyautogui.locateOnScreen(img, grayscale=True, confidence=confidenPoint)

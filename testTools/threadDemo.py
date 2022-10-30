@@ -20,6 +20,7 @@ def print_time(threadName, delay, counter):
     while counter:
         time.sleep(delay)
         print ("%s: %s" % (threadName, time.ctime(time.time())))
+        print ("%s: %s" % (threadName, time.ctime(time.time())))
         counter -= 1
 
 threadLock = threading.Lock()

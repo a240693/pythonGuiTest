@@ -1094,6 +1094,6 @@ if __name__ == "__main__":
     # autoLevelUp()
     # autoAdd()
     # dailyExpNew(True, False)
-    # enterStrong()
+    enterStrong()
     # waitEnterGame()
-    battleStartNew(True,select = 3)
+    # battleStartNew(True,select = 3)
