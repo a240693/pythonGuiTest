@@ -101,8 +101,16 @@ def addTest():
     onlyOneMap.append("star\\jjc碎钻确认")
     print(onlyOneMap)
 
+def removeTest():
+    test1 = [
+        "图片1",
+        "图片2",
+    ]
+    test1.remove("图片2")
+    print(test1)
+
 if __name__ == "__main__":
-    addTest()
+    removeTest()
 
 
 

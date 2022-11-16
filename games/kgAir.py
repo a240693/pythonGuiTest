@@ -13,7 +13,7 @@ logger.setLevel(logging.INFO)
 
 cv._init()
 cv.set_value("path", cv.kgAirPath)
-cv.set_value("device", cv.kgDevice)
+cv.set_value("device", cv.kgDevice2)
 
 flag = True
 
@@ -404,7 +404,7 @@ def dailyAir(choice = 1):
 def cvInit():
     cv._init()
     cv.set_value("path", cv.kgAirPath)
-    cv.set_value("device", cv.kgDevice)
+    cv.set_value("device", cv.kgDevice2)
 
 # 2022年9月14日10:36:32 日常购买后台化
 def day2buy(choice):
@@ -481,10 +481,10 @@ def dailyBuy():
         "坎公主页面",
     ]
     photoMaps2 = [
-        "装备",
-        "锤子1000",
-        "坎公PVP确认",
         "锤子卖完",
+        "锤子1000",
+        "装备",
+        "坎公PVP确认",
         "强化锤",
     ]
     photoMap = air.Photo()

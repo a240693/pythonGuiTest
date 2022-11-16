@@ -659,6 +659,10 @@ def saveXY(choice):
     loadXY.append(('39普通', 79, -268))  # 44
     loadXY.append(('龙之探索者复刻普通', 57, -178))  # 45
     loadXY.append(('外传流夏', 64, -264))  # 46
+    loadXY.append(('魔法少女莫妮卡普通', 76, -165))  # 47
+    loadXY.append(('魔法少女莫妮卡困难', -1, -221))  # 48
+    loadXY.append(('re0复刻普通', 66, -335))  # 49
+    loadXY.append(('re0复刻困难', 29, -275))  # 50
     return loadXY[choice - 1]
 
 
@@ -795,7 +799,9 @@ def autoTrust():
         "pcr对话框",
         "pcr对话框二",
         "pcr对话框三",
+        "pcr对话框四",
         "pcr信任度最大",
+        "pcr信任度最大二",
         "pcr0信任",
     ]
     moveMaps = [
