@@ -3,9 +3,13 @@ import time
 import random
 
 from dao import dao, daoImpl, multiphotos, resultMap
+from dao import  changeVar as cv
 import _thread
 
 flag = True
+
+cv._init()
+cv.set_value("path", cv.path)
 
 result = resultMap.resultMap()
 resultCode = 0
@@ -253,6 +257,9 @@ def dailyMission(switch):
     underWorld(switch)
     # 心碎星球杯
     heartBreak()
+    # 活动每日试做
+    dailyEvent()
+    dailyEx()
     # dao.searchPhotoPcr('主页', 1, 0, 0)
     # dao.searchPhotoPcr('pcr主页', 3, -169, 467)
     # dao.searchPhotoPcr('冒险', 1, 0, 0)
@@ -493,7 +500,8 @@ def heartBreak():
     # 开操作录制
     daoImpl.searchPhoto('button', 1)
     dao.searchPhotoPcr('心碎星球杯', 3, 361, 5)
-    dao.searchPhotoPcr('心碎星球杯', 3, 448, -321)
+    # dao.searchPhotoPcr('心碎星球杯', 3, 448, -321)
+    dao.searchPhotoPcr('心碎星球杯', 3, 443, -405)
 
 
 def autoChangeDefenceP(breakTime):
@@ -663,6 +671,11 @@ def saveXY(choice):
     loadXY.append(('魔法少女莫妮卡困难', -1, -221))  # 48
     loadXY.append(('re0复刻普通', 66, -335))  # 49
     loadXY.append(('re0复刻困难', 29, -275))  # 50
+    loadXY.append(('圣千普通', 194, -311))  # 51
+    loadXY.append(('圣千困难', 23, -119))  # 52
+    loadXY.append(('40普通', 75, -316))  # 53
+    loadXY.append(('圣哈普通', 80, -155))  # 54
+    loadXY.append(('圣哈困难', 21, -333))  # 55
     return loadXY[choice - 1]
 
 
@@ -853,6 +866,88 @@ def autoEventEgg():
         else:
             dao.moveToPcr(x, y, 1)
 
+# 2022年12月11日20:27:16
+# 活动打5次。
+def dailyEvent():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "主界面关闭",
+        "首领挑战卷",
+        "冒险",
+        "主线推图第一页",
+        "剧情活动",
+        "活动减一",
+        #"主页",
+    ]
+    moveMaps = [
+        (348, -220),  # 0 , 点击操作录制。
+        (361, 5), # 1 , 点击开始
+        (450, -155) , #2 , 关闭录制页
+    ]
+    index = 1
+    tempXY = saveXYHard(index)
+    while True:
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+
+        if "挑战" in name:
+            dao.moveToPcr(x + tempXY[1], y + tempXY[2], 1)
+            continue
+
+        if "第一页" in name:
+            dao.moveToPcr(x + moveMaps[0][0], y + moveMaps[0][1], 1)
+            continue
+
+        if "减一" in name:
+            dao.moveToPcr(x + moveMaps[1][0], y + moveMaps[1][1], 1)
+            time.sleep(1)
+            dao.moveToPcr(x + moveMaps[2][0], y + moveMaps[2][1], 1)
+            break
+
+        dao.moveToPcr(x,y,1)
+
+# 2022年12月11日21:42:44
+# 活动打EX.
+def dailyEx():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "首领挑战卷",
+        "高难BOSS",
+        "剧情活动",
+        "活动减一",
+        #"主页",
+    ]
+    moveMaps = [
+        (602, 425), # 0,高难页面点击挑战
+    ]
+    index = 1
+    tempXY = saveXYHard(index)
+    while True:
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+
+        if "挑战" in name:
+            dao.moveToPcr(x + tempXY[4], y + tempXY[5], 1)
+            continue
+
+        if "BOSS" in name:
+            dao.moveToPcr(x + moveMaps[0][0], y + moveMaps[0][1], 1)
+            autoMapFullAuto()
+            break
+
+        dao.moveToPcr(x,y,1)
+
+# 2022年12月11日20:27:05
+# 基于 首领挑战卷 的1-5坐标记录
+def saveXYHard(choice):
+    loadXY = []
+    loadXY.append(('圣哈1-5', 39, -105,'圣哈高难',233, -145))  # 1
+    return loadXY[choice - 1]
+
 
 if __name__ == '__main__':
     # autoEventEgg()
@@ -860,7 +955,9 @@ if __name__ == '__main__':
     # autoTrust()
     # autoText()
     # underWorld(1)
-    underWorld(1)
+    # underWorld(1)
+    # dailyEvent()
+    dailyEx()
 # photoMap = multiphotos.Photo()
 # photoMaps = ["地下城失败页"]
 # photoMap.loopSearch(photoMaps)
