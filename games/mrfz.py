@@ -51,6 +51,7 @@ def RDdaily():
     photoMaps = [
         '粥点击收获',
         '粥每日线索',
+        "粥停工",
         '粥会客室改',
         '粥基建总览',
         '粥基建',
@@ -61,7 +62,8 @@ def RDdaily():
         (2, -80),  # 粥会客室 2
         (-139, 361),  # 每日线索获取 3
         (-706, -44),  # 每日线索后退 4
-        (809, -89)  # 粥休息室待办 5
+        (809, -89),  # 粥休息室待办 5
+        (8, 39),  # 停工复位
     ]
     while flag:
         photoMap.loopSearch(photoMaps)
@@ -70,12 +72,18 @@ def RDdaily():
         y = photoMap.y
         if "粥基建总览".__eq__(name):
             dao.moveToMRFZ(x + moveMaps[5][0], y + moveMaps[5][1], 1)
-        elif "粥会客室改".__eq__(name):
+            continue
+
+        if "粥会客室改".__eq__(name):
             dao.moveTo(x, y)
             meetingRoom()
             break
-        else:
-            dao.moveTo(x,y)
+
+        if "停工" in name :
+            dao.moveToMRFZ(x + moveMaps[6][0], y + moveMaps[6][1], 1)
+            continue
+
+        dao.moveTo(x,y)
 
 
 # 2022年5月11日11:48:44
@@ -267,5 +275,6 @@ if __name__ == "__main__":
     # allDaily()
     # RDdaily()
     # employDaily()
+    RDdaily()
     dealRoom()
     # restPeople()

@@ -253,13 +253,14 @@ def dailyMission(switch):
     # 每日PVP
     dailyPvP(1)
     dailyPvP(2)
+    # 活动每日试做
+    dailyEvent()
+    dailyEx()
     # 地下城
     underWorld(switch)
     # 心碎星球杯
     heartBreak()
-    # 活动每日试做
-    dailyEvent()
-    dailyEx()
+
     # dao.searchPhotoPcr('主页', 1, 0, 0)
     # dao.searchPhotoPcr('pcr主页', 3, -169, 467)
     # dao.searchPhotoPcr('冒险', 1, 0, 0)
@@ -348,6 +349,8 @@ def dailyMissionSmall():
     searchSmall()
     missionAndGift()
     dailyPvP(1)
+    dailyEvent()
+    dailyEx()
     underWorldSmall()
     # event()
 
@@ -493,7 +496,7 @@ def underWorldSmall():
 
 
 def heartBreak():
-    time.sleep(2)
+    time.sleep(3)
     dao.searchPhotoPcr('冒险', 1, 0, 0)
     # 进入心碎页
     dao.searchPhotoPcr('主页', 3, 651, -247)
@@ -676,6 +679,7 @@ def saveXY(choice):
     loadXY.append(('40普通', 75, -316))  # 53
     loadXY.append(('圣哈普通', 80, -155))  # 54
     loadXY.append(('圣哈困难', 21, -333))  # 55
+    loadXY.append(('41普通', 54, -261))  # 56
     return loadXY[choice - 1]
 
 
@@ -711,8 +715,8 @@ def battleFloor5():
         changeTeam5(i)
         dao.searchPhotoPcr('战斗开始界面定标1EX3', 3, 182, 93)
         time.sleep(60)
-        # 从第三刀开始可能打赢，所以加入胜利判断
-        if i == 3:
+        # 从第二刀开始可能打赢，所以加入胜利判断
+        if i == 2:
             photoMaps = ["地下城胜利","地下城失败页"]
         photoMap.loopSearch(photoMaps)
         if "地下城失败页".__eq__(photoMap.name):
@@ -868,7 +872,7 @@ def autoEventEgg():
 
 # 2022年12月11日20:27:16
 # 活动打5次。
-def dailyEvent():
+def dailyEvent(choice = 2):
     photoMap = multiphotos.Photo()
     photoMaps = [
         "主界面关闭",
@@ -876,6 +880,7 @@ def dailyEvent():
         "冒险",
         "主线推图第一页",
         "剧情活动",
+        "pcr活动复刻",
         "活动减一",
         #"主页",
     ]
@@ -884,8 +889,7 @@ def dailyEvent():
         (361, 5), # 1 , 点击开始
         (450, -155) , #2 , 关闭录制页
     ]
-    index = 1
-    tempXY = saveXYHard(index)
+    tempXY = saveXYHard(choice)
     while True:
         photoMap.loopSearch(photoMaps)
         x = photoMap.x
@@ -937,6 +941,10 @@ def dailyEx():
         if "BOSS" in name:
             dao.moveToPcr(x + moveMaps[0][0], y + moveMaps[0][1], 1)
             autoMapFullAuto()
+            dao.searchPhotoPcr('主页', 3, 0, 0)
+            photoMaps.append("冒险")
+
+        if "冒险" in name:
             break
 
         dao.moveToPcr(x,y,1)
@@ -946,6 +954,7 @@ def dailyEx():
 def saveXYHard(choice):
     loadXY = []
     loadXY.append(('圣哈1-5', 39, -105,'圣哈高难',233, -145))  # 1
+    loadXY.append(('圣望复刻', 118, -212, '圣望高难', 233, -145))  # 1
     return loadXY[choice - 1]
 
 
@@ -957,7 +966,10 @@ if __name__ == '__main__':
     # underWorld(1)
     # underWorld(1)
     # dailyEvent()
+    # 心碎星球杯
+    dailyEvent()
     dailyEx()
+    # heartBreak()
 # photoMap = multiphotos.Photo()
 # photoMaps = ["地下城失败页"]
 # photoMap.loopSearch(photoMaps)

@@ -354,7 +354,8 @@ def levelStone():
         '进化石页面',
     ]
     moveMaps = [
-        (601, 266),  # 点扫荡前先把进度条拉到最大。
+        # (601, 266),  # 点扫荡前先把进度条拉到最大。
+        (601, 300),  # 点扫荡前先把进度条拉到最大，疑似UI改动。
     ]
     while True:
         photoMap.name = "默认"
@@ -372,10 +373,10 @@ def levelStone():
 def backToMain():
     photoMap = air.Photo()
     photoMaps = [
+        "探险初始页",
         '坎公初始选人页黄',
         '坎公初始选人页重试',
         '坎公卡马逊确认',
-        "探险初始页",
         '坎公后退',
     ]
     moveMaps = [
@@ -404,6 +405,7 @@ def dailyAir(choice = 1):
 def cvInit():
     cv._init()
     cv.set_value("path", cv.kgAirPath)
+    # cv.set_value("device", cv.kgDevice3)
     cv.set_value("device", cv.kgDevice2)
 
 # 2022年9月14日10:36:32 日常购买后台化
@@ -481,9 +483,9 @@ def dailyBuy():
         "坎公主页面",
     ]
     photoMaps2 = [
+        "装备",
         "锤子卖完",
         "锤子1000",
-        "装备",
         "坎公PVP确认",
         "强化锤",
     ]
