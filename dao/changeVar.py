@@ -6,6 +6,7 @@ FgoPath = 'F:\\pyTest\\fgo\\'
 kgAirPath = 'F:\\pyTest\\kgAir\\'
 kgDevice = "Android://127.0.0.1:5037/emulator-5566"
 kgDevice2 = "Android://127.0.0.1:5037/emulator-5558"
+kgDevice3 = "Android://127.0.0.1:5037/127.0.0.1:7555"#mumu
 deviceNo = "emulator-5560"
 honkai = "Windows:///?title_re=崩坏3"
 honkaiPath = "F:\\pyTest\\honkai\\"
@@ -13,6 +14,9 @@ deviceAk = "Android://127.0.0.1:5037/emulator-5554"
 # device = "Android://127.0.0.1:5037/emulator-5554"
 # device = "Android://127.0.0.1:5037/emulator-5560"
 device = "Android://127.0.0.1:5037/emulator-5554"
+
+DBLdevice = "Android://127.0.0.1:5037/emulator-5560"
+DBLPath = "F:\\pyTest\\DBL\\"
 
 # device = "Android://127.0.0.1:5037/127.0.0.1:5555"
 def _init():  # 初始化

@@ -254,8 +254,8 @@ def dailyMission(switch):
     dailyPvP(1)
     dailyPvP(2)
     # 活动每日试做
-    dailyEvent()
-    dailyEx()
+    # dailyEvent()
+    # dailyEx()
     # 地下城
     underWorld(switch)
     # 心碎星球杯
@@ -349,8 +349,8 @@ def dailyMissionSmall():
     searchSmall()
     missionAndGift()
     dailyPvP(1)
-    dailyEvent()
-    dailyEx()
+    # dailyEvent()
+    # dailyEx()
     underWorldSmall()
     # event()
 
