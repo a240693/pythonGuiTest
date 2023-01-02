@@ -31,10 +31,10 @@ class Photo:
         self.pos = pos
 
     # 循环 找到图片就返回坐标和名字回最顶层。
-    def loopSearch(self, photoMaps):
+    def loopSearch(self, photoMaps,time = 1):
         while True:
             for photoMap in photoMaps:
-                result = self.appearThenClick(photoMap)
+                result = self.appearThenClick(photoMap,time)
                 if 1 == result:
                     print("{},坐标为：{}".format(self.name,self.pos))
                     return self
@@ -43,11 +43,11 @@ class Photo:
 
     # 查找图片，3秒内判断该图片有没有出现，没有则找下一张。
     # 有就返回1，无就返回0.
-    def appearThenClick(self, photoMap):
+    def appearThenClick(self, photoMap,time = 1):
         try:
             photo = Template(path + photoMap + ".png", rgb=False)
             # 一秒没找到就换下一张。
-            pos = wait(photo,timeout = 1)
+            pos = wait(photo,timeout = time)
             if pos:
                 self.writeSelf(photoMap, pos)
                 # print("找到的是{}".format(photoMap))
