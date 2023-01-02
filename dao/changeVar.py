@@ -16,6 +16,7 @@ deviceAk = "Android://127.0.0.1:5037/emulator-5554"
 device = "Android://127.0.0.1:5037/emulator-5554"
 
 DBLdevice = "Android://127.0.0.1:5037/emulator-5560"
+DBLdeviceHome = "Android://127.0.0.1:5037/emulator-5564"
 DBLPath = "F:\\pyTest\\DBL\\"
 
 # device = "Android://127.0.0.1:5037/127.0.0.1:5555"

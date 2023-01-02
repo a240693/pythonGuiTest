@@ -254,13 +254,12 @@ def dailyMission(switch):
     dailyPvP(1)
     dailyPvP(2)
     # 活动每日试做
-    # dailyEvent()
-    # dailyEx()
+    dailyEvent()
+    dailyEx()
     # 地下城
     underWorld(switch)
     # 心碎星球杯
     heartBreak()
-
     # dao.searchPhotoPcr('主页', 1, 0, 0)
     # dao.searchPhotoPcr('pcr主页', 3, -169, 467)
     # dao.searchPhotoPcr('冒险', 1, 0, 0)
@@ -349,8 +348,8 @@ def dailyMissionSmall():
     searchSmall()
     missionAndGift()
     dailyPvP(1)
-    # dailyEvent()
-    # dailyEx()
+    dailyEvent()
+    dailyEx()
     underWorldSmall()
     # event()
 
@@ -679,7 +678,11 @@ def saveXY(choice):
     loadXY.append(('40普通', 75, -316))  # 53
     loadXY.append(('圣哈普通', 80, -155))  # 54
     loadXY.append(('圣哈困难', 21, -333))  # 55
-    loadXY.append(('41普通', 54, -261))  # 56
+    loadXY.append(('圣望复刻普通', -13, -182))  # 56
+    loadXY.append(('圣望复刻困难', -10, -199))  # 57
+    loadXY.append(('41普通', 54, -261))  # 58
+    loadXY.append(('春吃普通', 67, -185))  # 59
+    loadXY.append(('春吃困难', -42, -295))  # 60
     return loadXY[choice - 1]
 
 
@@ -954,7 +957,8 @@ def dailyEx():
 def saveXYHard(choice):
     loadXY = []
     loadXY.append(('圣哈1-5', 39, -105,'圣哈高难',233, -145))  # 1
-    loadXY.append(('圣望复刻', 118, -212, '圣望高难', 233, -145))  # 1
+    loadXY.append(('圣望复刻', 118, -212, '圣望高难', 233, -145))  # 2
+    loadXY.append(('春吃', 93, -234, '春吃高难', 233, -145))  # 1
     return loadXY[choice - 1]
 
 
