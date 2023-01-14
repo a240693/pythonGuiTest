@@ -269,12 +269,31 @@ def dealRoom():
             count = 0
 
 
+# 无关游戏的课程点击。
+def autoClass():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "课程下一节",
+        "课程学习0%",
+    ]
+    moveMaps = [
+        (-58, -56),  # 左上角退出 0
+    ]
+    while 1:
+        photoMap = photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+        dao.moveToMRFZ(x,y,1)
+
+
 
 
 if __name__ == "__main__":
     # allDaily()
     # RDdaily()
     # employDaily()
-    RDdaily()
-    dealRoom()
+    # RDdaily()
+    # dealRoom()
     # restPeople()
+    autoClass()

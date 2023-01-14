@@ -402,11 +402,11 @@ def dailyAir(choice = 1):
     backToMain()
     pvpAuto()
 
-def cvInit():
+def cvInit(path = cv.kgAirPath , device = cv.kgDevice2):
     cv._init()
-    cv.set_value("path", cv.kgAirPath)
+    cv.set_value("path", path)
     # cv.set_value("device", cv.kgDevice3)
-    cv.set_value("device", cv.kgDevice2)
+    cv.set_value("device", device)
 
 # 2022年9月14日10:36:32 日常购买后台化
 def day2buy(choice):

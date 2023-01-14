@@ -1,0 +1,51 @@
+import easygui as gui
+from games import dblAir as db
+from dao import changeVar as cv
+
+flag = False
+
+choices = ("请选择脚本：",
+           "自动PVP",
+           "100层",
+           "团队战",
+           "RUSH",
+           "====================",
+           "关闭")
+
+
+def main():
+    return gui.choicebox("脚本选择", "←_→", choices=choices)
+
+
+def test(name):
+    gui.msgbox(name)
+
+def inputBox():
+    return gui.integerbox(msg='请输入次数,0为不限制', title='自动次数：', default=None, lowerbound=0, upperbound=9999, image=None,
+                          root=None)
+
+def setFlag():
+    global flag
+    flag = True
+
+
+if __name__ == "__main__":
+    # getTime()
+    setFlag()
+    db.cvInit(cv.DBLPath, cv.DBLdevice)  # 办公室
+    # kgA.cvInit(cv.DBLPath, cv.DBLdeviceHome)  # 家
+    while flag:
+        choice = ''
+        choice = main()
+        if "自动PVP".__eq__(choice):
+            index = inputBox()
+            db.pvpAuto(index)
+        elif "RUSH".__eq__(choice):
+            db.autoRush()
+        elif "100层".__eq__(choice):
+            db.auto100()
+        elif "团队战".__eq__(choice):
+            index = inputBox()
+            db.autoBattle(index)
+        elif choice == "关闭":
+            break
