@@ -683,6 +683,9 @@ def saveXY(choice):
     loadXY.append(('41普通', 54, -261))  # 58
     loadXY.append(('春吃普通', 67, -185))  # 59
     loadXY.append(('春吃困难', -42, -295))  # 60
+    loadXY.append(('春女仆1-9', 111, -153))  # 61
+    loadXY.append(('春女仆困难', -37, -203))  # 62
+    loadXY.append(('42普通', 50, -283))  # 63
     return loadXY[choice - 1]
 
 
@@ -875,11 +878,12 @@ def autoEventEgg():
 
 # 2022年12月11日20:27:16
 # 活动打5次。
-def dailyEvent(choice = 2):
+def dailyEvent(choice = 4,switch = True):
     photoMap = multiphotos.Photo()
     photoMaps = [
         "主界面关闭",
         "首领挑战卷",
+        "首领挑战卷2",
         "冒险",
         "主线推图第一页",
         "剧情活动",
@@ -893,7 +897,7 @@ def dailyEvent(choice = 2):
         (450, -155) , #2 , 关闭录制页
     ]
     tempXY = saveXYHard(choice)
-    while True:
+    while switch:
         photoMap.loopSearch(photoMaps)
         x = photoMap.x
         y = photoMap.y
@@ -917,7 +921,7 @@ def dailyEvent(choice = 2):
 
 # 2022年12月11日21:42:44
 # 活动打EX.
-def dailyEx():
+def dailyEx(index = 1,switch = True):
     photoMap = multiphotos.Photo()
     photoMaps = [
         "首领挑战卷",
@@ -929,9 +933,8 @@ def dailyEx():
     moveMaps = [
         (602, 425), # 0,高难页面点击挑战
     ]
-    index = 1
     tempXY = saveXYHard(index)
-    while True:
+    while switch:
         photoMap.loopSearch(photoMaps)
         x = photoMap.x
         y = photoMap.y
@@ -958,7 +961,8 @@ def saveXYHard(choice):
     loadXY = []
     loadXY.append(('圣哈1-5', 39, -105,'圣哈高难',233, -145))  # 1
     loadXY.append(('圣望复刻', 118, -212, '圣望高难', 233, -145))  # 2
-    loadXY.append(('春吃', 93, -234, '春吃高难', 233, -145))  # 1
+    loadXY.append(('春吃', 93, -234, '春吃高难', 233, -145))  # 3
+    loadXY.append(('春女仆', 57, -219, '春女仆高难', 233, -145))  # 4
     return loadXY[choice - 1]
 
 
