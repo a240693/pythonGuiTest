@@ -1,6 +1,6 @@
 # emulator-5560
 import _thread
-import time
+import datetime
 
 from airtest.core.api import *
 from dao import airMultiPhotos as air
@@ -13,17 +13,19 @@ logger.setLevel(logging.INFO)
 
 cv._init()
 cv.set_value("path", cv.DBLPath)
-cv.set_value("device", cv.DBLdevice)
-# cv.set_value("device", cv.DBLdeviceHome)
+# cv.set_value("device", cv.DBLdevice)
+cv.set_value("device", cv.DBLdeviceHome)
 flag = True
 
 __author__ = "user"
 
-def cvInit(path = cv.DBLPath,device = cv.DBLdevice):
+
+def cvInit(path=cv.DBLPath, device=cv.DBLdevice):
     cv._init()
     cv.set_value("path", path)
-    cv.set_value("device",device)
+    cv.set_value("device", device)
     # cv.set_value("device", cv.DBLdeviceHome)
+
 
 # RUSH入口
 # 2023年1月2日16:37:59
@@ -48,6 +50,7 @@ def autoRush():
 
         touch(pos)
         sleep(0.3)
+
 
 def startRush():
     photoMap = air.Photo()
@@ -82,12 +85,13 @@ def startRush():
             touch(pos)
             continue
 
-        if "结算OK".__eq__(name) :
+        if "结算OK".__eq__(name):
             touch(pos)
             break
 
         touch(pos)
         sleep(0.3)
+
 
 # 自动百重塔入口
 # 2023年1月2日16:37:40
@@ -110,15 +114,16 @@ def auto100():
         touch(pos)
         sleep(0.3)
 
+
 # 2023年1月2日16:37:18
 # 自动团队战入口
-def autoBattle(time = 0):
+def autoBattle(time=0):
     photoMap = air.Photo()
     photoMaps = [
         "战斗开始",
+        "按错取消",
         "结算OK",
         "准备完成",
-        "按错取消",
         "前往大厅",
         "读取中",
         "寻找",
@@ -141,33 +146,34 @@ def autoBattle(time = 0):
             continue
         touch(pos)
 
+
 def autoBattleNext():
     photoMap = air.Photo()
     photoMaps = [
+        "升龙2",
         "结算OK",
-        "升龙",
         "升龙2",
         "按错取消",
         "前往大厅",
         "重试",
-        "战斗中",
-        "升龙",
         "升龙2",
+        "升龙2",
+        "战斗中",
         # "战斗开始",
     ]
     moveMaps = [
-        (370,470), # 0 第1张卡
-        (520,420), # 1 第2张卡
-        (680,400), # 2 第3张卡
-        (850,400), # 3 第4张卡
-        (130,460), # 主动
-        (120,377), # 拉仇恨
-        (99,322), #点击队友
+        (370, 470),  # 0 第1张卡
+        (520, 420),  # 1 第2张卡
+        (680, 400),  # 2 第3张卡
+        (850, 400),  # 3 第4张卡
+        (130, 460),  # 主动
+        # (120,377), # 拉仇恨
+        (99, 322),  # 点击队友
         # (919,461),
     ]
 
     while 1:
-        photoMap.loopSearch(photoMaps,time = 0.3)
+        photoMap.loopSearch(photoMaps, time=0.3)
         pos = photoMap.pos
         name = photoMap.name
         # print(G.DEVICE.display_info["orientation"])
@@ -192,6 +198,7 @@ def autoBattleNext():
 
         touch(pos)
 
+
 #    退出战斗。
 def autoBattleExit():
     photoMap = air.Photo()
@@ -211,6 +218,7 @@ def autoBattleExit():
             break
         touch(pos)
 
+
 # 绝对坐标转换，竖屏XY换成百分比
 # 2023年1月2日16:38:42
 # x换成横坐标的百分比然后给竖坐标，Y换成竖坐标百分比给横坐标。
@@ -220,19 +228,20 @@ def changeXY(pos):
     temp = (height * pos[0] / width, width * pos[1] / height)
     return temp
 
+
 def missTest():
     photoMap = air.Photo()
     photoMaps = [
         "战斗中",
     ]
     moveMaps = [
-        (370,470), # 0 第1张卡
-        (520,420), # 1 第2张卡
-        (680,400), # 2 第3张卡
-        (850,400), # 3 第4张卡
-        (130,460), # 主动
-        (120,377), # 拉仇恨
-        (99,322), #点击队友
+        (370, 470),  # 0 第1张卡
+        (520, 420),  # 1 第2张卡
+        (680, 400),  # 2 第3张卡
+        (850, 400),  # 3 第4张卡
+        (130, 460),  # 主动
+        (120, 377),  # 拉仇恨
+        (99, 322),  # 点击队友
         # (919,461),
     ]
     while 1:
@@ -250,9 +259,10 @@ def missTest():
             swipe(pos, vector=(100, 0), duration=0.3, steps=1)
             continue
 
+
 # 2023年1月3日20:47:40
 # 自动PVP入口
-def pvpAuto(time = 0):
+def pvpAuto(time=0):
     photoMap = air.Photo()
     photoMaps = [
         "pvp入口",
@@ -263,12 +273,12 @@ def pvpAuto(time = 0):
         "pvp读取",
     ]
     moveMaps = [
-        (241,342),
-        (480,342),
-        (680,349),
+        (241, 342),
+        (480, 342),
+        (680, 349),
     ]
     count = 0
-    while (count < time) | (time == 0) :
+    while (count < time) | (time == 0):
         photoMap.loopSearch(photoMaps)
         pos = photoMap.pos
         name = photoMap.name
@@ -284,28 +294,187 @@ def pvpAuto(time = 0):
                 temp = changeXY(i)
                 touch(temp)
             touch(pos)
-            continue 
+            continue
 
         touch(pos)
+
 
 def autoGet7hour():
     photoMap = air.Photo()
     photoMaps = [
-        "活动特别",
+        "跳过卷开始",
+        "关卡标识",
+        "特殊活动页",
+        "重现原作",
+        # "活动特别",
         "活动",
         "菜单",
     ]
     moveMaps = [
-        (304,242), # 重现原作第一个。
+        (300, 250),  # 0 重现原作第一个。
+        (670, 430),  # 1 跳过页面点“是”
     ]
-    while 1 :
+    while 1:
         photoMap.loopSearch(photoMaps)
         pos = photoMap.pos
         name = photoMap.name
-        if  "活动特别".__eq__(name):
-            temp = changeXY(pos)
+        if "特殊活动页".__eq__(name):
+            temp = changeXY(moveMaps[0])
             touch(temp)
+            continue
+
+        # 傻帽玩意判定小的一批。。
+        if "关卡标识".__eq__(name):
+            temp = (pos[0], pos[1] - 50)
+            touch(temp)
+            continue
+
+        if "跳过卷开始".__eq__(name):
+            get10timesPve()
+            backMain()
+            break
+
+        if "结算OK".__eq__(name):
+            touch(pos)
+
         touch(pos)
+
+
+# 2023年1月21日18:06:52 获取10次/点一次跳过最大
+def get10timesPve():
+    photoMap = air.Photo()
+    photoMaps = [
+        "结算OK",
+        "跳过十次",
+        "跳过卷开始",
+        # "活动特别",
+        "活动",
+        "菜单",
+    ]
+    moveMaps = [
+        (670, 430),  # 0 跳过页面点“是”
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        if "跳过十次".__eq__(name):
+            touch(pos)
+            temp = changeXY(moveMaps[0])
+            touch(temp)
+            continue
+
+        if "结算OK".__eq__(name):
+            break
+
+        touch(pos)
+
+
+# 2023年1月21日17:57:26 回到主界面。
+def backMain():
+    photoMap = air.Photo()
+    photoMaps = [
+        "结算OK",
+        "龙珠主页",
+        "菜单",
+        "菜单2",
+    ]
+    moveMaps = [
+
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        if "龙珠主页".__eq__(name):
+            touch(pos)
+            continue
+
+        if "菜单".__eq__(name):
+            break
+
+        touch(pos)
+
+
+# 2023年1月21日17:57:18 获取委托。
+def getMarch():
+    photoMap = air.Photo()
+    photoMaps = [
+        "再次接受委托",
+        "冒险",
+        "菜单",
+        "菜单2",
+        "冒险页内",
+    ]
+    moveMaps = [
+
+    ]
+    count = 0
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        if "龙珠主页".__eq__(name):
+            touch(pos)
+            continue
+
+        if "再次接受委托".__eq__(name):
+            touch(pos)
+            backMain()
+            break
+
+        if "冒险页内".__eq__(name):
+            count += 1
+            if count > 10:
+                backMain()
+                break
+            else:
+                continue
+
+        touch(pos)
+
+
+# 2023年1月21日17:56:58 获取每日觉醒材料。
+def getBonus():
+    photoMap = air.Photo()
+    photoMaps = [
+        "ZENKAI奖励",
+        "推荐内容",
+        "红",
+        "跳过卷开始",
+    ]
+    colorMaps = [
+        "红", # 0
+        "黄", # 1
+        "蓝", # 2
+        "紫", # 3
+        "绿", # 4
+    ]
+    moveMaps = [
+
+    ]
+    date = datetime.date.today().weekday() % 5
+    photoMaps.insert(2,colorMaps[date])
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        print(pos)
+        name = photoMap.name
+
+        if ("红".__eq__(name)) & (date != 0):
+            swipe(pos, vector=(0, -20), steps=2)
+            continue
+
+        if  "跳过卷开始".__eq__(name):
+            get10timesPve()
+            backMain()
+            break
+
+        touch(pos)
+
 
 if __name__ == "__main__":
     # startRush()
@@ -315,4 +484,8 @@ if __name__ == "__main__":
     # autoBattleNext()
     # missTest()
     # pvpAuto()
-    autoGet7hour()
+    # autoGet7hour()
+    # backMain()
+    # getMarch()
+    getBonus()
+

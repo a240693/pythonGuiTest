@@ -19,5 +19,10 @@ def get_beijin_time():
         print(exc)
         return datetime.datetime(2099, 6, 14, 00, 00, 00)
 
+# 获取本地时间 2023年1月21日18:23:17
+def get_local_time():
+    print(datetime.date.today().weekday() % 5)
+
 if __name__ == "__main__":
     print(get_beijin_time());
+    get_local_time()

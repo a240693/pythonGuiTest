@@ -9,6 +9,9 @@ choices = ("请选择脚本：",
            "100层",
            "团队战",
            "RUSH",
+           "获取每日材料",
+           "获取委托",
+           "获取7小时委托"
            "====================",
            "关闭")
 
@@ -32,8 +35,8 @@ def setFlag():
 if __name__ == "__main__":
     # getTime()
     setFlag()
-    db.cvInit(cv.DBLPath, cv.DBLdevice)  # 办公室
-    # kgA.cvInit(cv.DBLPath, cv.DBLdeviceHome)  # 家
+    # db.cvInit(cv.DBLPath, cv.DBLdevice)  # 办公室
+    db.cvInit(cv.DBLPath, cv.DBLdeviceHome)  # 家
     while flag:
         choice = ''
         choice = main()
@@ -47,5 +50,11 @@ if __name__ == "__main__":
         elif "团队战".__eq__(choice):
             index = inputBox()
             db.autoBattle(index)
+        elif "获取每日材料".__eq__(choice):
+            db.getBonus()
+        elif "获取委托".__eq__(choice):
+            db.getMarch()
+        elif "获取7小时委托".__eq__(choice):
+            db.autoGet7hour()
         elif choice == "关闭":
             break
