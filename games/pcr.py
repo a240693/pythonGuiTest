@@ -889,6 +889,10 @@ def dailyEvent(choice = 4,switch = True):
         "剧情活动",
         "pcr活动复刻",
         "活动减一",
+        "pcr对话框",
+        "pcr对话框二",
+        "pcr对话框三",
+        "pcr对话框四",
         #"主页",
     ]
     moveMaps = [
