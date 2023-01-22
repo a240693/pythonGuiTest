@@ -1,6 +1,6 @@
 # emulator-5560
 import _thread
-import time
+import datetime
 
 from airtest.core.api import *
 from dao import airMultiPhotos as air
@@ -316,7 +316,8 @@ def pvpAuto():
         '坎公初始选人页黄',
         '坎公PVP休息',
         '坎公初始选人页重试',
-        '坎公卡马逊确认'
+        '坎公卡马逊确认',
+        "坎公图标",
     ]
     moveMaps = [
         (903, 171),  # 重试右上角的小齿轮
@@ -337,9 +338,12 @@ def pvpAuto():
         elif "不足" in name:
             touchFix(pos, (-28, 154))
             changeFlag()
+            backToMain()
         elif '更新' in name:
             touchFix(pos, (3, 227))
         # 这里拿到了上面三选一的 名字 和XY坐标
+        elif "坎公图标" in name:
+            openGame()
         else:
             touch(pos)
 
@@ -377,6 +381,7 @@ def backToMain():
         '坎公初始选人页黄',
         '坎公初始选人页重试',
         '坎公卡马逊确认',
+        '坎公pvp确认',
         '坎公后退',
     ]
     moveMaps = [
@@ -387,15 +392,19 @@ def backToMain():
         photoMap.loopSearch(photoMaps)
         name = photoMap.name
         pos = photoMap.pos
+
         if "初始页" in name:
             touch(moveMaps[0])
             continue
+
         if "人页" in name:
             break
+
         touch(pos)
 
 def dailyAir(choice = 1):
     cvInit()
+    getEmail()
     dailyBuy()
     day2buy(choice)
     levelStone()
@@ -510,6 +519,168 @@ def dailyBuy():
 
         touch(pos)
 
+# 2023年1月22日17:09:25 坎公重开游戏。
+def openGame():
+    photoMap = air.Photo()
+    photoMaps = [
+        "坎公图标",
+        "12提示",
+        "界面提示",
+    ]
+    moveMaps = [
+        (400,100), # 0 随便点一个没东西的地方。
+    ]
+    count = 0
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        pos = photoMap.pos
+
+        if "12提示".__eq__(name):
+            count = 1
+            touch(moveMaps[0])
+            continue
+
+        if "界面提示".__eq__(name):
+            if count == 1:
+                break
+            else:
+                continue
+
+        touch(pos)
+
+# 获取邮件 2023年1月22日17:12:18
+def getEmail():
+    photoMap = air.Photo()
+    photoMaps = [
+        "全部接收并删除",
+        "界面提示",
+        "坎公PVP确认",
+    ]
+    moveMaps = [
+        (880,25) , # 0 获取邮件内容
+    ]
+    while 1 :
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        pos = photoMap.pos
+
+        if "界面提示".__eq__(name):
+            touch(moveMaps[0])
+            continue
+
+        if "确认" in name:
+            backToStart()
+            break
+
+        touch(pos)
+
+# 获取设计图（未做时间管理） 2023年1月22日18:09:21
+def getEquipItem():
+    photoMap = air.Photo()
+    photoMaps = [
+        "进化石扫荡",
+        "选中你有通行证吗",
+        "你有通行证吗",
+        "指挥中心",
+        "世界探索",
+        "世界探险船",
+        "世界探险船2",
+        "界面提示",
+        "坎公PVP确认",
+    ]
+    moveMaps = [
+        (780,480), # 0 开始探索
+        (640,320), # 1 周边扫荡拉满
+    ]
+    date = datetime.date.today().weekday() % 2
+    # print(datetime.date.today().weekday(),date)
+    while 1 :
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        pos = photoMap.pos
+
+        if "界面提示".__eq__(name):
+            swipe(pos,vector = (400,0),steps = 6)
+            continue
+
+        if "指挥中心".__eq__(name):
+            swipe(pos,vector = (0,-10),steps = 6)
+            continue
+
+        if "选中你有通行证吗".__eq__(name):
+            touch(moveMaps[0])
+            continue
+
+        if "进化石扫荡".__eq__(name):
+            touch(moveMaps[1])
+            time.sleep(1)
+            touch(pos)
+            continue
+
+        if "坎公PVP确认".__eq__(name):
+            backToStart()
+            break
+
+        touch(pos)
+
+# 回到最开始的界面 2023年1月22日20:11:42
+def backToStart():
+    photoMap = air.Photo()
+    photoMaps = [
+        '坎公卡马逊确认',
+        '坎公pvp确认',
+        '坎公后退',
+        "世界探险船",
+        "世界探险船2",
+        "界面提示",
+    ]
+    moveMaps = [
+        (60, 310),  # pvp竞技场
+    ]
+    while True:
+        photoMap.name = "默认"
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        pos = photoMap.pos
+
+        if "世界探险船" in name:
+            break
+
+        if "界面提示" in name:
+            break
+
+        touch(pos)
+
+# 获取周边 2023年1月22日20:31:06 (未完成）
+def getEquipTool():
+    photoMap = air.Photo()
+    photoMaps = [
+        '坎公卡马逊确认',
+        "选择设计图",
+        "开始制造",
+        "周边闲置",
+        "周边完成",
+    ]
+    moveMaps = [
+        (320,10), # 0 周边闲置的偏移量
+        (530,140), # 1 “开始制造”前先选择设计图。
+    ]
+    while 1 :
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        pos = photoMap.pos
+
+        if "周边闲置".__eq__(name):
+            touchFix(pos,moveMaps[0])
+            continue
+
+        if "选择设计图".__eq__(name):
+            touch(moveMaps[1])
+            continue
+
+        touch(pos)
+
 if __name__ == "__main__":
     # touchFix((3,4),(5,6))
     # returnKmx()
@@ -523,6 +694,11 @@ if __name__ == "__main__":
     # levelStone()
     # backToMain()
     # dailyAir()
-    dailyAir(3) #小号
+    # dailyAir(3) #小号
     # dailyAir(1)  # 大号
     # dailyBuy()
+    # openGame()
+    # getEmail()
+    # backToStart()
+    # getEquipItem()
+    getEquipTool()
