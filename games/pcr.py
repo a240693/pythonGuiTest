@@ -234,6 +234,8 @@ def enterGamePcr(choice):
 
 
 def dailyMission(switch):
+    # 进入游戏 2023年1月24日19:02:35
+    enterGamePcrNew()
     # 商店买经验药
     shopPcr()
     # 买玛娜 -614 20
@@ -340,6 +342,7 @@ def exitPvP():
 
 # 小号用阉割版
 def dailyMissionSmall():
+    enterGamePcrNew()
     shopPcr()
     buyMana()
     dailyEgg()
@@ -878,7 +881,7 @@ def autoEventEgg():
 
 # 2022年12月11日20:27:16
 # 活动打5次。
-def dailyEvent(choice = 4,switch = True):
+def dailyEvent(choice = 4,switch = False):
     photoMap = multiphotos.Photo()
     photoMaps = [
         "主界面关闭",
@@ -925,7 +928,7 @@ def dailyEvent(choice = 4,switch = True):
 
 # 2022年12月11日21:42:44
 # 活动打EX.
-def dailyEx(index = 1,switch = True):
+def dailyEx(index = 1,switch = False):
     photoMap = multiphotos.Photo()
     photoMaps = [
         "首领挑战卷",
@@ -969,6 +972,93 @@ def saveXYHard(choice):
     loadXY.append(('春女仆', 57, -219, '春女仆高难', 233, -145))  # 4
     return loadXY[choice - 1]
 
+# 换号进游戏。
+def changePlayerOpen():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        '账号登录',
+        '切换账号',
+        '切换账号',
+        '眼镜厂标识',
+        'pcr',
+    ]
+    moveMaps = [
+        (112, -80) , # 0 账号登录前先点开账号下拉列表
+    ]
+    count = 2
+    while 1 :
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        x = photoMap.x
+        y = photoMap.y
+
+        if "账号登录".__eq__(name):
+            dao.moveToPcr(x + moveMaps[0][0], y + moveMaps[0][1], 1)
+            choosePlayer(count)
+            count += 1
+            if count == 3:
+                break
+            else:
+                continue
+
+        dao.moveToPcr(x,y,1)
+
+
+# 登录的时候选择账号 2023年1月24日19:17:01
+def choosePlayer(playerNum = 0):
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        '账号登录',
+    ]
+    playerMaps = [
+        "pcr大号",
+        "pcr小号",
+        "pcr小小号",
+    ]
+    photoMaps.append(playerMaps[playerNum])
+    while 1 :
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        x = photoMap.x
+        y = photoMap.y
+        dao.moveToPcr(x,y,1)
+
+        if "pcr大号".__eq__(name):
+            dailyMission(1)
+            break
+
+        if "pcr小小号".__eq__(name):
+            dailyMissionSmall()
+            break
+
+        if "pcr小号".__eq__(name):
+            dailyMission(0)
+            break
+
+# 登录游戏前置功能拆分，到了主页就停止。 2023年1月24日19:17:08
+def enterGamePcrNew():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "账号登录",
+        "pcr开始",
+        '主界面关闭',
+        'pcr生日回礼',
+        'pcr生日跳过',
+        'pcr生日跳过2',
+        '主页商店',
+        'pcr竞赛开始',
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        x = photoMap.x
+
+        y = photoMap.y
+        if "主页商店".__eq__(name):
+            break
+
+        dao.moveToPcr(x, y, 1)
+
 
 if __name__ == '__main__':
     # autoEventEgg()
@@ -979,16 +1069,18 @@ if __name__ == '__main__':
     # underWorld(1)
     # dailyEvent()
     # 心碎星球杯
-    dailyEvent()
-    dailyEx()
+    # dailyEvent()
+    # dailyEx()
     # heartBreak()
-# photoMap = multiphotos.Photo()
-# photoMaps = ["地下城失败页"]
-# photoMap.loopSearch(photoMaps)
-# if "地下城失败页".__eq__(photoMap.name):
-#     dao.moveToPcr(photoMap.x + -51, photoMap.y + 453, 1)
-# else:
-#     dao.moveToPcr(photoMap.x, photoMap.y, 1)
-# fullAuto(saveXY(7))
-# autoMapFullAuto()
-# missionAndGift()
+    # photoMap = multiphotos.Photo()
+    # photoMaps = ["地下城失败页"]
+    # photoMap.loopSearch(photoMaps)
+    # if "地下城失败页".__eq__(photoMap.name):
+    #     dao.moveToPcr(photoMap.x + -51, photoMap.y + 453, 1)
+    # else:
+    #     dao.moveToPcr(photoMap.x, photoMap.y, 1)
+    # fullAuto(saveXY(7))
+    # autoMapFullAuto()
+    # missionAndGift()
+    # changePlayerOpen()
+    enterGamePcrNew()
