@@ -12,8 +12,11 @@ logger = logging.getLogger("airtest")
 logger.setLevel(logging.INFO)
 
 cv._init()
+tempDevice = cv.kgDevice2 # 办公室
+# tempDevice = cv.kgDevice # 家
+
 cv.set_value("path", cv.kgAirPath)
-cv.set_value("device", cv.kgDevice)
+cv.set_value("device", tempDevice)
 
 flag = True
 
@@ -411,7 +414,7 @@ def dailyAir(choice = 1):
     backToMain()
     pvpAuto()
 
-def cvInit(path = cv.kgAirPath , device = cv.kgDevice):
+def cvInit(path = cv.kgAirPath , device = tempDevice):
     cv._init()
     cv.set_value("path", path)
     # cv.set_value("device", cv.kgDevice3)
@@ -556,6 +559,7 @@ def getEmail():
         "全部接收并删除",
         "界面提示",
         "坎公PVP确认",
+        "已全部接收",
     ]
     moveMaps = [
         (880,25) , # 0 获取邮件内容
@@ -569,7 +573,7 @@ def getEmail():
             touch(moveMaps[0])
             continue
 
-        if "确认" in name:
+        if ("确认" in name) | ("已全部接收".__eq__(name)):
             backToStart()
             break
 
@@ -697,8 +701,8 @@ if __name__ == "__main__":
     # dailyAir(3) #小号
     # dailyAir(1)  # 大号
     # dailyBuy()
-    # openGame()
+    openGame()
     # getEmail()
     # backToStart()
     # getEquipItem()
-    getEquipTool()
+    # getEquipTool()

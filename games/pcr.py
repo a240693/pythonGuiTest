@@ -985,7 +985,7 @@ def changePlayerOpen():
     moveMaps = [
         (112, -80) , # 0 账号登录前先点开账号下拉列表
     ]
-    count = 2
+    count = 0
     while 1 :
         photoMap.loopSearch(photoMaps)
         name = photoMap.name
@@ -1082,5 +1082,5 @@ if __name__ == '__main__':
     # fullAuto(saveXY(7))
     # autoMapFullAuto()
     # missionAndGift()
-    # changePlayerOpen()
-    enterGamePcrNew()
+    changePlayerOpen()
+    # enterGamePcrNew()
