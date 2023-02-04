@@ -13,8 +13,8 @@ logger.setLevel(logging.INFO)
 
 cv._init()
 cv.set_value("path", cv.DBLPath)
-# cv.set_value("device", cv.DBLdevice)
-cv.set_value("device", cv.DBLdeviceHome)
+cv.set_value("device", cv.DBLdevice)
+# cv.set_value("device", cv.DBLdeviceHome)
 flag = True
 
 __author__ = "user"
@@ -271,6 +271,7 @@ def pvpAuto(time=0):
         "结算OK",
         "准备完成",
         "pvp读取",
+        "主界面PVP",
     ]
     moveMaps = [
         (241, 342),
@@ -297,6 +298,8 @@ def pvpAuto(time=0):
             continue
 
         touch(pos)
+
+    backMain()
 
 
 def autoGet7hour():
@@ -375,8 +378,10 @@ def get10timesPve():
 def backMain():
     photoMap = air.Photo()
     photoMaps = [
+        "主界面PVP",
         "结算OK",
         "龙珠主页",
+        "主界面PVP",
         "菜单",
         "菜单2",
     ]
@@ -392,7 +397,10 @@ def backMain():
             touch(pos)
             continue
 
-        if "菜单".__eq__(name):
+        # if "菜单".__eq__(name):
+        #     break
+
+        if "主界面PVP".__eq__(name):
             break
 
         touch(pos)
@@ -475,6 +483,85 @@ def getBonus():
 
         touch(pos)
 
+# 超激斗 2023年1月31日19:04:06
+def superBattle():
+    photoMap = air.Photo()
+    photoMaps = [
+        "结算OK",
+        "准备完成",
+        "战斗开始",
+        "超激斗能量",
+        "战斗中",
+    ]
+    moveMaps = [
+        (241, 330),
+        (480, 330),
+        # (744, 349),
+        (680, 330),
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        if "战斗中".__eq__(name):
+            sleep(20)
+            continue
+
+        if "战斗开始".__eq__(name):
+            changeBestTeam()
+            touch(pos)
+            continue
+
+        if "准备完成".__eq__(name):
+            for i in moveMaps:
+                temp = changeXY(i)
+                touch(temp)
+                time.sleep(0.3)
+            touch(pos)
+            continue
+
+        touch(pos)
+        sleep(0.3)
+
+#自动换队 2023年1月31日19:17:14
+def changeBestTeam():
+    photoMap = air.Photo()
+    photoMaps = [
+        "百层是",
+        "编组",
+        "自动编组",
+        "结算OK",
+        "队伍标识",
+        "战斗开始",
+    ]
+    photoMapNext = [
+        "百层是",
+        "决定",
+        "战斗开始",
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        if "百层是".__eq__(name):
+            photoMaps = photoMapNext
+            touch(pos)
+            continue
+
+        if "战斗开始".__eq__(name):
+            break
+
+        touch(pos)
+        sleep(0.3)
+
+def dailyAll():
+    getBonus()
+    autoGet7hour()
+    backMain()
+    getMarch()
+    pvpAuto(1)
 
 if __name__ == "__main__":
     # startRush()
@@ -485,7 +572,7 @@ if __name__ == "__main__":
     # missTest()
     # pvpAuto()
     # autoGet7hour()
-    # backMain()
+    backMain()
     # getMarch()
-    getBonus()
-
+    # superBattle()
+    # superBattle()

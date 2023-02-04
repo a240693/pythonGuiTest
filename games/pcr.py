@@ -7,6 +7,7 @@ from dao import  changeVar as cv
 import _thread
 
 flag = True
+switch = True
 
 cv._init()
 cv.set_value("path", cv.path)
@@ -689,6 +690,8 @@ def saveXY(choice):
     loadXY.append(('春女仆1-9', 111, -153))  # 61
     loadXY.append(('春女仆困难', -37, -203))  # 62
     loadXY.append(('42普通', 50, -283))  # 63
+    loadXY.append(('礼服可可萝普通', 64, -325))  # 64
+    loadXY.append(('礼服可可萝困难',28, -196))  # 65
     return loadXY[choice - 1]
 
 
@@ -881,7 +884,7 @@ def autoEventEgg():
 
 # 2022年12月11日20:27:16
 # 活动打5次。
-def dailyEvent(choice = 4,switch = False):
+def dailyEvent(choice = 5,switch = switch):
     photoMap = multiphotos.Photo()
     photoMaps = [
         "主界面关闭",
@@ -928,7 +931,7 @@ def dailyEvent(choice = 4,switch = False):
 
 # 2022年12月11日21:42:44
 # 活动打EX.
-def dailyEx(index = 1,switch = False):
+def dailyEx(index = 5,switch = switch):
     photoMap = multiphotos.Photo()
     photoMaps = [
         "首领挑战卷",
@@ -970,10 +973,11 @@ def saveXYHard(choice):
     loadXY.append(('圣望复刻', 118, -212, '圣望高难', 233, -145))  # 2
     loadXY.append(('春吃', 93, -234, '春吃高难', 233, -145))  # 3
     loadXY.append(('春女仆', 57, -219, '春女仆高难', 233, -145))  # 4
+    loadXY.append(('礼服可可萝', 1, -237, '礼服可可萝高难', 233, -145))  # 5
     return loadXY[choice - 1]
 
 # 换号进游戏。
-def changePlayerOpen():
+def changePlayerOpen(start = 0):
     photoMap = multiphotos.Photo()
     photoMaps = [
         '账号登录',
@@ -985,7 +989,7 @@ def changePlayerOpen():
     moveMaps = [
         (112, -80) , # 0 账号登录前先点开账号下拉列表
     ]
-    count = 0
+    count = start
     while 1 :
         photoMap.loopSearch(photoMaps)
         name = photoMap.name
@@ -995,6 +999,7 @@ def changePlayerOpen():
         if "账号登录".__eq__(name):
             dao.moveToPcr(x + moveMaps[0][0], y + moveMaps[0][1], 1)
             choosePlayer(count)
+            closeGame()
             count += 1
             if count == 3:
                 break
@@ -1052,9 +1057,28 @@ def enterGamePcrNew():
         photoMap.loopSearch(photoMaps)
         name = photoMap.name
         x = photoMap.x
-
         y = photoMap.y
+
         if "主页商店".__eq__(name):
+            break
+
+        dao.moveToPcr(x, y, 1)
+
+def closeGame():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "回到标题界面",
+        "主菜单",
+        "pcr扭蛋确认",
+        "眼镜厂标识",
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        x = photoMap.x
+        y = photoMap.y
+
+        if "眼镜厂标识".__eq__(name):
             break
 
         dao.moveToPcr(x, y, 1)
@@ -1082,5 +1106,6 @@ if __name__ == '__main__':
     # fullAuto(saveXY(7))
     # autoMapFullAuto()
     # missionAndGift()
-    changePlayerOpen()
+    changePlayerOpen(1)
     # enterGamePcrNew()
+    # closeGame()
