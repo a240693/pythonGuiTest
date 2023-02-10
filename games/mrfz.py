@@ -281,12 +281,31 @@ def autoClass():
     ]
     while 1:
         photoMap = photoMap.loopSearch(photoMaps)
+
+# 半自动工作 2023-02-07 22:43:57
+def selfWork():
+    photoMap = multiphotos.Photo();
+    photoMaps = [
+        "粥休息室确认",
+    ]
+    moveMaps = [
+        (-103, -345), # 0 第一个人.
+        (20, -349), # 1 第二个人，
+        (-100, -143), # 2 第三个人。
+    ]
+    while 1 :
+        photoMap.loopSearch(photoMaps)
         x = photoMap.x
         y = photoMap.y
         name = photoMap.name
+
+        if "确认" in name:
+            for i in moveMaps:
+                dao.moveToMRFZ(x+i[0], y+i[1], 1)
+                time.sleep(0.3)
+
         dao.moveToMRFZ(x,y,1)
-
-
+        time.sleep(2)
 
 
 if __name__ == "__main__":
@@ -296,4 +315,5 @@ if __name__ == "__main__":
     # RDdaily()
     # dealRoom()
     # restPeople()
-    autoClass()
+    # autoClass()
+    selfWork()

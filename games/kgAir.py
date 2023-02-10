@@ -356,23 +356,28 @@ def levelStone():
     photoMaps = [
         '坎公PVP确认',
         '坎公卡马逊确认',
-        '自动战斗完毕',
         '进化石扫荡',
+        '自动战斗完毕',
         '进化石页面',
     ]
     moveMaps = [
-        # (601, 266),  # 点扫荡前先把进度条拉到最大。
-        (601, 300),  # 点扫荡前先把进度条拉到最大，疑似UI改动。
+        # (601, 266),  # 0 点扫荡前先把进度条拉到最大。
+        # (601, 300),  # 1 点扫荡前先把进度条拉到最大，疑似UI改动。
+        (602, 270),  # 2 点扫荡前先把进度条拉到最大，疑似UI改动。
     ]
     while True:
         photoMap.name = "默认"
         photoMap.loopSearch(photoMaps)
         name = photoMap.name
         pos = photoMap.pos
+
         if "扫荡" in name:
             touch(moveMaps[0])
+            time.sleep(1)
+
         if "完毕" in name:
             break
+
         touch(pos)
 
 
@@ -407,6 +412,7 @@ def backToMain():
 
 def dailyAir(choice = 1):
     cvInit()
+    openGame()
     getEmail()
     dailyBuy()
     day2buy(choice)
@@ -548,6 +554,7 @@ def openGame():
             if count == 1:
                 break
             else:
+                count = 1
                 continue
 
         touch(pos)
@@ -701,8 +708,9 @@ if __name__ == "__main__":
     # dailyAir(3) #小号
     # dailyAir(1)  # 大号
     # dailyBuy()
-    openGame()
+    # openGame()
     # getEmail()
     # backToStart()
     # getEquipItem()
     # getEquipTool()
+    levelStone()

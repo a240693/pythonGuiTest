@@ -362,7 +362,8 @@ def shopPcr():
     # 商店 -189 389
     # 用主页有时候会失败，找不到，所以替换成图标
     # dao.searchPhotoPcr('pcr主页', 3, -189, 389)
-    dao.searchPhotoPcr('主页商店', 1, 0, 0)
+    # 这里不需要主页商店了，放到开游戏NEW里面去判断。
+    # dao.searchPhotoPcr('主页商店', 1, 0, 0)
     count = 0
     x, y = dao.searchPhotoPcr('商店勾选框', 1, 0, 0)
     while True:
@@ -1051,6 +1052,7 @@ def enterGamePcrNew():
         'pcr生日跳过',
         'pcr生日跳过2',
         '主页商店',
+        "商店勾选框",
         'pcr竞赛开始',
     ]
     while 1:
@@ -1059,7 +1061,7 @@ def enterGamePcrNew():
         x = photoMap.x
         y = photoMap.y
 
-        if "主页商店".__eq__(name):
+        if "商店勾选框".__eq__(name):
             break
 
         dao.moveToPcr(x, y, 1)
@@ -1106,6 +1108,6 @@ if __name__ == '__main__':
     # fullAuto(saveXY(7))
     # autoMapFullAuto()
     # missionAndGift()
-    changePlayerOpen(1)
+    changePlayerOpen(0)
     # enterGamePcrNew()
     # closeGame()

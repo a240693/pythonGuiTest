@@ -109,7 +109,7 @@ def auto100():
         pos = photoMap.pos
         name = photoMap.name
         if "战斗中".__eq__(name):
-            sleep(20)
+            sleep(60)
             continue
         touch(pos)
         sleep(0.3)
@@ -379,6 +379,7 @@ def backMain():
     photoMap = air.Photo()
     photoMaps = [
         "主界面PVP",
+        "按错取消",
         "结算OK",
         "龙珠主页",
         "主界面PVP",

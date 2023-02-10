@@ -30,7 +30,7 @@ if __name__ == "__main__":
     # getTime()
     setFlag()
     kgA.cvInit(cv.kgAirPath, cv.kgDevice2)  # 办公室
-    # kgA.cvInit(cv.kgAirPath, cv.kgDevice3)  # 家
+    # kgA.cvInit(cv.kgAirPath, cv.kgDevice)  # 家
     while flag:
         choice = ''
         choice = main()
