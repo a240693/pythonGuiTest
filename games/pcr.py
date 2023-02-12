@@ -7,7 +7,7 @@ from dao import  changeVar as cv
 import _thread
 
 flag = True
-switch = True
+switch = False;  # 活动开关
 
 cv._init()
 cv.set_value("path", cv.path)
@@ -693,6 +693,8 @@ def saveXY(choice):
     loadXY.append(('42普通', 50, -283))  # 63
     loadXY.append(('礼服可可萝普通', 64, -325))  # 64
     loadXY.append(('礼服可可萝困难',28, -196))  # 65
+    loadXY.append(('礼服可可萝第二章普通', -5, -318))  # 66
+    loadXY.append(('礼服可可萝第二章困难', -20, -256))  # 67
     return loadXY[choice - 1]
 
 
