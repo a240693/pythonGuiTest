@@ -19,7 +19,8 @@ DBLdevice = "Android://127.0.0.1:5037/emulator-5560"
 DBLdeviceHome = "Android://127.0.0.1:5037/emulator-5564"
 DBLPath = "F:\\pyTest\\DBL\\"
 
-arkNightsDeviceHome = 'Android://127.0.0.1:5037/emulator-5562'
+mrfzDeviceHome = 'Android://127.0.0.1:5037/emulator-5562'
+mrfzDeviceOffice = "Android://127.0.0.1:5037/emulator-5558"
 
 # device = "Android://127.0.0.1:5037/127.0.0.1:5555"
 def _init():  # 初始化
