@@ -27,6 +27,8 @@ def autoEnter():
     count = 0
     photoMap = air.Photo()
     photoMaps = [
+        '捕猎区',
+        '资源区',
         '今日日报',
         '演算开始',
         '全队补充',
