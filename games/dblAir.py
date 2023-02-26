@@ -13,8 +13,8 @@ logger.setLevel(logging.INFO)
 
 cv._init()
 cv.set_value("path", cv.DBLPath)
-cv.set_value("device", cv.DBLdevice)
-# cv.set_value("device", cv.DBLdeviceHome)
+# cv.set_value("device", cv.DBLdevice)
+cv.set_value("device", cv.DBLdeviceHome)
 flag = True
 
 __author__ = "user"
@@ -158,6 +158,7 @@ def autoBattleNext():
         "重试",
         "升龙2",
         "升龙2",
+        "继续战斗",
         "战斗中",
         # "战斗开始",
     ]
@@ -557,6 +558,81 @@ def changeBestTeam():
         touch(pos)
         sleep(0.3)
 
+#自动强化 2023年2月26日08:31:59
+def autoZenkai():
+    photoMap = air.Photo()
+    photoMaps = [
+        "觉醒强化",
+        "觉醒已选中",
+        # "觉醒核心",
+        "结算OK",
+        "解放觉醒核心",
+        "解放觉醒核心2",
+    ]
+
+    photoMapsNext = [
+        "觉醒强化",
+        "解放觉醒核心",
+        "解放觉醒核心2",
+        "结算OK",
+    ]
+
+    photoMapsTemp = [
+    ]
+
+    photoMapsTemp = photoMaps
+    while 1:
+        photoMap.loopSearch(photoMapsTemp)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        if "觉醒已选中".__eq__(name):
+            photoMapsTemp = photoMapsNext
+            continue
+
+        if "解放觉醒核心" in name:
+            photoMapsTemp = photoMaps
+
+        touch(pos)
+        sleep(0.3)
+
+# 自动购买活动物品 2023年2月26日11点38分
+def autoBuyEvent():
+    photoMap = air.Photo()
+    photoMaps = [
+        "跳过十次",
+        "结算OK",
+        "交换",
+    ]
+
+    photoMapsNext = [
+        "结算OK",
+        "交换",
+        "跳过十次",
+    ]
+
+    photoMapsTemp = [
+    ]
+    photoMapsTemp = photoMaps
+    count = 0
+    while 1:
+        photoMap.loopSearch(photoMapsTemp)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        if "跳过十次".__eq__(name):
+            count += 1
+
+        if count > 5 :
+            photoMapsTemp = photoMapsNext
+
+        if "结算OK".__eq__(name):
+            count = 0
+            photoMapsTemp = photoMaps
+
+        touch(pos)
+        sleep(0.3)
+
 def dailyAll():
     getBonus()
     autoGet7hour()
@@ -573,7 +649,8 @@ if __name__ == "__main__":
     # missTest()
     # pvpAuto()
     # autoGet7hour()
-    backMain()
+    # backMain()
     # getMarch()
-    # superBattle()
-    # superBattle()
+    # autoBuyEvent()
+    autoZenkai()
+
