@@ -695,6 +695,11 @@ def saveXY(choice):
     loadXY.append(('礼服可可萝困难',28, -196))  # 65
     loadXY.append(('礼服可可萝第二章普通', -5, -318))  # 66
     loadXY.append(('礼服可可萝第二章困难', -20, -256))  # 67
+    loadXY.append(('43普通', 36, -257))  # 68
+    loadXY.append(('魔驴普通', 69, -143))  # 69
+    loadXY.append(('魔驴困难', 5, -320))  # 70
+    loadXY.append(('灰狼普通', 12, -307))  # 71
+    loadXY.append(('灰狼困难', 10, -231))  # 72
     return loadXY[choice - 1]
 
 
@@ -977,6 +982,8 @@ def saveXYHard(choice):
     loadXY.append(('春吃', 93, -234, '春吃高难', 233, -145))  # 3
     loadXY.append(('春女仆', 57, -219, '春女仆高难', 233, -145))  # 4
     loadXY.append(('礼服可可萝', 1, -237, '礼服可可萝高难', 233, -145))  # 5
+    loadXY.append(('礼服可可萝后篇', 35, -141, '礼服可可萝高难', 233, -145))  # 6
+    loadXY.append(('灰狼困难', 137, -197, '灰狼高难', 233, -145))  # 7
     return loadXY[choice - 1]
 
 # 换号进游戏。
@@ -1076,14 +1083,21 @@ def closeGame():
         "pcr扭蛋确认",
         "眼镜厂标识",
     ]
+    photoMapsTemp = [
+        "pcr主页",
+    ]
     while 1:
-        photoMap.loopSearch(photoMaps)
+        photoMap.loopSearch(photoMapsTemp)
         name = photoMap.name
         x = photoMap.x
         y = photoMap.y
 
         if "眼镜厂标识".__eq__(name):
             break
+
+        if "pcr主页".__eq__(name):
+            photoMapsTemp = photoMaps
+            continue
 
         dao.moveToPcr(x, y, 1)
 
@@ -1110,6 +1124,9 @@ if __name__ == '__main__':
     # fullAuto(saveXY(7))
     # autoMapFullAuto()
     # missionAndGift()
-    changePlayerOpen(0)
+    # changePlayerOpen(0)
     # enterGamePcrNew()
     # closeGame()
+    # changePlayerOpen(start = 1)
+    dailyEvent(7,True)
+    dailyEx(7, True)

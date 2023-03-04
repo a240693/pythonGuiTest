@@ -13,8 +13,8 @@ logger.setLevel(logging.INFO)
 
 cv._init()
 cv.set_value("path", cv.DBLPath)
-# cv.set_value("device", cv.DBLdevice)
-cv.set_value("device", cv.DBLdeviceHome)
+cv.set_value("device", cv.DBLdevice)
+# cv.set_value("device", cv.DBLdeviceHome)
 flag = True
 
 __author__ = "user"
@@ -127,6 +127,7 @@ def autoBattle(time=0):
         "前往大厅",
         "读取中",
         "寻找",
+        "游玩",
         "准备完成",
         "限定报酬",
         "重试",
@@ -652,5 +653,5 @@ if __name__ == "__main__":
     # backMain()
     # getMarch()
     # autoBuyEvent()
-    autoZenkai()
+    superBattle()
 
