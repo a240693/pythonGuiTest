@@ -156,6 +156,7 @@ def autoBattleNext():
         "升龙2",
         "按错取消",
         "前往大厅",
+        "游玩",
         "重试",
         "升龙2",
         "升龙2",
@@ -194,7 +195,7 @@ def autoBattleNext():
             touch(pos)
             continue
 
-        if "结算OK".__eq__(name) | "按错取消".__eq__(name) | "前往大厅".__eq__(name):
+        if "结算OK".__eq__(name) | "按错取消".__eq__(name) | "前往大厅".__eq__(name) | "游玩".__eq__(name):
             touch(pos)
             break
 
@@ -641,6 +642,20 @@ def dailyAll():
     getMarch()
     pvpAuto(1)
 
+#自动钢镚 2023年3月4日12:37:32
+def autoCoin():
+    photoMap = air.Photo()
+    photoMaps = [
+        "交换十次",
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+        touch(pos)
+        sleep(0.3)
+
+
 if __name__ == "__main__":
     # startRush()
     # autoRush()
@@ -653,5 +668,5 @@ if __name__ == "__main__":
     # backMain()
     # getMarch()
     # autoBuyEvent()
-    superBattle()
+    autoCoin()
 
