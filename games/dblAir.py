@@ -495,6 +495,7 @@ def superBattle():
         "准备完成",
         "战斗开始",
         "超激斗能量",
+        "战斗结束",
         "战斗中",
     ]
     moveMaps = [
@@ -538,11 +539,15 @@ def changeBestTeam():
         "结算OK",
         "队伍标识",
         "战斗开始",
+        "准备完成",
+        "战斗结束",
     ]
     photoMapNext = [
         "百层是",
         "决定",
         "战斗开始",
+        "准备完成",
+        "战斗结束",
     ]
     while 1:
         photoMap.loopSearch(photoMaps)
@@ -554,7 +559,7 @@ def changeBestTeam():
             touch(pos)
             continue
 
-        if "战斗开始".__eq__(name):
+        if "战斗开始".__eq__(name) | "准备完成".__eq__(name):
             break
 
         touch(pos)

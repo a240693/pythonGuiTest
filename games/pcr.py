@@ -7,7 +7,8 @@ from dao import  changeVar as cv
 import _thread
 
 flag = True
-switch = False;  # 活动开关
+eventSwitch = False # 活动开关
+dailyEventNo = 7
 
 cv._init()
 cv.set_value("path", cv.path)
@@ -700,6 +701,12 @@ def saveXY(choice):
     loadXY.append(('魔驴困难', 5, -320))  # 70
     loadXY.append(('灰狼普通', 12, -307))  # 71
     loadXY.append(('灰狼困难', 10, -231))  # 72
+    loadXY.append(('偶像大师前篇普通', 57, -187))  # 73
+    loadXY.append(('偶像大师前篇困难', 18, -269))  # 74
+    loadXY.append(('44章普通', 26, -335))  # 75
+    loadXY.append(('44章困难', 119, -231))  # 76
+    loadXY.append(('偶像大师后篇普通', 54, -218))  # 77
+    loadXY.append(('偶像大师后篇困难', -26, -321))  # 78
     return loadXY[choice - 1]
 
 
@@ -742,6 +749,7 @@ def battleFloor5():
         if "地下城失败页".__eq__(photoMap.name):
             dao.moveToPcr(photoMap.x + -51, photoMap.y + 453, 1)
         elif "地下城胜利".__eq__(photoMap.name):
+            time.sleep(5)
             dao.moveToPcr(photoMap.x + 361, photoMap.y + 428, 1)
             dao.searchPhotoPcr('地下城确认EX3', 3, 1, 400)
             time.sleep(3)
@@ -796,8 +804,10 @@ def underWorldEnter():
 def autoText():
     photoMap = multiphotos.Photo()
     photoMaps = [
+        "pcr剧情新内容",
         "pcr剧情跳过",
         "PCR剧情菜单",
+        "pcr剧情无语音",
         "pcr剧情跳过确认",
         "pcr剧情关闭",
         "pcr连续阅读无语音",
@@ -817,7 +827,7 @@ def autoText():
         name = photoMap.name
         if "确认" in name:
             dao.moveToPcr(x + moveMaps[0][0], y + moveMaps[0][1], 1)
-        elif "无语音" in name:
+        elif "pcr连续阅读无语音" in name:
             dao.moveToPcr(x + moveMaps[1][0], y + moveMaps[1][1], 1)
         else:
             dao.moveToPcr(x, y, 1)
@@ -892,7 +902,7 @@ def autoEventEgg():
 
 # 2022年12月11日20:27:16
 # 活动打5次。
-def dailyEvent(choice = 5,switch = switch):
+def dailyEvent(choice = dailyEventNo,switch = eventSwitch):
     photoMap = multiphotos.Photo()
     photoMaps = [
         "主界面关闭",
@@ -939,7 +949,7 @@ def dailyEvent(choice = 5,switch = switch):
 
 # 2022年12月11日21:42:44
 # 活动打EX.
-def dailyEx(index = 5,switch = switch):
+def dailyEx(index = dailyEventNo,switch = eventSwitch):
     photoMap = multiphotos.Photo()
     photoMaps = [
         "首领挑战卷",
@@ -1060,6 +1070,8 @@ def enterGamePcrNew():
         'pcr生日回礼',
         'pcr生日跳过',
         'pcr生日跳过2',
+        '150钻',
+        '附奖扭蛋',
         '主页商店',
         "商店勾选框",
         'pcr竞赛开始',
@@ -1127,6 +1139,6 @@ if __name__ == '__main__':
     # changePlayerOpen(0)
     # enterGamePcrNew()
     # closeGame()
-    # changePlayerOpen(start = 1)
-    dailyEvent(7,True)
-    dailyEx(7, True)
+    changePlayerOpen(start = 1)
+    # dailyEvent(7,True)
+    # dailyEx(7, True)

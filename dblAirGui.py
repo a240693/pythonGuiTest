@@ -12,6 +12,10 @@ choices = ("请选择脚本：",
            "获取每日材料",
            "获取委托",
            "获取7小时委托",
+           "超激斗",
+           "自动强化",
+           "自动钢镚",
+           "自动购买活动物品",
            "每日汇总",
            "====================",
            "关闭")
@@ -57,6 +61,14 @@ if __name__ == "__main__":
             db.getMarch()
         elif "获取7小时委托".__eq__(choice):
             db.autoGet7hour()
+        elif "自动强化".__eq__(choice):
+            db.autoZenkai()
+        elif "超激斗".__eq__(choice):
+            db.superBattle()
+        elif "自动钢镚".__eq__(choice):
+            db.autoCoin()
+        elif "自动购买活动物品".__eq__(choice):
+            db.autoBuyEvent()
         elif "每日汇总".__eq__(choice):
             db.dailyAll()
         elif choice == "关闭":
