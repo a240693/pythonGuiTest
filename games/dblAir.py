@@ -609,11 +609,13 @@ def autoBuyEvent():
     photoMaps = [
         "跳过十次",
         "结算OK",
+        "交换2",
         "交换",
     ]
 
     photoMapsNext = [
         "结算OK",
+        "交换2",
         "交换",
         "跳过十次",
     ]
