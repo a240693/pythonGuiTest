@@ -707,6 +707,8 @@ def saveXY(choice):
     loadXY.append(('44章困难', 119, -231))  # 76
     loadXY.append(('偶像大师后篇普通', 54, -218))  # 77
     loadXY.append(('偶像大师后篇困难', -26, -321))  # 78
+    loadXY.append(('圣学祭普通', 84, -209))  # 79
+    loadXY.append(('圣学祭困难', 0, -217))  # 80
     return loadXY[choice - 1]
 
 
@@ -994,6 +996,8 @@ def saveXYHard(choice):
     loadXY.append(('礼服可可萝', 1, -237, '礼服可可萝高难', 233, -145))  # 5
     loadXY.append(('礼服可可萝后篇', 35, -141, '礼服可可萝高难', 233, -145))  # 6
     loadXY.append(('灰狼困难', 137, -197, '灰狼高难', 233, -145))  # 7
+    loadXY.append(('偶像大师前篇', 110, -129, '偶像大师前篇高难', 233, -145))  # 8
+    loadXY.append(('偶像大师后篇', 91, -135, '偶像大师后篇高难', 233, -145))  # 9
     return loadXY[choice - 1]
 
 # 换号进游戏。
@@ -1061,15 +1065,20 @@ def choosePlayer(playerNum = 0):
             break
 
 # 登录游戏前置功能拆分，到了主页就停止。 2023年1月24日19:17:08
+# 加了个跳过剧情。 2023年4月3日21:59:00
 def enterGamePcrNew():
     photoMap = multiphotos.Photo()
     photoMaps = [
         "账号登录",
         "pcr开始",
         '主界面关闭',
+        '碎片X10',
         'pcr生日回礼',
         'pcr生日跳过',
         'pcr生日跳过2',
+        'pcr剧情跳过',
+        'PCR剧情菜单',
+        '扭蛋广告',
         '150钻',
         '附奖扭蛋',
         '主页商店',
@@ -1113,6 +1122,9 @@ def closeGame():
 
         dao.moveToPcr(x, y, 1)
 
+def hardEvent(number = 0):
+    dailyEvent(number,True)
+    dailyEx(number, True)
 
 if __name__ == '__main__':
     # autoEventEgg()
@@ -1139,6 +1151,7 @@ if __name__ == '__main__':
     # changePlayerOpen(0)
     # enterGamePcrNew()
     # closeGame()
-    changePlayerOpen(start = 1)
-    # dailyEvent(7,True)
-    # dailyEx(7, True)
+    # changePlayerOpen(start = 1)
+    # dailyEvent(8,True)
+    # dailyEx(8, True)
+    enterGamePcrNew()

@@ -33,6 +33,7 @@ choices = ("=明日方舟==============",
            "活动信赖",
            "自动剧情",
            "自动活动扭蛋",
+           "活动高难",
            "每日串联",
            "=坎公===================",
            "开游戏每日",
@@ -145,6 +146,11 @@ if __name__ == "__main__":
             mrfz.allDaily()
         elif choice == "每日串联":
             pcr.changePlayerOpen()
+#        2023年3月20日21:48:54
+        elif choice == "活动高难":
+            number = inputBox()
+            pcr.hardEvent(number)
+
 
 
 
