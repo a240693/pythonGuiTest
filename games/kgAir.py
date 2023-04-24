@@ -12,7 +12,7 @@ logger = logging.getLogger("airtest")
 logger.setLevel(logging.INFO)
 
 cv._init()
-tempDevice = cv.kgDevice2 # 办公室
+tempDevice = cv.kgDevice # 办公室
 # tempDevice = cv.kgDevice # 家
 
 cv.set_value("path", cv.kgAirPath)
