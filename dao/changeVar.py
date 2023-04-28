@@ -9,7 +9,7 @@ mrfzPath = 'F:\\pyTest\\mrfz\\'
 kgDeviceHome = "Android://127.0.0.1:5037/emulator-5566"
 kgDeviceOffice = "Android://127.0.0.1:5037/emulator-5558"
 kgDevice3 = "Android://127.0.0.1:5037/127.0.0.1:7555"#mumu
-kgDeviceAnotherHome = "Android://127.0.0.1:5037/127.0.0.1:5559"
+kgDeviceAnotherHome = "Android://127.0.0.1:5037/emulator-5558"
 kgDevice = kgDeviceAnotherHome
 
 deviceNo = "emulator-5560"
@@ -22,7 +22,7 @@ device = "Android://127.0.0.1:5037/emulator-5554"
 
 DBLdeviceOffice = "Android://127.0.0.1:5037/emulator-5560"
 DBLdeviceHome = "Android://127.0.0.1:5037/emulator-5564"
-DBLdeviceAnotherHome = "Android://127.0.0.1:5037/127.0.0.1:5561"
+DBLdeviceAnotherHome = "Android://127.0.0.1:5037/emulator-5560"
 DBLdevice = DBLdeviceAnotherHome
 
 DBLPath = "F:\\pyTest\\DBL\\"
