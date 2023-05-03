@@ -5,6 +5,7 @@ Dpath = 'D:\\pyTest\\'
 FgoPath = 'F:\\pyTest\\fgo\\'
 kgAirPath = 'F:\\pyTest\\kgAir\\'
 mrfzPath = 'F:\\pyTest\\mrfz\\'
+trainPath = 'F:\\pyTest\\honkaiTrain\\'
 
 kgDeviceHome = "Android://127.0.0.1:5037/emulator-5566"
 kgDeviceOffice = "Android://127.0.0.1:5037/emulator-5558"

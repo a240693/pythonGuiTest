@@ -63,3 +63,8 @@ def scrollKg(x,y):
 # 2022年5月11日11:58:23
 def tapSpace(times):
     return daoImpl.tapSpace(times)
+
+# 2023年5月3日18:20:04
+# 最原始的moveTo2,只有双击，没有任何单击。
+def moveTo2(x, y):
+    return daoImpl.moveTo2(x, y)
