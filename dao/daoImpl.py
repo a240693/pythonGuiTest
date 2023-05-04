@@ -351,6 +351,13 @@ def tapSpace(times):
         time.sleep(1)
 
 
+def moveToWithKey(x,y,key):
+    pyautogui.keyDown(key)
+    moveTo(x,y)
+    pyautogui.keyUp(key)
+
+
+
 if __name__ == "__main__":
     tapSpace(6)
 # 开QQ

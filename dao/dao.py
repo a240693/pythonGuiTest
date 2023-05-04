@@ -68,3 +68,8 @@ def tapSpace(times):
 # 最原始的moveTo2,只有双击，没有任何单击。
 def moveTo2(x, y):
     return daoImpl.moveTo2(x, y)
+
+#2023年5月4日20:58:57
+# 星铁用的，点击带按键。
+def moveToWithKey(x, y,key):
+    return daoImpl.moveToWithKey(x, y,key)
