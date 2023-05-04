@@ -6,6 +6,7 @@ FgoPath = 'F:\\pyTest\\fgo\\'
 kgAirPath = 'F:\\pyTest\\kgAir\\'
 mrfzPath = 'F:\\pyTest\\mrfz\\'
 trainPath = 'F:\\pyTest\\honkaiTrain\\'
+pcrAirPath = 'F:\\pyTest\\pcrAir\\'
 
 kgDeviceHome = "Android://127.0.0.1:5037/emulator-5566"
 kgDeviceOffice = "Android://127.0.0.1:5037/emulator-5558"
@@ -30,6 +31,12 @@ DBLPath = "F:\\pyTest\\DBL\\"
 
 mrfzDeviceHome = 'Android://127.0.0.1:5037/emulator-5562'
 mrfzDeviceOffice = "Android://127.0.0.1:5037/emulator-5558"
+
+pcrAirDeviceAnotherHome = "Android://127.0.0.1:5037/emulator-5556"
+pcrAirDeviceHome = ''
+pcrAirDeviceOffice = ''
+
+pcrAirDevice = pcrAirDeviceAnotherHome
 
 # device = "Android://127.0.0.1:5037/127.0.0.1:5555"
 def _init():  # 初始化
