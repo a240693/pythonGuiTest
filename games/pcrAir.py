@@ -35,16 +35,24 @@ def autoFight():
         "关卡未攻略",
         "关卡已攻略",
         "战斗开始",
+        "关闭",
+        "活动关卡",
+        # "返回",
         "主页",
+        "取消",
+        "pcr对话框一",
     ]
     startMaps = [
         (127,251), # 0,45图初始
         (205, 307),  # 1,45图困难
+        (200, 360),  # 2,祈梨SOS活动。
+        (130, 360),  # 3,祈梨SOS活动普通后半。
     ]
     moveMaps = [
         (930,270), # 0 ,关卡已攻略，下一张。
         (840, 450),  # 1 ,关卡未攻略，开始挑战。
     ]
+    print("目前的任务是:{}".format("autoFight"))
     while 1:
         photoMap.loopSearch(photoMaps)
         pos = photoMap.pos
@@ -77,10 +85,12 @@ def startBattle():
         "主页",
         "关闭",
         "下一步",
+        "好感度跳过",
         "战斗标识1",
         "战斗开始",
         "取消",
     ]
+    print("目前的任务是:{}".format("startBattle"))
     while 1:
         photoMap.loopSearch(photoMaps)
         pos = photoMap.pos

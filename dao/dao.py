@@ -73,3 +73,8 @@ def moveTo2(x, y):
 # 星铁用的，点击带按键。
 def moveToWithKey(x, y,key):
     return daoImpl.moveToWithKey(x, y,key)
+
+# 2023年5月5日16:53:11
+# 星铁用的，单按键。
+def pressKey(key):
+    return daoImpl.pressKey(key)

@@ -356,6 +356,10 @@ def moveToWithKey(x,y,key):
     moveTo(x,y)
     pyautogui.keyUp(key)
 
+def pressKey(key):
+    pyautogui.keyDown(key)
+    pyautogui.keyUp(key)
+
 
 
 if __name__ == "__main__":

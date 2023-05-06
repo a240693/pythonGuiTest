@@ -41,7 +41,8 @@ def openGame():
 
         dao.moveTo(x, y)
 
-
+# 获取任务奖励
+# 2023年5月5日22:40:13
 def getMission():
     photoMap = multiphotos.Photo()
     photoMaps = [
@@ -67,9 +68,11 @@ def getMission():
 
         dao.moveTo(x, y)
 
+
 def backToMain():
     photoMap = multiphotos.Photo()
     photoMaps = [
+        "星铁退出关卡",
         "星铁页面关闭",
         "星铁任务图标",
     ]
@@ -84,6 +87,71 @@ def backToMain():
 
         dao.moveTo(x, y)
 
+
+def auto60():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "星铁传送",
+        "星铁地址传送",
+        "星铁光锥经验",
+        "星铁花朵金",
+        "星铁花朵跳转",
+        "星铁任务图标",
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+
+        if "任务图标" in name:
+            dao.moveToWithKey(x, y, 'altleft')
+            continue
+
+        if "星铁传送" in name:
+            auto60Next()
+            backToMain()
+            break
+
+        dao.moveTo(x, y)
+
+
+def auto60Next():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "星铁战斗标识1",
+        "星铁开始挑战",
+        "星铁挑战",
+        "星铁传送",
+        "星铁任务图标",
+    ]
+    moveMaps = [
+        (78, -59),  # 0 挑战前先点6次
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+
+        if "任务图标" in name:
+            dao.pressKey('f')
+            continue
+
+        if "星铁挑战" in name:
+            dao.moveTo(x + moveMaps[0][0], y + moveMaps[0][1])
+            time.sleep(1)
+            dao.moveTo(x, y)
+            continue
+
+        if "战斗标识1" in name:
+            break
+
+        dao.moveTo(x, y)
+
+
 if __name__ == '__main__':
     # openGame()
-    getMission()
+    # getMission()
+    # auto60()
+    backToMain()
