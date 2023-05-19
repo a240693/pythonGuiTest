@@ -164,22 +164,20 @@ def choosePlayer(playerNum = 0):
         if "pcr大号".__eq__(name):
             count = 0
             playerTempMaps = photoMaps
-            # dailyMission(1)
             continue
 
         if "pcr小小号".__eq__(name):
             count = 2
             playerTempMaps = photoMaps
-            # dailyMissionSmall()
             continue
 
         if "pcr小号".__eq__(name):
             count = 1
             playerTempMaps = photoMaps
-            # dailyMission(0)
             continue
 
         if "账号登录".__eq__(name):
+            # 大号0 小号1 小小号2
             dailyMission(count)
             break
 
@@ -225,8 +223,11 @@ def closeGame():
 def enterGame():
     photoMap = air.Photo()
     photoMaps = [
+        "附奖扭蛋",
         "确认",
         "关闭",
+        "跳过",
+        "碎片10",
         "好感度跳过",
         "pcr主页",
     ]
@@ -248,7 +249,8 @@ def getMana():
         "确认",
         "免费10",
         "pcr主页",
-        "取消"
+        "取消",
+        "关闭",
     ]
     moveMaps = [
         (185,62) , # 0 点击mana入口
@@ -298,6 +300,8 @@ def backToMain():
 def dailyEgg():
     photoMap = air.Photo()
     photoMaps = [
+        "关闭",
+        "扭蛋选择",
         "扭蛋完成抽取",
         "白色确认",
         "确认",
@@ -359,10 +363,11 @@ def dailyClan():
 
 if __name__ == "__main__":
     # startBattle()
-    autoFight()
+    # autoFight()
     # dailyMission(0)
     # closeGame()
     # get10Power()
     # enterGame()
     # backToMain()
     # dailyClan()
+    openGame()

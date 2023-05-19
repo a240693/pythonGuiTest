@@ -321,9 +321,13 @@ def pvpAuto():
         '坎公初始选人页重试',
         '坎公卡马逊确认',
         "坎公图标",
+        "界面提示",
+        "探险初始页",
     ]
     moveMaps = [
-        (903, 171),  # 重试右上角的小齿轮
+        (903, 171),  # 0 重试右上角的小齿轮
+        (60, 310),  # 1 pvp竞技场
+        (78,472), # 2 主页 → 探险页
     ]
     global flag
     flag = True
@@ -332,6 +336,7 @@ def pvpAuto():
         gamePages.loopSearch(gamePagesMap)
         name = gamePages.name
         pos = gamePages.pos
+
         if "坎公初始选人页重试".__eq__(name):
             # 拿偏移坐标，点一下右上角齿轮在的位置收工。
             touchFix(moveMaps[0])
@@ -344,6 +349,10 @@ def pvpAuto():
             backToMain()
         elif '更新' in name:
             touchFix(pos, (3, 227))
+        elif '探险初始页'.__eq__(name):
+            touch(moveMaps[1])
+        elif '界面提示'.__eq__(name):
+            touch(moveMaps[2])
         # 这里拿到了上面三选一的 名字 和XY坐标
         elif "坎公图标" in name:
             openGame()
