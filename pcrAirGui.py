@@ -5,6 +5,7 @@ flag = False
 
 choices = ("请选择功能：",
            "自动推图",
+           "三号轮流",
            "====================",
            "关闭")
 
@@ -29,7 +30,7 @@ if __name__ == "__main__":
         choice = main()
         if "自动推图".__eq__(choice):
             pcrAir.autoFight()
-        elif "自动推图".__eq__(choice):
-            pcrAir.autoFight()
+        elif "三号轮流".__eq__(choice):
+            pcrAir.openGame()
         elif choice == "关闭":
             break

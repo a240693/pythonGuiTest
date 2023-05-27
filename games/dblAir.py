@@ -55,12 +55,12 @@ def autoRush():
 def startRush():
     photoMap = air.Photo()
     photoMaps = [
-        "编组",
         "结算OK",
         "战斗开始",
         "战斗结束",
         "战斗中",
         "点数报酬",
+        "编组",
         "自动编组",
     ]
     while 1:

@@ -189,6 +189,8 @@ def dailyMission(count):
     dailyEgg()
     get10Power()
     dailyClan()
+    dailyExp()
+    # dailyUnderCity()
 
 # 换号
 # 2023年5月8日20:06:39
@@ -224,6 +226,7 @@ def enterGame():
     photoMap = air.Photo()
     photoMaps = [
         "附奖扭蛋",
+        "开局扭蛋",
         "确认",
         "关闭",
         "跳过",
@@ -280,6 +283,7 @@ def getMana():
 def backToMain():
     photoMap = air.Photo()
     photoMaps = [
+        "探索首页",
         "返回",
         "确认",
         "主页",
@@ -307,6 +311,7 @@ def dailyEgg():
         "确认",
         "转蛋免费",
         "转蛋普通",
+        "转蛋普通2",
         "每日转蛋",
     ]
     while 1:
@@ -361,6 +366,113 @@ def dailyClan():
 
         touch(pos)
 
+# 探索 2023年5月22日22:52:57
+def dailyExp():
+    photoMap = air.Photo()
+    photoMaps = [
+        "探索已完成",
+        "探索首页",
+        "前往玛娜关卡",
+        "使用跳过卷",
+        "经验11级",
+        "经验值关卡",
+        "探索",
+        "冒险",
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        pos = photoMap.pos
+
+        if "使用跳过卷".__eq__(name):
+            autoSkipBattle()
+            continue
+
+        if ("探索首页".__eq__(name))|("探索已完成".__eq__(name)):
+            backToMain()
+            break
+
+        touch(pos)
+
+# 自动跳过（共用） 2023年5月22日23:06:50
+def autoSkipBattle(times = 1):
+        photoMap = air.Photo()
+        photoMaps = [
+            "探索已完成",
+            "扫荡完成",
+            "确认",
+            "使用跳过卷",
+        ]
+        moveMaps = [
+            (880, 330),  # 先点五次
+        ]
+        while 1:
+            photoMap.loopSearch(photoMaps)
+            name = photoMap.name
+            pos = photoMap.pos
+
+            if "使用跳过卷".__eq__(name):
+
+                for i in range(times) :
+                    touch(moveMaps[0])
+
+                touch(pos)
+                continue
+
+            if ("扫荡完成".__eq__(name)) | ("探索已完成".__eq__(name)):
+                break
+
+            touch(pos)
+
+# 地下城 2023年5月22日23:26:28
+def dailyUnderCity():
+    photoMap = air.Photo()
+    photoMaps = [
+        "地下城已完成",
+        "扫荡完成",
+        "地下城跳过",
+        "极难3",
+        "地下城",
+        "冒险",
+    ]
+
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        pos = photoMap.pos
+
+        if ("扫荡完成".__eq__(name)) | ("地下城已完成".__eq__(name)):
+            backToMain()
+            break
+
+        touch(pos)
+
+# 日常心碎 2023年5月22日23:45:30
+def dailyHeart():
+    photoMap = air.Photo()
+    photoMaps = [
+        "使用跳过卷",
+        "3级",
+        "心碎",
+        "心碎星球杯",
+        "冒险",
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        pos = photoMap.pos
+
+        if "使用跳过卷".__eq__(name):
+            autoSkipBattle(5)
+            continue
+
+        if ("扫荡完成".__eq__(name)) | ("地下城已完成".__eq__(name)):
+            backToMain()
+            break
+
+        touch(pos)
+
+
 if __name__ == "__main__":
     # startBattle()
     # autoFight()
@@ -370,4 +482,6 @@ if __name__ == "__main__":
     # enterGame()
     # backToMain()
     # dailyClan()
-    openGame()
+    # openGame()
+    # dailyHeart()
+    dailyUnderCity()

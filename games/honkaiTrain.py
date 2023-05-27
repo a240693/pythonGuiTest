@@ -154,4 +154,6 @@ if __name__ == '__main__':
     # openGame()
     # getMission()
     # auto60()
-    backToMain()
+    # backToMain()
+    openGame()
+    auto60()
