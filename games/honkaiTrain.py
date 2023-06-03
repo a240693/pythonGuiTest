@@ -150,10 +150,60 @@ def auto60Next():
         dao.moveTo(x, y)
 
 
+def autoGetSkill(SkillName = "巡猎"):
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "模拟宇宙确认",
+        SkillName,
+        SkillName,
+        SkillName,
+        # "重置祝福", 现在用这个的话还没加载出来就直接重置了。
+
+    ]
+    moveMaps = [
+        (78, -59),  # 0 挑战前先点6次
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+
+        if "重置祝福".__eq__(name):
+            dao.moveTo(x, y)
+            autoGetSkillSecond()
+            continue
+
+        dao.moveTo(x, y)
+
+
+def autoGetSkillSecond(SkillName = "欢愉"):
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "重置祝福",
+        "模拟宇宙确认",
+        "毁灭",
+        "丰饶",
+        "主界面标识1",
+    ]
+
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+
+        if "主界面标识1".__eq__(name):
+            break
+
+        dao.moveTo(x, y)
+
 if __name__ == '__main__':
-    # openGame()
-    # getMission()
-    # auto60()
-    # backToMain()
     openGame()
+    # getMission()
     auto60()
+    # backToMain()
+    # openGame()
+    # auto60()
+    # autoGetSkill("巡猎")
+    # autoGetSkillSecond()

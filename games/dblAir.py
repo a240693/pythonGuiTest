@@ -121,6 +121,7 @@ def autoBattle(time=0):
     photoMap = air.Photo()
     photoMaps = [
         "战斗开始",
+        "前往战斗",
         "按错取消",
         "结算OK",
         "准备完成",
@@ -156,6 +157,7 @@ def autoBattleNext():
         "升龙2",
         "按错取消",
         "前往大厅",
+        "升龙2",
         "游玩",
         "重试",
         "升龙2",
@@ -180,6 +182,13 @@ def autoBattleNext():
         pos = photoMap.pos
         name = photoMap.name
         # print(G.DEVICE.display_info["orientation"])
+
+        if "升龙2".__eq__(name):
+            touch(pos)
+            touch(pos)
+            touch(pos)
+            continue
+
         if "战斗中" in name:
             for i in moveMaps:
                 # 竖屏和横屏的XY反过来。
@@ -190,10 +199,7 @@ def autoBattleNext():
             # swipe(pos,vector = (100,0),duration = 0.3,steps = 1)
             continue
 
-        if "升龙".__eq__(name):
-            sleep(1)
-            touch(pos)
-            continue
+
 
         if "结算OK".__eq__(name) | "按错取消".__eq__(name) | "前往大厅".__eq__(name) | "游玩".__eq__(name):
             touch(pos)
