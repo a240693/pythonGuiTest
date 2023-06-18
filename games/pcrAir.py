@@ -47,6 +47,7 @@ def autoFight():
         (205, 307),  # 1,45图困难
         (200, 360),  # 2,祈梨SOS活动。
         (130, 360),  # 3,祈梨SOS活动普通后半。
+        (134, 327),  # 4,弓香菜活动普通。
     ]
     moveMaps = [
         (930,270), # 0 ,关卡已攻略，下一张。
@@ -312,6 +313,7 @@ def dailyEgg():
         "转蛋免费",
         "转蛋普通",
         "转蛋普通2",
+        "转蛋普通3",
         "每日转蛋",
     ]
     while 1:
@@ -475,7 +477,7 @@ def dailyHeart():
 
 if __name__ == "__main__":
     # startBattle()
-    # autoFight()
+    autoFight()
     # dailyMission(0)
     # closeGame()
     # get10Power()
@@ -484,4 +486,4 @@ if __name__ == "__main__":
     # dailyClan()
     # openGame()
     # dailyHeart()
-    dailyUnderCity()
+    # dailyUnderCity()

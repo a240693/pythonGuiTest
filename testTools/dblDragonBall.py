@@ -8,5 +8,5 @@ def autoGet(number):
 
 
 if __name__ == "__main__":
-    number = "HJGH"
+    number = "NHFM"
     autoGet(number)

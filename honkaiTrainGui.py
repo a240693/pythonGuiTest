@@ -7,6 +7,7 @@ choices = ("请选择功能：",
            "打开游戏",
            "获取任务奖励",
            "自动60次花萼金",
+           "半自动模拟世界-巡猎",
            "====================",
            "关闭")
 
@@ -35,5 +36,7 @@ if __name__ == "__main__":
             honkaiTrain.openGame()
         elif "自动60次花萼金".__eq__(choice):
             honkaiTrain.auto60()
+        elif "半自动模拟世界-巡猎".__eq__(choice):
+            honkaiTrain.autoGetSkill("巡猎")
         elif choice == "关闭":
             break

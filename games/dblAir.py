@@ -500,6 +500,7 @@ def superBattle():
         "结算OK",
         "准备完成",
         "战斗开始",
+        "战斗开始2",
         "超激斗能量",
         "战斗结束",
         "战斗中",
@@ -519,7 +520,7 @@ def superBattle():
             sleep(20)
             continue
 
-        if "战斗开始".__eq__(name):
+        if "战斗开始" in name:
             changeBestTeam()
             touch(pos)
             continue
@@ -545,6 +546,7 @@ def changeBestTeam():
         "结算OK",
         "队伍标识",
         "战斗开始",
+        "战斗开始2",
         "准备完成",
         "战斗结束",
     ]
@@ -552,6 +554,7 @@ def changeBestTeam():
         "百层是",
         "决定",
         "战斗开始",
+        "战斗开始2",
         "准备完成",
         "战斗结束",
     ]
@@ -565,7 +568,7 @@ def changeBestTeam():
             touch(pos)
             continue
 
-        if "战斗开始".__eq__(name) | "准备完成".__eq__(name):
+        if ("战斗开始" in name) | "准备完成".__eq__(name):
             break
 
         touch(pos)
@@ -659,6 +662,7 @@ def dailyAll():
 def autoCoin():
     photoMap = air.Photo()
     photoMaps = [
+        "结算OK",
         "交换十次",
     ]
     while 1:

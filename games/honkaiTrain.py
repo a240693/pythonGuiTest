@@ -20,6 +20,7 @@ def openGame():
         "星铁进入游戏后标识",
         "星铁点击进入",
         "星铁开始游戏",
+        "月卡领取",
     ]
     while 1:
         photoMap.loopSearch(photoMaps)
@@ -200,7 +201,7 @@ def autoGetSkillSecond(SkillName = "欢愉"):
 
 if __name__ == '__main__':
     openGame()
-    # getMission()
+    # getMissio、n()
     auto60()
     # backToMain()
     # openGame()
