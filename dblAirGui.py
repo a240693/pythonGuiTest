@@ -29,6 +29,8 @@ def test(name):
     gui.msgbox(name)
 
 def inputBox():
+    db.cvInit(cv.DBLPath, cv.DBLdevice)  # 办公室
+    # db.cvInit(cv.DBLPath, cv.DBLdeviceHome)  # 家
     return gui.integerbox(msg='请输入次数,0为不限制', title='自动次数：', default=None, lowerbound=0, upperbound=9999, image=None,
                           root=None)
 
@@ -40,8 +42,6 @@ def setFlag():
 if __name__ == "__main__":
     # getTime()
     setFlag()
-    db.cvInit(cv.DBLPath, cv.DBLdevice)  # 办公室
-    # db.cvInit(cv.DBLPath, cv.DBLdeviceHome)  # 家
     while flag:
         choice = ''
         choice = main()

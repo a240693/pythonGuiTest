@@ -154,11 +154,14 @@ def auto60Next():
 def autoGetSkill(SkillName = "巡猎"):
     photoMap = multiphotos.Photo()
     photoMaps = [
+        "祝福加载",
         "模拟宇宙确认",
         SkillName,
         SkillName,
         SkillName,
-        # "重置祝福", 现在用这个的话还没加载出来就直接重置了。
+        "祝福加载",
+        "重置祝福", #现在用这个的话还没加载出来就直接重置了。
+        "主界面标识1",
 
     ]
     moveMaps = [
@@ -172,20 +175,51 @@ def autoGetSkill(SkillName = "巡猎"):
 
         if "重置祝福".__eq__(name):
             dao.moveTo(x, y)
-            autoGetSkillSecond()
+            autoGetSkillSecond(SkillName)
             continue
+
+        if "祝福加载".__eq__(name):
+            time.sleep(2)
+            continue
+
+        if "主界面标识1".__eq__(name):
+            print("选祝福一，返回——————————————————。")
+            break
 
         dao.moveTo(x, y)
 
 
-def autoGetSkillSecond(SkillName = "欢愉"):
+def autoGetSkillSecond(SkillName = "欢愉",SkillName1 = "巡猎", SkillName2 = "毁灭"):
     photoMap = multiphotos.Photo()
     photoMaps = [
         "重置祝福",
         "模拟宇宙确认",
-        "毁灭",
-        "丰饶",
+        SkillName,
+        SkillName,
+        SkillName,
+        SkillName1,
+        SkillName2,
         "主界面标识1",
+    ]
+
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+        print("重置选祝福开始。")
+        if "主界面标识1".__eq__(name) | "模拟宇宙确认".__eq__(name):
+            print("重置选祝福结束，返回——————————————————。")
+            break
+
+        dao.moveTo(x, y)
+
+def autoSearch():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "远征领取",
+        "远征红点",
+        "再次派遣",
     ]
 
     while 1:
@@ -199,12 +233,34 @@ def autoGetSkillSecond(SkillName = "欢愉"):
 
         dao.moveTo(x, y)
 
+def skillStart(SkillName = "巡猎"):
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "祝福一星",
+        "祝福一星2",
+        "祝福二星",
+        "祝福三星",
+    ]
+
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+
+        # if "祝福" in name:
+        #     autoGetSkill(SkillName)
+        #     continue
+
+
+
 if __name__ == '__main__':
-    openGame()
+    # openGame()
     # getMissio、n()
-    auto60()
+    # auto60()
     # backToMain()
     # openGame()
     # auto60()
     # autoGetSkill("巡猎")
     # autoGetSkillSecond()
+    skillStart("欢愉")
