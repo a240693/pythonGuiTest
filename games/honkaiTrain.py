@@ -247,10 +247,9 @@ def skillStart(SkillName = "巡猎"):
         x = photoMap.x
         y = photoMap.y
         name = photoMap.name
-
-        # if "祝福" in name:
-        #     autoGetSkill(SkillName)
-        #     continue
+        if "祝福" in name:
+            autoGetSkill(SkillName)
+            continue
 
 
 

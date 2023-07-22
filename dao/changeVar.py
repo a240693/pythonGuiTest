@@ -32,6 +32,8 @@ DBLPath = "F:\\pyTest\\DBL\\"
 
 mrfzDeviceHome = 'Android://127.0.0.1:5037/emulator-5562'
 mrfzDeviceOffice = "Android://127.0.0.1:5037/emulator-5558"
+mrfzDeviceAnotherHome = "Android://127.0.0.1:5037/emulator-5558"
+mrfzDevice = mrfzDeviceAnotherHome
 
 pcrAirDeviceAnotherHome = "Android://127.0.0.1:5037/emulator-5556"
 pcrAirDeviceHome = ''

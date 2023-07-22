@@ -38,7 +38,7 @@ if __name__ == "__main__":
         elif "自动60次花萼金".__eq__(choice):
             honkaiTrain.auto60()
         elif "半自动模拟世界".__eq__(choice):
-            honkaiTrain.autoGetSkill("欢愉")
+            honkaiTrain.skillStart("欢愉")
         elif "自动远征获取".__eq__(choice):
             honkaiTrain.autoSearch()
         elif choice == "关闭":

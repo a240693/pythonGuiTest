@@ -672,6 +672,24 @@ def autoCoin():
         touch(pos)
         sleep(0.3)
 
+# 简单自动重开
+# 2023年7月11日22:42:10
+def autoStartEasy(times = 0):
+    photoMap = air.Photo()
+    photoMaps = [
+        "再次对战",
+        "战斗中",
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+        if "战斗中".__eq__(name):
+            sleep(60)
+            continue
+        touch(pos)
+        sleep(0.3)
+
 
 if __name__ == "__main__":
     # startRush()
@@ -685,5 +703,5 @@ if __name__ == "__main__":
     # backMain()
     # getMarch()
     # autoBuyEvent()
-    autoCoin()
+    autoStartEasy()
 

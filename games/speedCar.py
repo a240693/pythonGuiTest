@@ -212,16 +212,16 @@ def dailyMission():
 # 每日汇总
 def dailyAll():
     openGame()
-    dailyBonus()
     dailyMonthCard()
+    dailyBonus()
     dailyGood()
     # 暂时没想好怎么做连贯，先屏蔽。
     # dailyBussiness()
     dailyMission()
 
 if __name__ == '__main__':
-    dailyBussiness()
-    # dailyAll()
+    # dailyBussiness()
+    dailyAll()
     # dailyMission()
     # dailyGood()
     # dailySendPeople()
