@@ -5,6 +5,7 @@ Dpath = 'D:\\pyTest\\'
 FgoPath = 'F:\\pyTest\\fgo\\'
 kgAirPath = 'F:\\pyTest\\kgAir\\'
 mrfzPath = 'F:\\pyTest\\mrfz\\'
+bluePath = 'F:\\pyTest\\blue\\'
 trainPath = 'F:\\pyTest\\honkaiTrain\\'
 speedCarPath = 'F:\\pyTest\\speedCar\\'
 pcrAirPath = 'F:\\pyTest\\pcrAir\\'
@@ -34,6 +35,11 @@ mrfzDeviceHome = 'Android://127.0.0.1:5037/emulator-5562'
 mrfzDeviceOffice = "Android://127.0.0.1:5037/emulator-5558"
 mrfzDeviceAnotherHome = "Android://127.0.0.1:5037/emulator-5558"
 mrfzDevice = mrfzDeviceAnotherHome
+
+blueDeviceHome = 'Android://127.0.0.1:5037/emulator-5562'
+blueDeviceOffice = "Android://127.0.0.1:5037/emulator-5558"
+blueAnotherHome = "Android://127.0.0.1:5037/emulator-5558"
+blueDevice = mrfzDeviceAnotherHome
 
 pcrAirDeviceAnotherHome = "Android://127.0.0.1:5037/emulator-5556"
 pcrAirDeviceHome = ''

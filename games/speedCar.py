@@ -170,6 +170,7 @@ def dailyGood():
     photoMaps = [
         "极速已点赞",
         "极速点赞",
+        "工坊免费",
         "极速冲分爱车",
         "极速工坊",
     ]
@@ -212,7 +213,7 @@ def dailyMission():
 # 每日汇总
 def dailyAll():
     openGame()
-    dailyMonthCard()
+    # dailyMonthCard()
     dailyBonus()
     dailyGood()
     # 暂时没想好怎么做连贯，先屏蔽。

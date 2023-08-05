@@ -262,4 +262,4 @@ if __name__ == '__main__':
     # auto60()
     # autoGetSkill("巡猎")
     # autoGetSkillSecond()
-    skillStart("欢愉")
+    skillStart("毁灭")

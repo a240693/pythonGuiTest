@@ -89,4 +89,4 @@ def autoStart(time=0):
 
 if __name__ == "__main__":
     # autoEnter()
-    autoStart(6)
+    autoStart(5)

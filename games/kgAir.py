@@ -370,9 +370,9 @@ def levelStone():
         '进化石页面',
     ]
     moveMaps = [
-        # (601, 266),  # 0 点扫荡前先把进度条拉到最大。
+        (601, 266),  # 0 点扫荡前先把进度条拉到最大。
         (601, 300),  # 1 点扫荡前先把进度条拉到最大，疑似UI改动。
-        # (602, 270),  # 2 点扫荡前先把进度条拉到最大，疑似UI改动。
+        (602, 270),  # 2 点扫荡前先把进度条拉到最大，疑似UI改动。
     ]
     while True:
         photoMap.name = "默认"
@@ -381,7 +381,8 @@ def levelStone():
         pos = photoMap.pos
 
         if "扫荡" in name:
-            touch(moveMaps[0])
+            for i in moveMaps:
+                touch(i)
             time.sleep(1)
 
         if "完毕" in name:
