@@ -192,6 +192,8 @@ def dailyMission(count):
     dailyClan()
     dailyExp()
     # dailyUnderCity()
+    getMission()
+    getGift()
 
 # 换号
 # 2023年5月8日20:06:39
@@ -474,10 +476,97 @@ def dailyHeart():
 
         touch(pos)
 
+# 日常任务 2023年8月6日18:21:41
+def getMission():
+    photoMap = air.Photo()
+    photoMaps = [
+        "收取结束3",
+        "收取结束2",
+        "收取结束",
+        "关闭",
+        "全部收取",
+        "任务",
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        pos = photoMap.pos
+
+        if "收取结束" in name:
+            backToMain()
+            break
+
+        touch(pos)
+
+# 日常礼物 2023年8月6日18:21:35
+def getGift():
+    photoMap = air.Photo()
+    photoMaps = [
+        "礼物收取结束",
+        "持有上限",
+        "关闭",
+        "确认",
+        "全部收取",
+        "礼物",
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        pos = photoMap.pos
+
+        if "收取结束" in name:
+            backToMain()
+            break
+
+        if "持有上限" in name:
+            backToMain()
+            break
+
+        touch(pos)
+
+# 日常JJC
+# 2023年8月6日19:07:07
+def dailyJJC():
+    count = 0;
+    photoMap = air.Photo()
+    photoMaps = [
+        "JJC已收取",
+        "白色确认",
+        "JJC收取",
+        "取消",
+        "JJC",
+        "冒险",
+        "战斗开始",
+    ]
+    photoMapsNext = [
+        "JJC已打",
+        "JJC下一步",
+        "白色确认",
+        "JJC跳过",
+        "战斗开始",
+        "队伍编组",
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        # photoMap.loopSearch(photoMapsNext)
+        name = photoMap.name
+        pos = photoMap.pos
+
+        if (("JJC已收取" in name) | ("战斗开始".__eq__(name))) & (count == 0):
+            photoMaps = photoMapsNext
+            count = 1
+            continue
+
+        if "JJC已打".__eq__(name):
+            backToMain()
+            break
+
+        touch(pos)
+
 
 if __name__ == "__main__":
     # startBattle()
-    autoFight()
+    # autoFight()
     # dailyMission(0)
     # closeGame()
     # get10Power()
@@ -486,4 +575,6 @@ if __name__ == "__main__":
     # dailyClan()
     # openGame()
     # dailyHeart()
-    # dailyUnderCity()
+    # getMission()
+    # getGift()
+    dailyJJC()

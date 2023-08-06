@@ -315,6 +315,7 @@ def pvpAuto(time=0):
 def autoGet7hour():
     photoMap = air.Photo()
     photoMaps = [
+        "EX5",
         "跳过卷开始",
         "关卡标识",
         "特殊活动页",

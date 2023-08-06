@@ -22,6 +22,10 @@ flag = True
 
 __author__ = "user"
 
+def cvInit(path=cv.bluePath, device=cv.blueDevice):
+    cv._init()
+    cv.set_value("path", path)
+    cv.set_value("device", device)
 
 def autoStart():
     count = 0
@@ -34,6 +38,7 @@ def autoStart():
         "出击",
         '开始任务',
         '开始任务二',
+        "剧情目录",
     ]
     while 1:
         photoMap.loopSearch(photoMaps)
@@ -44,9 +49,35 @@ def autoStart():
             time.sleep(30)
             continue
 
+        if "剧情目录".__eq__(name):
+            break
+
+
+        touch(pos)
+
+def autoText():
+    count = 0
+    photoMap = air.Photo()
+    photoMaps = [
+        "获得奖励",
+        "进入剧情",
+        "出击",
+        "剧情确认",
+        "跳过图标",
+        "菜单",
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        if "出击".__eq__(name):
+            autoStart()
+            continue
+
         touch(pos)
 
 
-
 if __name__ == "__main__":
-    autoStart()
+    autoText()
+    # autoStart()
