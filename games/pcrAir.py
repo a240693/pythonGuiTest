@@ -48,6 +48,7 @@ def autoFight():
         (200, 360),  # 2,祈梨SOS活动。
         (130, 360),  # 3,祈梨SOS活动普通后半。
         (134, 327),  # 4,弓香菜活动普通。
+        (129, 185),  # 6,弓香菜活动普通。
     ]
     moveMaps = [
         (930,270), # 0 ,关卡已攻略，下一张。
@@ -194,6 +195,9 @@ def dailyMission(count):
     # dailyUnderCity()
     getMission()
     getGift()
+    dailyJJC()
+    if count != 2:
+        dailyPJJC()
 
 # 换号
 # 2023年5月8日20:06:39
@@ -563,6 +567,46 @@ def dailyJJC():
 
         touch(pos)
 
+# 日常PJJC
+# 2023年8月6日19:08:45
+def dailyPJJC():
+    count = 0;
+    photoMap = air.Photo()
+    photoMaps = [
+        "JJC已收取",
+        "白色确认",
+        "JJC收取",
+        "取消",
+        "PJJC",
+        "冒险",
+        "战斗开始",
+    ]
+    photoMapsNext = [
+        "JJC已打",
+        "JJC下一步",
+        "战斗开始",
+        "PJJC队伍",
+        "白色确认",
+        "PJJC总战力",
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        # photoMap.loopSearch(photoMapsNext)
+        name = photoMap.name
+        pos = photoMap.pos
+
+        if (("JJC已收取" in name) | ("战斗开始".__eq__(name))) & (count == 0):
+            photoMaps = photoMapsNext
+            count = 1
+            continue
+
+        if "JJC已打".__eq__(name):
+            backToMain()
+            break
+
+        touch(pos)
+
+
 
 if __name__ == "__main__":
     # startBattle()
@@ -578,3 +622,4 @@ if __name__ == "__main__":
     # getMission()
     # getGift()
     dailyJJC()
+    dailyPJJC()
