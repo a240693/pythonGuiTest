@@ -14,7 +14,7 @@ choices = ("请选择功能：",
 
 
 def main():
-    return gui.choicebox("脚本选择", "←_→", choices=choices)
+    return gui.choicebox("脚本选择", "星轨", choices=choices)
 
 
 def test(name):
@@ -38,7 +38,7 @@ if __name__ == "__main__":
         elif "自动60次花萼金".__eq__(choice):
             honkaiTrain.auto60()
         elif "半自动模拟世界".__eq__(choice):
-            honkaiTrain.skillStart("欢愉")
+            honkaiTrain.skillStart("虚无")
         elif "自动远征获取".__eq__(choice):
             honkaiTrain.autoSearch()
         elif choice == "关闭":

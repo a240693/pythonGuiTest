@@ -251,6 +251,50 @@ def skillStart(SkillName = "巡猎"):
             autoGetSkill(SkillName)
             continue
 
+# 没做完，自动检查每日。
+def checkMission():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "每日侵蚀隧道",
+        "星铁任务图标",
+    ]
+
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+
+        if "每日侵蚀隧道".__eq__(name):
+            backToMain()
+            continue
+
+        if "任务图标" in name:
+            dao.moveToWithKey(x, y, 'altleft')
+            continue
+
+# 没做完，自动做每日。
+def autoMission():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "每日侵蚀隧道",
+        "星铁任务图标",
+    ]
+
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+
+        if "每日侵蚀隧道".__eq__(name):
+            backToMain()
+            continue
+
+        if "任务图标" in name:
+            dao.moveToWithKey(x, y, 'altleft')
+            continue
+
 
 
 if __name__ == '__main__':
@@ -262,4 +306,4 @@ if __name__ == '__main__':
     # auto60()
     # autoGetSkill("巡猎")
     # autoGetSkillSecond()
-    skillStart("毁灭")
+    checkMission()

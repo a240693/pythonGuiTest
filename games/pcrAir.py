@@ -193,11 +193,11 @@ def dailyMission(count):
     dailyClan()
     dailyExp()
     # dailyUnderCity()
-    getMission()
-    getGift()
     dailyJJC()
     if count != 2:
         dailyPJJC()
+    getMission()
+    getGift()
 
 # 换号
 # 2023年5月8日20:06:39
@@ -232,6 +232,8 @@ def closeGame():
 def enterGame():
     photoMap = air.Photo()
     photoMaps = [
+        "赛跑收取",
+        "竞赛开始",
         "附奖扭蛋",
         "开局扭蛋",
         "确认",
@@ -240,11 +242,21 @@ def enterGame():
         "碎片10",
         "好感度跳过",
         "pcr主页",
+        "庆典举办中",
+    ]
+    moveMaps = [
+        (786,311), # 0 赛跑，选最右边.
     ]
     while 1:
         photoMap.loopSearch(photoMaps)
         name = photoMap.name
         pos = photoMap.pos
+
+        if "竞赛开始".__eq__(name):
+            touch(moveMaps[0])
+            sleep(1)
+            touch(pos)
+            continue
 
         if "pcr主页".__eq__(name):
             break
@@ -311,16 +323,20 @@ def backToMain():
 def dailyEgg():
     photoMap = air.Photo()
     photoMaps = [
+        "附奖",
+        "转蛋点击",
         "关闭",
         "扭蛋选择",
         "扭蛋完成抽取",
         "白色确认",
         "确认",
+        "转蛋免费1",
         "转蛋免费",
         "转蛋普通",
         "转蛋普通2",
         "转蛋普通3",
         "每日转蛋",
+        "好感度跳过",
     ]
     while 1:
         photoMap.loopSearch(photoMaps)
@@ -490,6 +506,7 @@ def getMission():
         "关闭",
         "全部收取",
         "任务",
+        "确认",
     ]
     while 1:
         photoMap.loopSearch(photoMaps)
@@ -621,5 +638,7 @@ if __name__ == "__main__":
     # dailyHeart()
     # getMission()
     # getGift()
-    dailyJJC()
-    dailyPJJC()
+    # dailyJJC()
+    # dailyPJJC()
+    # enterGame()
+    dailyEgg()

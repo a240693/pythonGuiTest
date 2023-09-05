@@ -44,8 +44,13 @@ blueDevice = mrfzDeviceAnotherHome
 pcrAirDeviceAnotherHome = "Android://127.0.0.1:5037/emulator-5556"
 pcrAirDeviceHome = ''
 pcrAirDeviceOffice = ''
-
 pcrAirDevice = pcrAirDeviceAnotherHome
+
+FgoDeviceHome = "Android://127.0.0.1:5037/emulator-5566"
+FgoDeviceOffice = "Android://127.0.0.1:5037/emulator-5558"
+FgoDeviceAnotherHome = "Android://127.0.0.1:5037/emulator-5558"
+FgoDevice = FgoDeviceAnotherHome
+
 
 # device = "Android://127.0.0.1:5037/127.0.0.1:5555"
 def _init():  # 初始化

@@ -16,13 +16,14 @@ choices = ("请选择脚本：",
            "自动强化",
            "自动钢镚",
            "自动购买活动物品",
+           "简单自动重开5次",
            "每日汇总",
            "====================",
            "关闭")
 
 
 def main():
-    return gui.choicebox("脚本选择", "←_→", choices=choices)
+    return gui.choicebox("脚本选择", "龙珠激战传说", choices=choices)
 
 
 def test(name):
@@ -71,5 +72,7 @@ if __name__ == "__main__":
             db.autoBuyEvent()
         elif "每日汇总".__eq__(choice):
             db.dailyAll()
+        elif "简单自动重开5次".__eq__(choice):
+            db.autoStartEasy(5)
         elif choice == "关闭":
             break

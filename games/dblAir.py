@@ -679,6 +679,8 @@ def autoCoin():
 def autoStartEasy(times = 0):
     photoMap = air.Photo()
     photoMaps = [
+        "百层是",
+        "继续跳过",
         "再次对战",
         "战斗中",
     ]
@@ -687,7 +689,7 @@ def autoStartEasy(times = 0):
         pos = photoMap.pos
         name = photoMap.name
         if "战斗中".__eq__(name):
-            sleep(60)
+            sleep(10)
             continue
         touch(pos)
         sleep(0.3)

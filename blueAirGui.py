@@ -7,6 +7,9 @@ flag = False
 choices = ("请选择脚本：",
            "自动剧情",
            "自动战斗",
+           "自动升级",
+           "自动每日",
+           "自动-1",
            "====================",
            "关闭")
 
@@ -36,5 +39,11 @@ if __name__ == "__main__":
             blue.autoStart()
         elif "自动剧情".__eq__(choice):
             blue.autoText()
+        elif "自动升级".__eq__(choice):
+            blue.autoAddLv()
+        elif "自动每日".__eq__(choice):
+            blue.dailyAll()
+        elif "自动-1".__eq__(choice):
+            blue.autoSkipBattle()
         elif choice == "关闭":
             break

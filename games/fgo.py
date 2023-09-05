@@ -29,6 +29,8 @@ appleFlag = True
 __author__ = "user"
 
 cv._init()
+cv.set_value("path", cv.FgoPath)
+cv.set_value("device", cv.FgoDeviceAnotherHome)
 
 
 def enterGame():
@@ -921,12 +923,13 @@ def autoLevelUp():
 def autoAdd():
     photoMap = air.Photo()
     photoMaps = [
+        "追加报酬",
         "种火确定",
         "已放入种火",
         "上限解放",
         "强化从者",
         "新技能",
-        "已开放"
+        "已开放",
         "灵基再临",
         "幕间物语",
         "强化关卡",
