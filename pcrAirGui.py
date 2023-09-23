@@ -11,7 +11,7 @@ choices = ("请选择功能：",
 
 
 def main():
-    return gui.choicebox("脚本选择", "←_→", choices=choices)
+    return gui.choicebox("脚本选择", "PCR", choices=choices)
 
 
 def test(name):

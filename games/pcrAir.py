@@ -358,6 +358,7 @@ def get10Power():
         "行会点赞",
         "行会成员信息",
         "行会",
+        "关闭",
     ]
     while 1:
         photoMap.loopSearch(photoMaps)
@@ -506,7 +507,7 @@ def getMission():
         "关闭",
         "全部收取",
         "任务",
-        "确认",
+        "白色确认",
     ]
     while 1:
         photoMap.loopSearch(photoMaps)

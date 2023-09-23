@@ -176,7 +176,7 @@ def autoGetSkill(SkillName = "巡猎"):
         if "重置祝福".__eq__(name):
             dao.moveTo(x, y)
             autoGetSkillSecond(SkillName)
-            continue
+            break
 
         if "祝福加载".__eq__(name):
             time.sleep(2)
@@ -208,8 +208,13 @@ def autoGetSkillSecond(SkillName = "欢愉",SkillName1 = "巡猎", SkillName2 = 
         y = photoMap.y
         name = photoMap.name
         print("重置选祝福开始。")
-        if "主界面标识1".__eq__(name) | "模拟宇宙确认".__eq__(name):
+        if "主界面标识1".__eq__(name) :
             print("重置选祝福结束，返回——————————————————。")
+            break
+
+        if "模拟宇宙确认".__eq__(name):
+            dao.moveTo(x,y)
+            print("重置选祝福结束2，返回——————————————————。")
             break
 
         dao.moveTo(x, y)

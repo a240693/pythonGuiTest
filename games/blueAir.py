@@ -353,7 +353,7 @@ def dailyAll():
     dailyDate() # 自动日程
     # dailyReward() # 半自动悬赏
     # dailySpecial() # 还没做好，自动特别委托。
-    # dailyMail()
+    dailyMail()
     dailyPVP()
     dailyMisson() # 自动获取工作任务。
 

@@ -684,7 +684,8 @@ def autoStartEasy(times = 0):
         "再次对战",
         "战斗中",
     ]
-    while 1:
+    i = 0;
+    while i<times:
         photoMap.loopSearch(photoMaps)
         pos = photoMap.pos
         name = photoMap.name
