@@ -322,6 +322,7 @@ def pvpAuto():
         '坎公卡马逊确认',
         "坎公图标",
         "界面提示",
+        "界面提示2",
         "探险初始页",
     ]
     moveMaps = [
@@ -351,7 +352,7 @@ def pvpAuto():
             touchFix(pos, (3, 227))
         elif '探险初始页'.__eq__(name):
             touch(moveMaps[1])
-        elif '界面提示'.__eq__(name):
+        elif '界面提示' in name:
             touch(moveMaps[2])
         # 这里拿到了上面三选一的 名字 和XY坐标
         elif "坎公图标" in name:
@@ -545,6 +546,7 @@ def openGame():
         "坎公图标",
         "12提示",
         "界面提示",
+        "界面提示2",
     ]
     moveMaps = [
         (400,100), # 0 随便点一个没东西的地方。
@@ -560,7 +562,7 @@ def openGame():
             touch(moveMaps[0])
             continue
 
-        if "界面提示".__eq__(name):
+        if "界面提示" in  name:
             if count == 1:
                 break
             else:
@@ -577,6 +579,7 @@ def getEmail():
         "界面提示",
         "坎公PVP确认",
         "已全部接收",
+        "界面提示2",
     ]
     moveMaps = [
         (880,25) , # 0 获取邮件内容
@@ -586,7 +589,7 @@ def getEmail():
         name = photoMap.name
         pos = photoMap.pos
 
-        if "界面提示".__eq__(name):
+        if "界面提示" in name:
             touch(moveMaps[0])
             continue
 
@@ -608,6 +611,7 @@ def getEquipItem():
         "世界探险船",
         "世界探险船2",
         "界面提示",
+        "界面提示2",
         "坎公PVP确认",
     ]
     moveMaps = [
@@ -621,7 +625,7 @@ def getEquipItem():
         name = photoMap.name
         pos = photoMap.pos
 
-        if "界面提示".__eq__(name):
+        if "界面提示" in name:
             swipe(pos,vector = (400,0),steps = 6)
             continue
 
@@ -655,6 +659,7 @@ def backToStart():
         "世界探险船",
         "世界探险船2",
         "界面提示",
+        "界面提示2",
     ]
     moveMaps = [
         (60, 310),  # pvp竞技场

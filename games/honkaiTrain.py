@@ -300,6 +300,30 @@ def autoMission():
             dao.moveToWithKey(x, y, 'altleft')
             continue
 
+def autoTeam(teamNo = 0):
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "鸭鸭",
+        "白露",
+        "卡夫卡",
+        "停云",
+    ]
+    photoMaps2 = [
+        "罗刹",
+        "驭空",
+        "克拉拉",
+        "托帕",
+    ]
+    if teamNo == 0:
+        teamMaps = photoMaps
+    elif teamNo == 1:
+        teamMaps = photoMaps2
+    while 1:
+        photoMap.loopSearch(teamMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+        dao.moveTo(x,y)
 
 
 if __name__ == '__main__':
@@ -311,4 +335,4 @@ if __name__ == '__main__':
     # auto60()
     # autoGetSkill("巡猎")
     # autoGetSkillSecond()
-    checkMission()
+    autoTeam()

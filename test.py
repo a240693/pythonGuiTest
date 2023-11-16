@@ -7,9 +7,9 @@ import time
 import platform
 import cv2
 
-path = 'F:\\pyTest\\'
+# path = 'F:\\pyTest\\'
 # path = "F:\\pyTest\\honkai\\"
-
+path = "F:\\pyTest\\honkaiTrain\\"
 
 # 获取颜色
 def getcolour(x, y):
@@ -60,7 +60,7 @@ def placeTest():
     confidenPoint = 0.9
     x1, y1 = pyautogui.position();
     # name = 'star\\换人页标识升序'
-    name = '主页'
+    name = '星铁挑战'
     filepath = path + name + '.png'
     img = my_cv_imread(filepath)
     x, y, w, h = pyautogui.locateOnScreen(img, grayscale=True, confidence=confidenPoint)
@@ -77,8 +77,14 @@ def scrollTest():
     countDown(0, 3)
     pyautogui.scroll(100, x=100, y=100)
 
+def keyTest():
+    time.sleep(3)
+    pyautogui.keyDown('altleft')
+    time.sleep(10)
+    pyautogui.keyUp('altleft')
 
 if __name__ == '__main__':
     # scrollTest()
+    # keyTest()
     placeTest()
     # fprocess()

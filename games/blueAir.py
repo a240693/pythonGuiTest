@@ -233,6 +233,7 @@ def dailyReward():
     photoMap = air.Photo()
     photoMaps = [
         "入场券不足",
+        "08",
         "悬赏通缉",
         "业务区",
         "业务区2",
@@ -241,6 +242,9 @@ def dailyReward():
         "高架公路",
         "沙漠铁路",
         "讲堂",
+    ]
+    moveMaps = [
+        (845, 480),  # 0 最后一个。
     ]
     count = 0
     photoMaps.insert(0,photoMapOne[count])
@@ -258,6 +262,11 @@ def dailyReward():
                 photoMaps.pop(0)
                 photoMaps.insert(0, photoMapOne[count])
                 continue
+
+        if "08".__eq__(name):
+            touch(moveMaps[0])
+            autoSkipBattleSimple()
+            continue
 
         touch(pos)
 
@@ -347,12 +356,51 @@ def autoSkipBattle():
         touch(pos)
 
 
+# 专门做给悬赏的自动点击，不包含向左。
+def autoSkipBattleSimple():
+    count = 0
+    photoMap = air.Photo()
+    photoMaps = [
+        "入场券不足",
+        "购买AP",
+        "次数不足",
+        "扫荡确认",
+        "剧情确认",
+        "开始扫荡",
+        "高架公路",
+    ]
+    moveMaps = [
+        (779,225), # 0 扫荡加号
+        (87,266), # 1 向左一格
+    ]
+    tempMap = photoMaps
+    while 1:
+        photoMap.loopSearch(tempMap)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        if "开始扫荡".__eq__(name):
+            touch(moveMaps[0],times = 2)
+            sleep(1)
+            touch(pos)
+            continue
+
+        if "高架公路".__eq__(name):
+            break
+
+        if "入场券不足".__eq__(name):
+            # backToMain()
+            break
+
+        touch(pos)
+
+
 def dailyAll():
     autoClan() # 自动进公会
     dailyCoffee() # 自动咖啡厅
     dailyDate() # 自动日程
-    # dailyReward() # 半自动悬赏
-    # dailySpecial() # 还没做好，自动特别委托。
+    dailyReward() # 半自动悬赏
+    # dailySpecial() # 还没做好，自动特别委托，这东西真有必要吗。
     dailyMail()
     dailyPVP()
     dailyMisson() # 自动获取工作任务。
@@ -418,6 +466,30 @@ def dailyMail():
 
         touch(pos)
 
+def daily90():
+    count = 0
+    photoMap = air.Photo()
+    photoMaps = [
+        "商店战术对抗赛",
+        "商店",
+    ]
+    moveMaps = [
+        (264,356), # 0 每日获取奖励
+        (274, 283),  # 1 每日获取信用点
+        (555, 174),  # 2 点第一个PVP对手
+
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        if "暂无邮件".__eq__(name):
+            backToMain()
+            break
+
+        touch(pos)
+
 
 if __name__ == "__main__":
     # autoText()
@@ -425,5 +497,6 @@ if __name__ == "__main__":
     # dailyDate()
     # dailyMisson()
     # autoAddLv()
-    dailyMail()
+    # dailyMail()
     # dailyMisson()
+    daily90()

@@ -9,6 +9,8 @@ choices = ("请选择功能：",
            "自动60次花萼金",
            "半自动模拟世界",
            "自动远征获取",
+           "自动编队 - 卡夫卡",
+            "自动编队 - 克拉拉",
            "====================",
            "关闭")
 
@@ -41,5 +43,9 @@ if __name__ == "__main__":
             honkaiTrain.skillStart("虚无")
         elif "自动远征获取".__eq__(choice):
             honkaiTrain.autoSearch()
+        elif "自动编队 - 卡夫卡".__eq__(choice):
+            honkaiTrain.autoTeam(0)
+        elif "自动编队 - 克拉拉".__eq__(choice):
+            honkaiTrain.autoTeam(1)
         elif choice == "关闭":
             break

@@ -185,7 +185,7 @@ def choosePlayer(playerNum = 0):
 
 # 日常入口
 # 2023年5月8日20:06:59
-def dailyMission(count):
+def dailyMission(count,bug = False):
     enterGame()
     getMana()
     dailyEgg()
@@ -193,9 +193,10 @@ def dailyMission(count):
     dailyClan()
     dailyExp()
     # dailyUnderCity()
-    dailyJJC()
-    if count != 2:
-        dailyPJJC()
+    if bug == False :
+        dailyJJC()
+        if count != 2:
+            dailyPJJC()
     getMission()
     getGift()
 

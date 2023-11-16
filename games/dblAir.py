@@ -276,6 +276,7 @@ def pvpAuto(time=0):
     photoMaps = [
         "pvp入口",
         "pvp入口2",
+        "pvp入口3",
         "按错取消",
         "重试",
         "结算OK",
@@ -315,6 +316,7 @@ def pvpAuto(time=0):
 def autoGet7hour():
     photoMap = air.Photo()
     photoMaps = [
+        "EX6",
         "EX5",
         "跳过卷开始",
         "关卡标识",
