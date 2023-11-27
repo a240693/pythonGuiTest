@@ -11,6 +11,7 @@ choices = ("请选择功能：",
            "自动远征获取",
            "自动编队 - 卡夫卡",
             "自动编队 - 克拉拉",
+            "自动编队 - 静流",
            "====================",
            "关闭")
 
@@ -47,5 +48,7 @@ if __name__ == "__main__":
             honkaiTrain.autoTeam(0)
         elif "自动编队 - 克拉拉".__eq__(choice):
             honkaiTrain.autoTeam(1)
+        elif "自动编队 - 静流".__eq__(choice):
+            honkaiTrain.autoTeam(2)
         elif choice == "关闭":
             break

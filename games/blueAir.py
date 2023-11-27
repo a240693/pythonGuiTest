@@ -399,7 +399,7 @@ def dailyAll():
     autoClan() # 自动进公会
     dailyCoffee() # 自动咖啡厅
     dailyDate() # 自动日程
-    dailyReward() # 半自动悬赏
+    # dailyReward() # 半自动悬赏
     # dailySpecial() # 还没做好，自动特别委托，这东西真有必要吗。
     dailyMail()
     dailyPVP()

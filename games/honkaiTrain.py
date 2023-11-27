@@ -308,22 +308,32 @@ def autoTeam(teamNo = 0):
         "卡夫卡",
         "停云",
     ]
-    photoMaps2 = [
+    photoMaps1 = [
         "罗刹",
         "驭空",
         "克拉拉",
         "托帕",
     ]
+    photoMaps2 = [
+        "鸭鸭",
+        "白露",
+        "静流",
+        "停云",
+    ]
     if teamNo == 0:
         teamMaps = photoMaps
     elif teamNo == 1:
+        teamMaps = photoMaps1
+    elif teamNo == 2:
         teamMaps = photoMaps2
-    while 1:
+    count = 0
+    while count < 4:
         photoMap.loopSearch(teamMaps)
         x = photoMap.x
         y = photoMap.y
         name = photoMap.name
         dao.moveTo(x,y)
+        count += 1
 
 
 if __name__ == '__main__':
