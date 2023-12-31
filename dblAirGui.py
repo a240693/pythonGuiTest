@@ -73,6 +73,7 @@ if __name__ == "__main__":
         elif "每日汇总".__eq__(choice):
             db.dailyAll()
         elif "简单自动重开5次".__eq__(choice):
-            db.autoStartEasy(5)
+            index = inputBox()
+            db.autoStartEasy(index)
         elif choice == "关闭":
             break

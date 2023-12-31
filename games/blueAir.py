@@ -399,11 +399,12 @@ def dailyAll():
     autoClan() # 自动进公会
     dailyCoffee() # 自动咖啡厅
     dailyDate() # 自动日程
-    # dailyReward() # 半自动悬赏
+    dailyReward() # 半自动悬赏
     # dailySpecial() # 还没做好，自动特别委托，这东西真有必要吗。
     dailyMail()
     dailyPVP()
     dailyMisson() # 自动获取工作任务。
+    daily90()
 
 def dailyPVP():
     count = 0
@@ -470,6 +471,11 @@ def daily90():
     count = 0
     photoMap = air.Photo()
     photoMaps = [
+        "获得奖励",
+        "确认二",
+        "30体力",
+        "90体力",
+        "选择购买",
         "商店战术对抗赛",
         "商店",
     ]
@@ -484,7 +490,18 @@ def daily90():
         pos = photoMap.pos
         name = photoMap.name
 
-        if "暂无邮件".__eq__(name):
+        if "30体力".__eq__(name):
+            touch(pos)
+            photoMaps.remove("30体力")
+            continue
+
+        if "90体力".__eq__(name):
+            touch(pos)
+            photoMaps.remove("90体力")
+            continue
+
+        if "获得奖励".__eq__(name):
+            touch(pos)
             backToMain()
             break
 

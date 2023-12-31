@@ -222,6 +222,56 @@ def dailyAll():
 
     dailyMission()
 
+# 玛德大小不一了艹。
+# 2023年12月11日
+def dailyBussiness1024():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "选手已选择1024",
+        "极速一键选择1024",
+        "四小人1024",
+        "极速赛事中心1024",
+        "极速经营1024",
+    ]
+    while 1:
+        # photoMap.loopSearch(photoMaps)
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+
+        if "已选择" in name:
+            dailySendPeople1024()
+            continue
+
+        dao.moveTo(x, y)
+
+# 赛车子页面功能。
+def dailySendPeople1024():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "极速比赛完成1024",
+        "宝箱免费领取确认1024",
+        "派遣比赛结果1024",
+        "极速派遣比赛1024",
+        "选手已选择1024",
+        "极速一键选择1024",
+    ]
+    while 1:
+        # photoMap.loopSearch(photoMaps)
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+
+        if "完成" in name:
+            break
+
+        if "一键选择" in name:
+            break
+
+        dao.moveTo(x, y)
+
 if __name__ == '__main__':
     # dailyBussiness()
     # dailyAll()
@@ -232,4 +282,5 @@ if __name__ == '__main__':
     # dailyMonthCard()
     # dailyBonus()
     # openGame()
-    dailyBussiness()
+    # dailySendPeople1024()
+    dailyBussiness1024()

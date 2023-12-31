@@ -668,6 +668,8 @@ def autoCoin():
     photoMaps = [
         "结算OK",
         "交换十次",
+        "交换10次",
+        "交换十次2",
     ]
     while 1:
         photoMap.loopSearch(photoMaps)
@@ -687,13 +689,25 @@ def autoStartEasy(times = 0):
         "战斗中",
     ]
     i = 0;
+    onlyOnce = 0;
     while i<times:
         photoMap.loopSearch(photoMaps)
         pos = photoMap.pos
         name = photoMap.name
+
         if "战斗中".__eq__(name):
             sleep(10)
+            onlyOnce = 0;
             continue
+
+        if "继续跳过".__eq__(name):
+            touch(pos)
+            if onlyOnce == 0:
+                i += 1;
+                onlyOnce =1;
+            continue
+
+        onlyOnce = 0;
         touch(pos)
         sleep(0.3)
 

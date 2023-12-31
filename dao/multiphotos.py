@@ -44,7 +44,7 @@ class Photo:
             count += 1
             if count == 5:
                 print("找不到5次，休息0.3秒")
-                time.sleep(0.3)
+                time.sleep(0.1)
                 count = 0
 
     # 进入游戏用，找不到会自动点击左键一次。
