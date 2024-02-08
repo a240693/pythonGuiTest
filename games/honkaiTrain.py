@@ -335,6 +335,21 @@ def autoTeam(teamNo = 0):
         dao.moveTo(x,y)
         count += 1
 
+def autoRestart():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "再来一次",
+    ]
+
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+        dao.moveTo(x, y)
+
+
+
 
 if __name__ == '__main__':
     # openGame()
@@ -345,4 +360,5 @@ if __name__ == '__main__':
     # auto60()
     # autoGetSkill("巡猎")
     # autoGetSkillSecond()
-    autoTeam()
+    # autoTeam()
+    autoRestart()

@@ -14,7 +14,8 @@ kgDeviceHome = "Android://127.0.0.1:5037/emulator-5566"
 kgDeviceOffice = "Android://127.0.0.1:5037/emulator-5558"
 kgDevice3 = "Android://127.0.0.1:5037/127.0.0.1:7555"#mumu
 kgDeviceAnotherHome = "Android://127.0.0.1:5037/emulator-5558"
-kgDevice = kgDeviceAnotherHome
+kgDeviceAnotherHome9 = "Android://127.0.0.1:5037/emulator-5554"
+kgDevice = kgDeviceAnotherHome9
 
 deviceNo = "emulator-5560"
 honkai = "Windows:///?title_re=崩坏3"

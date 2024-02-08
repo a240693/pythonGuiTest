@@ -441,6 +441,7 @@ def cvInit(path = cv.kgAirPath , device = tempDevice):
 # 2022年9月14日10:36:32 日常购买后台化
 def day2buy(choice):
     photoMaps = [
+        "坎公图标",
         "进化石页面",
         "裂痕总览",
         "领取灵魂点",
@@ -485,6 +486,10 @@ def day2buy(choice):
         if "进化石" in name:
             break
 
+        if "坎公图标" in name:
+            openGame()
+            continue
+
         touch(pos)
 
     # photoMap = []
@@ -505,8 +510,9 @@ def day2buy(choice):
 # 日常商城购买
 def dailyBuy():
     photoMaps = [
-        "金币卖完",
+        "坎公图标",
         "坎公PVP确认",
+        "金币卖完",
         "金币购买",
         "金币",
         "问号标识二",
@@ -531,12 +537,17 @@ def dailyBuy():
         pos = photoMap.pos
 
         if "金币卖完" in name:
+            touch(pos)
             photoMaps = photoMaps2
             continue
 
         if "锤子卖完" in name:
             touch(moveMaps[0])
             break
+
+        if "坎公图标" in name:
+            openGame()
+            continue
 
         touch(pos)
 

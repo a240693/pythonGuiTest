@@ -18,7 +18,7 @@ cv.set_value("device", cv.DBLdevice)
 flag = True
 
 __author__ = "user"
-
+exitFlag = 0
 
 def cvInit(path=cv.DBLPath, device=cv.DBLdevice):
     cv._init()
@@ -136,7 +136,15 @@ def autoBattle(time=0):
     moveMaps = [
         (),
     ]
+
+    try:
+        print("开启监控升龙".format())
+        _thread.start_new_thread(autoBattleDragon, ())
+    except:
+        print("Error: 无法启动线程")
+
     count = 0
+
     while (count < time) | (time == 0):
         photoMap.loopSearch(photoMaps)
         pos = photoMap.pos
@@ -147,21 +155,19 @@ def autoBattle(time=0):
             print("第{}次战斗结束，返回大厅。".format(count))
             continue
         touch(pos)
+    exitFlag = 1
+
+
 
 
 def autoBattleNext():
     photoMap = air.Photo()
     photoMaps = [
-        "升龙2",
         "结算OK",
-        "升龙2",
         "按错取消",
         "前往大厅",
-        "升龙2",
         "游玩",
         "重试",
-        "升龙2",
-        "升龙2",
         "继续战斗",
         "战斗中",
         # "战斗开始",
@@ -176,18 +182,17 @@ def autoBattleNext():
         (99, 322),  # 点击队友
         # (919,461),
     ]
-
     while 1:
         photoMap.loopSearch(photoMaps, time=0.3)
         pos = photoMap.pos
         name = photoMap.name
         # print(G.DEVICE.display_info["orientation"])
 
-        if "升龙2".__eq__(name):
-            touch(pos)
-            touch(pos)
-            touch(pos)
-            continue
+        # if "升龙2".__eq__(name):
+        #     touch(pos)
+        #     touch(pos)
+        #     touch(pos)
+        #     continue
 
         if "战斗中" in name:
             for i in moveMaps:
@@ -207,6 +212,21 @@ def autoBattleNext():
 
         touch(pos)
 
+#    升龙监控。
+def autoBattleDragon():
+    photoMap = air.Photo()
+    photoMaps = [
+        "升龙2",
+    ]
+
+    while exitFlag == 0:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+        if "升龙2".__eq__(name):
+            touch(pos)
+            continue
+        touch(pos)
 
 #    退出战斗。
 def autoBattleExit():
@@ -316,8 +336,8 @@ def pvpAuto(time=0):
 def autoGet7hour():
     photoMap = air.Photo()
     photoMaps = [
-        "EX6",
         "EX5",
+        "EX6",
         "跳过卷开始",
         "关卡标识",
         "特殊活动页",

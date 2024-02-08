@@ -244,6 +244,9 @@ def enterGame():
         "好感度跳过",
         "pcr主页",
         "庆典举办中",
+        "pcr对话框一",
+        "pcr对话框二",
+        "钻石",
     ]
     moveMaps = [
         (786,311), # 0 赛跑，选最右边.
@@ -308,7 +311,8 @@ def backToMain():
         "确认",
         "主页",
         "pcr主页",
-        "取消"
+        "取消",
+        "关闭",
     ]
     while 1:
         photoMap.loopSearch(photoMaps)
@@ -642,5 +646,5 @@ if __name__ == "__main__":
     # getGift()
     # dailyJJC()
     # dailyPJJC()
-    # enterGame()
-    dailyEgg()
+    enterGame()
+    # dailyEgg()
