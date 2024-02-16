@@ -400,7 +400,8 @@ def dailyAll():
     dailyMail()
     daily90()
     dailyCoffee() # 自动咖啡厅
-    dailyDate() # 自动日程
+    # dailyDate() # 自动日程
+    dailyDateNew() # 自动日程，新
     dailyReward() # 半自动悬赏
     # dailySpecial() # 还没做好，自动特别委托，这东西真有必要吗。
     dailyPVP()
@@ -508,6 +509,129 @@ def daily90():
 
         touch(pos)
 
+# 新做日程选择,旧的需要手操一次，过于麻烦。 2024年2月16日
+def dailyDateNew():
+    count = 0
+    photoMap = air.Photo()
+    photoMaps = [
+        "正在参加的成员",
+        "日程耗尽",
+        "开始日程",
+        # "选择日程",
+        # "爱心", 太TM小辣。
+        "日程等级",
+        "全部日程",
+        "评级",
+        "日程",
+        "等级提升",
+    ]
+    moveMaps = [
+        (608, 132),  # 0 第1个
+        (608, 132 + 100),  # 1 第2个
+        (608, 132 + 100 * 2),  # 2 第3个
+        (608, 132 + 100 * 3),  # 3 第4个
+        (266, 199),  # 4，选择日程第一个的。
+        (429, 199),  # 5，选择日程第二个的。
+        (643, 199),  # 6，选择日程第三个的。
+    ]
+    date = datetime.date.today().weekday() % 4
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        if "日程等级".__eq__(name):
+            touch(moveMaps[date])
+            continue
+
+        if "正在参加的成员".__eq__(name):
+            dailyDateNewNext()
+            backToMain()
+            break
+
+        touch(pos)
+
+# 进具体日程页，开始处理选择页面。 2024年2月16日
+def dailyDateNewNext():
+    count = 0
+    photoMap = air.Photo()
+    photoMaps = [
+        "日程奖励",
+        "等级提升",
+        "开始日程",
+        "日程耗尽",
+        "正在参加的成员",
+    ]
+    moveMaps = [
+        (120, 420),  # 0 选择日程 第三行第一个。
+        (608, 132 + 100),  # 1 第2个
+        (608, 132 + 100 * 2),  # 2 第3个
+        (608, 132 + 100 * 3),  # 3 第4个
+    ]
+    finishFlag = 0
+    finishFlagOld = 1
+    while 1:
+        # 记得两个条件分别加括号，除非用.eq那个写法，不然判断会出错。
+        if (finishFlag == finishFlagOld) & (finishFlag == 1):
+            photoMaps.remove("正在参加的成员")
+            finishFlagOld = 0
+
+        if (finishFlag == finishFlagOld) & (finishFlag == 0):
+            photoMaps.append("正在参加的成员")
+            finishFlagOld = 1
+
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        if "正在参加的成员".__eq__(name):
+            touch(moveMaps[0])
+            continue
+
+        if "开始日程".__eq__(name):
+            touch(pos)
+            finishFlag = 1
+            continue
+
+        if "等级提升".__eq__(name) | "日程奖励".__eq__(name):
+            dailyDateNewNextPage()
+            finishFlag = 0
+            continue
+
+        if "日程耗尽".__eq__(name):
+            break
+
+        touch(pos)
+
+# 专门用来翻页。 2024年2月16日
+def dailyDateNewNextPage():
+    count = 0
+    photoMap = air.Photo()
+    photoMaps = [
+        "持有日程卷",
+        "等级提升",
+        "正在参加的成员",
+        "全部日程",
+    ]
+    moveMaps = [
+        (930, 270),  # 0，结算后往右切换学院。
+        (429, 199),  # 1，选择日程第二个的。
+        (643, 199),  # 2，选择日程第三个的。
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        if "正在参加的成员".__eq__(name) | "全部日程".__eq__(name):
+            touch(moveMaps[0])
+            continue
+
+        if "持有日程卷".__eq__(name):
+            touch(moveMaps[0])
+            break
+
+        touch(pos)
 
 if __name__ == "__main__":
     # autoText()
@@ -517,4 +641,4 @@ if __name__ == "__main__":
     # autoAddLv()
     # dailyMail()
     # dailyMisson()
-    dailyReward()
+    dailyDateNew()
