@@ -1,6 +1,7 @@
 # emulator-5560
 import _thread
 import datetime
+import time
 
 from airtest.core.api import *
 from dao import airMultiPhotos as air
@@ -203,6 +204,7 @@ def dailyDate():
 
         touch(pos)
 
+
 # 点击进去随便打一把经验值？
 def dailySpecial():
     count = 0
@@ -227,6 +229,7 @@ def dailySpecial():
 
         touch(pos)
 
+
 # 目前还需要手动选一下关卡然后开始，算是能用。
 def dailyReward():
     count = 0
@@ -247,7 +250,7 @@ def dailyReward():
         (845, 480),  # 0 最后一个。
     ]
     count = 0
-    photoMaps.insert(0,photoMapOne[count])
+    photoMaps.insert(0, photoMapOne[count])
     while 1:
         photoMap.loopSearch(photoMaps)
         pos = photoMap.pos
@@ -270,6 +273,7 @@ def dailyReward():
 
         touch(pos)
 
+
 def dailyMisson():
     count = 0
     photoMap = air.Photo()
@@ -289,6 +293,7 @@ def dailyMisson():
             break
 
         touch(pos)
+
 
 def autoAddLv():
     count = 0
@@ -318,6 +323,7 @@ def autoAddLv():
 
         touch(pos)
 
+
 def autoSkipBattle():
     count = 0
     photoMap = air.Photo()
@@ -330,8 +336,8 @@ def autoSkipBattle():
         "开始扫荡",
     ]
     moveMaps = [
-        (779,225), # 0 扫荡加号
-        (87,266), # 1 向左一格
+        (779, 225),  # 0 扫荡加号
+        (87, 266),  # 1 向左一格
     ]
     tempMap = photoMaps
     while 1:
@@ -340,13 +346,13 @@ def autoSkipBattle():
         name = photoMap.name
 
         if "开始扫荡".__eq__(name):
-            touch(moveMaps[0],times = 4)
+            touch(moveMaps[0], times=4)
             sleep(1)
             touch(pos)
             continue
 
         if "次数不足".__eq__(name):
-            touch(moveMaps[1],times = 2)
+            touch(moveMaps[1], times=2)
             continue
 
         if "购买AP".__eq__(name):
@@ -370,8 +376,8 @@ def autoSkipBattleSimple():
         "高架公路",
     ]
     moveMaps = [
-        (779,225), # 0 扫荡加号
-        (87,266), # 1 向左一格
+        (779, 225),  # 0 扫荡加号
+        (87, 266),  # 1 向左一格
     ]
     tempMap = photoMaps
     while 1:
@@ -380,7 +386,7 @@ def autoSkipBattleSimple():
         name = photoMap.name
 
         if "开始扫荡".__eq__(name):
-            touch(moveMaps[0],times = 2)
+            touch(moveMaps[0], times=2)
             sleep(1)
             touch(pos)
             continue
@@ -396,16 +402,18 @@ def autoSkipBattleSimple():
 
 
 def dailyAll():
-    autoClan() # 自动进公会
+    autoClan()  # 自动进公会
+    for i in range(0,3):
+        dailyWeapon(choice=i,stageChoice=0)
     dailyMail()
     daily90()
-    dailyCoffee() # 自动咖啡厅
+    dailyCoffee()  # 自动咖啡厅
     # dailyDate() # 自动日程
-    dailyDateNew() # 自动日程，新
-    dailyReward() # 半自动悬赏
+    # dailyDateNew() # 自动日程，新
+    dailyReward()  # 半自动悬赏
     # dailySpecial() # 还没做好，自动特别委托，这东西真有必要吗。
     dailyPVP()
-    dailyMisson() # 自动获取工作任务。
+    dailyMisson()  # 自动获取工作任务。
 
 
 def dailyPVP():
@@ -422,7 +430,7 @@ def dailyPVP():
         "业务区2",
     ]
     moveMaps = [
-        (264,356), # 0 每日获取奖励
+        (264, 356),  # 0 每日获取奖励
         (274, 283),  # 1 每日获取信用点
         (555, 174),  # 2 点第一个PVP对手
 
@@ -433,7 +441,7 @@ def dailyPVP():
         name = photoMap.name
 
         if "领取奖励".__eq__(name):
-            for i  in moveMaps:
+            for i in moveMaps:
                 touch(i)
             continue
 
@@ -453,7 +461,7 @@ def dailyMail():
         "邮件",
     ]
     moveMaps = [
-        (264,356), # 0 每日获取奖励
+        (264, 356),  # 0 每日获取奖励
         (274, 283),  # 1 每日获取信用点
         (555, 174),  # 2 点第一个PVP对手
 
@@ -469,6 +477,7 @@ def dailyMail():
 
         touch(pos)
 
+
 def daily90():
     count = 0
     photoMap = air.Photo()
@@ -482,7 +491,7 @@ def daily90():
         "商店",
     ]
     moveMaps = [
-        (264,356), # 0 每日获取奖励
+        (264, 356),  # 0 每日获取奖励
         (274, 283),  # 1 每日获取信用点
         (555, 174),  # 2 点第一个PVP对手
 
@@ -508,6 +517,7 @@ def daily90():
             break
 
         touch(pos)
+
 
 # 新做日程选择,旧的需要手操一次，过于麻烦。 2024年2月16日
 def dailyDateNew():
@@ -551,6 +561,7 @@ def dailyDateNew():
 
         touch(pos)
 
+
 # 进具体日程页，开始处理选择页面。 2024年2月16日
 def dailyDateNewNext():
     count = 0
@@ -561,12 +572,13 @@ def dailyDateNewNext():
         "开始日程",
         "日程耗尽",
         "正在参加的成员",
+        "持有日程卷",
     ]
     moveMaps = [
         (120, 420),  # 0 选择日程 第三行第一个。
-        (608, 132 + 100),  # 1 第2个
-        (608, 132 + 100 * 2),  # 2 第3个
-        (608, 132 + 100 * 3),  # 3 第4个
+        (120 + 280, 420),  # 1 第2个
+        (120 + 280 * 2, 420),  # 2 第3个
+        (872, 502),  # 3 持有日程卷的时候点右下角。
     ]
     finishFlag = 0
     finishFlagOld = 1
@@ -585,7 +597,8 @@ def dailyDateNewNext():
         name = photoMap.name
 
         if "正在参加的成员".__eq__(name):
-            touch(moveMaps[0])
+            for i in range(0, 3):
+                touch(moveMaps[i])
             continue
 
         if "开始日程".__eq__(name):
@@ -598,10 +611,15 @@ def dailyDateNewNext():
             finishFlag = 0
             continue
 
+        if "持有日程卷".__eq__(name):
+            touch(moveMaps[3])
+            continue
+
         if "日程耗尽".__eq__(name):
             break
 
         touch(pos)
+
 
 # 专门用来翻页。 2024年2月16日
 def dailyDateNewNextPage():
@@ -633,6 +651,75 @@ def dailyDateNewNextPage():
 
         touch(pos)
 
+
+# 专门做专武材料。 2024年2月17日
+def dailyWeapon(choice=0,stageChoice=0):
+    count = 0
+    photoMap = air.Photo()
+    photoMaps = [
+        "关卡列表",
+        "选择学院",
+        "学院交流会",
+        "业务区",
+        "业务区2",
+    ]
+    moveMaps = [
+        (605, 200),  # 0，结算后往右切换 学院。
+        (605, 300),  # 1，选择日程第二个的。
+        (605, 400),  # 2，选择日程第三个的。
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        if "选择学院".__eq__(name):
+            touch(moveMaps[choice])
+            continue
+
+        if "关卡列表".__eq__(name):
+            dailyWeaponNext(stageChoice)
+            break
+
+        touch(pos)
+
+
+# 专门做专武材料。 2024年2月17日
+def dailyWeaponNext(stageChoice=0):
+    photoMap = air.Photo()
+    photoMaps = [
+        "扫荡完成",
+        "确认二",
+        "开始扫荡",
+        "关卡列表",
+    ]
+    moveMaps = [
+        (830, 216),  # 0，第二个。
+        (830, 283),  # 1，第三个。
+        (779, 225),  # 2 扫荡加号
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        if "开始扫荡".__eq__(name):
+            touch(moveMaps[2], times=4)
+            time.sleep(1)
+            touch(pos)
+            continue
+
+        if "关卡列表".__eq__(name):
+            touch(moveMaps[stageChoice])
+            continue
+
+        if "扫荡完成".__eq__(name):
+            backToMain()
+            break
+
+        touch(pos)
+
+
 if __name__ == "__main__":
     # autoText()
     # autoStart()
@@ -641,4 +728,6 @@ if __name__ == "__main__":
     # autoAddLv()
     # dailyMail()
     # dailyMisson()
-    dailyDateNew()
+    for i in range(1,3):
+        dailyWeapon(choice=i,stageChoice=0)
+    # dailyWeaponNext()
