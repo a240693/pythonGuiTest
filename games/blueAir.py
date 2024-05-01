@@ -43,6 +43,7 @@ def autoStart():
         '开始任务二',
         "剧情目录",
         "奖励信息",
+        "菜单",
     ]
     while 1:
         photoMap.loopSearch(photoMaps)
@@ -57,6 +58,9 @@ def autoStart():
             break
 
         if "奖励信息".__eq__(name):
+            break
+
+        if "菜单".__eq__(name):
             break
 
         touch(pos)
@@ -74,6 +78,7 @@ def autoText():
         "菜单",
         "开始任务",
         "开始任务二",
+        "活动",
     ]
     while 1:
         photoMap.loopSearch(photoMaps)
@@ -87,6 +92,9 @@ def autoText():
         if "开始任务二" in name:
             autoStart()
             continue
+
+        if "活动" in name:
+            break
 
         touch(pos)
 
@@ -403,13 +411,13 @@ def autoSkipBattleSimple():
 
 def dailyAll():
     autoClan()  # 自动进公会
+    dailyMail()
     for i in range(0,3):
         dailyWeapon(choice=i,stageChoice=0)
-    dailyMail()
     daily90()
     dailyCoffee()  # 自动咖啡厅
     # dailyDate() # 自动日程
-    # dailyDateNew() # 自动日程，新
+    dailyDateNew() # 自动日程，新
     dailyReward()  # 半自动悬赏
     # dailySpecial() # 还没做好，自动特别委托，这东西真有必要吗。
     dailyPVP()
@@ -720,6 +728,33 @@ def dailyWeaponNext(stageChoice=0):
         touch(pos)
 
 
+# 情人节巧克力活动。
+def eventChoco():
+    photoMap = air.Photo()
+    photoMaps = [
+        "获得奖励",
+        "菜单",
+        "剧情确认",
+        "外出按钮",
+        "邀请外出",
+    ]
+    moveMaps = [
+        (830, 216),  # 0，第二个。
+        (830, 283),  # 1，第三个。
+        (779, 225),  # 2 扫荡加号
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        if "菜单".__eq__(name):
+            autoText()
+            continue
+
+        touch(pos)
+
+
 if __name__ == "__main__":
     # autoText()
     # autoStart()
@@ -728,6 +763,7 @@ if __name__ == "__main__":
     # autoAddLv()
     # dailyMail()
     # dailyMisson()
-    for i in range(1,3):
+    for i in range(0,3):
         dailyWeapon(choice=i,stageChoice=0)
     # dailyWeaponNext()
+    # eventChoco()

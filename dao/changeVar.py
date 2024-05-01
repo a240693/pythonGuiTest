@@ -10,6 +10,8 @@ trainPath = 'F:\\pyTest\\honkaiTrain\\'
 speedCarPath = 'F:\\pyTest\\speedCar\\'
 pcrAirPath = 'F:\\pyTest\\pcrAir\\'
 
+cbjqPath = 'F:\\pyTest\\cbjq\\'
+
 kgDeviceHome = "Android://127.0.0.1:5037/emulator-5566"
 kgDeviceOffice = "Android://127.0.0.1:5037/emulator-5558"
 kgDevice3 = "Android://127.0.0.1:5037/127.0.0.1:7555"#mumu

@@ -283,4 +283,5 @@ if __name__ == '__main__':
     # dailyBonus()
     # openGame()
     # dailySendPeople1024()
-    dailyBussiness1024()
+    # dailyBussiness1024()
+    openGame()

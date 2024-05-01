@@ -55,9 +55,9 @@ def autoRush():
 def startRush():
     photoMap = air.Photo()
     photoMaps = [
+        "战斗结束",
         "结算OK",
         "战斗开始",
-        "战斗结束",
         "战斗中",
         "点数报酬",
         "编组",
@@ -169,6 +169,8 @@ def autoBattleNext():
         "游玩",
         "重试",
         "继续战斗",
+        "准备完成",
+        "准备完成2",
         "战斗中",
         # "战斗开始",
     ]
@@ -182,6 +184,12 @@ def autoBattleNext():
         (99, 322),  # 点击队友
         # (919,461),
     ]
+    moveMaps1 = [
+        (721, 300), # 0 第四个
+        (721, 360),# 1 第四个
+        (721, 420),# 2 第四个
+    ]
+
     while 1:
         photoMap.loopSearch(photoMaps, time=0.3)
         pos = photoMap.pos
@@ -204,7 +212,13 @@ def autoBattleNext():
             # swipe(pos,vector = (100,0),duration = 0.3,steps = 1)
             continue
 
-
+        if "准备完成" in name:
+            # for i in moveMaps:
+            for i in moveMaps1:
+                temp = changeXY(i)
+                touch(temp)
+            touch(pos)
+            continue
 
         if "结算OK".__eq__(name) | "按错取消".__eq__(name) | "前往大厅".__eq__(name) | "游玩".__eq__(name):
             touch(pos)
@@ -297,10 +311,13 @@ def pvpAuto(time=0):
         "pvp入口",
         "pvp入口2",
         "pvp入口3",
+        "pvp入口4",
+        "pvp入口5",
         "按错取消",
         "重试",
         "结算OK",
         "准备完成",
+        "准备完成2",
         "pvp读取",
         "主界面PVP",
     ]
@@ -308,6 +325,14 @@ def pvpAuto(time=0):
         (241, 342),
         (480, 342),
         (680, 349),
+    ]
+    moveMaps1 = [
+        (721, 126),
+        (721, 175),
+        (721, 240),
+        (721, 300),
+        (721, 360),
+        (721, 420),
     ]
     count = 0
     while (count < time) | (time == 0):
@@ -321,8 +346,10 @@ def pvpAuto(time=0):
             print("第{}次战斗结束，返回大厅。".format(count))
             continue
 
-        if "准备完成".__eq__(name):
-            for i in moveMaps:
+
+        if "准备完成" in name:
+            # for i in moveMaps:
+            for i in moveMaps1:
                 temp = changeXY(i)
                 touch(temp)
             touch(pos)
@@ -336,11 +363,12 @@ def pvpAuto(time=0):
 def autoGet7hour():
     photoMap = air.Photo()
     photoMaps = [
-        "EX5",
         "EX6",
+        "EX5",
         "跳过卷开始",
         "关卡标识",
         "特殊活动页",
+        "原作重现",
         "重现原作",
         # "活动特别",
         "活动",
@@ -354,7 +382,7 @@ def autoGet7hour():
         photoMap.loopSearch(photoMaps)
         pos = photoMap.pos
         name = photoMap.name
-        if "特殊活动页".__eq__(name):
+        if "特殊活动页".__eq__(name) | "原作重现".__eq__(name):
             temp = changeXY(moveMaps[0])
             touch(temp)
             continue
@@ -680,6 +708,7 @@ def dailyAll():
     autoGet7hour()
     backMain()
     getMarch()
+    # 暂时出问题了，不用。
     pvpAuto(1)
 
 #自动钢镚 2023年3月4日12:37:32

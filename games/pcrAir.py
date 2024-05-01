@@ -187,11 +187,13 @@ def choosePlayer(playerNum = 0):
 # 2023年5月8日20:06:59
 def dailyMission(count,bug = False):
     enterGame()
-    getMana()
+    dailyKokoro()
+    # getMana()
+    # 为了以后抽免费十连，还是要的。
     dailyEgg()
-    get10Power()
-    dailyClan()
-    dailyExp()
+    # get10Power()
+    # dailyClan()
+    # dailyExp()
     # dailyUnderCity()
     if bug == False :
         dailyJJC()
@@ -242,11 +244,15 @@ def enterGame():
         "跳过",
         "碎片10",
         "好感度跳过",
-        "pcr主页",
         "庆典举办中",
+        "庆典举办中2",
+        "pcr主页",
+        "菜单",
         "pcr对话框一",
         "pcr对话框二",
         "钻石",
+        "特别庆典扭蛋",
+        "举办中",
     ]
     moveMaps = [
         (786,311), # 0 赛跑，选最右边.
@@ -313,6 +319,7 @@ def backToMain():
         "pcr主页",
         "取消",
         "关闭",
+        "关闭2",
     ]
     while 1:
         photoMap.loopSearch(photoMaps)
@@ -558,6 +565,7 @@ def dailyJJC():
     photoMap = air.Photo()
     photoMaps = [
         "JJC已收取",
+        "竞技场入口",
         "白色确认",
         "JJC收取",
         "取消",
@@ -597,6 +605,7 @@ def dailyPJJC():
     photoMap = air.Photo()
     photoMaps = [
         "JJC已收取",
+        "竞技场入口",
         "白色确认",
         "JJC收取",
         "取消",
@@ -629,6 +638,46 @@ def dailyPJJC():
 
         touch(pos)
 
+# 日常日程表
+# 2024年4月16日22:14:37
+def dailyKokoro():
+    count = 0;
+    photoMap = air.Photo()
+    photoMaps = [
+        "日常结束",
+        "公会点赞标识",
+        "确认",
+        "白色确认",
+        "一键自动",
+        "日程表",
+        "关闭",
+    ]
+    moveMaps =[
+        (460,360), # 0，确认在前，公会点赞不行，在后，地下城不行，真菜。
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        # photoMap.loopSearch(photoMapsNext)
+        name = photoMap.name
+        pos = photoMap.pos
+
+        if "日常结束".__eq__(name):
+            backToMain()
+            break
+
+        if "公会点赞标识".__eq__(name):
+            touch(moveMaps[0])
+            continue
+
+        touch(pos)
+
+def dailyMissionTest():
+    dailyKokoro()
+    dailyEgg()
+    dailyJJC()
+    # dailyPJJC()
+    getMission()
+    getGift()
 
 
 if __name__ == "__main__":
@@ -642,9 +691,4 @@ if __name__ == "__main__":
     # dailyClan()
     # openGame()
     # dailyHeart()
-    # getMission()
-    # getGift()
-    # dailyJJC()
-    # dailyPJJC()
-    enterGame()
-    # dailyEgg()
+    dailyMissionTest()
