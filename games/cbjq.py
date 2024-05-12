@@ -253,7 +253,6 @@ def dailyWarOrder():
 
 
 def dailyAll():
-    openGame()
     getFriend()
     dailyFree()
     dailyCharacterPre()

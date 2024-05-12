@@ -32,5 +32,6 @@ if __name__ == "__main__":
             cbjq.dailyAll()
         elif "打开游戏".__eq__(choice):
             cbjq.openGame()
+            cbjq.dailyAll()
         elif choice == "关闭":
             break

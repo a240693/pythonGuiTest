@@ -313,6 +313,8 @@ def pvpAuto(time=0):
         "pvp入口3",
         "pvp入口4",
         "pvp入口5",
+        "pvp入口6",
+        "proud规则",
         "按错取消",
         "重试",
         "结算OK",
@@ -405,7 +407,8 @@ def autoGet7hour():
 
 
 # 2023年1月21日18:06:52 获取10次/点一次跳过最大
-def get10timesPve():
+# 2024年5月13日 加个次数，默认点一次。
+def get10timesPve(times = 1):
     photoMap = air.Photo()
     photoMaps = [
         "结算OK",
@@ -414,6 +417,7 @@ def get10timesPve():
         # "活动特别",
         "活动",
         "菜单",
+        "百层是",
     ]
     moveMaps = [
         (670, 430),  # 0 跳过页面点“是”
@@ -424,7 +428,7 @@ def get10timesPve():
         name = photoMap.name
 
         if "跳过十次".__eq__(name):
-            touch(pos)
+            touch(pos,times)
             temp = changeXY(moveMaps[0])
             touch(temp)
             continue
@@ -539,7 +543,7 @@ def getBonus():
             continue
 
         if  "跳过卷开始".__eq__(name):
-            get10timesPve()
+            get10timesPve(5)
             backMain()
             break
 
