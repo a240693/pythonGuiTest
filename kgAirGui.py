@@ -16,7 +16,6 @@ choices = ("请选择脚本：",
 def main():
     return gui.choicebox("脚本选择", "←_→", choices=choices)
 
-
 def test(name):
     gui.msgbox(name)
 

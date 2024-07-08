@@ -10,6 +10,7 @@ choices = ("请选择脚本：",
            "自动升级",
            "自动每日",
            "自动-1",
+           "自动-1省略",
            "====================",
            "关闭")
 
@@ -45,5 +46,7 @@ if __name__ == "__main__":
             blue.dailyAll()
         elif "自动-1".__eq__(choice):
             blue.autoSkipBattle()
+        elif "自动-1省略".__eq__(choice):
+            blue.autoSkipBattleSimple(0.1)
         elif choice == "关闭":
             break

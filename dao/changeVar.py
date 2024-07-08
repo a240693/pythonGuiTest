@@ -9,6 +9,7 @@ bluePath = 'F:\\pyTest\\blue\\'
 trainPath = 'F:\\pyTest\\honkaiTrain\\'
 speedCarPath = 'F:\\pyTest\\speedCar\\'
 pcrAirPath = 'F:\\pyTest\\pcrAir\\'
+MingChaoPath = 'F:\\pyTest\\MingChao\\'
 
 cbjqPath = 'F:\\pyTest\\cbjq\\'
 

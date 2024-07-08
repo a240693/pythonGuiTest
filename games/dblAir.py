@@ -314,7 +314,8 @@ def pvpAuto(time=0):
         "pvp入口4",
         "pvp入口5",
         "pvp入口6",
-        "proud规则",
+        "标准规则",
+        # "proud规则",
         "按错取消",
         "重试",
         "结算OK",
@@ -764,6 +765,22 @@ def autoStartEasy(times = 0):
         touch(pos)
         sleep(0.3)
 
+# 简单自动转蛋
+# 2023年7月11日22:42:10
+def autoEgg():
+    photoMap = air.Photo()
+    photoMaps = [
+        "连续转蛋",
+
+    ]
+    i = 0;
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        touch(pos)
+
 
 if __name__ == "__main__":
     # startRush()
@@ -777,5 +794,5 @@ if __name__ == "__main__":
     # backMain()
     # getMarch()
     # autoBuyEvent()
-    autoStartEasy()
+    autoEgg()
 

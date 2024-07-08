@@ -371,7 +371,7 @@ def autoSkipBattle():
 
 
 # 专门做给悬赏的自动点击，不包含向左。
-def autoSkipBattleSimple():
+def autoSkipBattleSimple(times = 1):
     count = 0
     photoMap = air.Photo()
     photoMaps = [
@@ -389,12 +389,12 @@ def autoSkipBattleSimple():
     ]
     tempMap = photoMaps
     while 1:
-        photoMap.loopSearch(tempMap)
+        photoMap.loopSearch(tempMap,times)
         pos = photoMap.pos
         name = photoMap.name
 
         if "开始扫荡".__eq__(name):
-            touch(moveMaps[0], times=2)
+            touch(moveMaps[0],2)
             sleep(1)
             touch(pos)
             continue

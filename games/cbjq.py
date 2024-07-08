@@ -58,6 +58,7 @@ def getFriend():
         "尘白一键收赠",
         "尘白好友",
         "赠送感知",
+        "完成标识1",
     ]
     while 1:
         photoMap.loopSearch(photoMaps)
@@ -137,7 +138,6 @@ def dailyCharacterPre():
         dailyCharacter(i)
 
 
-
 # 日常碎片 2024年4月19日22:41:00
 def dailyCharacter(character):
     photoMap = multiphotos.Photo()
@@ -147,7 +147,7 @@ def dailyCharacter(character):
         "尘白个人故事",
         "尘白战斗",
     ]
-    photoMaps.insert(0,character)
+    photoMaps.insert(0, character)
     while 1:
         photoMap.loopSearch(photoMaps)
         x = photoMap.x
@@ -190,11 +190,12 @@ def autoBattle():
             break
 
         if "尘白完成" in name:
-            dao.moveTo(x,y)
+            dao.moveTo(x, y)
             backToMain()
             break
 
         dao.moveTo(x, y)
+
 
 # 自动获取任务 2024年4月19日23:17:37
 def dailyMission():
@@ -213,7 +214,7 @@ def dailyMission():
         name = photoMap.name
 
         if "获得道具" in name:
-            dao.moveTo(x,y)
+            dao.moveTo(x, y)
             backToMain()
             break
 
@@ -231,6 +232,7 @@ def dailyWarOrder():
         "获得道具",
         "尘白战令一键领取",
         "尘白每日任务",
+        "尘白每日任务1",
         "尘白战令",
         "尘白战令已领取",
     ]
@@ -241,7 +243,7 @@ def dailyWarOrder():
         name = photoMap.name
 
         if "获得道具" in name:
-            dao.moveTo(x,y)
+            dao.moveTo(x, y)
             backToMain()
             break
 
@@ -252,16 +254,77 @@ def dailyWarOrder():
         dao.moveTo(x, y)
 
 
+# 自动购买 2024年4月19日23:17:37
+def dailyShop():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "购买页标识",
+        "尘白商店",
+        "蓝色塑料",
+        "光纤轴突",
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+
+        if "获得道具" in name:
+            dao.moveTo(x, y)
+            backToMain()
+            break
+
+        if ("购买页标识" in name):
+            dailyShopNext()
+            break
+
+        dao.moveTo(x, y)
+
+
+def dailyShopNext():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "已选择最大数量",
+        "购买最大",
+    ]
+    photoMapsNext = [
+        "购买",
+        "获得道具",
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+
+        if "获得道具" in name:
+            dao.moveTo(x, y)
+            backToMain()
+            break
+
+        if "已选择最大数量" in name:
+            photoMaps = photoMapsNext
+            continue
+
+        dao.moveTo(x, y)
+
+
 def dailyAll():
     getFriend()
     dailyFree()
     dailyCharacterPre()
     dailyMission()
     dailyWarOrder()
+    dailyShop()
+
 
 if __name__ == '__main__':
     # openGame()
     # getFriend()
     # dailyFree()
     # autoBattle()
-    dailyWarOrder()
+    # getFriend()
+    # dailyFree()
+    # dailyCharacterPre()
+    # dailyMission()
+    dailyShop()
