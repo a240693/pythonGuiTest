@@ -451,10 +451,13 @@ def day2buy(choice):
     ]
     photoMap = air.Photo()
     moveMaps = [
-        (-422, 111), # 点中间的房子
-        # (-834, 237), # 主页面 → 探险初始页
-        (71,475),  # 主页面 → 探险初始页
-        (-718, -341), # 探险初始页 → 进化石
+        (-422, 111), # 0点中间的房子
+
+        # (-834, 237), # 1主页面 → 探险初始页
+        (71,475),  # 1主页面 → 探险初始页
+
+        # (-718, -341), # 2探险初始页 → 进化石
+        (56,140), # 2探险初始页 → 进化石
     ]
     choiceMaps = [
         (780,120) , # 进化石一
@@ -472,7 +475,9 @@ def day2buy(choice):
             continue
 
         if "初始页" in name:
-            touchFix(pos,moveMaps[2])
+            # 我以前特么是猪头还是怎么的，怎么会想到这种算偏移的法子。。？是因为之前用的不是air么。
+            # touchFix(pos,moveMaps[2])
+            touch(moveMaps[2])
             continue
 
         if "已领取" in name:
@@ -510,19 +515,20 @@ def day2buy(choice):
 # 日常商城购买
 def dailyBuy():
     photoMaps = [
+        "金币购买",
         "坎公图标",
         "坎公PVP确认",
         "金币卖完",
-        "金币购买",
         "金币",
         "问号标识二",
         "坎公主页面",
     ]
     photoMaps2 = [
+        "坎公PVP确认",
         "装备",
         "锤子卖完",
         "锤子1000",
-        "坎公PVP确认",
+        # "坎公PVP确认",
         "强化锤",
     ]
     photoMap = air.Photo()
@@ -747,4 +753,7 @@ if __name__ == "__main__":
     # backToStart()
     # getEquipItem()
     # getEquipTool()
-    levelStone()
+    # levelStone()
+    # levelStone()
+    backToMain()
+    pvpAuto()

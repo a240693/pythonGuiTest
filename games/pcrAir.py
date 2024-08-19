@@ -252,6 +252,7 @@ def enterGame():
         "pcr对话框二",
         "钻石",
         "特别庆典扭蛋",
+        "特别扭蛋",
         "举办中",
     ]
     moveMaps = [
@@ -565,7 +566,7 @@ def dailyJJC():
     photoMap = air.Photo()
     photoMaps = [
         "JJC已收取",
-        "竞技场入口",
+        # "竞技场入口",
         "白色确认",
         "JJC收取",
         "取消",
@@ -605,7 +606,7 @@ def dailyPJJC():
     photoMap = air.Photo()
     photoMaps = [
         "JJC已收取",
-        "竞技场入口",
+        # "竞技场入口",
         "白色确认",
         "JJC收取",
         "取消",

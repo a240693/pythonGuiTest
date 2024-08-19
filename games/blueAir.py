@@ -754,6 +754,20 @@ def eventChoco():
 
         touch(pos)
 
+# 活动掷骰子。
+def eventRun():
+    photoMap = air.Photo()
+    photoMaps = [
+        "获得奖励",
+        "掷骰子",
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        touch(pos)
+
 
 if __name__ == "__main__":
     # autoText()
@@ -763,7 +777,12 @@ if __name__ == "__main__":
     # autoAddLv()
     # dailyMail()
     # dailyMisson()
-    for i in range(0,3):
-        dailyWeapon(choice=i,stageChoice=0)
+    # for i in range(0,3):
+    #     dailyWeapon(choice=i,stageChoice=0)
     # dailyWeaponNext()
     # eventChoco()
+    # dailyReward()  # 半自动悬赏
+    # dailySpecial() # 还没做好，自动特别委托，这东西真有必要吗。
+    # dailyPVP()
+    # dailyMisson()  # 自动获取工作任务。
+    eventRun()

@@ -17,6 +17,7 @@ def openGame():
         "尘白游戏图标",
     ]
     photoMapsNext = [
+        "尘白进场模糊抽奖",
         "尘白模糊共鸣",
         "尘白取消",
         "获得道具",
@@ -59,6 +60,7 @@ def getFriend():
         "尘白好友",
         "赠送感知",
         "完成标识1",
+        "完成标识2",
     ]
     while 1:
         photoMap.loopSearch(photoMaps)
@@ -76,6 +78,7 @@ def getFriend():
 def backToMain():
     photoMap = multiphotos.Photo()
     photoMaps = [
+        "尘白对话框取消",
         "获得道具",
         "尘白进入游戏后",
         "尘白主页",
@@ -145,6 +148,7 @@ def dailyCharacter(character):
         "尘白速战",
         "尘白行为02",
         "尘白个人故事",
+        "尘白战斗2",
         "尘白战斗",
     ]
     photoMaps.insert(0, character)
@@ -205,6 +209,7 @@ def dailyMission():
         "尘白等级提升",
         "尘白一键领取",
         "尘白任务",
+        "尘白任务2",
         "日常已完成部分",
     ]
     while 1:
@@ -234,6 +239,7 @@ def dailyWarOrder():
         "尘白每日任务",
         "尘白每日任务1",
         "尘白战令",
+        "尘白战令2",
         "尘白战令已领取",
     ]
     while 1:
@@ -258,8 +264,11 @@ def dailyWarOrder():
 def dailyShop():
     photoMap = multiphotos.Photo()
     photoMaps = [
+
+
         "购买页标识",
         "尘白商店",
+        "尘白商店2",
         "蓝色塑料",
         "光纤轴突",
     ]
@@ -308,14 +317,47 @@ def dailyShopNext():
 
         dao.moveTo(x, y)
 
+def dailyEvent(eventName = "空都演绎"):
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "速战",
+        "最高难度",
+        "材料",
+        "入口",
+    ]
+
+    for i in range(photoMaps.__len__()):
+        photoMaps[i] = eventName + photoMaps[i]
+        # print(photoMaps[i])
+
+    photoMaps.append("尘白恢复感知")
+    photoMaps.append("尘白快速作战")
+
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+
+        if "尘白恢复感知" in name:
+            backToMain()
+            break
+
+        if "尘白快速作战" in name:
+            autoBattle()
+            break
+
+        dao.moveTo(x, y)
 
 def dailyAll():
+    # dailyMission()
     getFriend()
     dailyFree()
     dailyCharacterPre()
+    dailyShop()
+    dailyEvent(eventName="空都演绎")
     dailyMission()
     dailyWarOrder()
-    dailyShop()
 
 
 if __name__ == '__main__':
@@ -327,4 +369,9 @@ if __name__ == '__main__':
     # dailyFree()
     # dailyCharacterPre()
     # dailyMission()
-    dailyShop()
+    # dailyShop()
+    # dailyWarOrder()
+    # dailyEvent()
+    # autoBattle()
+    dailyMission()
+    dailyWarOrder()

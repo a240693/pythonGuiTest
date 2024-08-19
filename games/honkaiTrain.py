@@ -339,6 +339,7 @@ def autoRestart():
     photoMap = multiphotos.Photo()
     photoMaps = [
         "再来一次",
+        "开拓力补充",
     ]
 
     while 1:
@@ -346,6 +347,10 @@ def autoRestart():
         x = photoMap.x
         y = photoMap.y
         name = photoMap.name
+
+        if "开拓力补充".__eq__(name):
+            break
+
         dao.moveTo(x, y)
 
 

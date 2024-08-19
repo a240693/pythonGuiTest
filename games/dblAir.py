@@ -20,6 +20,7 @@ flag = True
 __author__ = "user"
 exitFlag = 0
 
+
 def cvInit(path=cv.DBLPath, device=cv.DBLdevice):
     cv._init()
     cv.set_value("path", path)
@@ -158,8 +159,6 @@ def autoBattle(time=0):
     exitFlag = 1
 
 
-
-
 def autoBattleNext():
     photoMap = air.Photo()
     photoMaps = [
@@ -185,9 +184,9 @@ def autoBattleNext():
         # (919,461),
     ]
     moveMaps1 = [
-        (721, 300), # 0 第四个
-        (721, 360),# 1 第四个
-        (721, 420),# 2 第四个
+        (721, 300),  # 0 第四个
+        (721, 360),  # 1 第四个
+        (721, 420),  # 2 第四个
     ]
 
     while 1:
@@ -226,6 +225,7 @@ def autoBattleNext():
 
         touch(pos)
 
+
 #    升龙监控。
 def autoBattleDragon():
     photoMap = air.Photo()
@@ -241,6 +241,7 @@ def autoBattleDragon():
             touch(pos)
             continue
         touch(pos)
+
 
 #    退出战斗。
 def autoBattleExit():
@@ -314,6 +315,7 @@ def pvpAuto(time=0):
         "pvp入口4",
         "pvp入口5",
         "pvp入口6",
+        "寻宝入口",
         "标准规则",
         # "proud规则",
         "按错取消",
@@ -349,7 +351,6 @@ def pvpAuto(time=0):
             print("第{}次战斗结束，返回大厅。".format(count))
             continue
 
-
         if "准备完成" in name:
             # for i in moveMaps:
             for i in moveMaps1:
@@ -363,11 +364,12 @@ def pvpAuto(time=0):
     backMain()
 
 
-def autoGet7hour():
+def autoGet7hour(eventName = "EX5"):
     photoMap = air.Photo()
     photoMaps = [
-        "EX6",
-        "EX5",
+        eventName,
+        # "EX6",
+        # "EX5",
         "跳过卷开始",
         "关卡标识",
         "特殊活动页",
@@ -409,7 +411,7 @@ def autoGet7hour():
 
 # 2023年1月21日18:06:52 获取10次/点一次跳过最大
 # 2024年5月13日 加个次数，默认点一次。
-def get10timesPve(times = 1):
+def get10timesPve(times=1):
     photoMap = air.Photo()
     photoMaps = [
         "结算OK",
@@ -429,7 +431,7 @@ def get10timesPve(times = 1):
         name = photoMap.name
 
         if "跳过十次".__eq__(name):
-            touch(pos,times)
+            touch(pos, times)
             temp = changeXY(moveMaps[0])
             touch(temp)
             continue
@@ -516,23 +518,25 @@ def getMarch():
 def getBonus():
     photoMap = air.Photo()
     photoMaps = [
-        "ZENKAI奖励",
-        "推荐内容",
         "红",
+        "ZENKAI奖励",
+        "奖励战斗",
+        "推荐内容",
         "跳过卷开始",
+        "推荐内容入口",
     ]
     colorMaps = [
-        "红", # 0
-        "黄", # 1
-        "蓝", # 2
-        "紫", # 3
-        "绿", # 4
+        "红",  # 0
+        "黄",  # 1
+        "蓝",  # 2
+        "紫",  # 3
+        "绿",  # 4
     ]
     moveMaps = [
-
+        (190,320), # 屏幕中央
     ]
     date = datetime.date.today().weekday() % 5
-    photoMaps.insert(2,colorMaps[date])
+    photoMaps.insert(2, colorMaps[date])
     while 1:
         photoMap.loopSearch(photoMaps)
         pos = photoMap.pos
@@ -543,12 +547,17 @@ def getBonus():
             swipe(pos, vector=(0, -20), steps=2)
             continue
 
-        if  "跳过卷开始".__eq__(name):
+        if "推荐内容".__eq__(name):
+            swipe(moveMaps[0], vector=(0, -20), steps=2)
+            continue
+
+        if "跳过卷开始".__eq__(name):
             get10timesPve(5)
             backMain()
             break
 
         touch(pos)
+
 
 # 超激斗 2023年1月31日19:04:06
 def superBattle():
@@ -593,7 +602,8 @@ def superBattle():
         touch(pos)
         sleep(0.3)
 
-#自动换队 2023年1月31日19:17:14
+
+# 自动换队 2023年1月31日19:17:14
 def changeBestTeam():
     photoMap = air.Photo()
     photoMaps = [
@@ -631,10 +641,13 @@ def changeBestTeam():
         touch(pos)
         sleep(0.3)
 
-#自动强化 2023年2月26日08:31:59
+
+# 自动强化 2023年2月26日08:31:59
 def autoZenkai():
     photoMap = air.Photo()
     photoMaps = [
+        "觉醒强化完成",
+        "百层是",
         "觉醒强化",
         "觉醒已选中",
         # "觉醒核心",
@@ -655,7 +668,7 @@ def autoZenkai():
 
     photoMapsTemp = photoMaps
     while 1:
-        photoMap.loopSearch(photoMapsTemp)
+        photoMap.loopSearch(photoMapsTemp, 0.2)
         pos = photoMap.pos
         name = photoMap.name
 
@@ -666,8 +679,13 @@ def autoZenkai():
         if "解放觉醒核心" in name:
             photoMapsTemp = photoMaps
 
+        if "觉醒强化完成" in name:
+            touch(pos)
+            time.sleep(1)
+            continue
+
         touch(pos)
-        sleep(0.3)
+
 
 # 自动购买活动物品 2023年2月26日11点38分
 def autoBuyEvent():
@@ -698,7 +716,7 @@ def autoBuyEvent():
         if "跳过十次".__eq__(name):
             count += 1
 
-        if count > 5 :
+        if count > 5:
             photoMapsTemp = photoMapsNext
 
         if "结算OK".__eq__(name):
@@ -708,6 +726,7 @@ def autoBuyEvent():
         touch(pos)
         sleep(0.3)
 
+
 def dailyAll():
     getBonus()
     autoGet7hour()
@@ -716,7 +735,8 @@ def dailyAll():
     # 暂时出问题了，不用。
     pvpAuto(1)
 
-#自动钢镚 2023年3月4日12:37:32
+
+# 自动钢镚 2023年3月4日12:37:32
 def autoCoin():
     photoMap = air.Photo()
     photoMaps = [
@@ -732,9 +752,10 @@ def autoCoin():
         touch(pos)
         sleep(0.3)
 
+
 # 简单自动重开
 # 2023年7月11日22:42:10
-def autoStartEasy(times = 0):
+def autoStartEasy(times=0):
     photoMap = air.Photo()
     photoMaps = [
         "百层是",
@@ -744,7 +765,7 @@ def autoStartEasy(times = 0):
     ]
     i = 0;
     onlyOnce = 0;
-    while i<times:
+    while i < times:
         photoMap.loopSearch(photoMaps)
         pos = photoMap.pos
         name = photoMap.name
@@ -758,12 +779,13 @@ def autoStartEasy(times = 0):
             touch(pos)
             if onlyOnce == 0:
                 i += 1;
-                onlyOnce =1;
+                onlyOnce = 1;
             continue
 
         onlyOnce = 0;
         touch(pos)
         sleep(0.3)
+
 
 # 简单自动转蛋
 # 2023年7月11日22:42:10
@@ -794,5 +816,4 @@ if __name__ == "__main__":
     # backMain()
     # getMarch()
     # autoBuyEvent()
-    autoEgg()
-
+    getBonus()
