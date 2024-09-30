@@ -9,6 +9,9 @@ choices = ("请选择脚本：",
            "坎公日常第一个",
            "坎公日常第二个",
            "坎公日常第三个",
+           "坎公日常第四个",
+           "坎公日常第五个",
+           "坎公日常第六个",
            "====================",
            "关闭")
 
@@ -36,10 +39,17 @@ if __name__ == "__main__":
         if "自动PVP".__eq__(choice):
             kgA.pvpAuto()
         elif "坎公日常第一个".__eq__(choice):
-            kgA.dailyAir(1)
+            kgA.dailyAir(0)
         elif "坎公日常第二个".__eq__(choice):
-            kgA.dailyAir(2)
+            kgA.dailyAir(1)
         elif "坎公日常第三个".__eq__(choice):
+            kgA.dailyAir(2)
+        elif "坎公日常第四个".__eq__(choice):
             kgA.dailyAir(3)
+        elif "坎公日常第五个".__eq__(choice):
+            kgA.dailyAir(4)
+        elif "坎公日常第六个".__eq__(choice):
+            kgA.dailyAir(5)
+
         elif choice == "关闭":
             break

@@ -13,12 +13,15 @@ cv.set_value("path", cv.cbjqPath)
 def openGame():
     photoMap = multiphotos.Photo()
     photoMaps = [
+        "尘白确定",
+        "获取更新",
         "尘白开始游戏",
         "尘白游戏图标",
     ]
     photoMapsNext = [
         "尘白进场模糊抽奖",
         "尘白模糊共鸣",
+        "尘白获得道具",
         "尘白取消",
         "获得道具",
         "尘白进入游戏后",
@@ -100,6 +103,7 @@ def backToMain():
 def dailyFree():
     photoMap = multiphotos.Photo()
     photoMaps = [
+        "尘白每日物资购买",
         "物资箱已购买",
         "获得道具",
         "尘白购买",
@@ -355,7 +359,7 @@ def dailyAll():
     dailyFree()
     dailyCharacterPre()
     dailyShop()
-    dailyEvent(eventName="空都演绎")
+    dailyEvent(eventName="碧水假日")
     dailyMission()
     dailyWarOrder()
 
@@ -373,5 +377,6 @@ if __name__ == '__main__':
     # dailyWarOrder()
     # dailyEvent()
     # autoBattle()
+    dailyEvent(eventName="碧水假日")
     dailyMission()
     dailyWarOrder()

@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../Umi-OCR/.idea/Umi-OCR.iml" filepath="$PROJECT_DIR$/../Umi-OCR/.idea/Umi-OCR.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../anylabeling-0.3.3/.idea/anylabeling-0.3.3.iml" filepath="$PROJECT_DIR$/../anylabeling-0.3.3/.idea/anylabeling-0.3.3.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/pythonProject.iml" filepath="$PROJECT_DIR$/.idea/pythonProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../yolo相关/ultralytics-8.1.0/.idea/ultralytics-8.1.0.iml" filepath="$PROJECT_DIR$/../../yolo相关/ultralytics-8.1.0/.idea/ultralytics-8.1.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../ultralytics-main/.idea/ultralytics-main.iml" filepath="$PROJECT_DIR$/../ultralytics-main/.idea/ultralytics-main.iml" />
     </modules>
   </component>
 </project>
