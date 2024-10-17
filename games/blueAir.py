@@ -758,6 +758,7 @@ def eventChoco():
 def eventRun():
     photoMap = air.Photo()
     photoMaps = [
+        "开始抽签",
         "获得奖励",
         "掷骰子",
     ]

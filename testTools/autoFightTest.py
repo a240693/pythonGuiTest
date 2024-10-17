@@ -28,7 +28,7 @@ def attackTest():
             pyautogui.mouseDown(button="left")
             time.sleep(0.5)
             pyautogui.mouseUp(button="left")
-        time.sleep(2)
+        time.sleep(1)
 
 
 def changeTeam():
@@ -36,14 +36,12 @@ def changeTeam():
     while 1:
         while flag:
             for i in range(1, 4):
-                pyautogui.press(str(i), presses=1, interval=1)
+                pyautogui.press(str(i), presses=3, interval=1)
                 pyautogui.press("e", presses=5, interval=0.5)
-                time.sleep(1)
                 pyautogui.press("r", presses=2, interval=1)
-                time.sleep(2)
-                pyautogui.press("q", presses=6, interval=0.2)
-                pyautogui.press("r", presses=2, interval=1)
-                time.sleep(2)
+                # pyautogui.press("q", presses=6, interval=0.2)
+                # pyautogui.press("r", presses=2, interval=1)
+                time.sleep(4)
                 if not flag:
                     break
         # dao.pressKey('r')
