@@ -758,6 +758,7 @@ def eventChoco():
 def eventRun():
     photoMap = air.Photo()
     photoMaps = [
+        "抽卡",
         "开始抽签",
         "获得奖励",
         "掷骰子",
@@ -786,4 +787,4 @@ if __name__ == "__main__":
     # dailySpecial() # 还没做好，自动特别委托，这东西真有必要吗。
     # dailyPVP()
     # dailyMisson()  # 自动获取工作任务。
-    eventRun()
+    eventChoco()

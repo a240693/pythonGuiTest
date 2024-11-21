@@ -59,6 +59,7 @@ def getFriend():
     photoMap = multiphotos.Photo()
     photoMaps = [
         "已赠送感知",
+        "已赠送感知2",
         "尘白一键收赠",
         "尘白好友",
         "赠送感知",
@@ -137,8 +138,9 @@ def dailyFree():
 # 日常碎片角色前置 2024年4月19日22:41:00
 def dailyCharacterPre():
     characterMaps = [
+        "尘白无限之视",
         "尘白琴诺",
-        "尘白芬妮",
+        # "尘白芬妮",
     ]
     # 嵌套循环，每个角色走一遍。
     for i in characterMaps:
@@ -298,6 +300,7 @@ def dailyShopNext():
     photoMap = multiphotos.Photo()
     photoMaps = [
         "已选择最大数量",
+        "已选择最大数量2",
         "购买最大",
     ]
     photoMapsNext = [
@@ -359,7 +362,7 @@ def dailyAll():
     dailyFree()
     dailyCharacterPre()
     dailyShop()
-    dailyEvent(eventName="碧水假日")
+    dailyEvent(eventName="漠北寻风")
     dailyMission()
     dailyWarOrder()
 
@@ -377,6 +380,8 @@ if __name__ == '__main__':
     # dailyWarOrder()
     # dailyEvent()
     # autoBattle()
-    dailyEvent(eventName="碧水假日")
-    dailyMission()
-    dailyWarOrder()
+    # dailyEvent(eventName="碧水假日")
+    dailyEvent("漠北寻风")
+    # dailyShop()
+    # dailyMission()
+    # dailyWarOrder()

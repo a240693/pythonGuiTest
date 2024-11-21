@@ -9,6 +9,8 @@ choices = ("请选择脚本：",
            "自动战斗",
            "自动升级",
            "自动每日",
+           "自动奖励",
+           "自动情人节活动",
            "自动-1",
            "自动-1省略",
            "====================",
@@ -48,5 +50,9 @@ if __name__ == "__main__":
             blue.autoSkipBattle()
         elif "自动-1省略".__eq__(choice):
             blue.autoSkipBattleSimple(0.1)
+        elif "自动情人节活动".__eq__(choice):
+            blue.eventChoco()
+        elif "自动抽卡".__eq__(choice):
+            blue.eventRun()
         elif choice == "关闭":
             break
