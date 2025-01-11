@@ -365,7 +365,7 @@ def pvpAuto(time=0):
     backMain()
 
 
-def autoGet7hour(eventName = "EX6"):
+def autoGet7hour(eventName = "EX5"):
     photoMap = air.Photo()
     photoMaps = [
         eventName,
@@ -794,7 +794,9 @@ def autoEgg():
     photoMap = air.Photo()
     photoMaps = [
         "连续转蛋",
-
+        "扭蛋跳过",
+        "百层是",
+        "转蛋战斗力",
     ]
     i = 0;
     while 1:
@@ -817,4 +819,4 @@ if __name__ == "__main__":
     # backMain()
     # getMarch()
     # autoBuyEvent()
-    getBonus()
+    autoEgg()

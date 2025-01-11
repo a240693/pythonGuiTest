@@ -43,7 +43,8 @@ mrfzDevice = mrfzDeviceAnotherHome
 blueDeviceHome = 'Android://127.0.0.1:5037/emulator-5562'
 blueDeviceOffice = "Android://127.0.0.1:5037/emulator-5558"
 blueAnotherHome = "Android://127.0.0.1:5037/emulator-5558"
-blueDevice = mrfzDeviceAnotherHome
+blueAnotherHome9 = "Android://127.0.0.1:5037/emulator-5554"
+blueDevice = blueAnotherHome9
 
 pcrAirDeviceAnotherHome = "Android://127.0.0.1:5037/emulator-5556"
 pcrAirDeviceHome = ''

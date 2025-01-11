@@ -17,7 +17,7 @@ tempDevice = cv.blueDevice  # 办公室
 # tempDevice = cv.kgDevice # 家
 
 cv.set_value("path", cv.bluePath)
-cv.set_value("device", tempDevice)
+cv.set_value("device", cv.blueDevice)
 
 flag = True
 
@@ -249,10 +249,15 @@ def dailyReward():
         "业务区",
         "业务区2",
     ]
+    # photoMapOne = [
+    #     "高架公路",
+    #     "沙漠铁路",
+    #     "讲堂",
+    # ]
     photoMapOne = [
-        "高架公路",
-        "沙漠铁路",
-        "讲堂",
+        "高架公路2",
+        "沙漠铁路2",
+        "讲堂2",
     ]
     moveMaps = [
         (845, 480),  # 0 最后一个。
@@ -341,7 +346,7 @@ def autoSkipBattle():
         "次数不足",
         "扫荡确认",
         "剧情确认",
-        "开始扫荡",
+        "开始快速战斗",
     ]
     moveMaps = [
         (779, 225),  # 0 扫荡加号
@@ -353,7 +358,7 @@ def autoSkipBattle():
         pos = photoMap.pos
         name = photoMap.name
 
-        if "开始扫荡".__eq__(name):
+        if "开始快速战斗".__eq__(name):
             touch(moveMaps[0], times=4)
             sleep(1)
             touch(pos)
@@ -376,11 +381,13 @@ def autoSkipBattleSimple(times = 1):
     photoMap = air.Photo()
     photoMaps = [
         "入场券不足",
+        "入场券不足2",
         "购买AP",
         "次数不足",
         "扫荡确认",
         "剧情确认",
         "开始扫荡",
+        "开始快速战斗",
         "高架公路",
     ]
     moveMaps = [
@@ -399,10 +406,16 @@ def autoSkipBattleSimple(times = 1):
             touch(pos)
             continue
 
+        if "开始快速战斗".__eq__(name):
+            touch(moveMaps[0],2)
+            sleep(1)
+            touch(pos)
+            continue
+
         if "高架公路".__eq__(name):
             break
 
-        if "入场券不足".__eq__(name):
+        if "入场券不足" in name:
             # backToMain()
             break
 
@@ -410,15 +423,15 @@ def autoSkipBattleSimple(times = 1):
 
 
 def dailyAll():
-    autoClan()  # 自动进公会
+    # autoClan()  # 自动进公会
     dailyMail()
-    for i in range(0,3):
-        dailyWeapon(choice=i,stageChoice=0)
+    # for i in range(0,3): 0
+    #     dailyWeapon(choice=i,stageChoice=0) 0
     daily90()
     dailyCoffee()  # 自动咖啡厅
     # dailyDate() # 自动日程
-    dailyDateNew() # 自动日程，新
-    dailyReward()  # 半自动悬赏
+    dailyDateNew() # 自动日程
+    # dailyReward()  # 半自动悬赏 0
     # dailySpecial() # 还没做好，自动特别委托，这东西真有必要吗。
     dailyPVP()
     dailyMisson()  # 自动获取工作任务。
@@ -577,6 +590,7 @@ def dailyDateNewNext():
     photoMaps = [
         "日程奖励",
         "等级提升",
+        "获得奖励2",
         "开始日程",
         "日程耗尽",
         "正在参加的成员",
@@ -667,6 +681,7 @@ def dailyWeapon(choice=0,stageChoice=0):
     photoMaps = [
         "关卡列表",
         "选择学院",
+        "选择学院2",
         "学院交流会",
         "业务区",
         "业务区2",
@@ -681,7 +696,7 @@ def dailyWeapon(choice=0,stageChoice=0):
         pos = photoMap.pos
         name = photoMap.name
 
-        if "选择学院".__eq__(name):
+        if "选择学院" in name:
             touch(moveMaps[choice])
             continue
 
@@ -758,6 +773,7 @@ def eventChoco():
 def eventRun():
     photoMap = air.Photo()
     photoMaps = [
+        "继续抽取",
         "抽卡",
         "开始抽签",
         "获得奖励",
@@ -787,4 +803,8 @@ if __name__ == "__main__":
     # dailySpecial() # 还没做好，自动特别委托，这东西真有必要吗。
     # dailyPVP()
     # dailyMisson()  # 自动获取工作任务。
-    eventChoco()
+    # eventChoco()
+    # dailyPVP()
+    # dailyMisson()  # 自动获取工作任务。
+    # dailyDateNew()
+    eventRun()

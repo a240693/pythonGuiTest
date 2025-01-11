@@ -139,7 +139,8 @@ def dailyFree():
 def dailyCharacterPre():
     characterMaps = [
         "尘白无限之视",
-        "尘白琴诺",
+        "尘白婚妮",
+        # "尘白琴诺",
         # "尘白芬妮",
     ]
     # 嵌套循环，每个角色走一遍。
@@ -154,6 +155,8 @@ def dailyCharacter(character):
         "尘白速战",
         "尘白行为02",
         "尘白个人故事",
+        "尘白个人故事2",
+        "尘白战斗3",
         "尘白战斗2",
         "尘白战斗",
     ]
@@ -176,6 +179,7 @@ def autoBattle():
     photoMap = multiphotos.Photo()
     photoMaps = [
         "尘白关卡次数限制",
+        "尘白最大2",
         "尘白最大",
         "尘白速战",
     ]
@@ -211,6 +215,7 @@ def autoBattle():
 def dailyMission():
     photoMap = multiphotos.Photo()
     photoMaps = [
+        "获得道具2",
         "获得道具",
         "尘白等级提升",
         "尘白一键领取",
@@ -244,8 +249,10 @@ def dailyWarOrder():
         "尘白战令一键领取",
         "尘白每日任务",
         "尘白每日任务1",
+        "尘白每日任务2",
         "尘白战令",
         "尘白战令2",
+        "尘白战令3",
         "尘白战令已领取",
     ]
     while 1:
@@ -362,7 +369,7 @@ def dailyAll():
     dailyFree()
     dailyCharacterPre()
     dailyShop()
-    dailyEvent(eventName="漠北寻风")
+    dailyEvent(eventName="洄纠暗流2")
     dailyMission()
     dailyWarOrder()
 
@@ -381,7 +388,12 @@ if __name__ == '__main__':
     # dailyEvent()
     # autoBattle()
     # dailyEvent(eventName="碧水假日")
-    dailyEvent("漠北寻风")
     # dailyShop()
     # dailyMission()
+    # dailyWarOrder()
+    # dailyEvent(eventName="洄纠暗流2")
+    # dailyMission()
+
+    dailyCharacterPre()
+    # dailyShop()
     # dailyWarOrder()

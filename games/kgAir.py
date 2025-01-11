@@ -412,9 +412,9 @@ def backToMain():
     photoMap = air.Photo()
     photoMaps = [
         "界面提示",
-        # "界面提示2",
-        # "界面提示3",
-        # "界面提示4",
+        "界面提示2",
+        "界面提示3",
+        "界面提示4",
         '坎公初始选人页黄',
         '坎公初始选人页重试',
         '坎公卡马逊确认',
@@ -893,4 +893,6 @@ if __name__ == "__main__":
     # backToMain()
     # pvpAutoPre()
     # pvpAuto()
-    dailyBuy()
+    backToMain()
+    pvpAutoPre()
+    pvpAuto()
