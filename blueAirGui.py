@@ -52,7 +52,7 @@ if __name__ == "__main__":
             blue.autoSkipBattleSimple(0.1)
         elif "自动情人节活动".__eq__(choice):
             blue.eventChoco()
-        elif "自动抽卡".__eq__(choice):
+        elif "自动奖励".__eq__(choice):
             blue.eventRun()
         elif choice == "关闭":
             break

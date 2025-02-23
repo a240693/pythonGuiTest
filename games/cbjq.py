@@ -19,6 +19,7 @@ def openGame():
         "尘白游戏图标",
     ]
     photoMapsNext = [
+        "启程集结2k",
         "尘白进场模糊抽奖",
         "尘白模糊共鸣",
         "尘白获得道具",
@@ -46,6 +47,10 @@ def openGame():
         if "进入游戏后" in name:
             break
 
+        if "启程集结2k" in name:
+            backToMain()
+            break
+
         if "16提示" in name:
             dao.moveTo(x + 100, y)
             continue
@@ -58,19 +63,24 @@ def openGame():
 def getFriend():
     photoMap = multiphotos.Photo()
     photoMaps = [
+        "一键收赠2K",
+        "尘白一键收赠",
         "已赠送感知",
         "已赠送感知2",
-        "尘白一键收赠",
-        "尘白好友",
         "赠送感知",
         "完成标识1",
         "完成标识2",
+        "尘白好友",
     ]
     while 1:
         photoMap.loopSearch(photoMaps)
         x = photoMap.x
         y = photoMap.y
         name = photoMap.name
+
+        if "一键收赠" in name:
+            if "尘白好友" in photoMaps:
+                photoMaps.remove("尘白好友")
 
         if "已赠送感知" in name:
             backToMain()
@@ -277,11 +287,11 @@ def dailyWarOrder():
 def dailyShop():
     photoMap = multiphotos.Photo()
     photoMaps = [
-
-
         "购买页标识",
         "尘白商店",
         "尘白商店2",
+        "蓝色塑料2k",
+        "光纤轴突2k",
         "蓝色塑料",
         "光纤轴突",
     ]
@@ -296,7 +306,7 @@ def dailyShop():
             backToMain()
             break
 
-        if ("购买页标识" in name):
+        if  "购买页标识" in name:
             dailyShopNext()
             break
 
@@ -369,31 +379,15 @@ def dailyAll():
     dailyFree()
     dailyCharacterPre()
     dailyShop()
-    dailyEvent(eventName="洄纠暗流2")
+    dailyEvent(eventName="夙圆心行")
     dailyMission()
     dailyWarOrder()
 
 
 if __name__ == '__main__':
-    # openGame()
-    # getFriend()
-    # dailyFree()
-    # autoBattle()
-    # getFriend()
-    # dailyFree()
-    # dailyCharacterPre()
-    # dailyMission()
-    # dailyShop()
-    # dailyWarOrder()
-    # dailyEvent()
-    # autoBattle()
-    # dailyEvent(eventName="碧水假日")
-    # dailyShop()
-    # dailyMission()
-    # dailyWarOrder()
-    # dailyEvent(eventName="洄纠暗流2")
-    # dailyMission()
-
+    dailyFree()
     dailyCharacterPre()
-    # dailyShop()
-    # dailyWarOrder()
+    dailyShop()
+    dailyEvent(eventName="夙圆心行")
+    dailyMission()
+    dailyWarOrder()

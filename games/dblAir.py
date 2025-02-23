@@ -336,9 +336,9 @@ def pvpAuto(time=0):
         (721, 126),
         (721, 175),
         (721, 240),
-        (721, 300),
-        (721, 360),
-        (721, 420),
+        # (721, 300),
+        # (721, 360),
+        # (721, 420),
     ]
     count = 0
     while (count < time) | (time == 0):
@@ -354,9 +354,11 @@ def pvpAuto(time=0):
 
         if "准备完成" in name:
             # for i in moveMaps:
+            sleep(3)
             for i in moveMaps1:
                 temp = changeXY(i)
                 touch(temp)
+                sleep(0.3)
             touch(pos)
             continue
 

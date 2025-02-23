@@ -451,6 +451,7 @@ def dailyAir(choice=1):
     backToMain()
     pvpAutoPre()
     pvpAuto()
+    backToMain()
 
 
 def cvInit(path=cv.kgAirPath, device=tempDevice):
@@ -628,10 +629,10 @@ def openGame():
 def getEmail():
     photoMap = air.Photo()
     photoMaps = [
+        '坎公卡马逊确认',
         "领取奖励",
         "全部接收并删除",
         "界面提示",
-        "坎公PVP确认",
         "已全部接收",
         "界面提示1",
         "界面提示2",

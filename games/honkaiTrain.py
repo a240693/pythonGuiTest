@@ -340,6 +340,8 @@ def autoRestart():
     photoMaps = [
         "再来一次",
         "开拓力补充",
+        "开拓力补充2",
+        "再来一次2",
     ]
 
     while 1:
@@ -348,7 +350,7 @@ def autoRestart():
         y = photoMap.y
         name = photoMap.name
 
-        if "开拓力补充".__eq__(name):
+        if "开拓力补充" in name:
             break
 
         dao.moveTo(x, y)

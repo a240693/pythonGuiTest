@@ -34,6 +34,7 @@ def autoStart():
     count = 0
     photoMap = air.Photo()
     photoMaps = [
+        "任务入场",
         "跳过",
         "自动",
         "确认二",
@@ -106,6 +107,7 @@ def autoClan():
         "设置助力者",
         "小组大厅",
         "小组",
+        "社交",
     ]
     while 1:
         photoMap.loopSearch(photoMaps)
@@ -423,7 +425,7 @@ def autoSkipBattleSimple(times = 1):
 
 
 def dailyAll():
-    # autoClan()  # 自动进公会
+    autoClan()  # 自动进公会
     dailyMail()
     # for i in range(0,3): 0
     #     dailyWeapon(choice=i,stageChoice=0) 0
@@ -807,4 +809,5 @@ if __name__ == "__main__":
     # dailyPVP()
     # dailyMisson()  # 自动获取工作任务。
     # dailyDateNew()
-    eventRun()
+    # eventRun()
+    autoClan()

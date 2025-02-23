@@ -43,6 +43,8 @@ def changeTeam():
     while 1:
         while flag:
             for i in range(1, 4):
+                if 2 == i:
+                    pyautogui.press("q", presses=2, interval=0.1)
                 pyautogui.press(str(i), presses=3, interval=1)
                 pyautogui.press("e", presses=5, interval=0.5)
                 pyautogui.press("r", presses=2, interval=1)
@@ -212,6 +214,8 @@ def autoFightEnd():
     photoMaps = [
         "挑战成功",
         "挑战成功2",
+        "挑战成功3-2k",
+        "挑战成功4-2k",
         "深渊挑战成功",
     ]
     print("开始检测是否打完。".format())
