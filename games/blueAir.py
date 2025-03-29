@@ -245,8 +245,8 @@ def dailyReward():
     count = 0
     photoMap = air.Photo()
     photoMaps = [
-        "入场券不足",
-        "08",
+        "入场券不足2",
+        "09",
         "悬赏通缉",
         "业务区",
         "业务区2",
@@ -271,20 +271,22 @@ def dailyReward():
         pos = photoMap.pos
         name = photoMap.name
 
-        if "入场券不足".__eq__(name):
+        if "入场券不足2" in name:
             backToMain()
             if count == 2:
                 break
-            else:
-                count += 1
-                photoMaps.pop(0)
-                photoMaps.insert(0, photoMapOne[count])
-                continue
+            # 不在这里做迭代动作了，之后按日期做。
+            # 2025年3月2日
+            # else:
+            #     count += 1
+            #     photoMaps.pop(0)
+            #     photoMaps.insert(0, photoMapOne[count])
+            #     continue
 
-        if "08".__eq__(name):
+        if "09".__eq__(name):
             touch(moveMaps[0])
             autoSkipBattleSimple()
-            continue
+            break
 
         touch(pos)
 
@@ -409,7 +411,7 @@ def autoSkipBattleSimple(times = 1):
             continue
 
         if "开始快速战斗".__eq__(name):
-            touch(moveMaps[0],2)
+            touch(moveMaps[0],8)
             sleep(1)
             touch(pos)
             continue
@@ -418,7 +420,7 @@ def autoSkipBattleSimple(times = 1):
             break
 
         if "入场券不足" in name:
-            # backToMain()
+            backToMain()
             break
 
         touch(pos)
@@ -426,14 +428,16 @@ def autoSkipBattleSimple(times = 1):
 
 def dailyAll():
     autoClan()  # 自动进公会
-    dailyMail()
     # for i in range(0,3): 0
-    #     dailyWeapon(choice=i,stageChoice=0) 0
+    # 暂时还没恢复自动选择，下次吧。
+    dailyWeapon(choice=0,stageChoice=2)
+    dailyReward()  # 半自动悬赏 0
+    # 以上两个都要做日期筛选入口，可以从龙珠拿。
+    dailyMail()
     daily90()
     dailyCoffee()  # 自动咖啡厅
-    # dailyDate() # 自动日程
     dailyDateNew() # 自动日程
-    # dailyReward()  # 半自动悬赏 0
+
     # dailySpecial() # 还没做好，自动特别委托，这东西真有必要吗。
     dailyPVP()
     dailyMisson()  # 自动获取工作任务。
@@ -677,7 +681,7 @@ def dailyDateNewNextPage():
 
 
 # 专门做专武材料。 2024年2月17日
-def dailyWeapon(choice=0,stageChoice=0):
+def dailyWeapon(choice=0,stageChoice=2):
     count = 0
     photoMap = air.Photo()
     photoMaps = [
@@ -710,26 +714,27 @@ def dailyWeapon(choice=0,stageChoice=0):
 
 
 # 专门做专武材料。 2024年2月17日
-def dailyWeaponNext(stageChoice=0):
+def dailyWeaponNext(stageChoice=2):
     photoMap = air.Photo()
     photoMaps = [
-        "扫荡完成",
+        "快速战斗完成",
         "确认二",
-        "开始扫荡",
+        "开始快速战斗",
         "关卡列表",
     ]
     moveMaps = [
         (830, 216),  # 0，第二个。
         (830, 283),  # 1，第三个。
-        (779, 225),  # 2 扫荡加号
+        (830, 364),  # 2，第四个。
+        (779, 225),  # 3 扫荡加号
     ]
     while 1:
         photoMap.loopSearch(photoMaps)
         pos = photoMap.pos
         name = photoMap.name
 
-        if "开始扫荡".__eq__(name):
-            touch(moveMaps[2], times=4)
+        if "开始快速战斗".__eq__(name):
+            touch(moveMaps[3], times=9)
             time.sleep(1)
             touch(pos)
             continue
@@ -738,7 +743,7 @@ def dailyWeaponNext(stageChoice=0):
             touch(moveMaps[stageChoice])
             continue
 
-        if "扫荡完成".__eq__(name):
+        if "快速战斗完成".__eq__(name):
             backToMain()
             break
 
@@ -788,26 +793,27 @@ def eventRun():
 
         touch(pos)
 
+# 活动抽卡。
+def eventCard():
+    photoMap = air.Photo()
+    photoMaps = [
+        "翻开一张",
+        "获得奖励",
+
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        touch(pos)
+
 
 if __name__ == "__main__":
-    # autoText()
-    # autoStart()
-    # dailyDate()
-    # dailyMisson()
-    # autoAddLv()
-    # dailyMail()
-    # dailyMisson()
-    # for i in range(0,3):
-    #     dailyWeapon(choice=i,stageChoice=0)
-    # dailyWeaponNext()
-    # eventChoco()
-    # dailyReward()  # 半自动悬赏
+    # daily90()
+    dailyCoffee()  # 自动咖啡厅
+    dailyDateNew()  # 自动日程
+
     # dailySpecial() # 还没做好，自动特别委托，这东西真有必要吗。
-    # dailyPVP()
-    # dailyMisson()  # 自动获取工作任务。
-    # eventChoco()
-    # dailyPVP()
-    # dailyMisson()  # 自动获取工作任务。
-    # dailyDateNew()
-    # eventRun()
-    autoClan()
+    dailyPVP()
+    dailyMisson()  # 自动获取工作任务。

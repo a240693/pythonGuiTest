@@ -338,6 +338,7 @@ def dailyEgg():
     photoMap = air.Photo()
     photoMaps = [
         "附奖",
+        "附奖2",
         "转蛋点击",
         "关闭",
         "扭蛋选择",

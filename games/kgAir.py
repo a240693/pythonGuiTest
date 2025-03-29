@@ -411,6 +411,9 @@ def levelStone():
 def backToMain():
     photoMap = air.Photo()
     photoMaps = [
+        '坎公卡马逊确认',
+        "圆形角斗场",
+        "游玩指南",
         "界面提示",
         "界面提示2",
         "界面提示3",
@@ -449,6 +452,8 @@ def dailyAir(choice=1):
     day2buyNew(choice)
     levelStone()
     backToMain()
+    day2buyNewUp()
+    levelUpStone()
     pvpAutoPre()
     pvpAuto()
     backToMain()
@@ -860,6 +865,65 @@ def pvpAutoPre():
         touch(pos)
 
 
+# 2025年3月21日，到进化石那儿，给觉醒用的。
+def day2buyNewUp():
+    photoMaps = [
+        "觉醒扫荡",
+        "资源觉醒",
+        "自动战斗设置",
+        "进化石副本",
+        "裂痕",
+        "游玩标识",
+        "坎公图标",
+    ]
+    photoMap = air.Photo()
+    while 1:
+        photoMap.loopSearch(photoMaps)
+
+        name = photoMap.name
+        pos = photoMap.pos
+
+        if "觉醒扫荡" in name:
+            levelUpStone()
+            break
+
+        if "坎公图标" in name:
+            openGame()
+            continue
+
+        touch(pos)
+
+def levelUpStone():
+    photoMap = air.Photo()
+    photoMaps = [
+        '进化石扫荡',
+        "觉醒扫荡",
+        "进化石副本",
+        "获得活动积分",
+        '坎公PVP确认',
+        '坎公卡马逊确认',
+        '自动战斗完毕',
+    ]
+    while True:
+        photoMap.name = "默认"
+        photoMap.loopSearch(photoMaps)
+        name = photoMap.name
+        pos = photoMap.pos
+
+        # if "扫荡" in name:
+        #     for i in moveMaps:
+        #         touch(i)
+        #     time.sleep(1)
+
+        if "获得活动积分" in name:
+            touchFix(pos, (0, -100))
+            continue
+
+        if "进化石副本" in name:
+            break
+
+        touch(pos)
+
 if __name__ == "__main__":
     # touchFix((3,4),(5,6))
     # returnKmx()
@@ -894,6 +958,6 @@ if __name__ == "__main__":
     # backToMain()
     # pvpAutoPre()
     # pvpAuto()
+    # day2buyNewUp()
+    # levelUpStone()
     backToMain()
-    pvpAutoPre()
-    pvpAuto()

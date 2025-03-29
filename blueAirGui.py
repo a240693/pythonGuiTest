@@ -13,6 +13,7 @@ choices = ("请选择脚本：",
            "自动情人节活动",
            "自动-1",
            "自动-1省略",
+           "活动抽卡",
            "====================",
            "关闭")
 
@@ -54,5 +55,8 @@ if __name__ == "__main__":
             blue.eventChoco()
         elif "自动奖励".__eq__(choice):
             blue.eventRun()
+        elif "活动抽卡".__eq__(choice):
+            blue.eventCard()
+
         elif choice == "关闭":
             break

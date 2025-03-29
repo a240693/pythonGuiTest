@@ -31,7 +31,8 @@ device = "Android://127.0.0.1:5037/emulator-5554"
 DBLdeviceOffice = "Android://127.0.0.1:5037/emulator-5560"
 DBLdeviceHome = "Android://127.0.0.1:5037/emulator-5564"
 DBLdeviceAnotherHome = "Android://127.0.0.1:5037/emulator-5560"
-DBLdevice = DBLdeviceAnotherHome
+DBLdeviceAnotherHome9 = "Android://127.0.0.1:5037/emulator-5556"
+DBLdevice = DBLdeviceAnotherHome9
 
 DBLPath = "F:\\pyTest\\DBL\\"
 

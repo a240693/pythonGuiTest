@@ -379,15 +379,10 @@ def dailyAll():
     dailyFree()
     dailyCharacterPre()
     dailyShop()
-    dailyEvent(eventName="夙圆心行")
+    dailyEvent(eventName="荒城栖花")
     dailyMission()
     dailyWarOrder()
 
 
 if __name__ == '__main__':
-    dailyFree()
-    dailyCharacterPre()
-    dailyShop()
-    dailyEvent(eventName="夙圆心行")
-    dailyMission()
-    dailyWarOrder()
+    dailyEvent(eventName="荒城栖花")

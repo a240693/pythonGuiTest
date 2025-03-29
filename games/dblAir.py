@@ -320,11 +320,14 @@ def pvpAuto(time=0):
         "标准规则",
         # "proud规则",
         "按错取消",
+        "pvp读取2",
         "重试",
         "结算OK",
+        "正在寻找对手",
         "准备完成",
         "准备完成2",
         "pvp读取",
+        "pvp读取2",
         "主界面PVP",
     ]
     moveMaps = [
@@ -346,7 +349,7 @@ def pvpAuto(time=0):
         pos = photoMap.pos
         name = photoMap.name
 
-        if "pvp读取".__eq__(name):
+        if "pvp读取" in name:
             autoBattleNext()
             count += 1
             print("第{}次战斗结束，返回大厅。".format(count))
