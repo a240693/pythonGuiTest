@@ -810,9 +810,7 @@ def eventCard():
 
 
 if __name__ == "__main__":
-    # daily90()
-    dailyCoffee()  # 自动咖啡厅
-    dailyDateNew()  # 自动日程
+    dailyDateNew() # 自动日程
 
     # dailySpecial() # 还没做好，自动特别委托，这东西真有必要吗。
     dailyPVP()

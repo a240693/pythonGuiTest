@@ -10,8 +10,10 @@ trainPath = 'F:\\pyTest\\honkaiTrain\\'
 speedCarPath = 'F:\\pyTest\\speedCar\\'
 pcrAirPath = 'F:\\pyTest\\pcrAir\\'
 MingChaoPath = 'F:\\pyTest\\MingChao\\'
-
+SDPath = "F:\\pyTest\\SD\\"
 cbjqPath = 'F:\\pyTest\\cbjq\\'
+DBLPath = "F:\\pyTest\\DBL\\"
+honkaiPath = "F:\\pyTest\\honkai\\"
 
 kgDeviceHome = "Android://127.0.0.1:5037/emulator-5566"
 kgDeviceOffice = "Android://127.0.0.1:5037/emulator-5558"
@@ -22,7 +24,7 @@ kgDevice = kgDeviceAnotherHome9
 
 deviceNo = "emulator-5560"
 honkai = "Windows:///?title_re=崩坏3"
-honkaiPath = "F:\\pyTest\\honkai\\"
+
 deviceAk = "Android://127.0.0.1:5037/emulator-5554"
 # device = "Android://127.0.0.1:5037/emulator-5554"
 # device = "Android://127.0.0.1:5037/emulator-5560"
@@ -34,7 +36,13 @@ DBLdeviceAnotherHome = "Android://127.0.0.1:5037/emulator-5560"
 DBLdeviceAnotherHome9 = "Android://127.0.0.1:5037/emulator-5556"
 DBLdevice = DBLdeviceAnotherHome9
 
-DBLPath = "F:\\pyTest\\DBL\\"
+SDdeviceOffice = "Android://127.0.0.1:5037/emulator-5560"
+SDdeviceHome = "Android://127.0.0.1:5037/emulator-5564"
+SDdeviceAnotherHome = "Android://127.0.0.1:5037/emulator-5560"
+SDdeviceAnotherHome9 = "Android://127.0.0.1:5037/emulator-5556"
+SDdevice = SDdeviceAnotherHome9
+
+
 
 mrfzDeviceHome = 'Android://127.0.0.1:5037/emulator-5562'
 mrfzDeviceOffice = "Android://127.0.0.1:5037/emulator-5558"

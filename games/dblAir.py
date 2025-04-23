@@ -370,7 +370,7 @@ def pvpAuto(time=0):
     backMain()
 
 
-def autoGet7hour(eventName = "EX5"):
+def autoGet7hour(eventName = "EX6"):
     photoMap = air.Photo()
     photoMaps = [
         eventName,

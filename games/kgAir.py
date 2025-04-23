@@ -447,7 +447,7 @@ def dailyAir(choice=1):
     cvInit()
     openGame()
     getEmail()
-    dailyBuy()
+    # dailyBuy()
     dailyPoints()
     day2buyNew(choice)
     levelStone()
@@ -791,10 +791,10 @@ def day2buyNew(choice=0):
     ]
     photoMap = air.Photo()
     choiceMaps = [
-        (160, 300),  # 0进化石,第一排第一个
+        (250, 300),  # 0进化石,第一排第一个
         (500, 300),  # 1进化石二 第一排第二个
         (800, 300),  # 2进化石三 第一排第三个
-        (160, 480),  # 3进化石四,第二排第一个
+        (250, 480),  # 3进化石四,第二排第一个
         (500, 480),  # 4进化石五 第二排第二个
         (800, 480),  # 5进化石六 第二排第三个
     ]
@@ -865,8 +865,8 @@ def pvpAutoPre():
         touch(pos)
 
 
-# 2025年3月21日，到进化石那儿，给觉醒用的。
-def day2buyNewUp():
+# 2025年3月21日，到进化石那儿，给觉醒用的,更新了一下，给PVP用。
+def day2buyNewUp(choice = 1):
     photoMaps = [
         "觉醒扫荡",
         "资源觉醒",
@@ -884,7 +884,7 @@ def day2buyNewUp():
         pos = photoMap.pos
 
         if "觉醒扫荡" in name:
-            levelUpStone()
+            # levelUpStone()
             break
 
         if "坎公图标" in name:
@@ -903,6 +903,7 @@ def levelUpStone():
         '坎公PVP确认',
         '坎公卡马逊确认',
         '自动战斗完毕',
+        'pvp',
     ]
     while True:
         photoMap.name = "默认"
@@ -920,6 +921,9 @@ def levelUpStone():
             continue
 
         if "进化石副本" in name:
+            break
+
+        if "pvp" in name:
             break
 
         touch(pos)
