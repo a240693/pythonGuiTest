@@ -31,6 +31,7 @@ def cvInit(path=cv.SDPath, device=cv.SDdevice):
 def autoRush():
     photoMap = air.Photo()
     photoMaps = [
+        "回复AP",
         "继续",
         "再次出击",
         "Tap",
@@ -40,8 +41,12 @@ def autoRush():
         pos = photoMap.pos
         name = photoMap.name
 
+        if "回复AP".__eq__(name):
+            break
+
         touch(pos)
         sleep(0.3)
+
 
 # 半自动拉满，2025年4月23日
 def autoMaxSelect():
@@ -58,6 +63,38 @@ def autoMaxSelect():
         touch(pos)
         sleep(0.3)
 
+
+# 半自动铁球，2025年4月26日
+def autoBuyBall(times=99):
+    photoMap = air.Photo()
+    photoMaps = [
+        "铁球Tap",
+        "Tap",
+        "执行",
+        "执行开发",
+        "铁球",
+    ]
+    tempflag = 0
+    time = 0
+    while time < times:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        if "执行开发".__eq__(name):
+            tempflag = 1
+            touch(pos)
+            continue
+
+        # 高低切换才算一次，切掉冗余。
+        if ("Tap" in name) & (tempflag == 1):
+            tempflag = 0
+            time += 1
+            print("第{}台铁球，{}GP,已花{}金币。".format(time, 20 * time, 500 * time))
+
+        touch(pos)
+
+
 if __name__ == "__main__":
     # autoRush()
-    autoMaxSelect()
+    autoBuyBall(10)
