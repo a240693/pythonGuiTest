@@ -57,6 +57,5 @@ if __name__ == "__main__":
             blue.eventRun()
         elif "活动抽卡".__eq__(choice):
             blue.eventCard()
-
         elif choice == "关闭":
             break

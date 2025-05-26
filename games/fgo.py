@@ -1081,6 +1081,23 @@ def dialogue():
 
         touch(pos)
 
+# 自动技能强化
+def autoSkillUp():
+    photoMap = air.Photo()
+    photoMaps = [
+        "技能强化中",
+        "技能强化页提升",
+        "技能强化页决定",
+        "技能强化页强化",
+    ]
+    print("自动强化开始。")
+    while flag:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        touch(pos)
+
 if __name__ == "__main__":
     # enterGame()
     # mulFeatures(enterGame,spaceClick)
@@ -1106,6 +1123,7 @@ if __name__ == "__main__":
     # autoLevelUp()
     # autoAdd()
     # dailyExpNew(True, False)
-    enterStrong()
+    autoSkillUp()
+    # enterStrong()
     # waitEnterGame()
     # battleStartNew(True,select = 3)

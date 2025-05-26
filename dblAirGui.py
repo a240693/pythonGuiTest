@@ -56,6 +56,8 @@ if __name__ == "__main__":
         elif "团队战".__eq__(choice):
             index = inputBox()
             db.autoBattle(index)
+        elif "100层".__eq__(choice):
+            db.auto100()
         elif "获取每日材料".__eq__(choice):
             db.getBonus()
         elif "获取委托".__eq__(choice):

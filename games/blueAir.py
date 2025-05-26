@@ -257,15 +257,16 @@ def dailyReward():
     #     "讲堂",
     # ]
     photoMapOne = [
+        "讲堂2",
         "高架公路2",
         "沙漠铁路2",
-        "讲堂2",
     ]
     moveMaps = [
         (845, 480),  # 0 最后一个。
     ]
     count = 0
-    photoMaps.insert(0, photoMapOne[count])
+    date = datetime.date.today().weekday() % 3
+    photoMaps.insert(0, photoMapOne[date])
     while 1:
         photoMap.loopSearch(photoMaps)
         pos = photoMap.pos
@@ -693,17 +694,19 @@ def dailyWeapon(choice=0,stageChoice=2):
         "业务区2",
     ]
     moveMaps = [
-        (605, 200),  # 0，结算后往右切换 学院。
-        (605, 300),  # 1，选择日程第二个的。
-        (605, 400),  # 2，选择日程第三个的。
+        (605, 150),  # 0，结算后往右切换 学院。
+        (605, 150+90),  # 1，选择日程第二个的。
+        (605, 150+90+90),  # 2，选择日程第三个的。
     ]
+    # 加个日期自动选择。 2025年5月3日
+    date = datetime.date.today().weekday() % 3
     while 1:
         photoMap.loopSearch(photoMaps)
         pos = photoMap.pos
         name = photoMap.name
 
         if "选择学院" in name:
-            touch(moveMaps[choice])
+            touch(moveMaps[date])
             continue
 
         if "关卡列表".__eq__(name):
@@ -734,7 +737,7 @@ def dailyWeaponNext(stageChoice=2):
         name = photoMap.name
 
         if "开始快速战斗".__eq__(name):
-            touch(moveMaps[3], times=9)
+            touch(moveMaps[3], times=15)
             time.sleep(1)
             touch(pos)
             continue
@@ -797,9 +800,8 @@ def eventRun():
 def eventCard():
     photoMap = air.Photo()
     photoMaps = [
-        "翻开一张",
         "获得奖励",
-
+        "翻开一张",
     ]
     while 1:
         photoMap.loopSearch(photoMaps)

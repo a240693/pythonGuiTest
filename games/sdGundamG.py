@@ -28,7 +28,7 @@ def cvInit(path=cv.SDPath, device=cv.SDdevice):
 
 
 # RUSH入口半自动试做 2025年4月23日
-def autoRush():
+def autoRush(times = 99):
     photoMap = air.Photo()
     photoMaps = [
         "回复AP",
@@ -36,10 +36,24 @@ def autoRush():
         "再次出击",
         "Tap",
     ]
-    while 1:
+    time = 0
+    tempflag = 0
+    while (time < times) | (times == 0):
         photoMap.loopSearch(photoMaps)
         pos = photoMap.pos
         name = photoMap.name
+
+        if "继续".__eq__(name):
+            tempflag = 1
+            touch(pos)
+            continue
+
+        # 高低切换才算一次，切掉冗余。
+        if ("再次出击" in name) & (tempflag == 1):
+            tempflag = 0
+            time += 1
+            print("第{}次完成，开始重试。".format(time))
+
 
         if "回复AP".__eq__(name):
             break
@@ -76,8 +90,8 @@ def autoBuyBall(times=99):
     ]
     tempflag = 0
     time = 0
-    while time < times:
-        photoMap.loopSearch(photoMaps)
+    while (time < times) | (time == 0):
+        photoMap.loopSearch(photoMaps,time=0.2)
         pos = photoMap.pos
         name = photoMap.name
 

@@ -36,7 +36,8 @@ if __name__ == "__main__":
         choice = ''
         choice = main()
         if "半自动重开".__eq__(choice):
-            sd.autoRush()
+            index = inputBox()
+            sd.autoRush(index)
         elif "半自动拉满".__eq__(choice):
             sd.autoMaxSelect()
         elif "自动开发铁球".__eq__(choice):
