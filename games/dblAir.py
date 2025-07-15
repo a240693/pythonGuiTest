@@ -79,6 +79,7 @@ def startRush():
             continue
 
         if "战斗中".__eq__(name):
+            touch(pos)
             sleep(20)
             continue
 
@@ -110,6 +111,7 @@ def auto100():
         pos = photoMap.pos
         name = photoMap.name
         if "战斗中".__eq__(name):
+            touch(pos)
             sleep(60)
             continue
         touch(pos)
@@ -185,11 +187,12 @@ def autoBattleNext():
         # (919,461),
     ]
     moveMapsMumu =[
-        (200, 730),  # 0 第1张卡
-        (300, 730),  # 1 第2张卡
-        (400, 730),  # 2 第3张卡
-        (480, 730),  # 3 第4张卡
-        (65, 730),  # 主动
+        (504, 875),  # 0 开主动
+        (200, 730),  # 1 第1张卡
+        (300, 730),  # 2 第2张卡
+        (400, 730),  # 3 第3张卡
+        (480, 730),  # 4 第4张卡
+        (65, 730+100),  # 主动
         # (120,377), # 拉仇恨
         (32, 529),  # 点击队友
     ]
@@ -407,7 +410,8 @@ def autoGet7hour(eventName = "EX6"):
     moveMaps = [
         (300, 250),  # 0 重现原作第一个。
         (670, 430),  # 1 跳过页面点“是”
-        (331,580),  # 2 地图型关卡最后的那关。
+        # (331,580),  # 2 地图型关卡最后的那关。
+        (240, 580),  # 2 地图型关卡最后的那关。
     ]
     while 1:
         photoMap.loopSearch(photoMaps)
@@ -823,9 +827,10 @@ def autoCoin():
 def autoStartEasy(times=0):
     photoMap = air.Photo()
     photoMaps = [
+        "再次对战",
+        "结算OK",
         "百层是",
         "继续跳过",
-        "再次对战",
         "战斗中",
     ]
     i = 0;
@@ -837,6 +842,7 @@ def autoStartEasy(times=0):
 
         if "战斗中".__eq__(name):
             sleep(10)
+            touch(pos)
             onlyOnce = 0;
             continue
 
@@ -883,7 +889,7 @@ if __name__ == "__main__":
     # backMain()
     # getMarch()
     # autoBuyEvent()
-    # autoEgg()
+    autoEgg()
     # getBonus2025()
     # getMarch()
-    pvpAuto(1)
+    # pvpAuto(1)

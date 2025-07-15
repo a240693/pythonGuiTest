@@ -33,7 +33,9 @@ def autoRush(times = 99):
     photoMaps = [
         "回复AP",
         "继续",
-        "再次出击",
+        "出击",
+        "再次出击2",
+        "结算关闭",
         "Tap",
     ]
     time = 0
@@ -46,10 +48,11 @@ def autoRush(times = 99):
         if "继续".__eq__(name):
             tempflag = 1
             touch(pos)
+            sleep(1)
             continue
 
         # 高低切换才算一次，切掉冗余。
-        if ("再次出击" in name) & (tempflag == 1):
+        if ("出击" in name) & (tempflag == 1):
             tempflag = 0
             time += 1
             print("第{}次完成，开始重试。".format(time))

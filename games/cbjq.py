@@ -146,10 +146,10 @@ def dailyFree():
 
 
 # 日常碎片角色前置 2024年4月19日22:41:00
-def dailyCharacterPre():
+def dailyCharacterPre(name1="琼弦辰星", name2="尘白婚妮"):
     characterMaps = [
-        "尘白无限之视",
-        "尘白婚妮",
+        name1,
+        name2,
         # "尘白琴诺",
         # "尘白芬妮",
     ]
@@ -306,7 +306,7 @@ def dailyShop():
             backToMain()
             break
 
-        if  "购买页标识" in name:
+        if "购买页标识" in name:
             dailyShopNext()
             break
 
@@ -341,7 +341,8 @@ def dailyShopNext():
 
         dao.moveTo(x, y)
 
-def dailyEvent(eventName = "空都演绎"):
+
+def dailyEvent(eventName="空都演绎"):
     photoMap = multiphotos.Photo()
     photoMaps = [
         "速战",
@@ -371,20 +372,26 @@ def dailyEvent(eventName = "空都演绎"):
             autoBattle()
             break
 
+        if "速战" in name:
+            dao.moveTo(x, y)
+            continue
+
         dao.moveTo(x, y)
+
 
 def dailyAll():
     # dailyMission()
     getFriend()
     dailyFree()
-    dailyCharacterPre()
+    dailyCharacterPre("琼弦辰星", "狂诗凯西亚")
     dailyShop()
-    dailyEvent(eventName="渊沉曙色")
+    dailyEvent(eventName="合题诗篇")
     dailyMission()
     dailyWarOrder()
 
 
 if __name__ == '__main__':
-    dailyEvent(eventName="渊沉曙色")
-    dailyMission()
-    dailyWarOrder()
+    # dailyEvent(eventName="渊沉曙色")
+    # dailyMission()
+    # dailyWarOrder()
+    dailyEvent(eventName="合题诗篇")
