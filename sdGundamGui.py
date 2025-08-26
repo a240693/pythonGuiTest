@@ -8,6 +8,7 @@ choices = ("请选择脚本：",
            "半自动重开",
            "半自动拉满",
            "自动开发铁球",
+           "强敌爬塔专用重开",
            "====================",
            "关闭")
 
@@ -40,6 +41,9 @@ if __name__ == "__main__":
             sd.autoRush(index)
         elif "半自动拉满".__eq__(choice):
             sd.autoMaxSelect()
+        elif "强敌爬塔专用重开".__eq__(choice):
+            index = inputBox()
+            sd.auto20(index)
         elif "自动开发铁球".__eq__(choice):
             index = inputBox()
             sd.autoBuyBall(index)

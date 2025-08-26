@@ -355,8 +355,13 @@ def dailyEvent(eventName="空都演绎"):
         photoMaps[i] = eventName + photoMaps[i]
         # print(photoMaps[i])
 
-    photoMaps.append("尘白恢复感知")
-    photoMaps.append("尘白快速作战")
+    # photoMaps.append("尘白恢复感知")
+    # photoMaps.append("尘白快速作战")
+    photoMaps[0:0] = [
+        "尘白恢复感知",
+        "尘白快速作战",
+    ]
+    # print(photoMaps)
 
     while 1:
         photoMap.loopSearch(photoMaps)
@@ -385,7 +390,7 @@ def dailyAll():
     dailyFree()
     dailyCharacterPre("琼弦辰星", "狂诗凯西亚")
     dailyShop()
-    dailyEvent(eventName="合题诗篇")
+    dailyEvent(eventName="逆光怒放")
     dailyMission()
     dailyWarOrder()
 

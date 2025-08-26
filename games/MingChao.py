@@ -121,8 +121,8 @@ def pynputTest():
     h = keyboard.GlobalHotKeys({
         # 'a': pressSpace,
         # 's': pressSpace,
-        # 'd': pressSpace,
         # 'w': pressSpace,
+        # 'd': pressSpace,
         '<f9>': f9test,
         '<f10>': f10test,
     })

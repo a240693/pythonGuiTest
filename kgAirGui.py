@@ -42,6 +42,7 @@ if __name__ == "__main__":
             kgA.dailyAir(0)
         elif "坎公日常第二个".__eq__(choice):
             kgA.dailyAir(1)
+
         elif "坎公日常第三个".__eq__(choice):
             kgA.dailyAir(2)
         elif "坎公日常第四个".__eq__(choice):

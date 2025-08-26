@@ -386,9 +386,10 @@ def support():
         "攻击",
         "跳过剧情",
         "对话框",
+        "重试",
     ]
     moveMaps = [
-        (888,28), # 对话跳过
+        (888, 28),  # 对话跳过
     ]
     while 1:
         photoMap.loopSearch(photoMaps)
@@ -407,7 +408,6 @@ def support():
         if "开始" in name:
             time.sleep(10)
             continue
-
 
 
 def battleStart():
@@ -458,6 +458,7 @@ def selectSkill(skill=[10]):
         "攻击",
         "攻击",
         "战斗结果",
+        "重试",
     ]
     skillMaps = [
         # 技能图标1-9,每三个是一个人物
@@ -484,11 +485,15 @@ def selectSkill(skill=[10]):
         while 1:
             photoMap.loopSearch(photoMaps)
             name = photoMap.name
+            pos = photoMap.pos
             if "战斗结果" in name:
                 exitBattle()
                 return 0
             if "对象" in name:
                 touch(tagetMaps[0])
+            if "重试" in name:
+                touch(pos)
+                continue
             if "攻击" in name:
                 break
         print("正在释放第{}个技能。".format(index + 1))
@@ -619,10 +624,10 @@ def onlyBattle(turn=1):
 
             # 额外放技能试做。
             if ("攻击" in name) & (skillUse == 0):
-                if turn == 6 :
-                    selectSkill([5,8])
-                if turn == 7 :
-                    selectSkill([1,4,6,7,9])
+                if turn == 6:
+                    selectSkill([5, 8])
+                if turn == 7:
+                    selectSkill([1, 4, 6, 7, 9])
                 skillUse = 1
 
             # 如果读取到战斗界面就选卡，不点击直接跳过。
@@ -694,9 +699,9 @@ def exitBattle():
     moveMaps = [
         (888, 28),  # 点击跳过剧情。
     ]
-    changeFlag(switchF=False,switchCF=continueFlag,switchAp=appleFlag)
+    changeFlag(switchF=False, switchCF=continueFlag, switchAp=appleFlag)
     if continueFlag:
-        photoMaps.insert(1,"续关连续")
+        photoMaps.insert(1, "续关连续")
     else:
         photoMaps.append("续关关闭")
     while 1:
@@ -765,7 +770,7 @@ def level90plus(turn=1):
 
 
 def level90(turn=1):
-    skill1 = [1, 4, 5, 6, 7, 8, 9]
+    skill1 = [1, 2, 4, 5, 6, 7, 8, 9]
     skill2 = [10]
     skill3 = [3]
     skillMaps = []
@@ -776,8 +781,8 @@ def level90(turn=1):
     flag = True
     while flag:
         selectSkill(skillMaps[turn - 1])
-        if turn == 3:
-            masterSkill()
+        # if turn == 3:
+        #     masterSkill()
         onlyBattle(turn)
         # 第三回合判定就不在这里了，在onlyBattle里
         # 打完了返回到要选助战才会回到这儿。
@@ -785,9 +790,10 @@ def level90(turn=1):
             break
         turn += 1
 
+
 # 泳装活动90+
 def swimLevel90Plus(turn=1):
-    skill1 = [1, 4, 5, 6,  9]
+    skill1 = [1, 4, 5, 6, 9]
     skill2 = [3]
     skill3 = [7, 8]
     skillMaps = []
@@ -831,7 +837,7 @@ def battleStartNew(switchCF=True, switchAp=True, select=1):
 def custom(turn=1):
     skill1 = [10]
     skill2 = [10]
-    skill3 = [7,8,9]
+    skill3 = [7, 8, 9]
     skillMaps = []
     skillMaps.append(skill1)
     skillMaps.append(skill2)
@@ -887,6 +893,7 @@ def dailyExpNew(switchCF=True, switchAp=False):
     except Exception as e:
         return 0
 
+
 # 自动强化
 def autoLevelUp():
     photoMap = air.Photo()
@@ -900,8 +907,8 @@ def autoLevelUp():
         "强化结果",
     ]
     moveMaps = [
-        (850,500) , # 放入种火后点确定。
-        (490,30), # 没用的地方
+        (850, 500),  # 放入种火后点确定。
+        (490, 30),  # 没用的地方
     ]
     changeFlag(switchF=True)
     print("自动强化开始。")
@@ -912,12 +919,13 @@ def autoLevelUp():
         if "放入" in name:
             touch(moveMaps[0])
             continue
-        if ("转临" in name) | ("用尽" in name) :
+        if ("转临" in name) | ("用尽" in name):
             break
         touch(pos)
         if "再临" in name:
             autoAdd()
             continue
+
 
 # 自动灵基再临。
 def autoAdd():
@@ -950,7 +958,8 @@ def autoAdd():
         if "从者" in name:
             break
 
-def enterStrong(switchF = True,switchAp=True):
+
+def enterStrong(switchF=True, switchAp=True):
     photoMap = air.Photo()
     photoMaps = [
         "金苹果",
@@ -960,11 +969,12 @@ def enterStrong(switchF = True,switchAp=True):
         "报酬",
         "技能强化",
         "种火用尽",
+        "重试",
     ]
     moveMaps = [
         (750, 150),  # 回到主页面后点击第一关。
     ]
-    changeFlag(switchF=switchF,switchAp=switchAp)
+    changeFlag(switchF=switchF, switchAp=switchAp)
     # exitBattle 会强制把flag变成false，这里要解耦才行。
     # while flag:
     while 1:
@@ -989,7 +999,8 @@ def enterStrong(switchF = True,switchAp=True):
 
         touch(pos)
 
-def enterSideStory(switchF = True,switchAp=True):
+
+def enterSideStory(switchF=True, switchAp=True):
     photoMap = air.Photo()
     photoMaps = [
         "金苹果",
@@ -1011,9 +1022,9 @@ def enterSideStory(switchF = True,switchAp=True):
     ]
     moveMaps = [
         (750, 150),  # 回到主页面后点击第一关。
-        (888,28), # 点击跳过。
+        (888, 28),  # 点击跳过。
     ]
-    changeFlag(switchF=switchF,switchAp=switchAp)
+    changeFlag(switchF=switchF, switchAp=switchAp)
     # 拿来应急的。
     count = 0
     times = 3
@@ -1054,6 +1065,7 @@ def enterSideStory(switchF = True,switchAp=True):
 
         touch(pos)
 
+
 def dialogue():
     photoMap = air.Photo()
     photoMaps = [
@@ -1062,7 +1074,7 @@ def dialogue():
         "攻击",
     ]
     moveMaps = [
-        (888,28),  # 回到主页面后点击第一关。
+        (888, 28),  # 回到主页面后点击第一关。
     ]
     while flag:
         photoMap.loopSearch(photoMaps)
@@ -1081,6 +1093,7 @@ def dialogue():
 
         touch(pos)
 
+
 # 自动技能强化
 def autoSkillUp():
     photoMap = air.Photo()
@@ -1097,6 +1110,7 @@ def autoSkillUp():
         name = photoMap.name
 
         touch(pos)
+
 
 if __name__ == "__main__":
     # enterGame()

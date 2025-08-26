@@ -354,7 +354,7 @@ def autoSkipBattle():
         "开始快速战斗",
     ]
     moveMaps = [
-        (779, 225),  # 0 扫荡加号
+        (810, 250),  # 0 扫荡加号
         (87, 266),  # 1 向左一格
     ]
     tempMap = photoMaps

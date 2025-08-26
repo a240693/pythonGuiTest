@@ -111,7 +111,46 @@ def autoBuyBall(times=99):
 
         touch(pos)
 
+# 强敌爬塔专用。
+def auto20(times=99):
+    photoMap = air.Photo()
+    photoMaps = [
+        "出击",
+        "选择关卡",
+        # "回复AP",
+        "继续",
+        "爬塔挑战",
+        "结算关闭",
+        "Tap",
+    ]
+    time = 0
+    tempflag = 0
+    while (time < times) | (times == 0):
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        if "继续".__eq__(name):
+            tempflag = 1
+            touch(pos)
+            sleep(1)
+            continue
+
+        # 高低切换才算一次，切掉冗余。
+        if ("出击" in name) & (tempflag == 1):
+            tempflag = 0
+            time += 1
+            print("第{}次完成，开始重试。".format(time))
+
+        if "回复AP".__eq__(name):
+            break
+
+        touch(pos)
+        sleep(0.3)
+
 
 if __name__ == "__main__":
     # autoRush()
-    autoBuyBall(10)
+    # autoBuyBall(10)
+
+    auto20()

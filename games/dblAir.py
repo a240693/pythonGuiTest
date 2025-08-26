@@ -638,12 +638,19 @@ def superBattle():
         "超激斗能量",
         "战斗结束",
         "战斗中",
+        "超激斗已完成",
     ]
     moveMaps = [
         (241, 330),
         (480, 330),
         # (744, 349),
         (680, 330),
+    ]
+    moveMapsMuMu = [
+        (150, 560),
+        (260, 560),
+        # (744, 349),
+        (390, 560),
     ]
     while 1:
         photoMap.loopSearch(photoMaps)
@@ -655,16 +662,19 @@ def superBattle():
             continue
 
         if "战斗开始" in name:
-            changeBestTeam()
+            # changeBestTeam()
             touch(pos)
             continue
 
         if "准备完成".__eq__(name):
-            for i in moveMaps:
-                temp = changeXY(i)
-                touch(temp)
+            for i in moveMapsMuMu:
+                touch(i)
                 time.sleep(0.3)
             touch(pos)
+            continue
+
+        if "超激斗已完成".__eq__(name):
+            swipe(moveMaps[0], vector=(0, 0.65), steps=2)
             continue
 
         touch(pos)
