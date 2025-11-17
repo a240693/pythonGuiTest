@@ -615,7 +615,7 @@ def dailyPJJC():
     photoMap = air.Photo()
     photoMaps = [
         "JJC已收取",
-        "竞技场入口",
+        # "竞技场入口",
         "白色确认",
         "JJC收取",
         "取消",

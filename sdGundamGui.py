@@ -9,6 +9,8 @@ choices = ("请选择脚本：",
            "半自动拉满",
            "自动开发铁球",
            "强敌爬塔专用重开",
+           "自动抽活动蛋",
+           "pvp自动收尾",
            "====================",
            "关闭")
 
@@ -41,6 +43,10 @@ if __name__ == "__main__":
             sd.autoRush(index)
         elif "半自动拉满".__eq__(choice):
             sd.autoMaxSelect()
+        elif "自动抽活动蛋".__eq__(choice):
+            sd.autoEventEgg()
+        elif "pvp自动收尾".__eq__(choice):
+            sd.afterPvP()
         elif "强敌爬塔专用重开".__eq__(choice):
             index = inputBox()
             sd.auto20(index)

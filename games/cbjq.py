@@ -20,13 +20,14 @@ def openGame():
     ]
     photoMapsNext = [
         "启程集结2k",
+        "尘白进入游戏后",
         "尘白进场模糊抽奖",
         "尘白模糊共鸣",
         "尘白获得道具",
         "尘白取消",
         "获得道具",
-        "尘白进入游戏后",
         "16提示",
+        "尘白主页",
     ]
     while 1:
         # photoMap.loopSearch(photoMapsNext)
@@ -51,6 +52,10 @@ def openGame():
             backToMain()
             break
 
+        if "尘白主页" in name:
+            backToMain()
+            break
+
         if "16提示" in name:
             dao.moveTo(x + 100, y)
             continue
@@ -70,6 +75,7 @@ def getFriend():
         "赠送感知",
         "完成标识1",
         "完成标识2",
+        "尘白好友2",
         "尘白好友",
     ]
     while 1:
@@ -122,6 +128,7 @@ def dailyFree():
         "尘白供应站",
         "尘白补给箱",
         "日常补给箱",
+        "日常补给箱2",
     ]
     while 1:
         photoMap.loopSearch(photoMaps)
@@ -390,13 +397,12 @@ def dailyAll():
     dailyFree()
     dailyCharacterPre("琼弦辰星", "狂诗凯西亚")
     dailyShop()
-    dailyEvent(eventName="逆光怒放")
+    dailyEvent(eventName="星耀天扉")
     dailyMission()
     dailyWarOrder()
 
 
 if __name__ == '__main__':
-    # dailyEvent(eventName="渊沉曙色")
-    # dailyMission()
-    # dailyWarOrder()
-    dailyEvent(eventName="合题诗篇")
+    dailyEvent(eventName="灿海假日")
+    dailyMission()
+    dailyWarOrder()

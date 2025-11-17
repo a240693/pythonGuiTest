@@ -38,12 +38,13 @@ class Photo:
         count = 0
         while True:
             for i in gamePagesMap:
-                # print("开始查找{}".format(i))
+                print("————————开始查找：{}".format(i))
+                time.sleep(0.2)
                 if 0 != self.onlySearchOnce(i, 3, 3):
                     return self
             count += 1
             if count == 5:
-                print("找不到5次，休息0.3秒")
+                # print("找不到5次，休息0.3秒")
                 time.sleep(0.1)
                 count = 0
 

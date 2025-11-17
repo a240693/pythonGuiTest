@@ -446,7 +446,7 @@ def egg10(pos=(338, 350)):
         touch(pos)
 
 
-def selectSkill(skill=[10]):
+def selectSkill(skill=[10],target = 1):
     photoMap = air.Photo()
     photoMaps = [
         "技能选择对象",
@@ -465,9 +465,11 @@ def selectSkill(skill=[10]):
         (52, 436),
         (125, 436),
         (190, 436),
+
         (290, 436),
         (360, 436),
         (420, 436),
+
         (530, 436),
         (600, 436),
         (670, 436),
@@ -475,6 +477,8 @@ def selectSkill(skill=[10]):
     moveMaps = []
     tagetMaps = [
         (220, 339),  # 选择对象，选一号位。
+        (500, 339),  # 选择对象，选二号位。
+        (700, 339),  # 选择对象，选三号位。
     ]
     # 10就不开技能，直接跳过释放段。
     if skill[0] == 10:
@@ -486,16 +490,21 @@ def selectSkill(skill=[10]):
             photoMap.loopSearch(photoMaps)
             name = photoMap.name
             pos = photoMap.pos
+
             if "战斗结果" in name:
                 exitBattle()
                 return 0
+
             if "对象" in name:
-                touch(tagetMaps[0])
+                touch(tagetMaps[target-1])
+
             if "重试" in name:
                 touch(pos)
                 continue
+
             if "攻击" in name:
                 break
+
         print("正在释放第{}个技能。".format(index + 1))
         touch(i)
         time.sleep(0.3)
@@ -504,7 +513,7 @@ def selectSkill(skill=[10]):
                 photoMap.loopSearch(photoMaps)
                 name = photoMap.name
                 if "对象" in name:
-                    touch(tagetMaps[0])
+                    touch(tagetMaps[target - 1])
                 break
 
 
@@ -689,6 +698,7 @@ def masterSkill():
 def exitBattle():
     photoMap = air.Photo()
     photoMaps = [
+        "技能获得强化",
         "战斗结果",
         "战斗结束",
         "羁绊等级提升",
@@ -770,9 +780,9 @@ def level90plus(turn=1):
 
 
 def level90(turn=1):
-    skill1 = [1, 2, 4, 5, 6, 7, 8, 9]
+    skill1 = [1, 2, 4, 5, 6]
     skill2 = [10]
-    skill3 = [3]
+    skill3 = [3,7, 8, 9]
     skillMaps = []
     skillMaps.append(skill1)
     skillMaps.append(skill2)
@@ -780,7 +790,7 @@ def level90(turn=1):
     global flag
     flag = True
     while flag:
-        selectSkill(skillMaps[turn - 1])
+        selectSkill(skillMaps[turn - 1],3)
         # if turn == 3:
         #     masterSkill()
         onlyBattle(turn)
@@ -835,8 +845,8 @@ def battleStartNew(switchCF=True, switchAp=True, select=1):
 
 
 def custom(turn=1):
-    skill1 = [10]
-    skill2 = [10]
+    skill1 = [2]
+    skill2 = [4]
     skill3 = [7, 8, 9]
     skillMaps = []
     skillMaps.append(skill1)
@@ -861,7 +871,7 @@ def dailyExpNew(switchCF=True, switchAp=False):
     photoMaps = [
         "迦勒底之门",
         "每日任务",
-        "种火40",
+        "种火60",
         "宝石翁",
         "狂阶",
         "开始任务",
@@ -1137,7 +1147,7 @@ if __name__ == "__main__":
     # autoLevelUp()
     # autoAdd()
     # dailyExpNew(True, False)
-    autoSkillUp()
+    enterSideStory()
     # enterStrong()
     # waitEnterGame()
     # battleStartNew(True,select = 3)

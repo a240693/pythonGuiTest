@@ -53,10 +53,10 @@ def changeTeam():
                 time.sleep(4)
                 if not flag:
                     break
+
+
         # dao.pressKey('r')
         time.sleep(2)
-
-
 def startAutoFight():
     try:
         print("自动战斗测试".format())
