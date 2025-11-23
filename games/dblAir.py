@@ -888,6 +888,22 @@ def autoEgg():
         touch(pos)
 
 
+# 游戏进入试做
+# 2025年11月23日16:25:03
+def enterGame():
+    photoMap = air.Photo()
+    photoMaps = [
+        "龙珠图标",
+        "龙珠图标横",
+    ]
+    i = 0;
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        touch(pos)
+
 if __name__ == "__main__":
     # startRush()
     # autoRush()
@@ -900,7 +916,7 @@ if __name__ == "__main__":
     # backMain()
     # getMarch()
     # autoBuyEvent()
-    autoEgg()
+    enterGame()
     # getBonus2025()
     # getMarch()
     # pvpAuto(1)

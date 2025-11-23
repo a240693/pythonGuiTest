@@ -41,7 +41,7 @@ SDdeviceOffice = "Android://127.0.0.1:5037/emulator-5560"
 SDdeviceHome = "Android://127.0.0.1:5037/emulator-5564"
 SDdeviceAnotherHome = "Android://127.0.0.1:5037/emulator-5560"
 SDdeviceAnotherHome9 = "Android://127.0.0.1:5037/emulator-5556"
-SDdeviceAnotherHomeMumu = "Android://127.0.0.1:5037/127.0.0.1:16384"
+SDdeviceAnotherHomeMumu = "Android://127.0.0.1:5037/127.0.0.1:7555"
 SDdevice = SDdeviceAnotherHomeMumu
 
 

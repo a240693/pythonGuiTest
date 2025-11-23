@@ -313,6 +313,9 @@ def autoDevelop(times = 1):
             tempflag = 0
             time += 1
             print("第{}台钢坦克，{}GP,已花{}金币。".format(time, 20 * time, 500 * time))
+            # 不点两次好像不会自己跳出，很猪头。
+            touch(pos)
+            sleep(0.5)
 
         touch(pos)
 
@@ -320,11 +323,12 @@ def autoDevelop(times = 1):
 def dailyShop():
     photoMap = air.Photo()
     photoMaps = [
-        # "商店卖完",
+        "商店卖完",
         "全部购买1",
         "购买",
         # "高级",
         "商店",
+        "关闭",
     ]
     moveMaps = [
         (360,80) , # 0 第一个商品。
@@ -355,6 +359,7 @@ def dailyShop():
 
 
 def dailyAll():
+    enterGame()
     # 自动开发钢坦克一台。
     autoDevelop()
     backToMain()
@@ -368,12 +373,117 @@ def dailyAll():
     autoDailyThree()
     backToMain()
 
+
+# 进入游戏，2025年11月18日
+def enterGame():
+    photoMap = air.Photo()
+    photoMaps = [
+        "主界面出击",
+        "Tap",
+        "Tap开发",
+        "游戏图标",
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        if "主界面出击".__eq__(name):
+            break
+
+        touch(pos)
+        sleep(0.3)
+
+
+def debug_coordinate_system():
+        # 确保设备连接
+        photoMap = air.Photo()
+        """诊断横竖屏坐标系问题"""
+        print("=== 坐标系诊断 ===")
+
+        # 获取设备信息
+        dev = device()
+        current_resolution = dev.get_current_resolution()
+        print(f"当前分辨率: {current_resolution}")
+
+        # 测试屏幕四个角落的点击
+        width, height = current_resolution
+        test_points = [
+            (100, 100),  # 左上
+            (width - 100, 100),  # 右上
+            (100, height - 100),  # 左下
+            (width - 100, height - 100)  # 右下
+        ]
+
+        for i, (x, y) in enumerate(test_points):
+            print(f"点击测试点 {i + 1}: ({x}, {y})")
+            touch((x, y))
+            time.sleep(1)
+
+        # 检查截图方向
+        snapshot("debug_screen.png")
+        print("截图保存为: debug_screen.png")
+
+
+def debug_landscape_issue(template_path):
+    """横屏问题详细诊断"""
+    print("=== 横屏识别详细诊断 ===")
+    photoMap = air.Photo()
+    # 1. 检查模板图像
+    from PIL import Image
+    try:
+        template_img = Image.open(template_path)
+        print(f"模板尺寸: {template_img.size}")
+    except Exception as e:
+        print(f"❌ 模板加载失败: {e}")
+        return
+
+    # 2. 截取当前横屏画面
+    snapshot("landscape_debug.png")
+    current_img = Image.open("landscape_debug.png")
+    print(f"当前屏幕尺寸: {current_img.size}")
+
+    # 3. 测试不同识别方法
+    methods = [
+        {"name": "标准模板", "func": lambda: exists(Template(template_path, threshold=0.7))},
+        {"name": "宽松阈值", "func": lambda: exists(Template(template_path, threshold=0.5))},
+        # {"name": "横屏专用", "func": lambda: landscape_find(template_path)},
+        # {"name": "多尺度搜索", "func": lambda: multi_scale_landscape_search(template_path)},
+    ]
+
+    for method in methods:
+        print(f"\n尝试: {method['name']}")
+        result = method['func']()
+        print(f"结果: {result}")
+
+        if result:
+            print(f"🎉 {method['name']} 成功!")
+            return result
+
+    print("\n❌ 所有方法都失败")
+    return None
+
+
+
+
+
+
 if __name__ == "__main__":
     # autoRush()
     # autoBuyBall(10)
-    autoDailyThreeEnter()
+    # enterGame()
     # autoDailyThree()
     # autoEventEgg()
     # backToMain()
     # autoDevelop()
     # dailyShop()
+
+    # 自动商店。
+    # dailyShop()
+    # backToMain()
+    # 验证截图方向
+    debug_landscape_issue("F:\pyTest\DBL\龙珠图标横.png")
+    # 每日自动三次
+    # autoDailyThreeEnter()
+    # autoDailyThree()
+    # backToMain()

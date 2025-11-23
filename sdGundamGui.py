@@ -11,6 +11,7 @@ choices = ("请选择脚本：",
            "强敌爬塔专用重开",
            "自动抽活动蛋",
            "pvp自动收尾",
+           "全自动每日",
            "====================",
            "关闭")
 
@@ -24,6 +25,7 @@ def test(name):
 
 def inputBox():
     # sd.cvInit(cv.DBLPath, cv.SDPath)  # 办公室
+    sd.cvInit(cv.SDPath, cv.SDdevice)  # 办公室
     return gui.integerbox(msg='请输入次数,0为不限制', title='自动次数：', default=None, lowerbound=0, upperbound=9999, image=None,
                           root=None)
 
@@ -53,5 +55,7 @@ if __name__ == "__main__":
         elif "自动开发铁球".__eq__(choice):
             index = inputBox()
             sd.autoBuyBall(index)
+        elif "全自动每日".__eq__(choice):
+            sd.dailyAll()
         elif choice == "关闭":
             break

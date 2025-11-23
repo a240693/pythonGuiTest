@@ -43,9 +43,9 @@ class Photo:
 
     # 查找图片，3秒内判断该图片有没有出现，没有则找下一张。
     # 有就返回1，无就返回0.
-    def appearThenClick(self, photoMap,time = 1):
+    def appearThenClick(self, photoMap,time = 1,threshold = 0.7):
         try:
-            photo = Template(path + photoMap + ".png", rgb=False)
+            photo = Template(path + photoMap + ".png", threshold=threshold,rgb=False)
             # 一秒没找到就换下一张。
             pos = wait(photo,timeout = time)
             if pos:
