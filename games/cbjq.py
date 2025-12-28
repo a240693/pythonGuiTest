@@ -397,12 +397,12 @@ def dailyAll():
     dailyFree()
     dailyCharacterPre("琼弦辰星", "狂诗凯西亚")
     dailyShop()
-    dailyEvent(eventName="星耀天扉")
+    dailyEvent(eventName="镜中烬火")
     dailyMission()
     dailyWarOrder()
 
 
 if __name__ == '__main__':
-    dailyEvent(eventName="灿海假日")
+    dailyEvent(eventName="镜中烬火")
     dailyMission()
     dailyWarOrder()

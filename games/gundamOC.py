@@ -1,6 +1,8 @@
 import pyautogui
 import time
 import random
+import pydirectinput
+
 
 from dao import dao, daoImpl, multiphotos, resultMap
 from dao import changeVar as cv
@@ -9,7 +11,7 @@ import keyboard
 # from pynput import keyboard
 
 cv._init()
-cv.set_value("path", cv.MingChaoPath)
+cv.set_value("path", cv.sdOCPath)
 
 global flag
 flag = False
@@ -18,6 +20,8 @@ global keys
 keys = []
 
 global oldKey
+oldKey = "0"
+
 global h
 
 global testFlag
@@ -230,7 +234,35 @@ def autoFightEnd():
 
         # dao.moveTo(x, y)
 
+# 抽蛋。
+def autoGacha():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "ESC",
+        "确认",
+        "购买",
+        "抽取扭蛋",
+    ]
+    print("开始检测是否打完。".format())
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+
+        if "ESC".__eq__(name):
+            pyautogui.press("esc", presses=3, interval=1)
+            pydirectinput.keyDown("esc")
+            time.sleep(0.02)
+            pydirectinput.keyUp("esc")
+            continue
+
+        dao.moveToNew(x, y)
+        # pyautogui.mouseDown()
+        # time.sleep(0.02)  # 短暂按下延迟
+        # pyautogui.mouseUp()
+
 if __name__ == '__main__':
-    startAutoFightEntry()
+    autoGacha()
     # _thread.start_new_thread(startAutoFight,())
     # _thread.start_new_thread(duelKeys,())

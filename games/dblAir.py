@@ -147,7 +147,9 @@ def autoBattle(time=0):
         print("Error: 无法启动线程")
 
     count = 0
-
+    # if 0 == time:
+    #     photoMaps.insert(0, "再次对战")
+    #     photoMaps.remove("结算OK")
     while (count < time) | (time == 0):
         photoMap.loopSearch(photoMaps)
         pos = photoMap.pos
@@ -186,13 +188,13 @@ def autoBattleNext():
         (99, 322),  # 点击队友
         # (919,461),
     ]
-    moveMapsMumu =[
+    moveMapsMumu = [
         (504, 875),  # 0 开主动
         (200, 730),  # 1 第1张卡
         (300, 730),  # 2 第2张卡
         (400, 730),  # 3 第3张卡
         (480, 730),  # 4 第4张卡
-        (65, 730+100),  # 主动
+        (65, 730 + 100),  # 主动
         # (120,377), # 拉仇恨
         (32, 529),  # 点击队友
     ]
@@ -359,9 +361,9 @@ def pvpAuto(time=0):
         # (721, 420),
     ]
     moveMapsMuMu = [
-        (398,230),
-        (401,327),
-        (390,441),
+        (398, 230),
+        (401, 327),
+        (390, 441),
     ]
     moveMaps1 = moveMapsMuMu
     count = 0
@@ -392,7 +394,7 @@ def pvpAuto(time=0):
     backMain()
 
 
-def autoGet7hour(eventName = "EX6"):
+def autoGet7hour(eventName="EX6"):
     photoMap = air.Photo()
     photoMaps = [
         eventName,
@@ -572,7 +574,7 @@ def getBonus():
         "绿",  # 4
     ]
     moveMaps = [
-        (190,320), # 屏幕中央
+        (190, 320),  # 屏幕中央
     ]
     date = datetime.date.today().weekday() % 5
     photoMaps.insert(2, colorMaps[date])
@@ -597,6 +599,7 @@ def getBonus():
 
         touch(pos)
 
+
 # 2025年5月16日，获取每日材料。
 def getBonus2025():
     photoMap = air.Photo()
@@ -608,7 +611,7 @@ def getBonus2025():
         "强化入口",
     ]
     moveMaps = [
-        (190,320), # 屏幕中央
+        (190, 320),  # 屏幕中央
     ]
     date = datetime.date.today().weekday() % 5
     while 1:
@@ -627,6 +630,7 @@ def getBonus2025():
             break
 
         touch(pos)
+
 
 # 超激斗 2023年1月31日19:04:06
 def superBattle():
@@ -809,7 +813,7 @@ def autoBuyEvent():
 def dailyAll():
     # getBonus() 旧的不用了。
     getBonus2025()
-    autoGet7hour()
+    autoGet7hour("EX5")
     backMain()
     getMarch()
     # 暂时出问题了，不用。
@@ -823,6 +827,7 @@ def autoCoin():
         "结算OK",
         "交换十次",
         "交换10次",
+        "交换100次",
         "交换十次2",
     ]
     while 1:
@@ -839,9 +844,9 @@ def autoStartEasy(times=0):
     photoMap = air.Photo()
     photoMaps = [
         "再次对战",
+        "继续跳过",
         "结算OK",
         "百层是",
-        "继续跳过",
         "战斗中",
     ]
     i = 0;
@@ -904,6 +909,7 @@ def enterGame():
 
         touch(pos)
 
+
 if __name__ == "__main__":
     # startRush()
     # autoRush()
@@ -916,7 +922,8 @@ if __name__ == "__main__":
     # backMain()
     # getMarch()
     # autoBuyEvent()
-    enterGame()
+    # enterGame()
     # getBonus2025()
     # getMarch()
     # pvpAuto(1)
+    autoEgg()

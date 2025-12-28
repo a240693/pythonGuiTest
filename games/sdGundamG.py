@@ -295,6 +295,7 @@ def autoDevelop(times = 1):
         "钢坦克",
         "开发高达",
         "开发",
+        # "关闭",
     ]
     tempflag = 0
     time = 0
@@ -382,6 +383,7 @@ def enterGame():
         "Tap",
         "Tap开发",
         "游戏图标",
+        "关闭",
     ]
     while 1:
         photoMap.loopSearch(photoMaps)
@@ -425,49 +427,6 @@ def debug_coordinate_system():
         print("截图保存为: debug_screen.png")
 
 
-def debug_landscape_issue(template_path):
-    """横屏问题详细诊断"""
-    print("=== 横屏识别详细诊断 ===")
-    photoMap = air.Photo()
-    # 1. 检查模板图像
-    from PIL import Image
-    try:
-        template_img = Image.open(template_path)
-        print(f"模板尺寸: {template_img.size}")
-    except Exception as e:
-        print(f"❌ 模板加载失败: {e}")
-        return
-
-    # 2. 截取当前横屏画面
-    snapshot("landscape_debug.png")
-    current_img = Image.open("landscape_debug.png")
-    print(f"当前屏幕尺寸: {current_img.size}")
-
-    # 3. 测试不同识别方法
-    methods = [
-        {"name": "标准模板", "func": lambda: exists(Template(template_path, threshold=0.7))},
-        {"name": "宽松阈值", "func": lambda: exists(Template(template_path, threshold=0.5))},
-        # {"name": "横屏专用", "func": lambda: landscape_find(template_path)},
-        # {"name": "多尺度搜索", "func": lambda: multi_scale_landscape_search(template_path)},
-    ]
-
-    for method in methods:
-        print(f"\n尝试: {method['name']}")
-        result = method['func']()
-        print(f"结果: {result}")
-
-        if result:
-            print(f"🎉 {method['name']} 成功!")
-            return result
-
-    print("\n❌ 所有方法都失败")
-    return None
-
-
-
-
-
-
 if __name__ == "__main__":
     # autoRush()
     # autoBuyBall(10)
@@ -482,8 +441,9 @@ if __name__ == "__main__":
     # dailyShop()
     # backToMain()
     # 验证截图方向
-    debug_landscape_issue("F:\pyTest\DBL\龙珠图标横.png")
+    # debug_landscape_issue("F:\pyTest\DBL\龙珠图标横.png")
+    # debug_coordinate_system()
     # 每日自动三次
-    # autoDailyThreeEnter()
-    # autoDailyThree()
-    # backToMain()
+    autoDailyThreeEnter()
+    autoDailyThree()
+    backToMain()

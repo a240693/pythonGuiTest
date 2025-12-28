@@ -37,6 +37,17 @@ def moveTo(x, y):
         time.sleep(1)
         # pyautogui.click(button="left")
 
+def moveToNew(x, y):
+    x1, y1 = pyautogui.position()
+    pyautogui.moveTo(x, y)
+    pyautogui.mouseDown()
+    time.sleep(0.02)  # 短暂按下延迟
+    pyautogui.mouseUp()
+    if x1 != x1 & y1 != y1:
+        pyautogui.moveTo(x1, y1)
+        time.sleep(1)
+        # pyautogui.click(button="left")
+
 
 def moveToFive(x, y):
     x1, y1 = pyautogui.position()

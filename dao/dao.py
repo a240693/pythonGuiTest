@@ -42,6 +42,10 @@ def moveToPcr(x, y, times):
 def moveTo(x, y):
     return daoImpl.moveTo(x, y)
 
+# 改良moveTo,换个写法，对单击无效的游戏用的。
+def moveToNew(x, y):
+    return daoImpl.moveToNew(x, y)
+
 
 # 坎公自动点击，times是重复点击次数，1的话就和moveTo一样
 def moveToKgAuto(x, y, times):

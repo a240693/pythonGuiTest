@@ -10,6 +10,7 @@ trainPath = 'F:\\pyTest\\honkaiTrain\\'
 speedCarPath = 'F:\\pyTest\\speedCar\\'
 pcrAirPath = 'F:\\pyTest\\pcrAir\\'
 MingChaoPath = 'F:\\pyTest\\MingChao\\'
+sdOCPath = 'F:\\pyTest\\SDOC\\'
 SDPath = "F:\\pyTest\\SD\\"
 cbjqPath = 'F:\\pyTest\\cbjq\\'
 DBLPath = "F:\\pyTest\\DBL\\"

@@ -17,6 +17,7 @@ choices = ("请选择脚本：",
            "自动钢镚",
            "自动购买活动物品",
            "简单自动重开5次",
+           "自动转蛋",
            "每日汇总",
            "====================",
            "关闭")
@@ -72,6 +73,8 @@ if __name__ == "__main__":
             db.autoCoin()
         elif "自动购买活动物品".__eq__(choice):
             db.autoBuyEvent()
+        elif "自动转蛋".__eq__(choice):
+            db.autoEgg()
         elif "每日汇总".__eq__(choice):
             db.dailyAll()
         elif "简单自动重开5次".__eq__(choice):
