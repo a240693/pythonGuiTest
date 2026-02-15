@@ -238,9 +238,11 @@ def autoFightEnd():
 def autoGacha():
     photoMap = multiphotos.Photo()
     photoMaps = [
+        "确认2",
         "ESC",
         "确认",
         "购买",
+        "抽取扭蛋2",
         "抽取扭蛋",
     ]
     print("开始检测是否打完。".format())
@@ -251,7 +253,7 @@ def autoGacha():
         name = photoMap.name
 
         if "ESC".__eq__(name):
-            pyautogui.press("esc", presses=3, interval=1)
+            # pyautogui.press("esc", presses=3, interval=1)
             pydirectinput.keyDown("esc")
             time.sleep(0.02)
             pydirectinput.keyUp("esc")
@@ -262,7 +264,78 @@ def autoGacha():
         # time.sleep(0.02)  # 短暂按下延迟
         # pyautogui.mouseUp()
 
+# 抽蛋，只抽合金蛋。
+def autoGachaEventOnly():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "确认2",
+        "芯片不足",
+        "购买",
+        "抽取扭蛋2",
+    ]
+    print("开始检测是否打完。".format())
+    try:
+        print("开启监控ESC".format())
+        _thread.start_new_thread(autoEscOnly, ())
+    except:
+        print("Error: 无法启动线程")
+
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+
+        if "ESC".__eq__(name):
+            # pyautogui.press("esc", presses=3, interval=1)
+            pydirectinput.keyDown("esc")
+            time.sleep(0.02)
+            pydirectinput.keyUp("esc")
+            continue
+
+        if "芯片不足".__eq__(name):
+            break
+
+        dao.moveToNew(x, y)
+        # pyautogui.mouseDown()
+        # time.sleep(0.02)  # 短暂按下延迟
+        # pyautogui.mouseUp()
+
+# 抽蛋，只检测ESC。
+def autoEscOnly():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "ESC",
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+
+        if "ESC".__eq__(name):
+            # pyautogui.press("esc", presses=3, interval=1)
+            pydirectinput.keyDown("esc")
+            time.sleep(0.02)
+            pydirectinput.keyUp("esc")
+            continue
+
+# 自动获取礼物盒 2026年1月2日
+def autoGift():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "礼物收取",
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+
+        dao.moveToNew(x, y)
+
 if __name__ == '__main__':
-    autoGacha()
+    autoGachaEventOnly()
+    # autoGift()
     # _thread.start_new_thread(startAutoFight,())
     # _thread.start_new_thread(duelKeys,())

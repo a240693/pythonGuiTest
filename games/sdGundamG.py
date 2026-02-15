@@ -1,6 +1,7 @@
 # emulator-5560
 import _thread
 import datetime
+import time
 
 from airtest.core.api import *
 from dao import airMultiPhotos as air
@@ -426,6 +427,53 @@ def debug_coordinate_system():
         snapshot("debug_screen.png")
         print("截图保存为: debug_screen.png")
 
+# 自动推图，2026年1月9日
+def autoFight():
+    photoMap = air.Photo()
+    photoMaps = [
+        "损伤报告",
+        "TAP",
+        "SKIP",
+        "出击准备",
+        "下载",
+        "出击",
+        "菜单",
+        "我军回合",
+
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        if "损伤报告".__eq__(name):
+            break
+
+        if "我军回合".__eq__(name):
+            time.sleep(30)
+            continue
+
+
+        touch(pos)
+        sleep(0.3)
+
+def autoFightAfter():
+    photoMap = air.Photo()
+    photoMaps = [
+        "继续",
+        "出击已点击",
+        "选择关卡",
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        if "出击已点击".__eq__(name):
+            break
+
+        touch(pos)
+        sleep(0.3)
 
 if __name__ == "__main__":
     # autoRush()
@@ -444,6 +492,8 @@ if __name__ == "__main__":
     # debug_landscape_issue("F:\pyTest\DBL\龙珠图标横.png")
     # debug_coordinate_system()
     # 每日自动三次
-    autoDailyThreeEnter()
-    autoDailyThree()
-    backToMain()
+    # autoDailyThreeEnter()
+    # autoDailyThree()
+    # backToMain()
+    autoFight()
+    autoFightAfter()

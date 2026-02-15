@@ -10,6 +10,13 @@ choices = ("请选择功能：",
            "关闭")
 
 
+def test(name):
+    gui.msgbox(name)
+
+def setFlag():
+    global flag
+    flag = True
+
 def main():
     return gui.choicebox("脚本选择", "PCR", choices=choices)
 

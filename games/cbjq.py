@@ -365,7 +365,7 @@ def dailyEvent(eventName="空都演绎"):
     # photoMaps.append("尘白恢复感知")
     # photoMaps.append("尘白快速作战")
     photoMaps[0:0] = [
-        "尘白恢复感知",
+        "尘白恢复感知2",
         "尘白快速作战",
     ]
     # print(photoMaps)
@@ -395,14 +395,14 @@ def dailyAll():
     # dailyMission()
     getFriend()
     dailyFree()
-    dailyCharacterPre("琼弦辰星", "狂诗凯西亚")
+    dailyCharacterPre("尘白时之重奏", "狂诗凯西亚")
     dailyShop()
-    dailyEvent(eventName="镜中烬火")
+    dailyEvent(eventName="往昔归还")
     dailyMission()
     dailyWarOrder()
 
 
 if __name__ == '__main__':
-    dailyEvent(eventName="镜中烬火")
-    dailyMission()
-    dailyWarOrder()
+    dailyEvent(eventName="往昔归还")
+    # dailyMission()
+    # dailyWarOrder()

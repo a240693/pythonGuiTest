@@ -24,7 +24,7 @@ class Photo:
         try:
             filepath = path + name + '.png'
             img = dao.my_cv_imread(filepath)  # 获取读取的图像
-            x, y, w, h = pyautogui.locateOnScreen(img, grayscale=False, confidence=0.65)
+            x, y, w, h = pyautogui.locateOnScreen(img, grayscale=False, confidence=0.7)
             x, y = pyautogui.center((x, y, w, h))
             self.writeSelf(name, x, y)
             print("{}.png在屏幕中的位置是：X={},Y={}，宽{}像素,高{}像素".format(name, x, y, w, h))

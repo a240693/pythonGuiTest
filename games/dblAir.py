@@ -813,7 +813,7 @@ def autoBuyEvent():
 def dailyAll():
     # getBonus() 旧的不用了。
     getBonus2025()
-    autoGet7hour("EX5")
+    autoGet7hour("EX6")
     backMain()
     getMarch()
     # 暂时出问题了，不用。
