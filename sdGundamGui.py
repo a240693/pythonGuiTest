@@ -11,6 +11,7 @@ choices = ("请选择脚本：",
            "强敌爬塔专用重开",
            "自动抽活动蛋",
            "pvp自动收尾",
+           "自动剧情",
            "全自动每日",
            "====================",
            "关闭")
@@ -49,6 +50,8 @@ if __name__ == "__main__":
             sd.autoEventEgg()
         elif "pvp自动收尾".__eq__(choice):
             sd.afterPvP()
+        elif "自动剧情".__eq__(choice):
+            sd.autoStory()
         elif "强敌爬塔专用重开".__eq__(choice):
             index = inputBox()
             sd.auto20(index)

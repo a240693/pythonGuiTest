@@ -334,8 +334,48 @@ def autoGift():
 
         dao.moveToNew(x, y)
 
+# 抽蛋，gb蛋专属。
+def autoGachaNormal():
+    photoMap = multiphotos.Photo()
+    photoMaps = [
+        "GB",
+        "确认2",
+        "空间不足",
+        "购买",
+        "抽取扭蛋2",
+    ]
+    print("开始检测是否打完。".format())
+    try:
+        print("开启监控ESC".format())
+        _thread.start_new_thread(autoEscOnly, ())
+    except:
+        print("Error: 无法启动线程")
+
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+
+        if "空间不足".__eq__(name):
+            break
+
+        if "GB".__eq__(name):
+            dao.moveToMRFZ(x, y,5)
+            photoMaps.remove("GB")
+            continue
+
+        if "购买".__eq__(name):
+            if "GB" not in photoMaps:
+                photoMaps.insert(0, "GB")
+
+        dao.moveToNew(x, y)
+        # pyautogui.mouseDown()
+        # time.sleep(0.02)  # 短暂按下延迟
+        # pyautogui.mouseUp()
+
 if __name__ == '__main__':
-    autoGachaEventOnly()
+    autoGachaNormal()
     # autoGift()
     # _thread.start_new_thread(startAutoFight,())
     # _thread.start_new_thread(duelKeys,())

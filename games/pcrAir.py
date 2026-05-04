@@ -701,4 +701,4 @@ if __name__ == "__main__":
     # dailyClan()
     # openGame()
     # dailyHeart()
-    dailyMission(2)
+    openGame(1)

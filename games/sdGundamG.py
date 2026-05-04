@@ -181,6 +181,40 @@ def afterPvP(times=99):
         touch(pos)
         sleep(0.3)
 
+# 自动剧情 2026年4月1日。
+def autoStory(times=99):
+    photoMap = air.Photo()
+    photoMaps = [
+        "选择对战对手",
+        "skip",
+        "Tap",
+        "下载",
+    ]
+    time = 0
+    tempflag = 0
+    while (time < times) | (times == 0):
+        photoMap.loopSearch(photoMaps)
+        pos = photoMap.pos
+        name = photoMap.name
+
+        if "选择对战对手".__eq__(name):
+            tempflag = 1
+            touch(pos)
+            sleep(1)
+            continue
+
+        # 高低切换才算一次，切掉冗余。
+        if ("skip" in name) & (tempflag == 1):
+            tempflag = 0
+            time += 1
+            print("第{}次完成，开始重试。".format(time))
+
+        if "回复AP".__eq__(name):
+            break
+
+        touch(pos)
+        sleep(0.3)
+
 # 自动抽活动蛋，2025年10月29日
 def autoEventEgg():
     photoMap = air.Photo()
