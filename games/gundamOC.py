@@ -3,12 +3,12 @@ import time
 import random
 import pydirectinput
 
-
 from dao import dao, daoImpl, multiphotos, resultMap
 from dao import changeVar as cv
 from dao import multiphotos_bg
 import _thread
 import keyboard
+
 # from pynput import keyboard
 
 cv._init()
@@ -27,6 +27,7 @@ global h
 
 global testFlag
 testFlag = 0
+
 
 def attackTest():
     print("开始自动重击".format())
@@ -57,9 +58,10 @@ def changeTeam():
                 if not flag:
                     break
 
-
         # dao.pressKey('r')
         time.sleep(2)
+
+
 def startAutoFight():
     try:
         print("自动战斗测试".format())
@@ -81,6 +83,7 @@ def on_press(event):
         oldKey = str(event)
         keys.append(str(event))
 
+
 def duelKeys():
     global flag
     while 1:
@@ -97,6 +100,7 @@ def duelKeys():
             #     flag = False
             #     print("关闭自动战斗")
             #     continue
+
 
 def on_release(event):
     # print("松开的是：", event)
@@ -131,6 +135,7 @@ def pynputTest():
     })
     h.start()
 
+
 def f9test():
     global flag
     flag = True
@@ -139,6 +144,7 @@ def f9test():
     # time.sleep(10)
     global testFlag
     testFlag = 1
+
 
 def f10test():
     global flag
@@ -151,12 +157,14 @@ def f10test():
     global testFlag
     testFlag = 1
 
+
 def pressSpace():
     # h.stop()
     print("检测到方向键,线程休眠3秒。")
     time.sleep(10)
     global testFlag
     testFlag = 1
+
 
 def keyboardTest():
     while 1:
@@ -171,7 +179,6 @@ def keyboardTest():
             break
 
         time.sleep(1)
-
 
 
 # 自动剧情。
@@ -203,13 +210,14 @@ def autoText():
 
         dao.moveTo(x, y)
 
+
 def startAutoFightEntry():
     startAutoFight()
     while 1:
         keyboardTest()
     while True:
-
         pass
+
 
 # 自动剧情。
 def autoFightEnd():
@@ -229,11 +237,12 @@ def autoFightEnd():
         y = photoMap.y
         name = photoMap.name
 
-        if  "挑战成功" in name:
+        if "挑战成功" in name:
             f10test()
             continue
 
         # dao.moveTo(x, y)
+
 
 # 抽蛋。
 def autoGacha():
@@ -264,6 +273,7 @@ def autoGacha():
         # pyautogui.mouseDown()
         # time.sleep(0.02)  # 短暂按下延迟
         # pyautogui.mouseUp()
+
 
 # 抽蛋，只抽合金蛋。
 def autoGachaEventOnly():
@@ -302,6 +312,7 @@ def autoGachaEventOnly():
         # time.sleep(0.02)  # 短暂按下延迟
         # pyautogui.mouseUp()
 
+
 # 抽蛋，只检测ESC。
 def autoEscOnly():
     photoMap = multiphotos.Photo()
@@ -321,6 +332,7 @@ def autoEscOnly():
             pydirectinput.keyUp("esc")
             continue
 
+
 # 自动获取礼物盒 2026年1月2日
 def autoGift():
     photoMap = multiphotos.Photo()
@@ -334,6 +346,7 @@ def autoGift():
         name = photoMap.name
 
         dao.moveToNew(x, y)
+
 
 # 抽蛋，gb蛋专属。
 def autoGachaNormal():
@@ -362,7 +375,7 @@ def autoGachaNormal():
             break
 
         if "GB".__eq__(name):
-            dao.moveToMRFZ(x, y,5)
+            dao.moveToMRFZ(x, y, 5)
             photoMaps.remove("GB")
             continue
 
@@ -375,10 +388,15 @@ def autoGachaNormal():
         # time.sleep(0.02)  # 短暂按下延迟
         # pyautogui.mouseUp()
 
+
 # 自动获取礼物盒 2026年1月2日
 def autoGiftNew():
-
-    photoMap = multiphotos_bg.Photo(window_title="Online")
+    # click_method: "postmessage" | "sendmessage" | "sendinput" | "adb"
+    # sendinput: uses mouse_event via system queue, briefly focuses window.
+    #   Adjust click_offset_y to compensate for emulator toolbar offset.
+    photoMap = multiphotos_bg.Photo("Online", debug=True, click_offset_x=0,
+                                    click_offset_y=0,
+                                    click_method="sendmessage")
     photoMaps = [
         "礼物收取",
     ]
@@ -390,8 +408,36 @@ def autoGiftNew():
         photoMap._bg_click(photoMap.x, photoMap.y)  # 后台点击
         time.sleep(1)
 
+# 抽蛋，只抽合金蛋。
+def autoGachaEventOnlyNew():
+    photoMap = multiphotos_bg.Photo("Online", debug=True,
+                                    click_offset_x=0, click_offset_y=0,
+                                    click_method="sendmessage")
+    photoMaps = [
+        "ESC",
+        "确认2",
+        "芯片不足",
+        "购买",
+        "抽取扭蛋2",
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+
+        if "ESC".__eq__(name):
+            # pyautogui.press("esc", presses=3, interval=1)
+            photoMap._bg_press_key("esc")
+            continue
+
+        if "芯片不足".__eq__(name):
+            break
+
+        photoMap._bg_click(x, y)
+
 if __name__ == '__main__':
-    # autoGachaNormal()
+    # autoGachaEventOnlyNew()
     autoGiftNew()
     # autoGift()
     # _thread.start_new_thread(startAutoFight,())

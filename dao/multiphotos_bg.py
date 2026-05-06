@@ -1,6 +1,8 @@
 import time
 import cv2
 import ctypes
+import ctypes.wintypes
+import subprocess
 import numpy as np
 import win32gui
 import win32ui
@@ -25,20 +27,38 @@ path = cv.path
 
 
 class Photo:
-    def __init__(self, window_title=None):
+    def __init__(self, window_title=None, debug=False, click_offset_x=0,
+                 click_offset_y=0, click_method="postmessage",
+                 adb_device=None):
         """
-        bg Photo: bg screenshot + template match + PostMessage bg click.
-        API compatible with multiphotos.Photo.
+        bg Photo: bg screenshot + template match + background click.
 
         :param window_title: fuzzy match window by title/class/process
-                              read from changeVar, fallback "SDgundam"
-                              use Photo.list_windows() to discover
+        :param debug: if True, save debug screenshots with click markers
+        :param click_offset_x/y: fine-tune offset in screenshot pixels
+        :param click_method: "postmessage" | "sendmessage" | "sendinput" | "adb"
+               - postmessage: PostMessage (async, may not work with DX games)
+               - sendmessage: SendMessage (sync, more likely handled)
+               - sendinput: SendInput via system queue (briefly focuses window)
+               - adb: adb shell input tap (for Android emulators, bypasses
+                 all Windows coordinate issues, completely background-safe)
+        :param adb_device: adb device serial (e.g. "emulator-5554").
+               If None, auto-detect from 'adb devices'.
         """
         self.name = "default"
         self.x = 0
         self.y = 0
         self.hwnd = None
         self.process_name = ""
+        self.debug = debug
+        self.click_offset_x = click_offset_x
+        self.click_offset_y = click_offset_y
+        self.click_method = click_method
+        self.adb_device = adb_device
+        self._adb_device_cached = None  # lazily resolved
+        self._dpi_scale = 1.0
+        self._capture_w = 0
+        self._capture_h = 0
         global path
         path = cv.get_value("path")
         if window_title is None:
@@ -48,6 +68,8 @@ class Photo:
                 window_title = "SDgundam"
         self.window_title = window_title
         self._refresh_hwnd()
+        if self.debug:
+            self._inspect_window_hierarchy()
 
     # ---------- window management ----------
 
@@ -139,6 +161,89 @@ class Photo:
                 self.window_title))
             print("hint: use Photo.list_windows()")
 
+    def _inspect_window_hierarchy(self):
+        """debug: enumerate child windows under hwnd to find real input target"""
+        if not self.hwnd:
+            return
+        try:
+            children = []
+
+            def child_callback(hwnd, extra):
+                if win32gui.IsWindowVisible(hwnd):
+                    title = win32gui.GetWindowText(hwnd)
+                    cls = win32gui.GetClassName(hwnd)
+                    rect = win32gui.GetWindowRect(hwnd)
+                    cr = win32gui.GetClientRect(hwnd)
+                    w, h_ = rect[2] - rect[0], rect[3] - rect[1]
+                    cw, ch = cr[2] - cr[0], cr[3] - cr[1]
+                    if w > 0 and cw > 0:
+                        extra.append((hwnd, title, cls, w, h_, cw, ch))
+                return True
+
+            win32gui.EnumChildWindows(self.hwnd, child_callback, children)
+            if children:
+                print("--- window hierarchy for hwnd={} ---".format(self.hwnd))
+                print("  parent: '{}' cls={}".format(
+                    win32gui.GetWindowText(self.hwnd),
+                    win32gui.GetClassName(self.hwnd)))
+                for h, t, c, w, h_, cw, ch in children:
+                    print("  child: hwnd={} '{}' cls={} win={}x{}"
+                          " client={}x{}".format(
+                              h, t, c, w, h_, cw, ch))
+                print("--- {} child windows found ---".format(len(children)))
+            else:
+                print("--- no visible children under hwnd={} ---".format(
+                    self.hwnd))
+        except Exception as e:
+            print("inspect hierarchy failed: {}".format(e))
+
+    def _get_window_dpi_scale(self):
+        """
+        Detect DPI scale of the target window.
+        Returns scale = physical_pixels / logical_coords.
+        > 1.0 means high-DPI: PostMessage needs *smaller* logical coords.
+        Also compares capture dimensions with client rect for sanity check.
+        """
+        if not self.hwnd:
+            return 1.0
+
+        dpi = 96
+        try:
+            # Windows 10 1607+: per-window DPI
+            gdfw = user32.GetDpiForWindow
+            dpi = gdfw(self.hwnd)
+        except Exception:
+            try:
+                # fallback: system DPI via screen DC
+                hdc = user32.GetDC(0)
+                dpi = ctypes.windll.gdi32.GetDeviceCaps(hdc, 88)  # LOGPIXELSX
+                user32.ReleaseDC(0, hdc)
+            except Exception:
+                pass
+
+        scale = dpi / 96.0
+
+        # sanity: if we have capture dimensions, compare with client rect
+        if self._capture_w > 0:
+            try:
+                cr = win32gui.GetClientRect(self.hwnd)
+                logical_w = cr[2] - cr[0]
+                logical_h = cr[3] - cr[1]
+                # Per-Monitor V2 鈫?GetClientRect returns physical px
+                # but if target is not DPI-aware, Windows may return logical px
+                ratio_w = self._capture_w / max(logical_w, 1)
+                ratio_h = self._capture_h / max(logical_h, 1)
+                if abs(ratio_w - scale) > 0.05 or abs(ratio_h - scale) > 0.05:
+                    # mismatch 鈥?trust the image vs GetClientRect ratio
+                    scale = max(ratio_w, ratio_h)
+            except Exception:
+                pass
+
+        self._dpi_scale = round(scale, 4)
+        print("dpi: target={} scale={} capture={}x{}".format(
+            dpi, self._dpi_scale, self._capture_w, self._capture_h))
+        return self._dpi_scale
+
     def _is_window_ok(self):
         """check if hwnd is valid and not minimized"""
         if self.hwnd is None:
@@ -163,7 +268,8 @@ class Photo:
     def _capture_window(self):
         """
         bg capture client area: PrintWindow first, fallback BitBlt.
-        flag=0 (PW_CLIENTONLY) ensures coordinate match with PostMessage.
+        flag=3: PW_RENDERFULLCONTENT(2)|PW_CLIENTONLY(1) - client area only, no title bar.
+        Stores capture dimensions in self._capture_w / _capture_h for DPI calc.
         """
         if not self._ensure_hwnd():
             print("error: cannot get hwnd")
@@ -186,8 +292,8 @@ class Photo:
             bitmap.CreateCompatibleBitmap(mfc_dc, width, height)
             save_dc.SelectObject(bitmap)
 
-            # flag=0: PW_CLIENTONLY
-            result = user32.PrintWindow(self.hwnd, save_dc.GetSafeHdc(), 0)
+            # flag=2: PW_RENDERFULLCONTENT - DirectX
+            result = user32.PrintWindow(self.hwnd, save_dc.GetSafeHdc(), 3)
 
             if result == 1:
                 bmp_info = bitmap.GetInfo()
@@ -209,6 +315,10 @@ class Photo:
             save_dc.DeleteDC()
             mfc_dc.DeleteDC()
             win32gui.ReleaseDC(self.hwnd, hwnd_dc)
+
+            # store for DPI scale calculation
+            self._capture_w = img.shape[1]
+            self._capture_h = img.shape[0]
 
             return img
 
@@ -250,26 +360,399 @@ class Photo:
 
     # ---------- bg click ----------
 
+    def _get_screen_coords(self, x, y):
+        """compute screen-space and logical coords from template match center"""
+        scale = self._get_window_dpi_scale()
+        screen_x = x + self.click_offset_x
+        screen_y = y + self.click_offset_y
+        logical_x = int(screen_x / scale) if scale != 0 else screen_x
+        logical_y = int(screen_y / scale) if scale != 0 else screen_y
+        return screen_x, screen_y, logical_x, logical_y, scale
+
+    def _bg_click_postmessage(self, logical_x, logical_y):
+        """PostMessage - async, low-level. Many DX games ignore this."""
+        lparam = win32api.MAKELONG(logical_x, logical_y)
+        win32api.PostMessage(self.hwnd, win32con.WM_LBUTTONDOWN,
+                             win32con.MK_LBUTTON, lparam)
+        time.sleep(0.02)
+        win32api.PostMessage(self.hwnd, win32con.WM_LBUTTONUP, 0, lparam)
+
+    def _find_click_target(self):
+        """Find the deepest child window that likely receives input.
+        Many games render to a child window (e.g. SDL/DirectX surface).
+        Sending messages to the parent may be ignored.
+        Returns the best child hwnd, or None if no suitable child found.
+        """
+        if not self.hwnd:
+            return None
+        try:
+            children = []
+            cr_target = win32gui.GetClientRect(self.hwnd)
+            target_cw = cr_target[2] - cr_target[0]
+            target_ch = cr_target[3] - cr_target[1]
+
+            def enum_child(hwnd, extra):
+                if win32gui.IsWindowVisible(hwnd):
+                    cr = win32gui.GetClientRect(hwnd)
+                    cw, ch = cr[2] - cr[0], cr[3] - cr[1]
+                    if cw > 0 and ch > 0:
+                        extra.append((hwnd, cw, ch))
+                return True
+
+            win32gui.EnumChildWindows(self.hwnd, enum_child, children)
+
+            if not children:
+                return None
+
+            # prefer child with same client size as parent (render surface)
+            for hwnd, cw, ch in children:
+                if cw == target_cw and ch == target_ch:
+                    if self.debug:
+                        print("sendmessage: found render child hwnd=0x{:X} {}x{}".format(
+                            hwnd, cw, ch))
+                    return hwnd
+
+            # fallback: largest child
+            children.sort(key=lambda x: x[1] * x[2], reverse=True)
+            best = children[0]
+            if self.debug:
+                print("sendmessage: using largest child hwnd=0x{:X} {}x{}".format(
+                    best[0], best[1], best[2]))
+            return best[0]
+        except Exception as e:
+            if self.debug:
+                print("sendmessage: find target failed: {}".format(e))
+            return None
+
+    def _bg_click_sendmessage(self, logical_x, logical_y):
+        """SendMessage - enhanced reliability for DX/OpenGL games.
+
+        1. Resolve child window (games often render to a child hwnd)
+        2. Send WM_MOUSEMOVE first to position cursor
+        3. Send WM_LBUTTONDOWN/UP with proper wParam (0 for UP)
+        4. Retry once if no response detected
+        """
+        # resolve target window: prefer deepest child with matching client size
+        target_hwnd = self._find_click_target()
+        if target_hwnd is None:
+            target_hwnd = self.hwnd
+
+        lparam = win32api.MAKELONG(logical_x, logical_y)
+        if self.debug:
+            print("sendmessage: target=0x{:X} msg=(WinProc)".format(target_hwnd))
+
+        # helper to send a click cycle
+        def _send_click_cycle(hw):
+            win32api.SendMessage(hw, win32con.WM_MOUSEMOVE, 0, lparam)
+            time.sleep(0.01)
+            win32api.SendMessage(hw, win32con.WM_LBUTTONDOWN,
+                                 win32con.MK_LBUTTON, lparam)
+            time.sleep(0.05)
+            win32api.SendMessage(hw, win32con.WM_LBUTTONUP, 0, lparam)
+
+        # primary attempt
+        _send_click_cycle(target_hwnd)
+        time.sleep(0.05)
+
+        # retry with parent hwnd if child may not handle input
+        if target_hwnd != self.hwnd:
+            if self.debug:
+                print("sendmessage: retry on parent hwnd")
+            _send_click_cycle(self.hwnd)
+
+    def _bg_click_sendinput(self, screen_x, screen_y):
+        """
+        SendInput via win32api.mouse_event (system input queue).
+        Most reliable for DirectX games but requires brief foreground focus.
+        Calls _click_screen_coords which briefly activates window,
+        converts client coords to screen coords, sends click, restores.
+        """
+        return self._click_screen_coords(screen_x, screen_y)
+
+    def _adb_resolve_device(self):
+        """lazily resolve adb device serial. returns None on failure."""
+        if self._adb_device_cached is not None:
+            return self._adb_device_cached if self._adb_device_cached else None
+
+        if self.adb_device:
+            # verify it exists
+            try:
+                result = subprocess.run(
+                    ["adb", "-s", self.adb_device, "shell", "echo", "ok"],
+                    capture_output=True, text=True, timeout=10,
+                    creationflags=subprocess.CREATE_NO_WINDOW)
+                if "ok" in result.stdout:
+                    self._adb_device_cached = self.adb_device
+                    print("adb: device {} confirmed".format(self.adb_device))
+                    return self.adb_device
+            except Exception:
+                pass
+            print("adb: specified device '{}' not reachable".format(
+                self.adb_device))
+            self._adb_device_cached = ""
+            return None
+
+        # auto-detect
+        try:
+            result = subprocess.run(
+                ["adb", "devices"],
+                capture_output=True, text=True, timeout=10,
+                creationflags=subprocess.CREATE_NO_WINDOW)
+            lines = result.stdout.strip().split("\n")[1:]
+            for line in lines:
+                if "device" in line and "\tdevice" in line:
+                    serial = line.split("\t")[0]
+                    self._adb_device_cached = serial
+                    print("adb: auto-detected device {}".format(serial))
+                    return serial
+        except Exception as e:
+            print("adb: auto-detect failed: {}".format(e))
+
+        self._adb_device_cached = ""
+        print("adb: no device found. Run 'adb devices' to check.")
+        return None
+
+    def _bg_click_adb(self, screen_x, screen_y):
+        """
+        adb shell input tap - directly taps Android coordinates.
+        Screenshot pixel coords map 1:1 to Android display coords
+        (assuming emulator renders at screenshot resolution).
+        Completely bypasses all Windows coordinate systems.
+        Fully background-safe: no window focus needed.
+        """
+        serial = self._adb_resolve_device()
+        if not serial:
+            print("adb: no device, click skipped")
+            return False
+
+        # screenshot coords 鈫?Android screen coords (1:1 for emulator)
+        android_x = int(screen_x)
+        android_y = int(screen_y)
+
+        try:
+            subprocess.run(
+                ["adb", "-s", serial, "shell", "input", "tap",
+                 str(android_x), str(android_y)],
+                capture_output=True, timeout=10,
+                creationflags=subprocess.CREATE_NO_WINDOW)
+            print("adb tap: ({}, {})".format(android_x, android_y))
+            return True
+        except Exception as e:
+            print("adb tap failed: {}".format(e))
+            return False
+
+    def _click_screen_coords(self, client_x, client_y):
+        """
+        Convert client-area physical-pixel coords (from PrintWindow screenshot)
+        to absolute screen coords for SetCursorPos / SendInput.
+
+        Key fix: ClientToScreen expects LOGICAL client coordinates, but our
+        screenshot is in PHYSICAL pixels. When the target window has DPI
+        virtualization, we must divide by the DPI scale BEFORE calling
+        ClientToScreen.
+        """
+        try:
+            scale = self._dpi_scale if self._dpi_scale > 0 else 1.0
+            # convert physical screenshot px 鈫?logical client coords
+            logical_x = int(client_x / scale)
+            logical_y = int(client_y / scale)
+            # Use ClientToScreen API to convert logical client coords
+            # to absolute screen coords. Correctly handles:
+            # - window borders, title bar, menu bar
+            # - DPI scaling (logical client -> physical screen)
+            # - Win10 invisible shadow padding
+            # Replaces error-prone manual frame calculation.
+            screen_pt = win32gui.ClientToScreen(self.hwnd, (logical_x, logical_y))
+            screen_x, screen_y = screen_pt
+
+
+            if self.debug:
+                rect = win32gui.GetWindowRect(self.hwnd)
+                cr = win32gui.GetClientRect(self.hwnd)
+                print("debug: winRect=({},{},{},{}) clientRect=({},{},{},{})".format(
+                    rect[0], rect[1], rect[2], rect[3],
+                    cr[0], cr[1], cr[2], cr[3]))
+                print("debug: win=({}x{}) client=({}x{})".format(
+                    rect[2]-rect[0], rect[3]-rect[1],
+                    cr[2]-cr[0], cr[3]-cr[1]))
+                print("debug: physical=({},{}) logical=({},{})"
+                      " clienttoscreen=({},{}) scale={}".format(
+                    client_x, client_y, logical_x, logical_y,
+                    screen_x, screen_y, scale))
+
+            fg_hwnd = user32.GetForegroundWindow()
+            fg_thread = user32.GetWindowThreadProcessId(fg_hwnd, None)
+            self_thread = ctypes.windll.kernel32.GetCurrentThreadId()
+            user32.AttachThreadInput(self_thread, fg_thread, True)
+
+            try:
+                user32.SetForegroundWindow(self.hwnd)
+                time.sleep(0.03)
+            finally:
+                user32.AttachThreadInput(self_thread, fg_thread, False)
+
+            # SendInput via mouse_event (system queue)
+            win32api.SetCursorPos((screen_x, screen_y))
+            time.sleep(0.02)
+            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN,
+                                 screen_x, screen_y, 0, 0)
+            time.sleep(0.02)
+            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP,
+                                 screen_x, screen_y, 0, 0)
+
+            # restore previous foreground
+            if fg_hwnd:
+                fg_thread = user32.GetWindowThreadProcessId(fg_hwnd, None)
+                user32.AttachThreadInput(self_thread, fg_thread, True)
+                try:
+                    user32.SetForegroundWindow(fg_hwnd)
+                finally:
+                    user32.AttachThreadInput(self_thread, fg_thread, False)
+
+            print("sendinput: client({},{}) -> screen({},{})".format(
+                client_x, client_y, screen_x, screen_y))
+            return True
+        except Exception as e:
+            print("click_screen_coords failed: {}".format(e))
+            return False
+
     def _bg_click(self, x, y):
         """
-        PostMessage bg click (client coords), no real mouse.
-        Both screenshot and click use client coords (PrintWindow flag=0 + DPI aware).
+        Multi-method bg click dispatcher.
+        Converts template-match screenshot coords to the chosen click method.
         """
         if not self._ensure_hwnd():
             print("error: no hwnd, bg click failed")
             return False
 
         try:
-            lparam = win32api.MAKELONG(x, y)
-            win32api.PostMessage(self.hwnd, win32con.WM_LBUTTONDOWN,
-                                 win32con.MK_LBUTTON, lparam)
-            time.sleep(0.05)
-            win32api.PostMessage(self.hwnd, win32con.WM_LBUTTONUP, 0, lparam)
-            print("bg click: ({}, {})".format(x, y))
+            screen_x, screen_y, logical_x, logical_y, scale = \
+                self._get_screen_coords(x, y)
+
+            method = self.click_method.lower() if self.click_method else "postmessage"
+            if method == "sendmessage":
+                self._bg_click_sendmessage(logical_x, logical_y)
+            elif method == "sendinput":
+                self._bg_click_sendinput(screen_x, screen_y)
+            elif method == "adb":
+                self._bg_click_adb(screen_x, screen_y)
+            else:  # default: postmessage
+                self._bg_click_postmessage(logical_x, logical_y)
+
+            print("bg click: method={} screen({},{}) +offset({},{})"
+                  " -> logical({},{}) scale={}".format(
+                self.click_method, x, y, self.click_offset_x,
+                self.click_offset_y, logical_x, logical_y, scale))
+
+            if self.debug:
+                self._debug_mark_click(screen_x, screen_y, logical_x, logical_y)
             return True
         except Exception as e:
             print("bg click failed: {}".format(e))
             return False
+
+    def _debug_mark_click(self, screen_x, screen_y, logical_x=None, logical_y=None):
+        """
+        Capture the window screenshot, draw crosshairs at both the
+        screenshot-space click point and the PostMessage logical coordinate,
+        then save to ../games/debug_bg_click.png for verification.
+        """
+        import os
+        try:
+            img = self._capture_window()
+            if img is None:
+                print("debug: screenshot failed, cannot mark click")
+                return
+            h, w = img.shape[:2]
+            thickness = 2
+            size = 30
+
+            # --- blue crosshair at screenshot-space click (our intent) ---
+            scolor = (255, 0, 0)  # blue
+            cv2.line(img,
+                     (max(0, int(screen_x) - size), max(0, int(screen_y))),
+                     (min(w - 1, int(screen_x) + size), min(h - 1, int(screen_y))),
+                     scolor, thickness)
+            cv2.line(img,
+                     (max(0, int(screen_x)), max(0, int(screen_y) - size)),
+                     (min(w - 1, int(screen_x)), min(h - 1, int(screen_y) + size)),
+                     scolor, thickness)
+            cv2.circle(img, (int(screen_x), int(screen_y)), 8, scolor, 2)
+            text = "screen({:.0f},{:.0f})".format(screen_x, screen_y)
+            cv2.putText(img, text,
+                        (min(int(screen_x) + 15, w - 200),
+                         max(int(screen_y) - 15, 20)),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, scolor, 2)
+
+            # --- red crosshair at PostMessage logical coord ---
+            if logical_x is not None and logical_y is not None:
+                lcolor = (0, 0, 255)  # red
+                cv2.line(img,
+                         (max(0, logical_x - size), max(0, logical_y)),
+                         (min(w - 1, logical_x + size), min(h - 1, logical_y)),
+                         lcolor, thickness)
+                cv2.line(img,
+                         (max(0, logical_x), max(0, logical_y - size)),
+                         (min(w - 1, logical_x), min(h - 1, logical_y + size)),
+                         lcolor, thickness)
+                cv2.circle(img, (logical_x, logical_y), 10, lcolor, 2)
+                text = "msg({},{})".format(logical_x, logical_y)
+                cv2.putText(img, text,
+                            (min(logical_x + 15, w - 200),
+                             max(logical_y + 25, 35)),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, lcolor, 2)
+                # arrow from screen to logical
+                cv2.arrowedLine(img,
+                                (int(screen_x), int(screen_y)),
+                                (logical_x, logical_y),
+                                (0, 200, 255), 2, tipLength=0.3)
+
+            # --- Y-offset ruler: visualize where +0..+40 click_offset lands ---
+            ruler_x = logical_x if logical_x is not None else int(screen_x)
+            ruler_base_y = logical_y if logical_y is not None else int(screen_y)
+            offsets = [0, 5, 10, 15, 20, 25, 30, 35, 40]
+            ruler_colors = [
+                (0, 255, 0),      # green    +0
+                (80, 255, 0),     # +5
+                (0, 255, 255),    # yellow   +10
+                (0, 200, 255),    # +15
+                (0, 140, 255),    # orange   +20
+                (0, 80, 255),     # +25
+                (0, 0, 255),      # red      +30
+                (140, 0, 255),    # purple   +35
+                (255, 0, 255),    # magenta  +40 (known cross-row)
+            ]
+            cv2.line(img, (ruler_x, 0), (ruler_x, h - 1), (180, 180, 180), 1)
+            for off, color in zip(offsets, ruler_colors):
+                y_pos = min(h - 1, max(0, ruler_base_y + off))
+                half_len = 40
+                cv2.line(img,
+                         (max(0, ruler_x - half_len), y_pos),
+                         (min(w - 1, ruler_x + half_len), y_pos),
+                         color, 2)
+                cv2.circle(img, (ruler_x, y_pos), 4, color, -1)
+                label = "+{}".format(off)
+                cv2.putText(img, label,
+                            (min(ruler_x + half_len + 5, w - 60), y_pos + 5),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
+            
+            # put scale info
+            scale_text = "scale={}".format(self._dpi_scale)
+            cv2.putText(img, scale_text, (10, h - 15),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 200, 255), 2)
+
+            # save to games/ directory
+            save_dir = os.path.join(
+                os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                "games")
+            os.makedirs(save_dir, exist_ok=True)
+            save_path = os.path.join(save_dir, "debug_bg_click.png")
+            cv2.imwrite(save_path, img)
+            print("debug: click screenshot saved -> {}".format(save_path))
+            print("debug: legend - blue=screen px, red=PostMessage logical, "
+                  "orange=transform")
+        except Exception as e:
+            print("debug: mark click failed: {}".format(e))
 
     def _bg_double_click(self, x, y):
         """bg double click"""
@@ -321,7 +804,7 @@ class Photo:
             screenshot = self._capture_window()
             if screenshot is None:
                 return 0
-            result = self._locate_image(img, screenshot, confidence=0.8)
+            result = self._locate_image(img, screenshot, confidence=0.7)
             if result is None:
                 return 0
             x, y, w, h = result
