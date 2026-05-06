@@ -6,6 +6,7 @@ import pydirectinput
 
 from dao import dao, daoImpl, multiphotos, resultMap
 from dao import changeVar as cv
+from dao import multiphotos_bg
 import _thread
 import keyboard
 # from pynput import keyboard
@@ -374,8 +375,24 @@ def autoGachaNormal():
         # time.sleep(0.02)  # 短暂按下延迟
         # pyautogui.mouseUp()
 
+# 自动获取礼物盒 2026年1月2日
+def autoGiftNew():
+
+    photoMap = multiphotos_bg.Photo(window_title="Online")
+    photoMaps = [
+        "礼物收取",
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+        photoMap._bg_click(photoMap.x, photoMap.y)  # 后台点击
+        time.sleep(1)
+
 if __name__ == '__main__':
-    autoGachaNormal()
+    # autoGachaNormal()
+    autoGiftNew()
     # autoGift()
     # _thread.start_new_thread(startAutoFight,())
     # _thread.start_new_thread(duelKeys,())

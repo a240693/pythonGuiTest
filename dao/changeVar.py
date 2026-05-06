@@ -72,7 +72,7 @@ FgoDevice = FgoDeviceAnotherHome
 # device = "Android://127.0.0.1:5037/127.0.0.1:5555"
 def _init():  # 初始化
     global gloVar
-    gloVar = {"device": device, "path": FgoPath}
+    gloVar = {"device": device, "path": FgoPath, "window_title": "SD高达"}
 
 
 def set_value(key, value):
