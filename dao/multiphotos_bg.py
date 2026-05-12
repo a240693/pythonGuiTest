@@ -772,17 +772,243 @@ class Photo:
         except Exception as e:
             print("bg click center failed: {}".format(e))
 
+    # mapping: friendly key name strings -> win32con VK_xxx integer
+    _KEY_NAME_MAP = {
+        "esc": win32con.VK_ESCAPE,
+        "escape": win32con.VK_ESCAPE,
+        "enter": win32con.VK_RETURN,
+        "return": win32con.VK_RETURN,
+        "space": win32con.VK_SPACE,
+        "tab": win32con.VK_TAB,
+        "backspace": win32con.VK_BACK,
+        "delete": win32con.VK_DELETE,
+        "insert": win32con.VK_INSERT,
+        "home": win32con.VK_HOME,
+        "end": win32con.VK_END,
+        "pageup": win32con.VK_PRIOR,
+        "pagedown": win32con.VK_NEXT,
+        "up": win32con.VK_UP,
+        "down": win32con.VK_DOWN,
+        "left": win32con.VK_LEFT,
+        "right": win32con.VK_RIGHT,
+        "f1": win32con.VK_F1,
+        "f2": win32con.VK_F2,
+        "f3": win32con.VK_F3,
+        "f4": win32con.VK_F4,
+        "f5": win32con.VK_F5,
+        "f6": win32con.VK_F6,
+        "f7": win32con.VK_F7,
+        "f8": win32con.VK_F8,
+        "f9": win32con.VK_F9,
+        "f10": win32con.VK_F10,
+        "f11": win32con.VK_F11,
+        "f12": win32con.VK_F12,
+    }
+
+    @classmethod
+    def _resolve_vk_code(cls, vk_code):
+        """Resolve vk_code to integer VK code.
+        Accepts: integer (e.g. 27), "VK_ESCAPE" (win32con attr name),
+        or friendly name (e.g. "esc", "escape").
+        """
+        if isinstance(vk_code, int):
+            return vk_code
+
+        # try friendly name map first (case-insensitive)
+        key_lower = vk_code.lower()
+        if key_lower in cls._KEY_NAME_MAP:
+            return cls._KEY_NAME_MAP[key_lower]
+
+        # try win32con attribute lookup (e.g. "VK_ESCAPE" -> 27)
+        try:
+            code = getattr(win32con, vk_code)
+            if isinstance(code, int):
+                return code
+        except AttributeError:
+            pass
+
+        # try with "VK_" prefix if not already present
+        if not vk_code.upper().startswith("VK_"):
+            try:
+                code = getattr(win32con, "VK_" + vk_code.upper())
+                if isinstance(code, int):
+                    return code
+            except AttributeError:
+                pass
+
+        # last resort: try ord() for single char keys (e.g. "A" -> 65)
+        if len(vk_code) == 1:
+            return ord(vk_code.upper())
+
+        print("_bg_press_key: cannot resolve vk_code '{}'".format(vk_code))
+        return None
+
+    @staticmethod
+    def _make_key_lparam(vk_code, is_keyup=False):
+        """Build proper lParam for WM_KEYDOWN/WM_KEYUP messages.
+
+        lParam bit layout:
+          0-15:  repeat count (1)
+          16-23: scan code (via MapVirtualKey)
+          24:    extended key flag (0 or 1)
+          25-28: reserved (0)
+          29:    context code (1 if ALT pressed, else 0)
+          30:    previous key state (0=was up, 1=was down)
+          31:    transition state (0=pressing, 1=releasing)
+        """
+        try:
+            scan_code = user32.MapVirtualKeyW(vk_code, 0)  # MAPVK_VK_TO_VSC
+        except Exception:
+            scan_code = 0
+        repeat_count = 1
+        lparam = (scan_code << 16) | (repeat_count & 0xFFFF)
+
+        # extended-key flag for certain keys
+        extended_keys = {
+            win32con.VK_LEFT, win32con.VK_RIGHT, win32con.VK_UP,
+            win32con.VK_DOWN,
+            win32con.VK_INSERT, win32con.VK_DELETE, win32con.VK_HOME,
+            win32con.VK_END, win32con.VK_PRIOR, win32con.VK_NEXT,
+            win32con.VK_DIVIDE,  # numpad /
+        }
+        if vk_code in extended_keys:
+            lparam |= (1 << 24)
+
+        if is_keyup:
+            lparam |= (1 << 31)   # transition: key going up
+            lparam |= (1 << 30)   # previous state: was down
+
+        return lparam
+
+    def _bg_press_key_postmessage(self, code):
+        """PostMessage key - async, lightweight. Uses keybd_event to update
+        system keyboard state table BEFORE sending window messages, so that
+        synchronous WndProc handlers calling GetKeyState/GetAsyncKeyState
+        see the correct key state. Scan code from MapVirtualKey for DInput
+        compatibility. No SetForegroundWindow needed."""
+        lparam_down = self._make_key_lparam(code, is_keyup=False)
+        lparam_up = self._make_key_lparam(code, is_keyup=True)
+        scan = self._make_key_lparam(code, is_keyup=False) >> 16 & 0xFF
+        # 1. Update system keyboard state FIRST (GetAsyncKeyState sees it)
+        win32api.keybd_event(code, scan, 0, 0)
+        time.sleep(0.01)
+        # 2. Send window message (WndProc gets it, sees updated state)
+        win32api.PostMessage(self.hwnd, win32con.WM_KEYDOWN, code, lparam_down)
+        time.sleep(0.05)
+        # 3. Send window message for key release
+        win32api.PostMessage(self.hwnd, win32con.WM_KEYUP, code, lparam_up)
+        # 4. Restore system keyboard state
+        win32api.keybd_event(code, scan, win32con.KEYEVENTF_KEYUP, 0)
+        return True
+
+    def _bg_press_key_sendmessage(self, code):
+        """SendMessage key - sync, finds child window. CRITICAL: keybd_event
+        must be called BEFORE SendMessage because SendMessage runs the game's
+        WndProc synchronously. If the game checks GetAsyncKeyState during
+        WM_KEYDOWN processing, the state must already reflect the key press.
+        Scan code from MapVirtualKey for DirectInput compatibility.
+        No SetForegroundWindow needed."""
+        target_hwnd = self._find_click_target()
+        if target_hwnd is None:
+            target_hwnd = self.hwnd
+
+        lparam_down = self._make_key_lparam(code, is_keyup=False)
+        lparam_up = self._make_key_lparam(code, is_keyup=True)
+        scan = (lparam_down >> 16) & 0xFF  # extract scan code from lparam
+
+        def _send_key_cycle(hw):
+            # 1. Update system keyboard state FIRST (critical for sync WndProc)
+            win32api.keybd_event(code, scan, 0, 0)
+            time.sleep(0.01)
+            # 2. Send window message (WndProc runs synchronously, sees updated state)
+            win32api.SendMessage(hw, win32con.WM_KEYDOWN, code, lparam_down)
+            time.sleep(0.05)
+            # 3. Send window message for key release
+            win32api.SendMessage(hw, win32con.WM_KEYUP, code, lparam_up)
+            # 4. Restore system keyboard state
+            win32api.keybd_event(code, scan, win32con.KEYEVENTF_KEYUP, 0)
+
+        _send_key_cycle(target_hwnd)
+        if target_hwnd != self.hwnd:
+            time.sleep(0.03)
+            _send_key_cycle(self.hwnd)
+        return True
+
+    def _bg_press_key_sendinput(self, code):
+        """keybd_event via system input queue with brief foreground activation.
+        This is the most reliable method for DirectX games because:
+        1. keybd_event updates global keyboard state (GetAsyncKeyState sees it)
+        2. Brief SetForegroundWindow ensures the game has input focus
+        3. Previous foreground window is restored afterwards
+        Same approach as _click_screen_coords.
+        """
+        try:
+            # save & attach for SetForegroundWindow permission
+            fg_hwnd = user32.GetForegroundWindow()
+            fg_thread = user32.GetWindowThreadProcessId(fg_hwnd, None) if fg_hwnd else 0
+            self_thread = ctypes.windll.kernel32.GetCurrentThreadId()
+            if fg_hwnd and fg_thread:
+                user32.AttachThreadInput(self_thread, fg_thread, True)
+
+            try:
+                user32.SetForegroundWindow(self.hwnd)
+                time.sleep(0.05)
+            finally:
+                if fg_hwnd and fg_thread:
+                    user32.AttachThreadInput(self_thread, fg_thread, False)
+
+            # send key via keybd_event (system queue, updates GetAsyncKeyState)
+            win32api.keybd_event(code, 0, 0, 0)           # key down
+            time.sleep(0.05)
+            win32api.keybd_event(code, 0, win32con.KEYEVENTF_KEYUP, 0)  # key up
+            time.sleep(0.02)
+
+            # restore previous foreground window
+            if fg_hwnd:
+                fg_thread2 = user32.GetWindowThreadProcessId(fg_hwnd, None)
+                user32.AttachThreadInput(self_thread, fg_thread2, True)
+                try:
+                    user32.SetForegroundWindow(fg_hwnd)
+                finally:
+                    user32.AttachThreadInput(self_thread, fg_thread2, False)
+
+            return True
+        except Exception as e:
+            print("bg key sendinput failed: {}".format(e))
+            return False
+
     def _bg_press_key(self, vk_code):
-        """PostMessage bg key (VK), no real keyboard"""
+        """Multi-method bg key dispatcher, aligned with _bg_click design.
+
+        Dispatch strategy based on self.click_method:
+          - "sendmessage": SendMessage to child+parent (no focus change)
+          - "sendinput":   keybd_event via system queue, briefly focuses window
+          - "postmessage" (default): PostMessage async, lightweight
+
+        vk_code can be:
+          - int: raw VK code (e.g. win32con.VK_ESCAPE = 27)
+          - str: "VK_ESCAPE" (win32con attribute name)
+          - str: friendly name (e.g. "esc", "escape", "enter", "f1")
+          - str: single character (e.g. "A", "1")
+        """
         if not self._ensure_hwnd():
             print("error: no hwnd, bg key failed")
             return False
 
+        code = self._resolve_vk_code(vk_code)
+        if code is None:
+            return False
+
         try:
-            lparam = win32api.MAKELONG(0, 0)
-            win32api.PostMessage(self.hwnd, win32con.WM_KEYDOWN, vk_code, lparam)
-            time.sleep(0.05)
-            win32api.PostMessage(self.hwnd, win32con.WM_KEYUP, vk_code, lparam)
+            method = self.click_method.lower() if self.click_method else "postmessage"
+            if method == "sendinput":
+                self._bg_press_key_sendinput(code)
+            elif method == "sendmessage":
+                self._bg_press_key_sendmessage(code)
+            else:  # default: postmessage
+                self._bg_press_key_postmessage(code)
+
+            print("bg key: {} (VK={}) method={}".format(vk_code, code, method))
             return True
         except Exception as e:
             print("bg key failed: {}".format(e))
@@ -795,6 +1021,32 @@ class Photo:
         self.name = name
         self.x = x
         self.y = y
+
+    def isVisible(self, name):
+        """quick check if template is currently visible (confidence 0.7)"""
+        try:
+            filepath = path + name + '.png'
+            img = dao.my_cv_imread(filepath)
+            screenshot = self._capture_window()
+            if screenshot is None:
+                return False
+            result = self._locate_image(img, screenshot, confidence=0.7)
+            return result is not None
+        except Exception:
+            return False
+
+    def waitUntilGone(self, name, timeout=10.0, interval=0.3):
+        """Wait until the named template disappears from screen.
+        Returns True when gone, False on timeout."""
+        start = time.time()
+        while time.time() - start < timeout:
+            if not self.isVisible(name):
+                print("wait: '{}' gone after {:.1f}s".format(
+                    name, time.time() - start))
+                return True
+            time.sleep(interval)
+        print("wait: '{}' still visible after {}s timeout".format(name, timeout))
+        return False
 
     def onlySearchOnce(self, name, mode, times):
         """search image once, return 1 found / 0 not found"""

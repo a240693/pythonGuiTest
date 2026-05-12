@@ -427,18 +427,60 @@ def autoGachaEventOnlyNew():
         name = photoMap.name
 
         if "ESC".__eq__(name):
-            # pyautogui.press("esc", presses=3, interval=1)
             photoMap._bg_press_key("esc")
+            photoMap.waitUntilGone(name)  # 等动画结束模板消失
             continue
 
         if "芯片不足".__eq__(name):
             break
 
         photoMap._bg_click(x, y)
+        photoMap.waitUntilGone(name)
+
+# 抽蛋，gb蛋专属。
+def autoGachaNormalNew():
+    photoMap = multiphotos_bg.Photo("Online", debug=False,
+                                    click_offset_x=0, click_offset_y=0,
+                                    click_method="sendmessage")
+    photoMaps = [
+        "GB",
+        "确认2",
+        "空间不足",
+        "购买",
+        "抽取扭蛋2",
+        "ESC"
+    ]
+    while 1:
+        photoMap.loopSearch(photoMaps)
+        x = photoMap.x
+        y = photoMap.y
+        name = photoMap.name
+
+        if "ESC".__eq__(name):
+            photoMap._bg_press_key("esc")
+            photoMap.waitUntilGone(name)
+            continue
+
+        if "空间不足".__eq__(name):
+            break
+
+        if "GB".__eq__(name):
+            photoMap._bg_click(x, y)
+            photoMap.waitUntilGone(name)
+            photoMaps.remove("GB")
+            continue
+
+        if "购买".__eq__(name):
+            if "GB" not in photoMaps:
+                photoMaps.insert(0, "GB")
+
+        photoMap._bg_click(x, y)
+        photoMap.waitUntilGone(name)
 
 if __name__ == '__main__':
-    # autoGachaEventOnlyNew()
-    autoGiftNew()
+    autoGachaNormalNew()
+    # autoGachaEventOnly()
+    # autoGiftNew()
     # autoGift()
     # _thread.start_new_thread(startAutoFight,())
     # _thread.start_new_thread(duelKeys,())
